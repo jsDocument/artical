@@ -1,11 +1,13 @@
 # Summary
 
 * [Introduction](README.md)
+
+* [正则基础一览](javascript基础/regexp.md)
 * [前端面试题目http篇](javascript基础/http相关基础.md)
 * [前端面试题目event篇](javascript基础/event相关基础.md)
 * [前端面试题目其他](javascript基础/其他.md)
-
-* [node基础学习](node基础与例子)
+* [node基础学习](node基础与例子/README.md)
+  * [readline](node基础与例子/readline.md)
   * [进程相关](node基础与例子/child_process.md)
   * [事件](node基础与例子/event.md)
   * [流](node基础与例子/stream.md)
@@ -32,6 +34,8 @@
   * [dom](vue学习/dom.md)
   * [factory](vue学习/fragmentFactory.md)
   * [部分指令的实现简单讲解](vue学习/directive_every.md)
+* [位运算基础](bite.md)
+* [webpack&babel了解](bite.md)
 
 
 

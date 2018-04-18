@@ -1,16 +1,17 @@
 ### child_process允许异步执行外部应用程序, 并得到结果。
-+ execFile 把输出结果存入缓存, 执行时不需要通过命令解析器
++ execFile 把输出结果「存入缓存」, 执行时不需要通过命令解析器
 1. cp.execFile('commandName',[param],(err, stdout, stderr)=>{})
-2. `查找命令路径要找的到, 要有执行权限, 是否能在该平台执行`
+2. __查找命令路径要找的到, 要有执行权限, 是否能在该平台执行__
+3. 例: 
 
-+ spawn 通过流输出, 执行时不需要通过命令解析器
++ spawn 通过「流输出」, 执行时不需要通过命令解析器
 1. one = cp.spawn('commandName', [param])
 2. one.on('error', cb) one.stdout.pipe(process.stdout)
 3. one.stderr.pipe(process.stderr)
 4. 可以进行串联调用, 上一个命令的输出, 作为这个的输入 cat.stdout.pipe(sort.stdin)  sort.stdout.pipe(uniq.stdin)
-5. `分离一个与父进程一样级别的子进程, 即成为一个进程组的头; 父进程终结, 子进程也会继续执行走到它自己终结`
-6. cp.spawn('commandName', [], {detached: true})
-7. 父进程终结, 子进程继续执行; 如果不强制结束下在运行的node程序, 父进程会一直保持活跃状态, 走到子进程结束; 因为子进程的I/O和父进程是相连接的; 此时添加配置项stdio
+5. __分离一个与父进程一样级别的子进程, 即成为一个进程组的头; 父进程终结, 子进程也会继续执行走到它自己终结__
+6. cp.spawn('commandName', [], __{detached: true}__)
+7. 父进程终结, 子进程继续执行; 如果不强制结束下在运行的node程序, 父进程会一直保持活跃状态, 走到子进程结束; 因为子进程的I/O和父进程是相连接的; 此时添加配置项「stdio」
 8. stdio定义了一个子进程的I/O具体连接到一个具体的地方, 可以是字符串或数组。数组的每个索引位置都对应一个特定的子进程的文件描述器所指向的I/O。{stdio: ['pipe','pipe','pipe']}, 连接了父进程和子进程。
 9. 其他值: 'ignore', outFd, errFd[是某个打开的文件], 父进程与子进程之间的I/O中断了
 10. 父进程会有一个对子进程的内部引用, 子进程没有终结, 引用没有被移除, 父进程就不会终结; child.unref()告诉Node不要将子进程的引用进行计数。
