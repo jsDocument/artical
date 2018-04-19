@@ -134,9 +134,6 @@
 + 一个端口加上一个地址构成一个socket
 + 同时使用TCP与UDP的有DNS协议
 
-### dgram---UDP
-
-
 ### HTTP
 + 基于net, stream, buffer, event模块作为底层
 + 使用时还会用到crypto, tls(OpenSSL公钥加密)支持加密
