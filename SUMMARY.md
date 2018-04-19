@@ -18,7 +18,7 @@
 
   * [start](vue学习/structure.md)
   * [\_init](vue学习/start.md)
-  * [options的合并处理](vue学习/options处理.md)
+  * [options的合并处理](vue学习/options.md)
   * [初始化数据](vue学习/init_data.md)
   * [初始化系统event](vue学习/events.md)
   * [编译挂载开始](vue学习/compile_el.md)
@@ -29,11 +29,12 @@
   * [处理watcher队列batcher](vue学习/batcher.md)
   * [执行表达式或filter](vue学习/calculate.md)
   * [初始化数据](vue学习/init_data.md)
-  * [初始化DOMHooks](vue学习/inithook.md)
+  * [初始化DOMHooks](vue学习/hook.md)
   * [transition](vue学习/transition.md)
   * [dom](vue学习/dom.md)
   * [factory](vue学习/fragmentFactory.md)
   * [部分指令的实现简单讲解](vue学习/directive_every.md)
+  * [解析](vue学习/parse.md)
 * [位运算基础](bite.md)
 * [webpack&babel了解](bite.md)
 

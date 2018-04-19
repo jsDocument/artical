@@ -5,7 +5,7 @@
 * compiler 编译部分实现
 * directives 内部实现的指令
 * filters  过滤器
-* fragment 
+* fragment 每个指令里单独编译时使用一个工厂进行编译时用到
 * instance
   * api
     * global
@@ -33,4 +33,4 @@
 * index.js 这是我开始学习的起始位置, 导出Vue构造方法, 开发环境触发init事件。
 
 
-
+![流程 text](./vue.png "title")

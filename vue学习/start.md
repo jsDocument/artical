@@ -4,11 +4,11 @@
     options = options || {}
 
     this.$el = null
-    this.$parent = options.parent
+    this.$parent = options.parent  // 用于处理事件广播....
     this.$root = this.$parent
       ? this.$parent.$root
       : this
-    this.$children = []
+    this.$children = []  // 用于触发attached与detached及其钩子及销毁
     this.$refs = {}       // child vm references
     this.$els = {}        // element references
     this._watchers = []   // all watchers as an array
@@ -24,11 +24,11 @@
     this._events = {}            // 注册事件回调
     this._eventsCount = {}       // 用于广播
 
-    // fragment instance properties
+    // 编译的元素el为文档片断, this.$el为el的第一个子元素, 处理DOM时会将第一个与最后一个添加上相应的文本或注释节点
     this._isFragment = false
     this._fragment =         // @type {DocumentFragment}
-    this._fragmentStart =    // @type {Text|Comment}
-    this._fragmentEnd = null // @type {Text|Comment}
+    this._fragmentStart =    // @type {Text|Comment}  第一个子元素
+    this._fragmentEnd = null // @type {Text|Comment}  最后一个子元素
 
     // lifecycle state
     this._isCompiled =
@@ -36,7 +36,7 @@
     this._isReady =
     this._isAttached =
     this._isBeingDestroyed =
-    this._vForRemoving = false
+    this._vForRemoving = false  // for指令中dom元素正在移除
     this._unlinkFn = null
 
     /**
@@ -49,12 +49,8 @@
      */
     this._scope = options._scope
 
-    // fragment:
-    // if this instance is compiled inside a Fragment, it
-    // needs to reigster itself as a child of that fragment
-    // for attach/detach to work properly.
     /**
-     * 如果当前实例被编译成文档片断, 需要将自己注册作为文档片断的子元素
+     * 如果当前实例被编译到一个fragment中, 需要注册自己作为一个子元素为attach或detach作准备工作
      */
     this._frag = options._frag
     if (this._frag) {
@@ -112,3 +108,39 @@
     }
 `
 
+### 挂载
++ 编译与更新el
++ 初始化DOM hook
++ 如果this.$el已在文档中, 则执行attached钩子, 执行ready方法
++ 否则绑定一次hook:attached事件, 回调执行ready
+
+`
+
+    Vue.prototype.$mount = function (el) {
+      if (this._isCompiled) {
+        process.env.NODE_ENV !== 'production' && warn(
+          '$mount() should be called only once.'
+        )
+        return
+      }
+      el = query(el)
+      if (!el) {
+        el = document.createElement('div')
+      }
+      this._compile(el)
+      this._initDOMHooks()
+      if (inDoc(this.$el)) {
+        this._callHook('attached')
+        ready.call(this)
+      } else {
+        this.$once('hook:attached', ready)
+      }
+      return this
+    }
+
+    function ready () {
+      this._isAttached = true
+      this._isReady = true
+      this._callHook('ready')
+    }
+`

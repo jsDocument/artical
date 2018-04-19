@@ -1,5 +1,9 @@
 ### watch
+![流程 text](./vue_watcher.png "title")
+
+
 `
+
     let uid = 0
 
     /**

@@ -1,3 +1,6 @@
+![流程 text](./vue_alc.png "title")
+
+
 `
     
     // 调用this.$get获取值, 有filter时再对其进行执行_applyFilters
