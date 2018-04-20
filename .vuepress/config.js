@@ -18,7 +18,7 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@alias': 'docs'
+        // '@alias': 'docs'
       }
     }
   }

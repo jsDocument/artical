@@ -1,6 +1,7 @@
 # 其他
 
 ### 客户端存储
+
 1. 客户端存储有哪些方式
     + cookie, sessionStorage, loacalStorage 及非关系数据库
 2. cookie, sessionStorage和localStorage的区别
@@ -15,9 +16,10 @@
     + Secure 一个带有安全属性的cookie, 请求在使用SSH和HTTPS时才会被发送到服务器
     + HttpOnly 不能通过javascript.cookie、XMLHttpRequest、Request的API进行访问
 4. Hybrid环境下, 使用客户端存储有哪些需要注意
-5.
+
 
 ### 数据类型
+
 1. javascript的基础数据类型有哪些？
     + undefined, null, Number, String, Boolean, Symbol
 2. javascript的引用数据类型有哪些? 区别是？
@@ -26,13 +28,13 @@
     + Object.prototype.toString.call()
     + isArray()
 
-4. undefined与null的区别
+4. undefined 与 null的区别
     + 两个数据类型都只有一个值
     + 都没有方法
     + 转换为布尔值都为false
     + null是关键字, 而undefined不是
     + null是一个空对象, 进行数字类型转换时为0, typeof运算返回object
-    + undefined是一个window属性, 进行数字类型转换时为NaN, typeof运算返回undefined
+    + undefined 是一个window属性, 进行数字类型转换时为NaN, typeof运算返回undefined
 
 5. 隐式类型转换, javascript底层都做了哪些?
     + 对象转换为原始数据时, 先调用对象的valueOf方法, 如果返回结果不是原始数据类型的值, 再调用其toString方法
@@ -53,6 +55,7 @@
 11. 如何把类数据转换为数组, 如argument与selector返回的DOM列表
 
 ### 数字相关题目
+
 1. 判断一个题目为NaN？
     + 先判断是否为number类型 再isNaN()
     + 利用唯一一个不等于他本身的值的特性, n !== n
@@ -60,6 +63,7 @@
 2. 判断两个浮点数相等
     + 计算误差范围值, Math.pow(2, -52), Es6中的Number.EPSILON
     + 两个值相减, 误差小于这个范围
+
 > Number.MAX_VALUE, Number.MIN_VALUE 最大浮点数与最小浮点数
 
 3. 检查一个数值是否为整数
