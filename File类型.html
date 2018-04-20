@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>技术文档 | Blob  一段二进制数据</title>
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    
+    <link rel="preload" href="/assets/css/46.styles.e82a5c09.css" as="style"><link rel="preload" href="/assets/js/app.a3f8b6e0.js" as="script"><link rel="preload" href="/assets/js/45.c0bea003.js" as="script"><link rel="prefetch" href="/assets/js/22.17cf880c.js"><link rel="prefetch" href="/assets/js/0.973c796c.js"><link rel="prefetch" href="/assets/js/1.0497ad16.js"><link rel="prefetch" href="/assets/js/2.ebbb5d5d.js"><link rel="prefetch" href="/assets/js/3.e886bd32.js"><link rel="prefetch" href="/assets/js/4.40b93576.js"><link rel="prefetch" href="/assets/js/5.1b3a4e9f.js"><link rel="prefetch" href="/assets/js/6.86cd4dd8.js"><link rel="prefetch" href="/assets/js/7.61660844.js"><link rel="prefetch" href="/assets/js/8.caca5f4b.js"><link rel="prefetch" href="/assets/js/9.a994f482.js"><link rel="prefetch" href="/assets/js/10.b6136660.js"><link rel="prefetch" href="/assets/js/11.c3354dd2.js"><link rel="prefetch" href="/assets/js/12.42b7b00b.js"><link rel="prefetch" href="/assets/js/13.c68dc3c6.js"><link rel="prefetch" href="/assets/js/14.2f9f93b2.js"><link rel="prefetch" href="/assets/js/15.e6f30067.js"><link rel="prefetch" href="/assets/js/16.5cd45fab.js"><link rel="prefetch" href="/assets/js/17.d69bc059.js"><link rel="prefetch" href="/assets/js/18.136bf757.js"><link rel="prefetch" href="/assets/js/19.e23ba71d.js"><link rel="prefetch" href="/assets/js/20.abd68983.js"><link rel="prefetch" href="/assets/js/21.909752e2.js"><link rel="prefetch" href="/assets/js/23.2a254b28.js"><link rel="prefetch" href="/assets/js/24.5a533c08.js"><link rel="prefetch" href="/assets/js/25.fb46850b.js"><link rel="prefetch" href="/assets/js/26.10f27aa9.js"><link rel="prefetch" href="/assets/js/27.0cf1eb44.js"><link rel="prefetch" href="/assets/js/28.f1908515.js"><link rel="prefetch" href="/assets/js/29.07326040.js"><link rel="prefetch" href="/assets/js/30.11629dcc.js"><link rel="prefetch" href="/assets/js/31.939078fa.js"><link rel="prefetch" href="/assets/js/32.29f0164b.js"><link rel="prefetch" href="/assets/js/33.2fbce936.js"><link rel="prefetch" href="/assets/js/34.47c11fae.js"><link rel="prefetch" href="/assets/js/35.7cf4cff4.js"><link rel="prefetch" href="/assets/js/36.5ef4b16d.js"><link rel="prefetch" href="/assets/js/37.00826665.js"><link rel="prefetch" href="/assets/js/38.346008b1.js"><link rel="prefetch" href="/assets/js/39.d2bf7cc2.js"><link rel="prefetch" href="/assets/js/40.e1e2ec9e.js"><link rel="prefetch" href="/assets/js/41.04c70264.js"><link rel="prefetch" href="/assets/js/42.86cde9b5.js"><link rel="prefetch" href="/assets/js/43.fbf71115.js"><link rel="prefetch" href="/assets/js/44.5b7842e3.js">
+    <link rel="stylesheet" href="/assets/css/46.styles.e82a5c09.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      技术文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><ul class="sidebar-links"><li><a href="/" class="sidebar-link">技术文档</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>node学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Vue源码学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端常见问题</span><span class="arrow down"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h2 id="blob-一段二进制数据">Blob  一段二进制数据</h2><ul><li>new Blob(实际数据的数组, {type: MIME})</li><li>blob.slice(startByte, endByte)</li></ul><h2 id="file-dom">file DOM</h2><ul><li>value--&gt;fakeURL/filename</li><li>files--&gt;FileList</li><li>lastModified</li><li>name</li><li>lastModifiedDate</li><li>webkitRelativePath</li><li>size</li></ul><h2 id="file-以文件形式存在的二进制数据">File 以文件形式存在的二进制数据</h2><h2 id="filelist-file对象的网页表单接口">FileList  File对象的网页表单接口</h2><h2 id="filereader-负责二进制数据读入内存，异步方式读取">FileReader  负责二进制数据读入内存，异步方式读取</h2><ol><li>方法</li></ol><ul><li>FileReader(Blob, File)</li><li>FileReader.readAsBinaryString(Blob | File)   结果为二进制字符串</li><li>FileReader.readAsText(Blob | File)  文本字符串</li><li>FileReader.readAsDataURL(Blob | File)   基于base64编码的data-uri对象</li><li>FileReader.readAsArrayBuffer(Blob | File)  ArrayBuffer对象</li></ul><ol start="2"><li>事件回调</li></ol><ul><li>onabort</li><li>onerror</li><li>onload</li><li>onloadend</li><li>onloadstart</li><li>onprogress</li></ul><ol start="3"><li>reader属性</li></ol><ul><li>result</li><li>refs</li><li>readystate</li></ul><h2 id="url-对二进制数据生成url">URL  对二进制数据生成URL</h2><ul><li>URL.createObjectURL(blob)</li><li>URL.revokeObjectURL(img.src)  清除释放</li></ul><h2 id="form-enctype-multipart-form-data-把文件传到本机的temp目录">form  enctype=&quot;multipart/form-data&quot;  把文件传到本机的temp目录</h2><p>co-busbody  解析multipart请求体
+koa-cors
+koa-multer</p><hr><p>form + iframe 实现异步上传
+将form的target指向iframe，选择完文件，提交子页面的form，这时iframe跳转，父页面没有刷新</p><hr><p>FormData + xhr.send()
+.append(‘key’, params[key])  Blob或String</p><h2 id="append-filename-fileobj">.append(fileName, fileObj)</h2><p>drop, dragover, drag leave
+event.dataTransfer.files</p><hr><p>进度
+xhr.onreadystatechange
+xhr.readyState = 4  loaded</p><h2 id="xhr-upload-onprogress-ee-lengthcomputable-e-loaded-e-total">xhr.upload.onprogress--&gt;e
+e.lengthComputable,  e.loaded, e.total</h2><p>file切割：
+File.prototype.mozSlice
+webkitSlice
+slice(file, start, end)</p><p>FileReader---load事件  progress
+result 预览地址
+readAsDataUrl----base64编码串
+readAsArrayBuffer
+readAsBinaryString</p><hr><hr><p>XMLHttpRequest  2.0新增的传送数据类型：
+DOMString:  UTF-16, 即普通字符串
+Document：类似XML
+FormData(FormElement)：send方法提交，可以上传二进制文件，类似于serialize(); 键值对？
+Blob：(二进制大文件)只读原始数据的类文件对象，有slice方法切出另一个Blob，canvas对象的toBlob方法，与window.URL；可以append ArrayBuffer数据
+new Blob([ , ], {type: })</p><p>File：基于Blob
+ArrayBuffer：二进制数据的原始缓冲区？作为数据源提前pgtygc内存中，不可改变的二进制数据，本身不可读写；-----类型化数组或DataView来解释原始缓冲区。</p><p>类型化数组：get-    set-
+Int8Array, Uint8Array, Int16Array, Uint16Array, Int16Array, Uint16Array, Float32Array, Float64Array</p><p>(new Uint8Array([1, 2, 3])).buffer</p><p>使用：b = new ArrayBuffer(8)
+v1 = new Int32Array(b)
+v1 = new Int32Array(b, 2, 2)  索引   长度</p><p>new DataView(buffer, offset, length)</p><h2 id="对webgl-canvas">对WebGL  Canvas</h2><p>Uint8Array
+window.atob
+Blob</p><p>类型化数组----与显卡之间的大量、实时数据交换！
+针对内存进行操作。</p><p>bf.byteLength  占据内存长度
+byteOffset   从底层ArrayBuffer对象的哪个字节开始</p><p>分配内存
+bf = new ArrayBuffer(40)
+bf.slice(0, 10)  拷贝生成一个新的ArrayBuffer</p><p>类型化数组：get-    set-
+Int8Array  1字节
+Uint8Array  1字节
+Int16Array  2字节
+Uint16Array  2字节
+Int32Array  4字节
+Uint32Array  4字节
+Float32Array  4字节
+Float64Array  8字节</p><p>Int8Array.BYTES_PER_ELEMENT   占的字节数</p><p>v1 = new Int32Array(bf)
+v2 = new Unit32Array(bf，2)
+v3 = new Unit16Array(bf，2，2)
+同一对象上，可以根据不同的数据类型，建立多个视图，重叠的，任何一个视图对内存个性，另外两个视图都会反应出来</p><p>v1.set(v2, 2)</p><p>v3.subarray(2, 3)再建立一个视图</p><p>2、直接生成  new Float64Array(8)</p><p>3、普通数组转为视图数组
+typedArray = new Unit8Array([1, 2, 3,4])</p><p>视图转为数组  Array.from(typedArray)</p></div><!----><!----></div></div></div>
+    <script src="/assets/js/45.c0bea003.js" defer></script><script src="/assets/js/app.a3f8b6e0.js" defer></script>
+  </body>
+</html>

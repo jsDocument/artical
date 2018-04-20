@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>技术文档 | 编译的整个过程与相关方法讲解</title>
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    
+    <link rel="preload" href="/assets/css/46.styles.e82a5c09.css" as="style"><link rel="preload" href="/assets/js/app.a3f8b6e0.js" as="script"><link rel="preload" href="/assets/js/14.2f9f93b2.js" as="script"><link rel="prefetch" href="/assets/js/22.17cf880c.js"><link rel="prefetch" href="/assets/js/0.973c796c.js"><link rel="prefetch" href="/assets/js/1.0497ad16.js"><link rel="prefetch" href="/assets/js/2.ebbb5d5d.js"><link rel="prefetch" href="/assets/js/3.e886bd32.js"><link rel="prefetch" href="/assets/js/4.40b93576.js"><link rel="prefetch" href="/assets/js/5.1b3a4e9f.js"><link rel="prefetch" href="/assets/js/6.86cd4dd8.js"><link rel="prefetch" href="/assets/js/7.61660844.js"><link rel="prefetch" href="/assets/js/8.caca5f4b.js"><link rel="prefetch" href="/assets/js/9.a994f482.js"><link rel="prefetch" href="/assets/js/10.b6136660.js"><link rel="prefetch" href="/assets/js/11.c3354dd2.js"><link rel="prefetch" href="/assets/js/12.42b7b00b.js"><link rel="prefetch" href="/assets/js/13.c68dc3c6.js"><link rel="prefetch" href="/assets/js/15.e6f30067.js"><link rel="prefetch" href="/assets/js/16.5cd45fab.js"><link rel="prefetch" href="/assets/js/17.d69bc059.js"><link rel="prefetch" href="/assets/js/18.136bf757.js"><link rel="prefetch" href="/assets/js/19.e23ba71d.js"><link rel="prefetch" href="/assets/js/20.abd68983.js"><link rel="prefetch" href="/assets/js/21.909752e2.js"><link rel="prefetch" href="/assets/js/23.2a254b28.js"><link rel="prefetch" href="/assets/js/24.5a533c08.js"><link rel="prefetch" href="/assets/js/25.fb46850b.js"><link rel="prefetch" href="/assets/js/26.10f27aa9.js"><link rel="prefetch" href="/assets/js/27.0cf1eb44.js"><link rel="prefetch" href="/assets/js/28.f1908515.js"><link rel="prefetch" href="/assets/js/29.07326040.js"><link rel="prefetch" href="/assets/js/30.11629dcc.js"><link rel="prefetch" href="/assets/js/31.939078fa.js"><link rel="prefetch" href="/assets/js/32.29f0164b.js"><link rel="prefetch" href="/assets/js/33.2fbce936.js"><link rel="prefetch" href="/assets/js/34.47c11fae.js"><link rel="prefetch" href="/assets/js/35.7cf4cff4.js"><link rel="prefetch" href="/assets/js/36.5ef4b16d.js"><link rel="prefetch" href="/assets/js/37.00826665.js"><link rel="prefetch" href="/assets/js/38.346008b1.js"><link rel="prefetch" href="/assets/js/39.d2bf7cc2.js"><link rel="prefetch" href="/assets/js/40.e1e2ec9e.js"><link rel="prefetch" href="/assets/js/41.04c70264.js"><link rel="prefetch" href="/assets/js/42.86cde9b5.js"><link rel="prefetch" href="/assets/js/43.fbf71115.js"><link rel="prefetch" href="/assets/js/44.5b7842e3.js"><link rel="prefetch" href="/assets/js/45.c0bea003.js">
+    <link rel="stylesheet" href="/assets/css/46.styles.e82a5c09.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      技术文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><ul class="sidebar-links"><li><a href="/" class="sidebar-link">技术文档</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>node学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>Vue源码学习</span><span class="arrow up"></span></p><ul class="sidebar-group-items"><li><a href="/vue_resource/start.html" class="sidebar-link">Vue之旅开始</a></li><li><a href="/vue_resource/options.html" class="sidebar-link">mergeOption的初始化与合并规则</a></li><li><a href="/vue_resource/init_data.html" class="sidebar-link">init_data</a></li><li><a href="/vue_resource/events.html" class="sidebar-link">内部事件初始始化与事件的实现</a></li><li><a href="/vue_resource/compile_el.html" class="active sidebar-link">编译的整个过程与相关方法讲解</a></li><li><a href="/vue_resource/_compile_root.html" class="sidebar-link">编译其他节点</a></li><li><a href="/vue_resource/_compile_rest.html" class="sidebar-link">编译根节点</a></li><li><a href="/vue_resource/directive_base.html" class="sidebar-link">指令的创建与生成及更新</a></li><li><a href="/vue_resource/watch_observer.html" class="sidebar-link">watch</a></li><li><a href="/vue_resource/batcher.html" class="sidebar-link">管理watcher队列</a></li><li><a href="/vue_resource/calculate.html" class="sidebar-link">表达式的运算与执行过滤</a></li><li><a href="/vue_resource/hook.html" class="sidebar-link">钩子函数的初始化与实现</a></li><li><a href="/vue_resource/transition.html" class="sidebar-link">transition实现讲解</a></li><li><a href="/vue_resource/dom.html" class="sidebar-link">DOM操作的几个方法实现</a></li><li><a href="/vue_resource/fragmentFactory.html" class="sidebar-link">工厂</a></li><li><a href="/vue_resource/directive_every.html" class="sidebar-link">内部几个指令的实现讲解</a></li><li><a href="/vue_resource/parse.html" class="sidebar-link">表达式解析的相关实现</a></li></ul></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端常见问题</span><span class="arrow down"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h1 id="编译的整个过程与相关方法讲解">编译的整个过程与相关方法讲解</h1><pre class="language-js"><code>Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">_compile</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options
+
+    <span class="token comment">// 缓存原来的el</span>
+    <span class="token keyword">var</span> original <span class="token operator">=</span> el
+
+    <span class="token comment">// 把template转换成DOM并更新到el</span>
+    el <span class="token operator">=</span> <span class="token function">transclude</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+
+    <span class="token comment">// 判断el为Fragment时, 更新相应的实例属性this._fragmentEnd = el.lastChild,</span>
+    <span class="token comment">// this._fragmentStart = el.firstChild, 如果是文本节点则把节点内容清空(text anchors)</span>
+    <span class="token comment">// this._fragment = el, 调用钩子beforeCompile</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_initElement</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+
+    <span class="token comment">// handle v-pre on root node (#2026)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>nodeType <span class="token operator">===</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> <span class="token function">getAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'v-pre'</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 编译根节点</span>
+    <span class="token comment">// root is always compiled per-instance, because</span>
+    <span class="token comment">// container attrs and props can be different every time.</span>
+    <span class="token keyword">var</span> contextOptions <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_context <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_context<span class="token punctuation">.</span>$options
+    <span class="token keyword">var</span> rootLinker <span class="token operator">=</span> <span class="token function">compileRoot</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> options<span class="token punctuation">,</span> contextOptions<span class="token punctuation">)</span>
+
+    <span class="token comment">// 编译并进行连接</span>
+    <span class="token keyword">var</span> contentLinkFn
+    <span class="token keyword">var</span> ctor <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>constructor
+
+    <span class="token comment">// component compilation can be cached</span>
+    <span class="token comment">// as long as it's not using inline-template</span>
+
+    <span class="token comment">// 如果有缓存, 从构造函数的linker属性上获取</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>_linkerCachable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        contentLinkFn <span class="token operator">=</span> ctor<span class="token punctuation">.</span>linker
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>contentLinkFn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 编译其他节点</span>
+        contentLinkFn <span class="token operator">=</span> ctor<span class="token punctuation">.</span>linker <span class="token operator">=</span> <span class="token function">compile</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 调用rootLinker</span>
+    <span class="token keyword">var</span> rootUnlinkFn <span class="token operator">=</span> <span class="token function">rootLinker</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> el<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_scope<span class="token punctuation">)</span>
+    <span class="token comment">// 调用contentLinker</span>
+    <span class="token keyword">var</span> contentUnlinkFn <span class="token operator">=</span> contentLinkFn
+        <span class="token operator">?</span> <span class="token function">contentLinkFn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> el<span class="token punctuation">)</span>
+        <span class="token punctuation">:</span> <span class="token function">compile</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> el<span class="token punctuation">)</span>
+
+    <span class="token comment">// 定义unLinker</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function-variable function">_unlinkFn</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">rootUnlinkFn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token function">contentUnlinkFn</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>replace<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">replace</span><span class="token punctuation">(</span>original<span class="token punctuation">,</span> el<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>_isCompiled <span class="token operator">=</span> <span class="token boolean">true</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_callHook</span><span class="token punctuation">(</span><span class="token string">'compiled'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="挂载更新处理options-el-将toptions-template处理更新到el">挂载更新处理options.el, 将toptions.template处理更新到el</h3><ul><li><p>transclude(el, options)</p><ol><li>options._containerAttrs 为el元素上的属性</li><li>el为template时, 更新el = 解析__parseTemplate(el)__</li><li>options参数存在
+<ul><li>options._asComponent 且 !options.template, 添加options.template = ''</li><li>options.template存在, 更新options._content = <strong>extractContent(el)</strong>, el = <strong>transcludeTemplate(el, options)</strong></li></ul></li><li>el为文档片断时, 在el的前后加v-start与v-end的注释节点</li><li>返回el</li></ol></li><li><p>transcludeTemplate(el, options)</p><ol><li>frag = parseTemplate(options.template, true)</li><li>replacer = frag.firstChild, tag为replacer的tagName</li><li>如果options.replace为真</li><li>frag多个子节点 或 replacer不是Element 或 tag为component 或 tag为定义的组件 或 tag为元素指令 或 replacer有is绑定属性 或 有v-for属性  或有 v-if属性, 直接返回frag; 否则更新options._replacerAttrs, 合并 replacer属性到el, 返回replacer</li><li>否则frag追加到el, 返回el。</li></ol></li><li><p>parseTemplate(template, shouldClone, raw)</p><ol><li>template为文档片断时, 却空节点--trimeNode(template), shouldClone为真时, 返回template的复本, 否则返回template</li><li>template为字符串时, !raw 且 为Id选择器时, 先从缓存中取frag
+<ul><li>frag不存在时, 根据id选择器获取DOM节点node</li><li>node存在时, frag = <strong>nodeToFragment(node)</strong>, 再存入缓存</li></ul></li><li>frag = <strong>stringToFragment(template, raw)</strong></li><li>template.nodeType存在时, frag = <strong>nodeToFragment(template)</strong></li><li>返回frag 或 shouldClone为真, 返回其副本</li></ol></li><li><p>nodeToFragment(node)</p><ol><li>判断为template标签且node.content为fragment, 去除node.content的空白节点并返回</li><li>node为script, 返回 <strong>stringToFragment(node.textContent)</strong></li><li>cloneNode为node的副本, frag为新建的Fragment</li><li>循环cloneNode的第一个子元素, 将其追加到frag中</li><li>去除frag中空白节点并返回</li></ol></li><li><p>stringToFragment(templateString, raw)</p><ol><li>raw存在时, templateString作为key取缓存, 否则templateString去除前后空白符后作为key取缓存</li><li>缓存不存在时, 创建文本片断frag, tagMatch为匹配templateString的标签, entityMatch为匹配实体字符</li><li>!tagMatch 且 !entityMatch时, 将templateString创建文本节点, 追加到frag</li><li>创建div的元素--node</li><li>根据匹配到的tag, 如果需要补全, 则在其前后添加补全的标签, 如tr需要在前后被'<table><tbody>'与'</tbody></table>'补全;</li><li>将补全的html更新到node.innerHTML</li><li>递减补全的深度值, 更新node为node.lastChild</li><li>循环node.firstChild, 追加到frag</li><li>!raw时, 去除frag的空白节点, 存入缓存并返回。</li></ol></li><li><p>extractContent(el, asFragment)</p><ol><li>el为template标签且el.content为文本片断时, 更新el = el.content</li><li>如果el有子元素, 去除el空白节点, asFragment为真时, rawContent = 创建的fragment, 否则 rawContent = 创建的div</li><li>循环el的firstChild， 追加到rawContent</li><li>返回rawContent</li></ol></li><li><p>trimNode(node)</p><ol><li>循环node的firstChild, 子节点为空白文本节点或注释节点时, 删除该子节点</li><li>循环node的lastChild, 子节点为空白文本节点或注释节点时, 删除该子节点</li></ol></li><li><p>cloneNode(node)  ???</p></li></ul></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/vue_resource/events.html" class="prev">
+          内部事件初始始化与事件的实现
+        </a></span><span class="next"><a href="/vue_resource/_compile_root.html">
+          编译其他节点
+        </a> →
+      </span></p></div></div></div></div>
+    <script src="/assets/js/14.2f9f93b2.js" defer></script><script src="/assets/js/app.a3f8b6e0.js" defer></script>
+  </body>
+</html>
