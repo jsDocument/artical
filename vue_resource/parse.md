@@ -1,7 +1,8 @@
 # 表达式解析的相关实现
 
 ### parseText(text) 解析{{expression}}的字符串表达式
-1. tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/
+
+1. `tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/`
 2. lastIndex = tagRE.lastIndex = 0
 3. 循环match = tagRE.exec(text),
     + index = match.index 开始匹配到的位置
