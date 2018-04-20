@@ -1,3 +1,5 @@
+# 其他
+
 ### 客户端存储
 1. 客户端存储有哪些方式
     + cookie, sessionStorage, loacalStorage 及非关系数据库
@@ -13,7 +15,7 @@
     + Secure 一个带有安全属性的cookie, 请求在使用SSH和HTTPS时才会被发送到服务器
     + HttpOnly 不能通过javascript.cookie、XMLHttpRequest、Request的API进行访问
 4. Hybrid环境下, 使用客户端存储有哪些需要注意
-5. 
+5.
 
 ### 数据类型
 1. javascript的基础数据类型有哪些？
@@ -51,7 +53,7 @@
 11. 如何把类数据转换为数组, 如argument与selector返回的DOM列表
 
 ### 数字相关题目
-1. 判断一个题目为NaN？ 
+1. 判断一个题目为NaN？
     + 先判断是否为number类型 再isNaN()
     + 利用唯一一个不等于他本身的值的特性, n !== n
     + Object.is()
@@ -75,7 +77,7 @@
 
 ### Promise相关知识点
 1. then方法的参数(fn,fn)与返回值
-2. 缺省返回值会认识返回的为undefined, 
+2. 缺省返回值会认识返回的为undefined,
 
 
 ### 日期

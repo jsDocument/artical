@@ -1,3 +1,5 @@
+# 事件
+
 1. mouseover与mouseenter事件的区别
 2. 移动端click事件行为与PC端有什么不同, 如何屏蔽掉这个不同
 3. Event中, currentTarget与target之间的区别

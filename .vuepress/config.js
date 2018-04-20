@@ -1,6 +1,6 @@
 module.exports = {
-  title: '站点维护',
-  description: '公司内站点维护、注意事项等',
+  dest: 'dist',
+  title: '黑盒子',
   serviceWorker: true,
   evergreen: true,
   markdown: {
@@ -12,17 +12,7 @@ module.exports = {
   // base: '/',
   themeConfig: {
     sidebarDepth: 0,
-    sidebar: genSidebarConfig('hsq'),
-    // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
-    repo: 'webcoding/link',
-    // 当你的文档不是仓库的根目录时需要设置
-    docsDir: 'docs',
-    // 可选的, 默认是  master
-    docsBranch: 'vuepress',
-    // 默认是 true, 设置为 false 来禁用
-    editLinks: true,
-    // 默认为 "Edit this page"
-    editLinkText: '帮助我们改善此页面！'
+    sidebar: genSidebarConfig('黑盒子'),
   },
   configureWebpack: {
     resolve: {
@@ -37,30 +27,50 @@ function genSidebarConfig (title) {
   return [
     '/',
     {
-      title: '小程序',
-      collapsable: false,
+      title: 'node基础学习',
       children: [
-        '/mini/',
-        '/mini/rule',
-        '/mini/wxapp',
-        '/mini/aliapp',
+        '/node_basic/',
+        '/node_basic/readline',
+        '/node_basic/child_process',
+        '/node_basic/event',
+        '/node_basic/stream',
+        '/node_basic/net',
+        '/node_basic/udp',
+        '/node_basic/http',
       ]
     },
     {
-      title: '专题模板',
-      collapsable: false,
+      title: 'Vue 源码学习',
       children: [
-        '/zt/',
-        '/zt/share',
-        '/zt/design',
-        // '/zt/data',
-        '/zt/rules',
+        '/vue_source/structure',
+        '/vue_source/start',
+        '/vue_source/options',
+        '/vue_source/init_data',
+        '/vue_source/events',
+        '/vue_source/compile_el',
+        '/vue_source/_compile_root',
+        '/vue_source/_compile_rest',
+        '/vue_source/directive_base',
+        '/vue_source/watch_observer',
+        '/vue_source/batcher',
+        '/vue_source/calculate',
+        '/vue_source/hook',
+        '/vue_source/transition',
+        '/vue_source/dom',
+        '/vue_source/fragmentFactory',
+        '/vue_source/directive_every',
+        '/vue_source/parse',
       ]
     },
-    'hsq',
-    'iqg',
-    'mob',
-    'stats',
-    'www',
+    {
+      title: '前端常见问题',
+      children: [
+        '/javascript_question/regexp',
+        '/javascript_question/http',
+        '/javascript_question/event',
+        '/javascript_question/others',
+        '/bite',
+      ]
+    },
   ]
 }

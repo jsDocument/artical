@@ -1,3 +1,5 @@
+# UDP
+
 ### dgram 创建数据报sockets, 通过一个流发磅数据报到UDP服务器
 + Socket类
     1. 事件 close, error, listening, message
@@ -14,10 +16,10 @@
         server.close()
     })
     server.on('message',(msg, rinfo)=>{
-        console.log(`${msg}来自${rinfo.address}:${rinfo.port}`)    
+        console.log(`${msg}来自${rinfo.address}:${rinfo.port}`)
     })
     server.on('listening',()=>{
-        console.log(`服务器监听开始`) 
+        console.log(`服务器监听开始`)
     })
     server.bind(41234)
 
@@ -30,7 +32,7 @@
     // 创建客户端与创建服务端相同
     var stream = require('stream')
     var dgram = require('dgram')
-    var socket = dgram.createSocket('udp4') 
+    var socket = dgram.createSocket('udp4')
     var defaultSize = 16
 
     function client(remoteIp){
@@ -44,7 +46,7 @@
                 return socket.unref()
             }
             socket.send(msg, 0, msg.length, 41234, remoteIp,(err, bytes)=>{
-                sendData()    
+                sendData()
             })
         }
     }
