@@ -49,36 +49,35 @@
 + isIPv6(input)
 
 ```js
-
 var net = require('net');
 var assert = require('assert')
 var clients = 0;
 // 参数clinet实际上是一个socket, 故write方法写入数据将通过网络发送
 // 添加到socket的任何事件监听回调将共享相同的作用域, 它会创建回调内的作用域
 var server = net.createServer((socket)=>{
-        clients++;
-        console.log(clients);
-        socket.on('end',()=>{
-            console.log('客户端开始关闭')
-            // 所有客户端关闭跟本服务的联接后, 本服务将关闭
-            server.unref()
-        })
-        socket.on('data',(data)=>{
-
-        })
-        socket.on('close'()=>{
-            console.log('客户端关闭')
-        })
-        // 设置客户端的超时时间
-        socket.setTimeout(3000)
-        socket.on('timeout',()=>{
-            console.log('超时了')
-            socket.pipe()
-        })
-        socket.write(clients);
-        // 把客户端的数据返回到客户端
-        socket.pipe(client)
+    clients++;
+    console.log(clients);
+    socket.on('end',()=>{
+        console.log('客户端开始关闭')
+        // 所有客户端关闭跟本服务的联接后, 本服务将关闭
+        server.unref()
     })
+    socket.on('data',(data)=>{
+
+    })
+    socket.on('close'()=>{
+        console.log('客户端关闭')
+    })
+    // 设置客户端的超时时间
+    socket.setTimeout(3000)
+    socket.on('timeout',()=>{
+        console.log('超时了')
+        socket.pipe()
+    })
+    socket.write(clients);
+    // 把客户端的数据返回到客户端
+    socket.pipe(client)
+})
 server.listen(8000,()=>{
     console.log(`服务器地址: ${server.address()}`)
 })
