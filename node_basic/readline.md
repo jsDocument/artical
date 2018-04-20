@@ -1,6 +1,7 @@
 # readline
 
 ### readline
+
 + interface类
     + 事件:
         1. close: 调用close方法且已撤回对input流和output流的控制; input流收到end事件;
@@ -18,28 +19,27 @@
 + readline.cuusorTo(stream, x, y)
 + readline.moveCursor(stream, dx, dy)
 
-`
+```js
+var readline = require('readline');
+var rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+        prompt: '请输入>'
+    })
+    rl.prompt();
+    rl.question('学会使用了吗？', (answer)=>{
+        console.log(answer);
+        rl.close()
+    })
 
-    var readline = require('readline');
-    var rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout,
-            prompt: '请输入>'
-        })
-        rl.prompt();
-        rl.question('学会使用了吗？', (answer)=>{
-            console.log(answer);
-            rl.close()
-        })
+const fs = require('fs');
 
-    const fs = require('fs');
+const rl = readline.createInterface({
+    input: fs.createReadStream('sample.txt'),
+    crlfDelay: Infinity
+});
 
-    const rl = readline.createInterface({
-        input: fs.createReadStream('sample.txt'),
-        crlfDelay: Infinity
-    });
-
-    rl.on('line', (line) => {
-        console.log(`文件的单行内容：${line}`);
-    });
-`
+rl.on('line', (line) => {
+    console.log(`文件的单行内容：${line}`);
+});
+```

@@ -1,5 +1,7 @@
 # HTTP
-### 方法
+
+## 方法
+
 - http.Server  基于事件的HTTP服务器
 - http.createServer((req, res)=>{})  在http.Server对象上添加了一个request事件监听
   - 事件 request、connection、close、error、connect
@@ -15,14 +17,19 @@
 - http.globalAgent
 - http.METHODS
 - http.STATUS_CODES
-[^ http使用了agent代理，如果http启动了keep-alive，那么这个代理相当于一个连接池，代理维护一定数量的socket链接，http发起所请求所用的socket都是通过代理获取的，省去了每次发起http请求创建套接字的时间]
 
-### 相关事件
+::: tip
+http使用了agent代理，如果http启动了keep-alive，那么这个代理相当于一个连接池，代理维护一定数量的socket链接，http发起所请求所用的socket都是通过代理获取的，省去了每次发起http请求创建套接字的时间
+:::
+
+## 相关事件
+
 - connection 建TCP连接时触发，提供socket参数，为net.socket的实例
 - close 服务关闭时触发
 - checkContinue、upgrade、clientError
 
 ## HTTPS
+
 - https.Agent
 - https.Server
 - https.createServer((req, res)=>{})

@@ -1,6 +1,7 @@
 # 子进程
 
 ### child_process允许异步执行外部应用程序, 并得到结果。
+
 + execFile 把输出结果「存入缓存」, 执行时不需要通过命令解析器
 1. cp.execFile('commandName',[param],(err, stdout, stderr)=>{})
 2. __查找命令路径要找的到, 要有执行权限, 是否能在该平台执行__
@@ -18,7 +19,6 @@
 9. 其他值: 'ignore', outFd, errFd[是某个打开的文件], 父进程与子进程之间的I/O中断了
 10. 父进程会有一个对子进程的内部引用, 子进程没有终结, 引用没有被移除, 父进程就不会终结; child.unref()告诉Node不要将子进程的引用进行计数。
 
-
 + exec 方便、跨平台, 在命令解析器中执行命令
 1. cp.exec('cat file | sort | uniq', (err, stdout, stderr)=>{})
 2. `是因为用了命令解析器才不安全？代码注入？`
@@ -30,7 +30,6 @@
 4. 调用 hello tom
 5. 用子进程的方式运行.bat可执行文件 cp.execFile('hello.bat', ['billy'])
 6. unix 平台, hello.js头部添加  #!/usr/bin/env node, 再为文件添加执行权限  chmod +x hello.js;
-
 
 + web worker 使任务脱离了主线程, 通过一种内置父进程与子进程间流通信来处理问题---fork大批量的任务压力分解到一个独立的进程中, 事件轮询仍然能保持顺畅
 1. 操作一个独立的node进程, I/O共享
@@ -50,14 +49,3 @@
 
 + execFileSync 同步执行一个命令
 + spawnSync
-
-
-
-
-
-
-
-
-
-
-

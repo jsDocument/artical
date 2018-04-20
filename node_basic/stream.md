@@ -39,14 +39,13 @@
     1. 如果这个可读的流没有桥接可写流组成管道，直接调用pause()
     2. 如果这个可读的流与若干可写流组成了管道，需要移除与“data”事件关联的所有处理器，并且调用unpipe()方法断开所有管道。
 
-`
-
-    var http = require('http');
-    var fs = require('fs');
-    http.createServer((req, res)=>{
-      fs.createReadStream('filePath').pipe(res);
-    })
-`
+```js
+var http = require('http');
+var fs = require('fs');
+http.createServer((req, res)=>{
+  fs.createReadStream('filePath').pipe(res);
+})
+```
 
 + stream.Writable: 输出数据到底层I/O;  \_write(chunk, encoding, cb)
   1. 事件:
@@ -72,6 +71,7 @@
 ![流程 text](./stream.png "title")
 
 #### Node内部实现的流：
+
 - 客户端的HTTP响应
 - 服务端的HTTP请求
 - fs读取流: fs.createReadStream(source,{options})
@@ -81,32 +81,39 @@
 - 子进程的stdout和stderr
 - process.stdin
 
-
 ### 错误跟踪
+
 + console.trace() 能够生成完整的堆栈跟踪, 会将Node核心模块event.js实现庄浪功能的地方跟踪到。
 + console.error(err.stack)
-
 
 ### 流的使用
 
 > 压缩
-  gzip = zlib.createGzip();
-  inFile = fs.createReadStream(file);
-  outGzip = fs.createWriteStream('file.gz')
-  inFile.pipe(gzip).pipe(outGzip)
+
+```js
+gzip = zlib.createGzip();
+inFile = fs.createReadStream(file);
+outGzip = fs.createWriteStream('file.gz')
+inFile.pipe(gzip).pipe(outGzip)
+```
 
 > 解压
-  var gunzip = zlib.createUnzip({flush: zlib.Z_FULL_FLUSH});
-  var inGzip = fs.createReadStream('readable.gz');
-  var outFile = fs.createWriteStream('readable.unzipped');
-  inGzip.pipe(gunzip).pipe(outFile);
+
+```js
+var gunzip = zlib.createUnzip({flush: zlib.Z_FULL_FLUSH});
+var inGzip = fs.createReadStream('readable.gz');
+var outFile = fs.createWriteStream('readable.unzipped');
+inGzip.pipe(gunzip).pipe(outFile);
+```
 
 ### 实现一个流类的基本步骤
+
 1. 在定义的类的构造函数中调用stream.Readable类接口
 2. 定义类的原型继承stream.Readable.prototype
 3. 定义原型的_read方法, 实现从底层读取数据到缓存队列。
 
 ### 优化流的缓冲区大小
+
 1. input = fs.createReadStream(file, {bufferSize： insize})
 2. output = fs.createWriteStream(file,{bufferSize: insize})
 3. gzip = zlib.createGzip({chunkSize: outsize})

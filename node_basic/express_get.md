@@ -1,4 +1,5 @@
 ### application模块
+
 + init 默认配置
 1. 挂载--请求、响应、引擎、设置
 2. views
@@ -43,17 +44,16 @@
 `setPrototypeOf`
 
 ### router
+
 + 构造函数
 1. 定义router函数-->调用router.handle
 2. 初始化实例属性
 
 + param ????
 
-
 + handle
 1. done
 2. next
-
 
 + use(fn)
 1. callbacks 参数
@@ -64,6 +64,7 @@
 2. Layer实例 layer.route = route; this.stack.push(layer); 返回route
 
 ### Route
+
 + 构造函数, 初始化相应实例属性
 
 + dispatch(req, res, done)
@@ -79,10 +80,9 @@
 
 + all 与上面方法实现类似
 
-
 ### layer
-+ 构造函数  初始化实例属性
 
++ 构造函数  初始化实例属性
 + handle_err(error, req, res, next)
 1. this.handle参数长度不等于4, next(error)
 2. fn(error, req, res, next)
@@ -91,20 +91,21 @@
 1. this.handle参数大于3, next()
 2. this.handle(req, res, next)
 
-
-### View
+## View
 
 ### middleware
+
 + init, (req, res, next)=>{ 返回函数, 进行属性合并与初始化, 并调用next()}
 + query, (options)=>{ 处理参数, 返回函数query(req, res, next)=>{ req.query=... next()}}
 
 
 ### methods
+
 + [ 'get', 'post', 'put', 'head', 'delete', 'options', 'trace', 'copy', 'lock', 'mkcol', 'move', 'purge', 'propfind', 'proppatch', 'unlock', 'report', 'mkactivity', 'checkout', 'merge', 'm-search', 'notify', 'subscribe', 'unsubscribe', 'patch', 'search', 'connect' ]
 
 
-
 ### express源码阅读收获
+
 1. 路由handle--负责处理路由
     + 根据req.url获取请求路径, ids=0
     + next()方法: this.routes获取路由表{path, handle, method}[ids++]项
