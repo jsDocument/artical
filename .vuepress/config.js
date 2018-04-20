@@ -43,6 +43,7 @@ function genSidebarConfig (title) {
     {
       title: 'Vue源码学习',
       children: [
+        '/vue_resource/structure.md',
         '/vue_resource/start',
         '/vue_resource/options',
         '/vue_resource/init_data',
