@@ -1,6 +1,7 @@
 module.exports = {
   dest: 'dist',
-  title: '黑盒子',
+  title: '技术文档',
+  description: '偏重前端与node的技术文档',
   serviceWorker: true,
   evergreen: true,
   markdown: {
@@ -12,7 +13,7 @@ module.exports = {
   // base: '/',
   themeConfig: {
     sidebarDepth: 0,
-    sidebar: genSidebarConfig('黑盒子'),
+    sidebar: genSidebarConfig('技术文档'),
   },
   configureWebpack: {
     resolve: {
@@ -27,7 +28,7 @@ function genSidebarConfig (title) {
   return [
     '/',
     {
-      title: 'node基础学习',
+      title: 'node学习',
       children: [
         '/node_basic/',
         '/node_basic/readline',
