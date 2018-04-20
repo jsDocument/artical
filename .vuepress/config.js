@@ -1,6 +1,6 @@
 module.exports = {
-  title: '站点维护',
-  description: '公司内站点维护、注意事项等',
+  title: '技术文档',
+  description: '偏重前端与node的技术文档',
   serviceWorker: true,
   evergreen: true,
   markdown: {
@@ -14,7 +14,7 @@ module.exports = {
     sidebarDepth: 0,
     sidebar: genSidebarConfig('hsq'),
     // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
-    repo: 'webcoding/link',
+    repo: 'jsDocument/artical',
     // 当你的文档不是仓库的根目录时需要设置
     docsDir: 'docs',
     // 可选的, 默认是  master
@@ -22,7 +22,7 @@ module.exports = {
     // 默认是 true, 设置为 false 来禁用
     editLinks: true,
     // 默认为 "Edit this page"
-    editLinkText: '帮助我们改善此页面！'
+    editLinkText: '技术文档, 如果存在内容有误的情况, 请多多提出, 将在后面更正, 谢谢关注'
   },
   configureWebpack: {
     resolve: {
@@ -37,7 +37,7 @@ function genSidebarConfig (title) {
   return [
     '/',
     {
-      title: '小程序',
+      title: 'vue',
       collapsable: false,
       children: [
         '/mini/',
@@ -47,7 +47,7 @@ function genSidebarConfig (title) {
       ]
     },
     {
-      title: '专题模板',
+      title: 'javascript',
       collapsable: false,
       children: [
         '/zt/',
@@ -57,10 +57,16 @@ function genSidebarConfig (title) {
         '/zt/rules',
       ]
     },
-    'hsq',
-    'iqg',
-    'mob',
-    'stats',
-    'www',
+    {
+      title: 'node',
+      collapsable: false,
+      children: [
+        '/zt/',
+        '/zt/share',
+        '/zt/design',
+        // '/zt/data',
+        '/zt/rules',
+      ]
+    }
   ]
 }
