@@ -118,4 +118,15 @@ Vue.prototype._compile = function (el) {
     1. 循环node的firstChild, 子节点为空白文本节点或注释节点时, 删除该子节点
     2. 循环node的lastChild, 子节点为空白文本节点或注释节点时, 删除该子节点
 
-+ cloneNode(node)  ???
++ cloneNode(node)
+    1. 原生支持node.cloneNode(), 但需要做兼容, 对于参数true的兼容
+    2. res = node.cloneNode(true)
+    3. 副本中包含template元素, 查找不到template的内容的---hasBrokenTemplate
+        1. 如果node是realTemplate, 更新node = node.content, tempClone = res.content
+        2. 获取 node中所有的template元素列表-->original 及 tempClone中的template元素列表 --> cloned
+        3. 循环cloned, 用original中元素的副本替换cloned
+    4. 副本textarea的placeholder内容变成了其value值---hasTextareaCloneBug
+        1. node为textarea时, 更新res.value = node.value
+        2. 取node中的textarea元素列表-->original, 副本当中的textarea元素列表-->cloned
+        3. 循环cloned, 更新cloned[i].value = original[i].value
++ isRealTemplate(node) node为template元素且node.content为fragment
