@@ -1,4 +1,4 @@
-## HTTP
+# HTTP
 ### 方法
 - http.Server  基于事件的HTTP服务器
 - http.createServer((req, res)=>{})  在http.Server对象上添加了一个request事件监听

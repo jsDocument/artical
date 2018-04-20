@@ -1,4 +1,5 @@
 module.exports = {
+  dest: 'dist',
   title: '技术文档',
   description: '偏重前端与node的技术文档',
   serviceWorker: true,
@@ -12,17 +13,7 @@ module.exports = {
   // base: '/',
   themeConfig: {
     sidebarDepth: 0,
-    sidebar: genSidebarConfig('hsq'),
-    // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
-    repo: 'jsDocument/artical',
-    // 当你的文档不是仓库的根目录时需要设置
-    docsDir: 'docs',
-    // 可选的, 默认是  master
-    docsBranch: 'vuepress',
-    // 默认是 true, 设置为 false 来禁用
-    editLinks: true,
-    // 默认为 "Edit this page"
-    editLinkText: '技术文档, 如果存在内容有误的情况, 请多多提出, 将在后面更正, 谢谢关注'
+    sidebar: genSidebarConfig('技术文档'),
   },
   configureWebpack: {
     resolve: {
@@ -37,36 +28,50 @@ function genSidebarConfig (title) {
   return [
     '/',
     {
-      title: 'vue',
-      collapsable: false,
+      title: 'node学习',
       children: [
-        '/mini/',
-        '/mini/rule',
-        '/mini/wxapp',
-        '/mini/aliapp',
+        '/node_basic/',
+        '/node_basic/readline',
+        '/node_basic/child_process',
+        '/node_basic/event',
+        '/node_basic/stream',
+        '/node_basic/net',
+        '/node_basic/udp',
+        '/node_basic/http',
       ]
     },
     {
-      title: 'javascript',
-      collapsable: false,
+      title: 'Vue 源码学习',
       children: [
-        '/zt/',
-        '/zt/share',
-        '/zt/design',
-        // '/zt/data',
-        '/zt/rules',
+        '/vue_source/structure',
+        '/vue_source/start',
+        '/vue_source/options',
+        '/vue_source/init_data',
+        '/vue_source/events',
+        '/vue_source/compile_el',
+        '/vue_source/_compile_root',
+        '/vue_source/_compile_rest',
+        '/vue_source/directive_base',
+        '/vue_source/watch_observer',
+        '/vue_source/batcher',
+        '/vue_source/calculate',
+        '/vue_source/hook',
+        '/vue_source/transition',
+        '/vue_source/dom',
+        '/vue_source/fragmentFactory',
+        '/vue_source/directive_every',
+        '/vue_source/parse',
       ]
     },
     {
-      title: 'node',
-      collapsable: false,
+      title: '前端常见问题',
       children: [
-        '/zt/',
-        '/zt/share',
-        '/zt/design',
-        // '/zt/data',
-        '/zt/rules',
+        '/javascript_question/regexp',
+        '/javascript_question/http',
+        '/javascript_question/event',
+        '/javascript_question/others',
+        '/bite',
       ]
-    }
+    },
   ]
 }

@@ -1,11 +1,13 @@
+# readline
+
 ### readline
 + interface类
-    + 事件: 
-        1. close: 调用close方法且已撤回对input流和output流的控制; input流收到end事件; 
+    + 事件:
+        1. close: 调用close方法且已撤回对input流和output流的控制; input流收到end事件;
         2. line: \n, \r时触发
         3. pause input流被暂停 或 收到SIGCONT事件
-        4. resume, 
-        5. SIGCONT 进程回到后台后再使用fg(1p)返回前台时触发, 
+        4. resume,
+        5. SIGCONT 进程回到后台后再使用fg(1p)返回前台时触发,
         6. SIGINT  ctrl + c时触该事件, 如果没有注册该事件, 则pause事件会触发
         7. SIGTSTP ctrl + z 一般会触发该事件, 如果 没有注册该事件进程会被送到后台, 当fg(1p)恢复时, pause和SIGCONT事件会被触发
     + 方法: close(), pause(), resume(), write(), prompt(), question(query, cb), setPrompt()

@@ -1,3 +1,5 @@
+# Stream
+
 ### 流: 用于管理和处理数据, 借助事件与非阻塞I/O库, 允许在其可用的时候动态处理, 不需要的时候释放掉。
 + 流所使用的场景: API接口, 内置fs, http, 解析器, 数据库, 网络协议
 + fs.createReadStream(file).pipe(process.stdout)
@@ -6,14 +8,14 @@
   3. 上游数据被分块地连续取走, 下游收到的是一个先后到达的数据序列
 
 ### 流的可用类
-+ stream.Readable: I/O上获取数据, 定制类需要自己实现\_read(size) 
-  1. 事件: 
++ stream.Readable: I/O上获取数据, 定制类需要自己实现\_read(size)
+  1. 事件:
     1. readable：数据块可以从流中读取时发生
     2. data：有数据可读时发生
     3. end：数据读完时发生
     4. close：底层资源关闭时
     5. error：接收数据中出现错误时发生
-  2. 方法: 
+  2. 方法:
     1. read([size])
       - 无参，返回内部缓冲区里的所有数据，无数据返回null
       - 有参，返回指定数量的数据，如果数据不足，会返回null
@@ -29,7 +31,7 @@
   3. 模式: 流动模式state.flowing=true、暂停模式「可读流创建时都是暂停模式」
   4. 流动模式下, 数据会通过data事件输出, 不需要消耗方反复调用read(n)方法
   5. 初始状态下, 监听“data”事件, 会使流进入流动模式, 暂停模式下, data事件不会进入流动模式, 要消耗流, 需要显示的调用read()方法
-  6. 从暂停到流动的方法有: 
+  6. 从暂停到流动的方法有:
     1. 显式的调用read()方法, 触发data事件
     2. 显式调用resume()
   7. 调用pipe()将可读流桥接到一个可写流上
@@ -38,7 +40,7 @@
     2. 如果这个可读的流与若干可写流组成了管道，需要移除与“data”事件关联的所有处理器，并且调用unpipe()方法断开所有管道。
 
 `
-  
+
     var http = require('http');
     var fs = require('fs');
     http.createServer((req, res)=>{
@@ -58,9 +60,9 @@
     2. end(chunk[,encoding][,callback])
 
 + stream.Duplex: \_read(size), \_write(chunk, encoding, cb)
-  1. 常见的实现有: TCP socket, zlib, crypto 
+  1. 常见的实现有: TCP socket, zlib, crypto
 
-+ stream.Transform: \_flush(size), \_transform(chunk, encoding, cb) 
++ stream.Transform: \_flush(size), \_transform(chunk, encoding, cb)
   1. 可写端写入数据变化 后会自动添加到可读端
   2. 常见的实现有: zlib, crypto
   3. 以某种方式修改我们的双工流, 没有输入数据要匹配输出数据的限制
@@ -69,7 +71,7 @@
 
 ![流程 text](./stream.png "title")
 
-#### Node内部实现的流： 
+#### Node内部实现的流：
 - 客户端的HTTP响应
 - 服务端的HTTP请求
 - fs读取流: fs.createReadStream(source,{options})
