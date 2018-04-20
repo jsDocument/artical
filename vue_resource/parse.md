@@ -60,7 +60,7 @@
     4. 否则如果obj为数组obj.$set(key, val) 来更新, 如果key in obj, obj[key] = val; 否则set(obj, key, val)
     5. 返回true
 
-```
+```js
 
 var pathStateMachine = []
 // 模式下的模式或动作
