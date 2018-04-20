@@ -1,6 +1,7 @@
 # net
 
-### net---TCP
+## net---TCP
+
 + net.Server类
     1. 事件:
         1. close 服务关闭时触发, 只有所有连接都结束才会触发该事件
@@ -47,99 +48,99 @@
 + isIPv4(input)
 + isIPv6(input)
 
-`
+```js
 
-    var net = require('net');
-    var assert = require('assert')
-    var clients = 0;
-    // 参数clinet实际上是一个socket, 故write方法写入数据将通过网络发送
-    // 添加到socket的任何事件监听回调将共享相同的作用域, 它会创建回调内的作用域
-    var server = net.createServer((socket)=>{
-            clients++;
-            console.log(clients);
-            socket.on('end',()=>{
-                console.log('客户端开始关闭')
-                // 所有客户端关闭跟本服务的联接后, 本服务将关闭
-                server.unref()
-            })
-            socket.on('data',(data)=>{
-
-            })
-            socket.on('close'()=>{
-                console.log('客户端关闭')
-            })
-            // 设置客户端的超时时间
-            socket.setTimeout(3000)
-            socket.on('timeout',()=>{
-                console.log('超时了')
-                socket.pipe()
-            })
-            socket.write(clients);
-            // 把客户端的数据返回到客户端
-            socket.pipe(client)
+var net = require('net');
+var assert = require('assert')
+var clients = 0;
+// 参数clinet实际上是一个socket, 故write方法写入数据将通过网络发送
+// 添加到socket的任何事件监听回调将共享相同的作用域, 它会创建回调内的作用域
+var server = net.createServer((socket)=>{
+        clients++;
+        console.log(clients);
+        socket.on('end',()=>{
+            console.log('客户端开始关闭')
+            // 所有客户端关闭跟本服务的联接后, 本服务将关闭
+            server.unref()
         })
-    server.listen(8000,()=>{
-        console.log(`服务器地址: ${server.address()}`)
-    })
-    server.on('error',(err)=>{
-        console.log(err)
-    })
-
-    server.on('connection',(socket)=>{
-        console.log(socket.remoteAddress)
-    })
-
-    //使用命令行工具创建一个线程内的客户端连接事件 telnet
-    telnet localhost 8000
-    //或
-    runTest(exceptedId, done){
-        var client = net.connect(8000, 'localhost');
-        // 获取服务端发送的数据
-
-        client.on('data',(data){
-            assert.equal(data.toString, exceptedId)
-            client.end();
-        })
-        client.on('end', done)
-        client.on('close',()=>{
-
-        })
-    }
-`
-
-
-### Tcp聊天工作室
-`
-
-    var net = require('net')
-    var server = net.createServer((socket)=>{
-        socket.setEncoding('uft8')
-        socket.getConnections((err, count)=>{
-            socket.write(`你是第${count}位在线的, 请输入你的昵称\n\r`)
-        })
-        // 接收客户端发送的消息
         socket.on('data',(data)=>{
 
         })
+        socket.on('close'()=>{
+            console.log('客户端关闭')
+        })
+        // 设置客户端的超时时间
+        socket.setTimeout(3000)
+        socket.on('timeout',()=>{
+            console.log('超时了')
+            socket.pipe()
+        })
+        socket.write(clients);
+        // 把客户端的数据返回到客户端
+        socket.pipe(client)
     })
-    server.on('error',(err)=>{
-        console.log('服务出错了', err)
-    })
-    server.listen(8000, ()=>{
-        console.log('聊天工作室已启动')
-    })
+server.listen(8000,()=>{
+    console.log(`服务器地址: ${server.address()}`)
+})
+server.on('error',(err)=>{
+    console.log(err)
+})
 
-`
+server.on('connection',(socket)=>{
+    console.log(socket.remoteAddress)
+})
 
+//使用命令行工具创建一个线程内的客户端连接事件 telnet
+telnet localhost 8000
+//或
+runTest(exceptedId, done){
+    var client = net.connect(8000, 'localhost');
+    // 获取服务端发送的数据
+
+    client.on('data',(data){
+        assert.equal(data.toString, exceptedId)
+        client.end();
+    })
+    client.on('end', done)
+    client.on('close',()=>{
+
+    })
+}
+```
+
+### Tcp聊天工作室
+
+```js
+var net = require('net')
+var server = net.createServer((socket)=>{
+    socket.setEncoding('uft8')
+    socket.getConnections((err, count)=>{
+        socket.write(`你是第${count}位在线的, 请输入你的昵称\n\r`)
+    })
+    // 接收客户端发送的消息
+    socket.on('data',(data)=>{
+
+    })
+})
+server.on('error',(err)=>{
+    console.log('服务出错了', err)
+})
+server.listen(8000, ()=>{
+    console.log('聊天工作室已启动')
+})
+```
 
 ### socket
-+ 一个端口加上一个地址构成一个socket
-+ 同时使用TCP与UDP的有DNS协议
+
++ 一个端口加上一个地址构成一个 socket
++ 同时使用 TCP 与 UDP 的有 DNS 协议
 
 ### HTTP
+
 + 基于net, stream, buffer, event模块作为底层
 + 使用时还会用到crypto, tls(OpenSSL公钥加密)支持加密
 
 ### 线程封装实现异步
+
 + 非阻塞I/O, 线程池, 异步APIs
 + 文件操作底层实现不是异步, 而是线程池
