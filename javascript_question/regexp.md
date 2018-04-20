@@ -23,13 +23,13 @@
 
 ## 位置匹配及特殊表示
 
-- reg?<name>exp 匹配exp, 并将捕获文本放到名称为name的组里
-- reg?=exp reg后匹配exp 正向预测
-- reg?!exp reg后面不跟exp  负向预测
-- (?<=exp)reg exp后面的reg
-- (?<\!)reg exp后面不跟reg
-- (?#comment) 阅读注释
-- $& 全文本
+- `reg?<name>exp` 匹配exp, 并将捕获文本放到名称为name的组里
+- `reg?=exp` reg后匹配exp 正向预测
+- `reg?!exp` reg后面不跟exp  负向预测
+- `(?<=exp)reg` exp后面的reg
+- `(?<\!)reg` exp后面不跟reg
+- `(?#comment)` 阅读注释
+- `$&` 全文本
 - $\` 匹配字符串的左边文本
 - $' 匹配字符串的右边文本
 - $$  $转移
@@ -54,7 +54,7 @@
 
 ### 获取匹配的子捕获: RegExp.$2 != express
 
-### 反向引用：\1  \2
+### 反向引用：`\1  \2`
 
 ```js
 // 示例
@@ -71,7 +71,7 @@
 ### 特殊属性
 
 - input, `RegExp.$_` 整个待匹配字符串
-- leftContext, `RegExp['$\`']` 上次匹配之前的子字符串
+- leftContext, RegExp['$\`'] 上次匹配之前的子字符串
 - lastMatch, `RegExp['$&']` 最后匹配的字符串
 - multiline, `RegExp['$\*']` 是否所有表达式都使用多行模式的布尔值
 - lastParen, `RegExp['$+']` 最后匹配的分组
