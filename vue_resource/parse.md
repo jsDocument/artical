@@ -1,7 +1,7 @@
 # 表达式解析的相关实现
 
 ### parseText(text) 解析{{expression}}的字符串表达式
-1. `tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/`
+1. tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/
 2. lastIndex = tagRE.lastIndex = 0
 3. 循环match = tagRE.exec(text),
     + index = match.index 开始匹配到的位置
@@ -12,6 +12,7 @@
 5. 缓存token并返回
 
 ### parseDirective
+
 + 循环表达式字符str
     1. 判断是否为| 且前后字符不为|,
         1. 如果dir.expression不存在, 则更新下次开始的位置lastFilterIndex = i+1, 更新dir.expression = str.slice(0, i)
@@ -20,6 +21,7 @@
 + 否则如果lastFilterIndex != 0 , 将剩余字符更新为 filter
 
 ### parseExpression
+
 + 定义get
     1. 简单的路径表达式(包含变量 | [字符串] | [number] | new | typeof | void) 且不包含 [时, 直接为'scope.'+表达式构造匿名函数
     2. 对表达式(body)进行改造
@@ -61,7 +63,6 @@
     5. 返回true
 
 ```js
-
 var pathStateMachine = []
 // 模式下的模式或动作
 pathStateMachine[BEFORE_PATH] = {

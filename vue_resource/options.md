@@ -1,4 +1,4 @@
-#mergeOption的初始化与合并规则
+# mergeOption的初始化与合并规则
 
 ### 初始化options中的一些对象, 并把mixins和extend合并起来, 添加到实例的this.$options
 
