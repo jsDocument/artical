@@ -1,8 +1,10 @@
 ## Blob  一段二进制数据
+
 - new Blob(实际数据的数组, {type: MIME})
 - blob.slice(startByte, endByte)
 
 ## file DOM
+
 - value-->fakeURL/filename
 - files-->FileList
 - lastModified
@@ -11,38 +13,34 @@
 - webkitRelativePath
 - size
 
-
 ## File 以文件形式存在的二进制数据
 
-##FileList  File对象的网页表单接口
+## FileList  File对象的网页表单接口
 
 ## FileReader  负责二进制数据读入内存，异步方式读取
+
 1. 方法
-- FileReader(Blob, File)
-- FileReader.readAsBinaryString(Blob | File)   结果为二进制字符串
-- FileReader.readAsText(Blob | File)  文本字符串
-- FileReader.readAsDataURL(Blob | File)   基于base64编码的data-uri对象
-- FileReader.readAsArrayBuffer(Blob | File)  ArrayBuffer对象
-
+  - FileReader(Blob, File)
+  - FileReader.readAsBinaryString(Blob | File)   结果为二进制字符串
+  - FileReader.readAsText(Blob | File)  文本字符串
+  - FileReader.readAsDataURL(Blob | File)   基于base64编码的data-uri对象
+  - FileReader.readAsArrayBuffer(Blob | File)  ArrayBuffer对象
 2. 事件回调
-- onabort
-- onerror
-- onload
-- onloadend
-- onloadstart
-- onprogress
-
+  - onabort
+  - onerror
+  - onload
+  - onloadend
+  - onloadstart
+  - onprogress
 3. reader属性
 - result
 - refs
 - readystate
 
-
 ## URL  对二进制数据生成URL
+
 - URL.createObjectURL(blob)
 - URL.revokeObjectURL(img.src)  清除释放
-
-
 
 form  enctype="multipart/form-data"  把文件传到本机的temp目录
 -----------
