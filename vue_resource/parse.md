@@ -1,7 +1,7 @@
 # 表达式解析的相关实现
 
 ### parseText(text) 解析{{expression}}的字符串表达式
-1. tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/
+1. `tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/`
 2. lastIndex = tagRE.lastIndex = 0
 3. 循环match = tagRE.exec(text),
     + index = match.index 开始匹配到的位置
@@ -39,12 +39,12 @@
 
 + comipleSetter(exp)
     1. 根据exp字符, 分为以下几种类型
-    > 1. ws: 空格符
-      2. ident: 字母_ $
-      3. 本来的字符: [ ] . " ' 0
-      4. number: 1-9
-      5. else
-      6. eof: 字符等于undefined
+        1. ws: 空格符
+        2. ident: 字母_ $
+        3. 本来的字符: [ ] . " ' 0
+        4. number: 1-9
+        5. else
+        6. eof: 字符等于undefined
     2. 定义动作push: 增加keys; append: 定义或更新key, 用newChar来更新; inc_sub_path_depth: append 然后更新深度subPathDepth[开始一个子路径]; push_sub_path: subPathDepth>0说明在子路径内, 更新mode = IN_SUB_PATH, append, 否则 将子路径key处理, 根据key值返回false 或执行 push
     3. 定义不同模式下, 针对不同「类型」所对应的模式及动作: pathStateMachine为数组, [{type: [0], type: [1, 0]}] type所对应的为[状态, 动作]
     4. path状态: 0 beforePath(默认), 1 inPath, 2 beforeIdent, 3 inIdent, 4 inSubPath, 5 inSingleQuote, 6 inDoubleQuote, 7 afterPath, 8 error
