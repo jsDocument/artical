@@ -1,6 +1,6 @@
 # 内部事件初始始化与事件的实现
 
-### 初始化系统事件__initEvents
+## 初始化系统事件__initEvents
 + 如果options.\_asComponent「该属性会在指令绑定时添加」, 则对options.el注册组件事件
 `registerComponentEvents(vm, el)`
     1. 处理元素上的事件绑定属性, handler = 为作用域下调用$eval(attrs[i].value, true)
@@ -23,7 +23,7 @@
 
 
 
-### API event部分「自定义事件」: $on, $once, $off, $emit, $broadcast, $dispatch
+## API event部分「自定义事件」: $on, $once, $off, $emit, $broadcast, $dispatch
 + $on(event, fn)
     1. 将event和fn更新到this.\_events 数组
     2. 更新this的父实例 parent.\_eventCount[event] 的个数 + 1
@@ -61,13 +61,13 @@
     2. 将参数第一项处理成 {name: event, source: this}
     3. 循环其父实例, 如果父实例触发该事件的返回结果 shouldPropagate为真, 更新parent为parent.$parent, 否则更新为null。
 
-### DOM事件
+## DOM事件
 + on(el, event, cb, useCapture)
     1. addEventListener
 + off(el, event, cb)
     1. removeEventListener
 
-### on指令的实现
+## on指令的实现
 + bind()
     1. this.el为iframe 且 this.arg不为'load', 定义this.iframeBind方法, 调用on方法对this.el.contentWindow进行绑定
     2. 调用当前实例[指令]属性的on方法 this.on('load', this.iframeBind)

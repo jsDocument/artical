@@ -1,6 +1,6 @@
 # 工厂
 
-### FragmentFactory(vm, el) 根据vm与el编译, 得到linker
+## FragmentFactory(vm, el) 根据vm与el编译, 得到linker
 + 更新this.vm = vm
 + el为字符串, 或 tempalte标签, template = parseTemplate(el, true)
 + 否则template为创建文档片断, 将el追加到template
@@ -12,7 +12,7 @@
     1. frag为this.template的副本
     2. 返回 new Fragment(this.linker, this.vm, frag, host, scope, parentFrag)
 
-### Fragment(linker, vm, frag, host, scope, parentFrag)  调用linker, 进行数据监听
+## Fragment(linker, vm, frag, host, scope, parentFrag)  调用linker, 进行数据监听
 + this.inserted frag是否在文档中
 + 更新this到parentFrag.childFrags队列
 + frag.childNodes长度为1 且其第一个子节点为__vue_anchor, 更新 __this.node = frag.childNodes[0], this.before = singleBefore, this.remove = singleRemove__

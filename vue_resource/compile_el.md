@@ -64,7 +64,7 @@ Vue.prototype._compile = function (el) {
 }
 ```
 
-### 挂载更新处理options.el, 将toptions.template处理更新到el
+## 挂载更新处理options.el, 将toptions.template处理更新到el
 + transclude(el, options)
     1. options.\_containerAttrs 为el元素上的属性
     2. el为template时, 更新el = 解析__parseTemplate(el)__

@@ -1,4 +1,4 @@
-### watch
+## watch
 ![流程 text](./vue_watcher.png "title")
 
 
@@ -368,7 +368,7 @@ Vue.prototype.$watch = function (expOrFn, cb, options) {
 }
 ```
 
-### 提供的几个方法, 更新数据都会监听并通知进行watcher更新
+## 提供的几个方法, 更新数据都会监听并通知进行watcher更新
 ```
 
 /**
@@ -457,7 +457,7 @@ def(
 )
 ```
 
-### observer 利用Object.defineProperty添加get与set, 通过递归将甩有属性添加get与set.
+## observer 利用Object.defineProperty添加get与set, 通过递归将甩有属性添加get与set.
 ```
 
 export function defineReactive (obj, key, val) {

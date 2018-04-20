@@ -1,6 +1,6 @@
 # 指令的创建与生成及更新
 
-### Directive
+## Directive
 
 + 自定义指令的配置
     1. 钩子函数: bind, inserted, update, componentUpdated, unbind

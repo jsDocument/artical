@@ -1,7 +1,12 @@
 # 表达式解析的相关实现
 
-### parseText(text) 解析{{expression}}的字符串表达式
-1. tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/
+## parseText(text) 解析{{expression}}的字符串表达式
+
+```js
+tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/
+```
+
+1. 上面为匹配标签的正则
 2. lastIndex = tagRE.lastIndex = 0
 3. 循环match = tagRE.exec(text),
     + index = match.index 开始匹配到的位置
@@ -11,7 +16,7 @@
 4. lastIndex < text.length时, 更新tokens[{value: text.slice(lastIndex)}]匹配上次匹配结束到最后内容
 5. 缓存token并返回
 
-### parseDirective
+## parseDirective
 
 + 循环表达式字符str
     1. 判断是否为| 且前后字符不为|,
@@ -20,7 +25,7 @@
 + 循环结束 dir.expression不存在, 则dir.expression = str.slice(0, i)
 + 否则如果lastFilterIndex != 0 , 将剩余字符更新为 filter
 
-### parseExpression
+## parseExpression
 
 + 定义get
     1. 简单的路径表达式(包含变量 | [字符串] | [number] | new | typeof | void) 且不包含 [时, 直接为'scope.'+表达式构造匿名函数
@@ -37,7 +42,7 @@
     1. 解析exp到path
     2. 返回匿名函数(scope, val){ setPath(scope, path, value)}
 
-### parsePath
+## parsePath
 
 + comipleSetter(exp)
     1. 根据exp字符, 分为以下几种类型

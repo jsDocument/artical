@@ -1,13 +1,13 @@
 # 内部几个指令的实现讲解
 
-### partial
+## partial
 
 + 有动态属性name及回调
 + bind: 创建注释节点替换this.el
 + 然后查找options中配置的partials, 存在则创建FragmentFpactory实例this.factory并调用vIF指令的insert
 + unbind时销毁thisfrag
 
-### if
+## if
 
 + bind
     1. el = this.el,
@@ -35,7 +35,7 @@
     2. 根据this.factory创建this.frag = this.factory.create(this.\_host, this.\_scoep, this.\_frag)
     3. 将this.ancor添加到this.frag之前
 
-### slot
+## slot
 
 + bind:
     1. host = this.vm, raw = host.$options.\_content, slotName = this.params.name, context = host.\_context

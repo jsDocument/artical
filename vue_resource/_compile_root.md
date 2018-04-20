@@ -1,6 +1,6 @@
 # 编译其他节点
 
-### 根节点编译, 返回一个linker复合链接函数
+## 根节点编译, 返回一个linker复合链接函数
 
 ```js
 export function compileRoot (el, options, contextOptions) {
@@ -209,7 +209,7 @@ function makeNodeLinkFn (directives) {
 }
 ```
 
-### 解析后的表达式处理
+## 解析后的表达式处理
 1. 加双引号后返回
 2. 加括号后返回
 3. vm.$eval运算后加引号返回

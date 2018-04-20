@@ -1,6 +1,6 @@
 # 编译根节点
 
-### compile(el, options, partial) 编译其他节点, 返回一个可重用的复合链接递归函数
+## compile(el, options, partial) 编译其他节点, 返回一个可重用的复合链接递归函数
 
 ```js
 export function compile (el, options, partial) {

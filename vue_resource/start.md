@@ -109,7 +109,7 @@ if (options.el) {
 }
 ```
 
-### 挂载
+## 挂载
 + 编译与更新el
 + 初始化DOM hook
 + 如果this.$el已在文档中, 则执行attached钩子, 执行ready方法

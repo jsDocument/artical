@@ -1,6 +1,6 @@
 # transition实现讲解
 
-### transition 被指令transition所使用
+## transition 被指令transition所使用
 在指令update(id, oldId)时, 获取options中配置的transitions钩子方法, el.\_\_v\_trans为其Transition实例, oldId存在时移除el上的class: oldId = '-transition'; 否则添加class: id+ '-transition'
 + applyTransition(el, direction, op, vm, cb)
     1. el.transition不存在时, 执行op(append, before, remove), cb存在则执行
@@ -9,7 +9,7 @@
 + beforeWithTransition(el, target, vm, cb)
 + removeWithTransition(el, target, vm, cb)
 
-### Transition(el, id, hooks, vm)类
+## Transition(el, id, hooks, vm)类
 + 初始化实例属性: id, el, enterClass/leaveClass, hooks, type, pendingCssEvent, pendingCssCb, cancle, pendingJsCb为动作结束回调与取消操作, op, cb, justEntered, entered, left, typeCache
 + 定义enterNextTick, enterDone, leaveNextTick, leaveDone属性方法绑定上下文为当前实例
 
