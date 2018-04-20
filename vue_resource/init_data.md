@@ -1,3 +1,5 @@
+# init_data
+
 ### $data
 + 旧数据中, 新数据不存在的属性, 删除该属性
 + 定义对象属特性, get取this.\_data, set更新this.\_data

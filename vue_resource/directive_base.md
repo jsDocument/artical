@@ -1,6 +1,7 @@
 # 指令的创建与生成及更新
 
 ### Directive
+
 + 自定义指令的配置
     1. 钩子函数: bind, inserted, update, componentUpdated, unbind
     2. 钩子函数参数: el, binding:{name, value, oldValue, expression, arg, modifiers}
@@ -18,7 +19,6 @@ directives: {
   }
 }
 ```
-
 
 ```js
 /**
