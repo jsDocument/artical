@@ -1,68 +1,68 @@
-`
-    
+# 编译的整个过程与相关方法讲解
 
-    Vue.prototype._compile = function (el) {
-        var options = this.$options
+```js
+Vue.prototype._compile = function (el) {
+    var options = this.$options
 
-        // 缓存原来的el
-        var original = el
+    // 缓存原来的el
+    var original = el
 
-        // 把template转换成DOM并更新到el
-        el = transclude(el, options)
+    // 把template转换成DOM并更新到el
+    el = transclude(el, options)
 
-        // 判断el为Fragment时, 更新相应的实例属性this._fragmentEnd = el.lastChild, 
-        // this._fragmentStart = el.firstChild, 如果是文本节点则把节点内容清空(text anchors)
-        // this._fragment = el, 调用钩子beforeCompile
-        this._initElement(el)
+    // 判断el为Fragment时, 更新相应的实例属性this._fragmentEnd = el.lastChild,
+    // this._fragmentStart = el.firstChild, 如果是文本节点则把节点内容清空(text anchors)
+    // this._fragment = el, 调用钩子beforeCompile
+    this._initElement(el)
 
-        // handle v-pre on root node (#2026)
-        if (el.nodeType === 1 && getAttr(el, 'v-pre') !== null) {
-          return
-        }
-
-        // 编译根节点
-        // root is always compiled per-instance, because
-        // container attrs and props can be different every time.
-        var contextOptions = this._context && this._context.$options
-        var rootLinker = compileRoot(el, options, contextOptions)
-
-        // 编译并进行连接
-        var contentLinkFn
-        var ctor = this.constructor
-
-        // component compilation can be cached
-        // as long as it's not using inline-template
-
-        // 如果有缓存, 从构造函数的linker属性上获取
-        if (options._linkerCachable) {
-          contentLinkFn = ctor.linker
-          if (!contentLinkFn) {
-            // 编译其他节点
-            contentLinkFn = ctor.linker = compile(el, options)
-          }
-        }
-
-        // 调用rootLinker
-        var rootUnlinkFn = rootLinker(this, el, this._scope)
-        // 调用contentLinker
-        var contentUnlinkFn = contentLinkFn
-          ? contentLinkFn(this, el)
-          : compile(el, options)(this, el)
-
-        // 定义unLinker
-        this._unlinkFn = function () {
-          rootUnlinkFn()
-          contentUnlinkFn(true)
-        }
-
-        if (options.replace) {
-          replace(original, el)
-        }
-
-        this._isCompiled = true
-        this._callHook('compiled')
+    // handle v-pre on root node (#2026)
+    if (el.nodeType === 1 && getAttr(el, 'v-pre') !== null) {
+        return
     }
-`
+
+    // 编译根节点
+    // root is always compiled per-instance, because
+    // container attrs and props can be different every time.
+    var contextOptions = this._context && this._context.$options
+    var rootLinker = compileRoot(el, options, contextOptions)
+
+    // 编译并进行连接
+    var contentLinkFn
+    var ctor = this.constructor
+
+    // component compilation can be cached
+    // as long as it's not using inline-template
+
+    // 如果有缓存, 从构造函数的linker属性上获取
+    if (options._linkerCachable) {
+        contentLinkFn = ctor.linker
+        if (!contentLinkFn) {
+        // 编译其他节点
+        contentLinkFn = ctor.linker = compile(el, options)
+        }
+    }
+
+    // 调用rootLinker
+    var rootUnlinkFn = rootLinker(this, el, this._scope)
+    // 调用contentLinker
+    var contentUnlinkFn = contentLinkFn
+        ? contentLinkFn(this, el)
+        : compile(el, options)(this, el)
+
+    // 定义unLinker
+    this._unlinkFn = function () {
+        rootUnlinkFn()
+        contentUnlinkFn(true)
+    }
+
+    if (options.replace) {
+        replace(original, el)
+    }
+
+    this._isCompiled = true
+    this._callHook('compiled')
+}
+```
 
 ### 挂载更新处理options.el, 将toptions.template处理更新到el
 + transclude(el, options)
@@ -102,7 +102,7 @@
     2. 缓存不存在时, 创建文本片断frag, tagMatch为匹配templateString的标签, entityMatch为匹配实体字符
     3. !tagMatch 且 !entityMatch时, 将templateString创建文本节点, 追加到frag
     4. 创建div的元素--node
-    5. 根据匹配到的tag, 如果需要补全, 则在其前后添加补全的标签, 如tr需要在前后被'<table><tbody>'与'</tbody></table>'补全; 
+    5. 根据匹配到的tag, 如果需要补全, 则在其前后添加补全的标签, 如tr需要在前后被'<table><tbody>'与'</tbody></table>'补全;
     6. 将补全的html更新到node.innerHTML
     7. 递减补全的深度值, 更新node为node.lastChild
     8. 循环node.firstChild, 追加到frag
@@ -118,4 +118,4 @@
     1. 循环node的firstChild, 子节点为空白文本节点或注释节点时, 删除该子节点
     2. 循环node的lastChild, 子节点为空白文本节点或注释节点时, 删除该子节点
 
-+ cloneNode(node)
++ cloneNode(node)  ???

@@ -1,3 +1,5 @@
+# transition实现讲解
+
 ### transition 被指令transition所使用
 在指令update(id, oldId)时, 获取options中配置的transitions钩子方法, el.\_\_v\_trans为其Transition实例, oldId存在时移除el上的class: oldId = '-transition'; 否则添加class: id+ '-transition'
 + applyTransition(el, direction, op, vm, cb)
@@ -22,7 +24,7 @@
     2. 调用beforeEnter钩子函数
     3. 更新this.cb = cb, el元素上添加this.enterClass
     4. 执行op(), 即执行相应的DOM操作
-    5. this.entered = false, 
+    5. this.entered = false,
     6. 执行钩子callHookWithCb('enter'), 判断transitions.hooks中是否定义了该类开的js回调, 定义了则执行
     7. this.cancel更新为this.hooks.enterCancelled
     8. 将this.enterNextTick 更新到队列: pushJob()
@@ -35,7 +37,7 @@
     5. 根据className缓存类型并返回
 
 + setupCssCb(event, cb) 定义动画事件回调, 绑定动画事件回调
-    1. this.pendingCssEvent = event, 
+    1. this.pendingCssEvent = event,
     2. 定义onEnd = this.pendingCssCb 为 e.target === self.el时, 解绑event的onEnd, self.pendingCssEvent与self.pendingCsscb = null, !self.pendingJsCb 且 cb存在则执行cb
     3. 绑定el, event事件, onEnd回调
 

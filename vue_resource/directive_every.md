@@ -1,3 +1,5 @@
+# 内部几个指令的实现讲解
+
 ### partial
 + 有动态属性name及回调
 + bind: 创建注释节点替换this.el
@@ -33,7 +35,7 @@
 
 
 ### slot
-+ bind: 
++ bind:
     1. host = this.vm, raw = host.$options.\_content, slotName = this.params.name, context = host.\_context
     2. 如果slotName不存在, 则编译this.tryCompile(extractFragment(raw.childNodes, raw, true), context, host)
     3. 否则根据slot="slotName" 在raw中查找该节点nodes, nodes存在则编译this.tryCompile(extractFragment(nodes, raw), context, host); 否则this.fallback()
@@ -46,16 +48,17 @@
     2. 否则this.fallback()
 
 + compile(content, context, host) 创建else, Template DOM, 追加到content, 编译content, 替换this.el
-    
-`
 
-    // 创建template元素, 并添加v-else属性, 将this.el的html添加到else元素上，并追加到content
-    const elseBlock = document.createElement('template')
-    elseBlock.setAttribute('v-else', '')
-    elseBlock.innerHTML = this.el.innerHTML
-    content.appendChild(elseBlock)
-`
-    1. this.el有子元素 且content有一个子节点, 且子节点类型为1, 且子节点有if属性, 创建else部分; 
+```js
+
+// 创建template元素, 并添加v-else属性, 将this.el的html添加到else元素上，并追加到content
+const elseBlock = document.createElement('template')
+elseBlock.setAttribute('v-else', '')
+elseBlock.innerHTML = this.el.innerHTML
+content.appendChild(elseBlock)
+```
+
+    1. this.el有子元素 且content有一个子节点, 且子节点类型为1, 且子节点有if属性, 创建else部分;
     2. 更新scope为 host.\_scope 或 this.\_scope
     3. this.unlink = context.$compile(content, host, scope, this.\_frag)
     4. content存在则content替换this.el; 否则移除this.el

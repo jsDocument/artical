@@ -1,3 +1,6 @@
+# 钩子函数的初始化与实现
+
+
 ### \_initDOMHooks
 + 为当前实例添加hook:attached 与 hook:detached钩子
 

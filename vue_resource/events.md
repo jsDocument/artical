@@ -1,3 +1,5 @@
+# 内部事件初始始化与事件的实现
+
 ### 初始化系统事件__initEvents
 + 如果options.\_asComponent「该属性会在指令绑定时添加」, 则对options.el注册组件事件
 `registerComponentEvents(vm, el)`
@@ -14,10 +16,10 @@
     2. 取出对应的handlers, 如果handlers是数组, 则循环对其进行注册; 否则直接对其进行注册register
 
 `register(vm, action, key, handler, options)`
-    
+
     1. 判断handler的类型为function, 则调用相应的动作
     2. handler为string, 则在vm.$options.methods中找相应的方法, 再调用相应的动作
-    3. handler为对象时, register(vm, action, key, handler.handler, handler), 
+    3. handler为对象时, register(vm, action, key, handler.handler, handler),
 
 
 

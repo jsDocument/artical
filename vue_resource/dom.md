@@ -1,3 +1,5 @@
+# DOM操作的几个方法实现
+
 ### replace(target, el)
 + 用target.parentNode 父元素parent, parent.replaceChild(el, target)用el替换target
 
@@ -30,7 +32,7 @@
 + op(end)
 
 ### removeNodeRange(start, end, vm, frag, cb)
-+ done 完成状态 
++ done 完成状态
 + removed 要移除的数量
 + nodes 要移除的节点
 + mapNodeRange(start, end, cb), 更新node到nodes, 更新完成后done = true; 移除回调将nodes追加到frag, 并执行cb()

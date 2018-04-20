@@ -13,25 +13,24 @@
 ### props
 + compileProps(el, propOptions) 循环props, 定义其结构化的数据格式props
 
-`
-
-    {
-        name属性名
-        path name的驼峰式
-        options
-        mode
-        raw 属性值的表达式
-        value 表达式部分
-        filters
-        optimizedLiteral 常量且没有filter
-        dynamic
-        parentPath value表达式
-    }
-`
+```js
+{
+    name属性名
+    path name的驼峰式
+    options
+    mode
+    raw 属性值的表达式
+    value 表达式部分
+    filters
+    optimizedLiteral 常量且没有filter
+    dynamic
+    parentPath value表达式
+}
+```
 + makePropsLinkFn(props)
-+ linker:  
++ linker:
     1. vm.\_context存在, 进行directive绑定--\_bindDir
-    2. 如果有coerce配置, 则对value进行该运算; 
+    2. 如果有coerce配置, 则对value进行该运算;
     3. 类型验证
 
 

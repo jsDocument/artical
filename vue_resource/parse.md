@@ -1,7 +1,9 @@
+# 表达式解析的相关实现
+
 ### parseText(text) 解析{{expression}}的字符串表达式
 1. tagRE = /\{\{\{(.+?)\}\}\} \| \{\{(.+?)\}\}/
 2. lastIndex = tagRE.lastIndex = 0
-3. 循环match = tagRE.exec(text), 
+3. 循环match = tagRE.exec(text),
     + index = match.index 开始匹配到的位置
     + index > lastIndex时, 更新token [{value: text.slice(lastIndex, index)}]; lastIndex为上一轮匹配结束的位置
     + 更新tokens[{tag: true, value为match[1或2], html, oneTime其中value包含\*时}]
@@ -11,12 +13,11 @@
 
 ### parseDirective
 + 循环表达式字符str
-    1. 判断是否为| 且前后字符不为|, 
+    1. 判断是否为| 且前后字符不为|,
         1. 如果dir.expression不存在, 则更新下次开始的位置lastFilterIndex = i+1, 更新dir.expression = str.slice(0, i)
         2. 否则更新filters为 lastFIlterIndex,i; lastFilterIndex = i + 1
 + 循环结束 dir.expression不存在, 则dir.expression = str.slice(0, i)
 + 否则如果lastFilterIndex != 0 , 将剩余字符更新为 filter
-
 
 ### parseExpression
 + 定义get
@@ -38,9 +39,9 @@
 
 + comipleSetter(exp)
     1. 根据exp字符, 分为以下几种类型
-    > 1. ws: 空格符 
+    > 1. ws: 空格符
       2. ident: 字母_ $
-      3. 本来的字符: [ ] . " ' 0 
+      3. 本来的字符: [ ] . " ' 0
       4. number: 1-9
       5. else
       6. eof: 字符等于undefined
@@ -51,70 +52,65 @@
     6. 如果是是对「'」或「"」进行转义的字符, 更新index 与 newChar, 如果error直接返回
     7. transition有动作时, 执行动作为false时, 直接返回
     8. 将keys返回
-    
+
 + setPath(obj, path, val)
     1. path为string, 解析path
-    2. 循环path, last为obj的副本, 
+    2. 循环path, last为obj的副本,
     3. 如果不是数组的最后一项 且 obj[key]不为对象, set(last, key, obj[key])
     4. 否则如果obj为数组obj.$set(key, val) 来更新, 如果key in obj, obj[key] = val; 否则set(obj, key, val)
     5. 返回true
 
-`
-    
-    var pathStateMachine = []
-    // 模式下的模式或动作
-    pathStateMachine[BEFORE_PATH] = {
-      'ws': [BEFORE_PATH],
-      'ident': [IN_IDENT, APPEND],
-      '[': [IN_SUB_PATH],
-      'eof': [AFTER_PATH]
-    }
+```
 
-    pathStateMachine[IN_PATH] = {
-      'ws': [IN_PATH],
-      '.': [BEFORE_IDENT],
-      '[': [IN_SUB_PATH],
-      'eof': [AFTER_PATH]
-    }
+var pathStateMachine = []
+// 模式下的模式或动作
+pathStateMachine[BEFORE_PATH] = {
+  'ws': [BEFORE_PATH],
+  'ident': [IN_IDENT, APPEND],
+  '[': [IN_SUB_PATH],
+  'eof': [AFTER_PATH]
+}
 
-    pathStateMachine[BEFORE_IDENT] = {
-      'ws': [BEFORE_IDENT],
-      'ident': [IN_IDENT, APPEND]
-    }
+pathStateMachine[IN_PATH] = {
+  'ws': [IN_PATH],
+  '.': [BEFORE_IDENT],
+  '[': [IN_SUB_PATH],
+  'eof': [AFTER_PATH]
+}
 
-    pathStateMachine[IN_IDENT] = {
-      'ident': [IN_IDENT, APPEND],
-      '0': [IN_IDENT, APPEND],
-      'number': [IN_IDENT, APPEND],
-      'ws': [IN_PATH, PUSH],
-      '.': [BEFORE_IDENT, PUSH],
-      '[': [IN_SUB_PATH, PUSH],
-      'eof': [AFTER_PATH, PUSH]
-    }
+pathStateMachine[BEFORE_IDENT] = {
+  'ws': [BEFORE_IDENT],
+  'ident': [IN_IDENT, APPEND]
+}
 
-    pathStateMachine[IN_SUB_PATH] = {
-      "'": [IN_SINGLE_QUOTE, APPEND],
-      '"': [IN_DOUBLE_QUOTE, APPEND],
-      '[': [IN_SUB_PATH, INC_SUB_PATH_DEPTH],
-      ']': [IN_PATH, PUSH_SUB_PATH],
-      'eof': ERROR,
-      'else': [IN_SUB_PATH, APPEND]
-    }
+pathStateMachine[IN_IDENT] = {
+  'ident': [IN_IDENT, APPEND],
+  '0': [IN_IDENT, APPEND],
+  'number': [IN_IDENT, APPEND],
+  'ws': [IN_PATH, PUSH],
+  '.': [BEFORE_IDENT, PUSH],
+  '[': [IN_SUB_PATH, PUSH],
+  'eof': [AFTER_PATH, PUSH]
+}
 
-    pathStateMachine[IN_SINGLE_QUOTE] = {
-      "'": [IN_SUB_PATH, APPEND],
-      'eof': ERROR,
-      'else': [IN_SINGLE_QUOTE, APPEND]
-    }
+pathStateMachine[IN_SUB_PATH] = {
+  "'": [IN_SINGLE_QUOTE, APPEND],
+  '"': [IN_DOUBLE_QUOTE, APPEND],
+  '[': [IN_SUB_PATH, INC_SUB_PATH_DEPTH],
+  ']': [IN_PATH, PUSH_SUB_PATH],
+  'eof': ERROR,
+  'else': [IN_SUB_PATH, APPEND]
+}
 
-    pathStateMachine[IN_DOUBLE_QUOTE] = {
-      '"': [IN_SUB_PATH, APPEND],
-      'eof': ERROR,
-      'else': [IN_DOUBLE_QUOTE, APPEND]
-    }
-`
+pathStateMachine[IN_SINGLE_QUOTE] = {
+  "'": [IN_SUB_PATH, APPEND],
+  'eof': ERROR,
+  'else': [IN_SINGLE_QUOTE, APPEND]
+}
 
-
-
-
-
+pathStateMachine[IN_DOUBLE_QUOTE] = {
+  '"': [IN_SUB_PATH, APPEND],
+  'eof': ERROR,
+  'else': [IN_DOUBLE_QUOTE, APPEND]
+}
+```

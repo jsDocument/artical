@@ -1,3 +1,5 @@
+# 工厂
+
 ### FragmentFactory(vm, el) 根据vm与el编译, 得到linker
 + 更新this.vm = vm
 + el为字符串, 或 tempalte标签, template = parseTemplate(el, true)
@@ -26,12 +28,13 @@
 
 + singleRemove
     1. this.inserted = false
-    2. 判断this.node在文档中 shouldCallRemove, 
+    2. 判断this.node在文档中 shouldCallRemove,
     3. 执行this.beforeRemove()
     4. 移除DOM之后的回调执行: 如果shouldCallRemove 则触发detach钩子, 执行self.destory()
 
 
 + beforeRemove
+
     1. 循环this.childFrag进行beforeRemove(false)
     2. 循环this.children进行$destory(false, true)
     3. 循环this.unlink.dirs 进行监听订阅取消
