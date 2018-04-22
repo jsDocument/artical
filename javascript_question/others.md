@@ -5,8 +5,8 @@
 1. 客户端存储有哪些方式
     + cookie, sessionStorage, loacalStorage 及非关系数据库
 2. cookie, sessionStorage和localStorage的区别
-    + cookie可以手动设置失效时间, 默认为会话级
-    + sessionStorage的存储时长是会话级
+    + cookie可以手动设置失效时间, 默认为会话级, cookie可以设置path、domain属性, 不同二级域名共享cookie, 存储少量数据。
+    + sessionStorage的存储时长是会话级, 访问限制为文档源级别,
     + localStorage的存储时长为永久, 除非用户手动用浏览器工具删除
 3. cookie由哪些部分组成
     + Expires 最长有效期
@@ -16,7 +16,10 @@
     + Secure 一个带有安全属性的cookie, 请求在使用SSH和HTTPS时才会被发送到服务器
     + HttpOnly 不能通过javascript.cookie、XMLHttpRequest、Request的API进行访问
 4. Hybrid环境下, 使用客户端存储有哪些需要注意
-
+    + 因为混合应用中的webview从一个页面跳转的另一个页面时，会话并没有像浏览器中那样是继承延续的，也就是说，当在A页面中设置的了sessionStorage值后跳转的下一个页面时，这是sessionStorage是全新的，根本获取不到A页面中设置的任何sessionStorage。
+    + 所以如果你们的app开发者还没有解决这个问题的话，建议这时使用session级别的cookie来代替sessionStorage，因为cookie是可以跨标签访问的，不要会话连续。
+5. session级存储中, session cookie与sessionStorage的区别
+    + sessionStorage的会话基于标签, 标签关闭则传话终止, 而cookie是基于浏览器进程; sessionStorage只能在当前标签下或当前标签下打开的标签才可以访问, 而cookie是可以跨浏览器访问的。
 
 ### 数据类型
 
@@ -43,16 +46,45 @@
 
 6. ES6中的Symbol
     + 是Es6新增的数据类型, 它的每个值都是唯一的, 即使两个完全相同的变量构造出来的Symbol也不相等
-
+    + 原始类型传入Symbol方法时, 会转成字符串再转成Symbol类型, 如果是对象会先调用对象的toString方法再转成成Symbol值
     + 用来消除魔法字符串
 7. ES6中的Map 与 Set, 类数组
+
 8. ES6中的iterator
+
 9. async的实现
+
 10. 如何把字符串转换成数组？
     + join方法
     + Array.from(data, fn)
     + Array.prototype.slice.call
 11. 如何把类数据转换为数组, 如argument与selector返回的DOM列表
+    + Array.from()
+    + Array.slice()
+
+12. 如何判断一个变量为数组
+    `不可用typeof, 因Array继承于Object, 所以会返回object, 亦不可用instanceOf, 因为Array实际是一个引用, 用instance方法和constructor方法都是用引用地址进行比较的方法, 在frame嵌套的情况下, 每个Array的引用地址是不同的, 比较起来结果也是不确定的`
+    + Object.prototype.toString
+    + isArray()
+13. 改变自身的方法
+    + copyWithin() 在数组内部将一段元素序列拷贝到另一段元素序列上, 覆盖原有的值
+    + fill() 将数组中指定区间的所有元素的值, 都替换成某个固定的值
+    + pop() shift() push() unshift()
+    + reverse() sort() splice()
+14. 不改变自身
+    + concat() 返回合并后的新数组
+    + includes()
+    + join() 数组元素组成一个字符串
+    + slice() 新数组
+    + toSource() 表示当前数组字面量的字符串
+    + toString() 返回一个由所有数组组合而成的字符串
+    + indexOf() lastIndexOf()
+15. 遍历
+    + every(), some(), filter() find(), findIndex(), keys(), map() reduce(), reduceRight(), values(), forEach()
+    + entries() 数组迭代器对象, 包含所有数组元素的键值对
+16. Array.prototype为一个长度为0的数组, flatten一个数组: Array.prototype.join; [该方法会让所有的数组元素转换成字符串, 再用分隔符将这些字符串连接起来, undefined或null会转换成空字符串]
+17. 克隆数组可以用concat() 与slice(); 数组也是Object, 直接将引用赋值给另一个变量, 会导致被赋值的变量会随着原数组的变化面变化。
+
 
 ### 数字相关题目
 
@@ -109,12 +141,6 @@
 3. 开启serviceWork提升首页速度
 
 
-### 从输入url, 浏览器都做了些什么
-
-### 写代码用到过的设计与思想
-
-### SPA
-
 ### webpack都做了些什么
 
 + 输出md5文件名
@@ -125,7 +151,6 @@
 
 
 ### 页面生成过程
-
 1. HTML代码转化成DOM
 2. CSS代码转化成CSSOM
 3. 结合DOM与CSSOM生成一棵渲染树

@@ -48,4 +48,4 @@
 14. 按需fork进程。
 
 + execFileSync 同步执行一个命令
-+ spawnSync
++ spawnSync 同步
