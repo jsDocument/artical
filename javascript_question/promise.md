@@ -16,6 +16,7 @@ Class MyPromise{
       this.reject(err);
     }
   }
+  // 继续实现返回promise。。。
   resolve(res){
     if(this.$state !== 'pending') return
     this.$state = 'fulfilled'
