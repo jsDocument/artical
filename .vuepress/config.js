@@ -70,6 +70,7 @@ function genSidebarConfig (title) {
         '/javascript_question/http',
         '/javascript_question/event',
         '/javascript_question/others',
+        '/javascript_question/promise',
         '/bite',
       ]
     },
