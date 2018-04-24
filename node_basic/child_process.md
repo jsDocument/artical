@@ -1,5 +1,12 @@
 # 子进程
 
+## 创建子进程
+1. child_process.exec(command[,options][, callback])
+2. child_process.execFile(file[, args][, options][, callback])
+1. child_process.spawn(command[, args][, callback])
+3. child_process.fork(modulePath[, args][,options][, callback])
+
+
 ### child_process允许异步执行外部应用程序, 并得到结果。
 
 + execFile 把输出结果「存入缓存」, 执行时不需要通过命令解析器
