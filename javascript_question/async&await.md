@@ -89,9 +89,6 @@ function spawn(genF){
 
 ```
 
-## 按顺序完成异步操作
-
-
 ## co模块的实现---流程管理
 
 + co(gen) Generator函数传入就会自动执行
