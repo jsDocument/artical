@@ -32,6 +32,7 @@ function genSidebarConfig (title) {
       children: [
         '/node_basic/',
         '/node_basic/readline',
+        '/node_basic/process',
         '/node_basic/child_process',
         '/node_basic/event',
         '/node_basic/stream',
