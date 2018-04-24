@@ -71,6 +71,7 @@ function genSidebarConfig (title) {
         '/javascript_question/event',
         '/javascript_question/others',
         '/javascript_question/promise',
+        '/javascript_question/async&await',
         '/bite',
       ]
     },
