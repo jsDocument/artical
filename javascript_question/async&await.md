@@ -1,9 +1,9 @@
 # async/await的简单实现
 
-+ async是Generator的一个语法糖, 自带执行器, 返回值是Promise对象
-+ await 后面可以是Promise对象或原始类型的值(等于同步操作)
++ async是Generator的一个语法糖, 自带执行器, 返回值是Promise对象, 函数返回值会被then方法回调函数接收到。
++ await 后面可以是Promise对象或原始类型的值(等于同步操作, 会立即转成reslove成一个promsie对象, 立即resolve), 遇到await会先返回, 等到异步操作完成, 再接着执行函数体内的语句
 + async可以看作是多个异步操作, 包装成一个Promise对象
-+ async的返回值会成为then方法回调函数的参数, async函数内部抛出错误, 会导致Promise对象变为reject状态, 抛出的错误对象会被chatch方法回调函数接收走
++ async的返回值会成为then方法回调函数的参数, async函数内部抛出错误, 会导致Promise对象变为reject状态, 抛出的错误对象会被chatch方法回调函数接收到
 + 使用形式
 
 ```js
@@ -36,13 +36,20 @@ storage.getAvatar('jake').then(…);
 const foo = async () => {};
 ```
 
-+ async函数返回的Promise对象, 必须等到内部所有await命令后面的Promsie对象执行完成, 才会发生状态改变, 除非遇到return语句或抛出错误
++ async函数返回的Promise对象, 必须等到内部所有await命令后面的Promsie对象执行完成, 才会发生状态改变, 除非遇到return语句或抛出错误; 即只有async函数内部的异步操作完成, 才会反选then方法指定的回调函数
 
 ```js
+async function getTitle(url) {
+  let response = await fetch(url);
+  let html = await response.text();
+  return html.match(/<title>([\s\S]+)<\/title>/i)[1];
+}
+getTitle('https://tc39.github.io/ecma262/').then(console.log)
 
 ```
 
 + async函数的实现原理: 将Generator函数与自执行器包装在一个函数里
+> Generator则需要一个任务运行器, 自动执行Generator函数, 且保证yield后面的表达式必须返回一个Promsie
 
 ```js
 function makeAsync(args){
@@ -69,7 +76,7 @@ function spawn(genF){
       if(next.done){
         return resolve(next.value)
       }
-      //
+      // 执行下一步, 将next值传给next作为参数
       Promise.resolve(next.value).then(function(v) {
         step(function() { return gen.next(v); });
       }, function(e) {
@@ -82,11 +89,55 @@ function spawn(genF){
 
 ```
 
-
-
+## 按顺序完成异步操作
 
 
 ## co模块的实现---流程管理
+
++ co(gen) Generator函数传入就会自动执行
++ co函数返回一个Promise对象
++ 原理: 回调函数----将异步操作包装成Thunk函数, 在回调函数里交回执行权; Promise对象----将异步操作包装成Promise对象, 在then方法交回执行权限
+
+```js
+function co(gen) {
+  var ctx = this;
+
+  return new Promise(function(resolve, reject) {
+    // 调用Generator函数
+    if (typeof gen === 'function') gen = gen.call(ctx);
+    if (!gen || typeof gen.next !== 'function') return resolve(gen);
+
+    onFulfilled();
+    // 调用generator的next方法
+    function onFulfilled(res) {
+      var ret;
+      try {
+        ret = gen.next(res);
+      } catch (e) {
+        return reject(e);
+      }
+      next(ret);
+    }
+  });
+  // 反复调用next方法
+  function next(ret) {
+    // 最后一步返回值
+    if (ret.done) return resolve(ret.value);
+    // 确保每一步返回的为Promise对象
+    var value = toPromise.call(ctx, ret.value);
+    // 为返回值加上回调函数
+    if (value && isPromise(value)) return value.then(onFulfilled, onRejected);
+    return onRejected(
+      new TypeError(
+        'You may only yield a function, promise, generator, array, or object, '
+        + 'but the following object was passed: "'
+        + String(ret.value)
+        + '"'
+      )
+    );
+  }
+}
+```
 
 
 ## Thunk函数
@@ -104,23 +155,25 @@ thunkify的实现
 
 ```js
 function thunkify(fn) {
+  // yield表达式调用该方法
   return function() {
+    // 处理其他参数
     var args = new Array(arguments.length);
     var ctx = this;
 
     for (var i = 0; i < args.length; ++i) {
       args[i] = arguments[i];
     }
-
+    //yield表达式的返回值value, 传入next函数
     return function (done) {
       var called;
-
+      // 添加callback到参数队列
       args.push(function () {
         if (called) return;
         called = true;
         done.apply(null, arguments);
       });
-
+      // 调用进行Thunk的方法
       try {
         fn.apply(ctx, args);
       } catch (err) {
@@ -129,6 +182,30 @@ function thunkify(fn) {
     }
   }
 };
+```
+
++ 执行器
+
+```js
+function run(fn) {
+  var gen = fn();
+
+  function next(err, data) {
+    var result = gen.next(data);
+    if (result.done) return;
+    // yield后面是thunk函数, 所以value返回的为一个匿名函数
+    result.value(next);
+  }
+
+  next();
+}
+
+function* g() {
+  // ...
+}
+
+run(g);
+
 ```
 
 ## generator基础学习
