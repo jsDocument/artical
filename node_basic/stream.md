@@ -105,6 +105,11 @@ radable.on('end', ()=> process.stdout.write('done'))
 2. 异步push能够加入事件循环, 不会导致进程阻塞, 但不会进入缓存, 而是直接输出到on('data')中
 3. 同步push, 会阻塞线程, 但会加入缓存中
 
+> 1. 调用完_read()后, read()会试着从缓存中取数据, 如果_read(n)是异步调用的push方法, 些时缓存中的数据量不会增多, 容易出现数据量不够的现象
+  2. 如果read(n)返回的为null, 说明此次未能从缓存中取出所需要的数据, 些时消耗方等到数据到达后再次尝试调用read(n)方法
+  3. 数据到达后是通过readable方法通知消耗方的
+  4. push方法如果立即输出数据, 消耗方只要监听data事件; 否则数据被添加到缓存中, 需要触发readable事件, 消耗方需要监听这个事件并手动调用read()方法
+
 
 + stream.Writable: 输出数据到底层I/O;  \_write(chunk, encoding, cb)
   1. 事件:
