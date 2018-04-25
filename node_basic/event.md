@@ -1,6 +1,6 @@
 # EventEmitter
 
-## node的事件是订阅/发布的一种模式
+node的事件是订阅/发布的一种模式
 
 ## 事件的类EventEmitter
 

@@ -12,7 +12,6 @@
 + execFile 把输出结果「存入缓存」, 执行时不需要通过命令解析器
 1. cp.execFile('commandName',[param],(err, stdout, stderr)=>{})
 2. __查找命令路径要找的到, 要有执行权限, 是否能在该平台执行__
-3. 例:
 
 + spawn 通过「流输出」, 执行时不需要通过命令解析器
 1. one = cp.spawn('commandName', [param])
