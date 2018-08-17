@@ -32,6 +32,7 @@ function genSidebarConfig (title) {
       children: [
         '/node_basic/',
         '/node_basic/readline',
+        '/node_basic/process',
         '/node_basic/child_process',
         '/node_basic/event',
         '/node_basic/stream',
@@ -70,6 +71,8 @@ function genSidebarConfig (title) {
         '/javascript_question/http',
         '/javascript_question/event',
         '/javascript_question/others',
+        '/javascript_question/promise',
+        '/javascript_question/async&await',
         '/bite',
       ]
     },

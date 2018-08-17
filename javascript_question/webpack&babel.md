@@ -25,8 +25,6 @@
 ### 优化
 + 缓存: 代码分割
 
-### webpack编译性能优化
-
 
 ### webpack插件
 + compiler 存放着webpack配置, 代表着从启动到关闭的生命周期
