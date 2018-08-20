@@ -36,6 +36,7 @@
   * [解析](vue_source/parse.md)
 * [位运算基础](bite.md)
 * [webpack&babel了解](bite.md)
-
+* [算法题目](arithmetic/search_str.md)
+  * [模式匹配](arithmetic/reg_match.md)
 
 

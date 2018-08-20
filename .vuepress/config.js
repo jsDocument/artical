@@ -76,5 +76,14 @@ function genSidebarConfig (title) {
         '/bite',
       ]
     },
+    {
+      title: '算法',
+      children: [
+        '/arithmetic/reg_match',
+        '/arithmetic/search_str',
+        '/算法/callStack',
+        '/算法/sort'
+      ]
+    }
   ]
 }

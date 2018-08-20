@@ -1,3 +1,18 @@
+### webpack执行过程
+1. 执行./node_models/.bin/webpack下的shell脚本, 合并执行脚本参数与配置参数
+2. optimist分析参数并以键值对的形式把参数保存在optimist.argv中
+3. 将各个配置拷贝到options对象中, 根据optiimist.argv配置加载相应的插件
+4. webpack的实际入口是Compiler中的run方法, run一量执行后, 就开始编译和构建流程了, 几个比较重要的事件节点
+    + compile 开始编译
+    + make 从入口点分析模块及其依赖的模块，创建这些模块对象
+    + build-module 构建模块
+    + after-compile 完成构建
+    + seal 封装构建结果
+    + emit 把各个chunk输出到结果文件
+    + after-emit 完成输出
+5. compiler.run会触发compile, 构建出Compilation对象, 该对象负责组织整个打包过程, 包含每个构建环节及输出环节所对应的方法
+
+
 ### babel
 + polyfill
 + runtime
