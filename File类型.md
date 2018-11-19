@@ -17,7 +17,7 @@
 
 ## FileList  File对象的网页表单接口
 
-## FileReader  负责二进制数据读入内存，异步方式读取
+## FileReader  负责二进制数据读入内存，异步方式读取，读取客户端文件，读取完毕不会载入到缓存
 
 1. 方法
   - FileReader(Blob, File)
@@ -41,6 +41,9 @@
 
 - URL.createObjectURL(blob)
 - URL.revokeObjectURL(img.src)  清除释放
+
+
+## FormData();
 
 form  enctype="multipart/form-data"  把文件传到本机的temp目录
 -----------
@@ -156,3 +159,130 @@ v3.subarray(2, 3)再建立一个视图
 typedArray = new Unit8Array([1, 2, 3,4])
 
 视图转为数组  Array.from(typedArray)
+
+
+FileReader类，读取客户端文件，读取完毕不会载入到缓存
+实例方法：
+onabort
+abort
+onerror
+onload
+onloadend
+onloadstart
+onprogress
+readyState
+result
+DONE: 2
+EMPTY: 0
+LOADING: 1
+readAsBinaryString(File Object)
+readAsDataURL(File Object)
+readAsText(File Object)
+
+此名之后，上面的result才会有值：
+fileReader.readAsDataURL(uploadButton.files[0]);
+
+File 是H5的对象，file input DOM在onchange事件上，有files属性，可以返回选中文件数组  Dom.files[0] 是File对象的实例；
+File属性：lastModified，lastModifiedDate，name，type
+
+File Error类：可以自己生成此类，用于错误提示，【类名.属性】可以直接使用
+ABORT_ERR: 3
+ENCODING_ERR: 5
+INVALID_MODIFICATION_ERR: 9
+INVALID_STATE_ERR: 7
+NOT_FOUND_ERR: 1
+NOT_READABLE_ERR: 4
+NO_MODIFICATION_ALLOWED_ERR: 6
+PATH_EXISTS_ERR: 12
+QUOTA_EXCEEDED_ERR: 10
+SECURITY_ERR: 2
+SYNTAX_ERR: 8
+TYPE_MISMATCH_ERR: 11
+
+二进制数据Blob：为了存储方便，手动把数据转换为Blob，H5中
+var myblob = new Blob([html, html], {“type”: “text\/xml”}); 两个可选参数，一个是数据，另一个是mine-type
+
+var blob = new Blob([“hello”]);
+a.href = window.URL.createObjectURL(blob);
+a.download = “hello.txt”;
+a.textContent = “download hello"
+body.append(a);
+
+DataTransfer与DataTransferItemList：用于数据的交互，如拖拽上传、拖拽选择
+事件：img外层：ondrop   ondragover(处理ev.preventDefault)
+ondrop处理：1、阻止默认行为；2、data = ev.dataTransfer.getData(“Text”);
+
+img：draggable属性为true  事件：ondragstart
+ondrag处理ev.dataTransfer.setData(“Text”, ev.target.id)
+
+例子：
+<script type="text/javascript" >
+var uploadButton = document.getElementById('uploadFile');
+    uploadButton.onchange = function(){
+        var img = new Image();
+        var fileReader = new FileReader();
+            console.log(fileReader);
+        fileReader.onload = function(evt){
+            var img = new Image();
+            img.src = fileReader.result;
+            console.log(img.width);
+            console.log(img.height);
+        }
+        fileReader.onloadstart = function(evt){
+
+        }
+        fileReader.onloadend = function(evt){
+
+        }
+        fileReader.onprogress = function(evt){
+
+        }
+        fileReader.onerror = function(evt){
+        }
+        fileReader.readAsDataURL(uploadButton.files[0]);
+        // img.src = this.value;
+        // var fso = new ActiveXObject("Scripting.FileSystemObject");
+        // var file = fso.GetFile(this.value);
+        // console.log(file.Attribute);
+        // console.log(uploadButton.files[0]);
+        // console.log(uploadButton.files[0] instanceOf File);
+        img.onload = function(){
+
+        }
+    }
+
+    function dropHandler(e)
+    {
+          e.stopPropagation();
+          e.preventDefault();
+
+        var files = e.dataTransfer.files;
+         for(var i = 0, len = files.length; i < len; i++)
+         {
+            var f = files[i];
+            console.log(f);
+         }
+
+   }
+
+    function dragOverHandler(e)
+    {
+          e.stopPropagation();
+          e.preventDefault();
+          e.dataTransfer.dragEffect = 'copy'; //设置当拖拽到指定区域时，让文件可被复制
+    }
+
+    function dragStartHandler(e)
+    {
+
+    }
+
+    var drag = document.getElementById('drag');
+    drag.addEventListener('drop', dropHandler, false);
+    drag.addEventListener('dragover', dragOverHandler, false);
+    drag.addEventListener('dragover', dragStartHandler, false);
+
+</script>
+
+</body>
+</html>
