@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>技术文档 | compiler 分为三个阶段：生成AST、优化静态内容、生成render</title>
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    
+    <link rel="preload" href="/assets/css/142.styles.8baecc0a.css" as="style"><link rel="preload" href="/assets/js/app.0449fb95.js" as="script"><link rel="preload" href="/assets/js/139.6cc472eb.js" as="script"><link rel="prefetch" href="/assets/js/65.7d7604b1.js"><link rel="prefetch" href="/assets/js/0.2b664149.js"><link rel="prefetch" href="/assets/js/1.89837018.js"><link rel="prefetch" href="/assets/js/2.04ac93f5.js"><link rel="prefetch" href="/assets/js/3.0572817a.js"><link rel="prefetch" href="/assets/js/4.7d4d5d42.js"><link rel="prefetch" href="/assets/js/5.9f383942.js"><link rel="prefetch" href="/assets/js/6.84049ebc.js"><link rel="prefetch" href="/assets/js/7.b8224291.js"><link rel="prefetch" href="/assets/js/8.1d4757e8.js"><link rel="prefetch" href="/assets/js/9.060903eb.js"><link rel="prefetch" href="/assets/js/10.39aac531.js"><link rel="prefetch" href="/assets/js/11.bd16e2a2.js"><link rel="prefetch" href="/assets/js/12.6c7aa3c3.js"><link rel="prefetch" href="/assets/js/13.6ec00222.js"><link rel="prefetch" href="/assets/js/14.54e5588f.js"><link rel="prefetch" href="/assets/js/15.85452bd3.js"><link rel="prefetch" href="/assets/js/16.a47c69d4.js"><link rel="prefetch" href="/assets/js/17.d0f27c82.js"><link rel="prefetch" href="/assets/js/18.357ff19c.js"><link rel="prefetch" href="/assets/js/19.5a8eb230.js"><link rel="prefetch" href="/assets/js/20.e4846e3b.js"><link rel="prefetch" href="/assets/js/21.4994aa72.js"><link rel="prefetch" href="/assets/js/22.9120de5c.js"><link rel="prefetch" href="/assets/js/23.c2b942bc.js"><link rel="prefetch" href="/assets/js/24.5474b8f2.js"><link rel="prefetch" href="/assets/js/25.e20db8c4.js"><link rel="prefetch" href="/assets/js/26.6e0d9d16.js"><link rel="prefetch" href="/assets/js/27.afe56b35.js"><link rel="prefetch" href="/assets/js/28.73eab25c.js"><link rel="prefetch" href="/assets/js/29.ed3c5ec1.js"><link rel="prefetch" href="/assets/js/30.0a83f707.js"><link rel="prefetch" href="/assets/js/31.ef9b88e8.js"><link rel="prefetch" href="/assets/js/32.dad42837.js"><link rel="prefetch" href="/assets/js/33.77dee06c.js"><link rel="prefetch" href="/assets/js/34.e7380976.js"><link rel="prefetch" href="/assets/js/35.3eb60e12.js"><link rel="prefetch" href="/assets/js/36.0180d2d3.js"><link rel="prefetch" href="/assets/js/37.e7d42a60.js"><link rel="prefetch" href="/assets/js/38.f4fb998b.js"><link rel="prefetch" href="/assets/js/39.2d505e64.js"><link rel="prefetch" href="/assets/js/40.ba8449e7.js"><link rel="prefetch" href="/assets/js/41.4ef7223e.js"><link rel="prefetch" href="/assets/js/42.d8a62e36.js"><link rel="prefetch" href="/assets/js/43.5f284fd4.js"><link rel="prefetch" href="/assets/js/44.afc28fe2.js"><link rel="prefetch" href="/assets/js/45.28888c39.js"><link rel="prefetch" href="/assets/js/46.d5a574ed.js"><link rel="prefetch" href="/assets/js/47.b41f625a.js"><link rel="prefetch" href="/assets/js/48.38efb5e8.js"><link rel="prefetch" href="/assets/js/49.3d6afeff.js"><link rel="prefetch" href="/assets/js/50.e5c7ca5f.js"><link rel="prefetch" href="/assets/js/51.accf4534.js"><link rel="prefetch" href="/assets/js/52.6dc8062b.js"><link rel="prefetch" href="/assets/js/53.b4f69d3f.js"><link rel="prefetch" href="/assets/js/54.91619a68.js"><link rel="prefetch" href="/assets/js/55.a1698b19.js"><link rel="prefetch" href="/assets/js/56.e46aee9d.js"><link rel="prefetch" href="/assets/js/57.59767b01.js"><link rel="prefetch" href="/assets/js/58.cea59f7b.js"><link rel="prefetch" href="/assets/js/59.13f7389e.js"><link rel="prefetch" href="/assets/js/60.831e6ec1.js"><link rel="prefetch" href="/assets/js/61.e3b3a5e0.js"><link rel="prefetch" href="/assets/js/62.63493c35.js"><link rel="prefetch" href="/assets/js/63.115ff67c.js"><link rel="prefetch" href="/assets/js/64.5e501197.js"><link rel="prefetch" href="/assets/js/66.e7e4b4fd.js"><link rel="prefetch" href="/assets/js/67.266e6fd7.js"><link rel="prefetch" href="/assets/js/68.d7eef6fb.js"><link rel="prefetch" href="/assets/js/69.9b15d854.js"><link rel="prefetch" href="/assets/js/70.32de467c.js"><link rel="prefetch" href="/assets/js/71.4f448c58.js"><link rel="prefetch" href="/assets/js/72.4a2cd993.js"><link rel="prefetch" href="/assets/js/73.22c31bb8.js"><link rel="prefetch" href="/assets/js/74.1f1353be.js"><link rel="prefetch" href="/assets/js/75.bfb5503f.js"><link rel="prefetch" href="/assets/js/76.f8fe33db.js"><link rel="prefetch" href="/assets/js/77.d4ca9bcf.js"><link rel="prefetch" href="/assets/js/78.590a13c1.js"><link rel="prefetch" href="/assets/js/79.46784c6f.js"><link rel="prefetch" href="/assets/js/80.ec637c45.js"><link rel="prefetch" href="/assets/js/81.4d8593a5.js"><link rel="prefetch" href="/assets/js/82.3583ff89.js"><link rel="prefetch" href="/assets/js/83.730c9b53.js"><link rel="prefetch" href="/assets/js/84.8e74b6d1.js"><link rel="prefetch" href="/assets/js/85.f3a295f0.js"><link rel="prefetch" href="/assets/js/86.ff4ab1bc.js"><link rel="prefetch" href="/assets/js/87.40412755.js"><link rel="prefetch" href="/assets/js/88.7d7c762d.js"><link rel="prefetch" href="/assets/js/89.c9db291c.js"><link rel="prefetch" href="/assets/js/90.38e0a01a.js"><link rel="prefetch" href="/assets/js/91.23130e77.js"><link rel="prefetch" href="/assets/js/92.92daa152.js"><link rel="prefetch" href="/assets/js/93.fb6c8365.js"><link rel="prefetch" href="/assets/js/94.fb7e2503.js"><link rel="prefetch" href="/assets/js/95.35de0ab3.js"><link rel="prefetch" href="/assets/js/96.a4a73991.js"><link rel="prefetch" href="/assets/js/97.ebe18e70.js"><link rel="prefetch" href="/assets/js/98.e4e0f45d.js"><link rel="prefetch" href="/assets/js/99.cf03d7e8.js"><link rel="prefetch" href="/assets/js/100.683a49f1.js"><link rel="prefetch" href="/assets/js/101.9a045db8.js"><link rel="prefetch" href="/assets/js/102.cc46d5b2.js"><link rel="prefetch" href="/assets/js/103.be6a56bc.js"><link rel="prefetch" href="/assets/js/104.d6edd262.js"><link rel="prefetch" href="/assets/js/105.209def7c.js"><link rel="prefetch" href="/assets/js/106.3af49bc7.js"><link rel="prefetch" href="/assets/js/107.f398c0c2.js"><link rel="prefetch" href="/assets/js/108.73b3e38d.js"><link rel="prefetch" href="/assets/js/109.0b4ec68c.js"><link rel="prefetch" href="/assets/js/110.4ca42bfe.js"><link rel="prefetch" href="/assets/js/111.2e0a7bee.js"><link rel="prefetch" href="/assets/js/112.f0531039.js"><link rel="prefetch" href="/assets/js/113.2ba364b5.js"><link rel="prefetch" href="/assets/js/114.d514164c.js"><link rel="prefetch" href="/assets/js/115.51677196.js"><link rel="prefetch" href="/assets/js/116.bbb112fe.js"><link rel="prefetch" href="/assets/js/117.271c1917.js"><link rel="prefetch" href="/assets/js/118.8d071e34.js"><link rel="prefetch" href="/assets/js/119.1dfb6ef0.js"><link rel="prefetch" href="/assets/js/120.2653a74e.js"><link rel="prefetch" href="/assets/js/121.5f9e16ba.js"><link rel="prefetch" href="/assets/js/122.08f9edd0.js"><link rel="prefetch" href="/assets/js/123.c445e5ab.js"><link rel="prefetch" href="/assets/js/124.fb8d7bdf.js"><link rel="prefetch" href="/assets/js/125.f54b24d6.js"><link rel="prefetch" href="/assets/js/126.4c72a650.js"><link rel="prefetch" href="/assets/js/127.22879221.js"><link rel="prefetch" href="/assets/js/128.1f8d1a10.js"><link rel="prefetch" href="/assets/js/129.1552fcc7.js"><link rel="prefetch" href="/assets/js/130.0f4ddc21.js"><link rel="prefetch" href="/assets/js/131.5c0265d6.js"><link rel="prefetch" href="/assets/js/132.b7726539.js"><link rel="prefetch" href="/assets/js/133.d90ae7de.js"><link rel="prefetch" href="/assets/js/134.7f583da4.js"><link rel="prefetch" href="/assets/js/135.1283e641.js"><link rel="prefetch" href="/assets/js/136.05162dac.js"><link rel="prefetch" href="/assets/js/137.191164c1.js"><link rel="prefetch" href="/assets/js/138.945fe948.js"><link rel="prefetch" href="/assets/js/140.4822af41.js"><link rel="prefetch" href="/assets/js/141.d34f3964.js">
+    <link rel="stylesheet" href="/assets/css/142.styles.8baecc0a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      技术文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><ul class="sidebar-links"><li><a href="/" class="sidebar-link">技术文档</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>node学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>ES6学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Vue源码学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端常见问题</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端基础</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>算法</span><span class="arrow down"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h1 id="compiler-分为三个阶段：生成ast、优化静态内容、生成render">compiler 分为三个阶段：生成AST、优化静态内容、生成render</h1><blockquote><p>render方法比template更加底层，如果在创建时传入了render函数，模板编译这一步会跳过。</p></blockquote><blockquote><p>以下两步完成配置、更新options项、生成render函数</p></blockquote><h2 id="调用生成compile全局函数">调用生成compile全局函数</h2><ol><li>src/platforms/web/compiler/index.js文件下定义了解析模板的配置，并调用createCompiler创建了compile和compileToFunctions；
+<ul><li>expectHTML</li><li>modules(klass, style)</li><li>directives(v-model, v-html, v-text)</li><li>isPreTag(v-pre)</li><li>isUnaryTag(是否是单标签)</li><li>mustUseProp(需要使用props绑定的属性)</li><li>canbeLeftOpenTag(tr,td)</li><li>isReservedTag(html, svg)</li><li>getTagNamespace(svg, math)</li><li>staticKeys(staticClass, staticStyle)静态关键字</li></ul></li></ol><pre class="language-javascript"><code><span class="token comment">// src/compiler/index.js调用createCompilerCreator并export createCompiler</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> createCompiler <span class="token operator">=</span> <span class="token function">createCompilerCreator</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">baseCompile</span> <span class="token punctuation">(</span>
+  template<span class="token punctuation">:</span> string<span class="token punctuation">,</span>
+  options<span class="token punctuation">:</span> CompilerOptions
+<span class="token punctuation">)</span><span class="token punctuation">:</span> CompiledResult <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> ast <span class="token operator">=</span> <span class="token function">parse</span><span class="token punctuation">(</span>template<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>optimize <span class="token operator">!==</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">optimize</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">const</span> code <span class="token operator">=</span> <span class="token function">generate</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    ast<span class="token punctuation">,</span>
+    render<span class="token punctuation">:</span> code<span class="token punctuation">.</span>render<span class="token punctuation">,</span>
+    staticRenderFns<span class="token punctuation">:</span> code<span class="token punctuation">.</span>staticRenderFns
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createCompilerCreator</span> <span class="token punctuation">(</span>baseCompile<span class="token punctuation">:</span> Function<span class="token punctuation">)</span><span class="token punctuation">:</span> Function <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">createCompiler</span> <span class="token punctuation">(</span>baseOptions<span class="token punctuation">:</span> CompilerOptions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">function</span> <span class="token function">compile</span> <span class="token punctuation">(</span>
+      template<span class="token punctuation">:</span> string<span class="token punctuation">,</span>
+      options<span class="token operator">?</span><span class="token punctuation">:</span> CompilerOptions
+    <span class="token punctuation">)</span><span class="token punctuation">:</span> CompiledResult <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> finalOptions <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>baseOptions<span class="token punctuation">)</span>
+      <span class="token keyword">const</span> errors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token keyword">const</span> tips <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      finalOptions<span class="token punctuation">.</span><span class="token function-variable function">warn</span> <span class="token operator">=</span> <span class="token punctuation">(</span>msg<span class="token punctuation">,</span> tip<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">(</span>tip <span class="token operator">?</span> tips <span class="token punctuation">:</span> errors<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// merge custom modules</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>modules<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          finalOptions<span class="token punctuation">.</span>modules <span class="token operator">=</span>
+            <span class="token punctuation">(</span>baseOptions<span class="token punctuation">.</span>modules <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>modules<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// merge custom directives</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>directives<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          finalOptions<span class="token punctuation">.</span>directives <span class="token operator">=</span> <span class="token function">extend</span><span class="token punctuation">(</span>
+            Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>baseOptions<span class="token punctuation">.</span>directives<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            options<span class="token punctuation">.</span>directives
+          <span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// copy other options</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> key <span class="token keyword">in</span> options<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">!==</span> <span class="token string">'modules'</span> <span class="token operator">&amp;&amp;</span> key <span class="token operator">!==</span> <span class="token string">'directives'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            finalOptions<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> options<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">const</span> compiled <span class="token operator">=</span> <span class="token function">baseCompile</span><span class="token punctuation">(</span>template<span class="token punctuation">,</span> finalOptions<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        errors<span class="token punctuation">.</span>push<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>errors<span class="token punctuation">,</span> <span class="token function">detectErrors</span><span class="token punctuation">(</span>compiled<span class="token punctuation">.</span>ast<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      compiled<span class="token punctuation">.</span>errors <span class="token operator">=</span> errors
+      compiled<span class="token punctuation">.</span>tips <span class="token operator">=</span> tips
+      <span class="token keyword">return</span> compiled
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      compile<span class="token punctuation">,</span>
+      compileToFunctions<span class="token punctuation">:</span> <span class="token function">createCompileToFunctionFn</span><span class="token punctuation">(</span>compile<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre><h2 id="配置options并生成render方法">配置options并生成render方法</h2><ol><li><p>createCompiler(baseOptions), 定义了functionCompileCache来缓存之后的模板，compile主要完成options的更新，调用baseCompile方法
+src/compiler/index.js</p><ul><li>compile--&gt;baseCompile</li><li>compileToFunctions--&gt;compile</li></ul></li><li><p>compileToFunctions 如果有则先从缓存中获取编译结果，否则进行compile来编译--&gt;compiled，根据compiled.render再构造render函数，最终返回对象包含render函数(字符串)与staticRenderFns数组(字符串数组)</p></li></ol><pre class="language-javascript"><code>
+<span class="token comment">// 利用了new Function，并搜集了错误。</span>
+<span class="token keyword">function</span> <span class="token function">createFunction</span> <span class="token punctuation">(</span>code<span class="token punctuation">,</span> errors<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Function</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">err</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    errors<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span> err<span class="token punctuation">,</span> code <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> noop
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createCompileToFunctionFn</span> <span class="token punctuation">(</span>compile<span class="token punctuation">:</span> Function<span class="token punctuation">)</span><span class="token punctuation">:</span> Function <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> cache <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">compileToFunctions</span> <span class="token punctuation">(</span>
+    template<span class="token punctuation">:</span> string<span class="token punctuation">,</span>
+    options<span class="token operator">?</span><span class="token punctuation">:</span> CompilerOptions<span class="token punctuation">,</span>
+    vm<span class="token operator">?</span><span class="token punctuation">:</span> Component
+  <span class="token punctuation">)</span><span class="token punctuation">:</span> CompiledFunctionResult <span class="token punctuation">{</span>
+    options <span class="token operator">=</span> <span class="token function">extend</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+    <span class="token keyword">const</span> warn <span class="token operator">=</span> options<span class="token punctuation">.</span>warn <span class="token operator">||</span> baseWarn
+    <span class="token keyword">delete</span> options<span class="token punctuation">.</span>warn
+
+    <span class="token comment">/* istanbul ignore if */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// detect possible CSP restriction</span>
+      <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">new</span> <span class="token class-name">Function</span><span class="token punctuation">(</span><span class="token string">'return 1'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex">/unsafe-eval|CSP/</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">warn</span><span class="token punctuation">(</span>
+            <span class="token string">'It seems you are using the standalone build of Vue.js in an '</span> <span class="token operator">+</span>
+            <span class="token string">'environment with Content Security Policy that prohibits unsafe-eval. '</span> <span class="token operator">+</span>
+            <span class="token string">'The template compiler cannot work in this environment. Consider '</span> <span class="token operator">+</span>
+            <span class="token string">'relaxing the policy to allow unsafe-eval or pre-compiling your '</span> <span class="token operator">+</span>
+            <span class="token string">'templates into render functions.'</span>
+          <span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// check cache</span>
+    <span class="token keyword">const</span> key <span class="token operator">=</span> options<span class="token punctuation">.</span>delimiters
+      <span class="token operator">?</span> <span class="token function">String</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>delimiters<span class="token punctuation">)</span> <span class="token operator">+</span> template
+      <span class="token punctuation">:</span> template
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>cache<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> cache<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// compile</span>
+    <span class="token keyword">const</span> compiled <span class="token operator">=</span> <span class="token function">compile</span><span class="token punctuation">(</span>template<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+
+    <span class="token comment">// check compilation errors/tips</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>compiled<span class="token punctuation">.</span>errors <span class="token operator">&amp;&amp;</span> compiled<span class="token punctuation">.</span>errors<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">warn</span><span class="token punctuation">(</span>
+          <span class="token template-string"><span class="token string">`Error compiling template:\n\n</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>template<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">\n\n`</span></span> <span class="token operator">+</span>
+          compiled<span class="token punctuation">.</span>errors<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>e <span class="token operator">=&gt;</span> <span class="token template-string"><span class="token string">`- </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>e<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'\n'</span><span class="token punctuation">,</span>
+          vm
+        <span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>compiled<span class="token punctuation">.</span>tips <span class="token operator">&amp;&amp;</span> compiled<span class="token punctuation">.</span>tips<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        compiled<span class="token punctuation">.</span>tips<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>msg <span class="token operator">=&gt;</span> <span class="token function">tip</span><span class="token punctuation">(</span>msg<span class="token punctuation">,</span> vm<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// turn code into functions</span>
+    <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">const</span> fnGenErrors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    res<span class="token punctuation">.</span>render <span class="token operator">=</span> <span class="token function">createFunction</span><span class="token punctuation">(</span>compiled<span class="token punctuation">.</span>render<span class="token punctuation">,</span> fnGenErrors<span class="token punctuation">)</span>
+    res<span class="token punctuation">.</span>staticRenderFns <span class="token operator">=</span> compiled<span class="token punctuation">.</span>staticRenderFns<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>code <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">createFunction</span><span class="token punctuation">(</span>code<span class="token punctuation">,</span> fnGenErrors<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// check function generation errors.</span>
+    <span class="token comment">// this should only happen if there is a bug in the compiler itself.</span>
+    <span class="token comment">// mostly for codegen development use</span>
+    <span class="token comment">/* istanbul ignore if */</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">!</span>compiled<span class="token punctuation">.</span>errors <span class="token operator">||</span> <span class="token operator">!</span>compiled<span class="token punctuation">.</span>errors<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> fnGenErrors<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">warn</span><span class="token punctuation">(</span>
+          <span class="token template-string"><span class="token string">`Failed to generate render function:\n\n`</span></span> <span class="token operator">+</span>
+          fnGenErrors<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">{</span> err<span class="token punctuation">,</span> code <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>err<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> in\n\n</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>code<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">\n`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          vm
+        <span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>cache<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> res<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token comment">// 生成的render函数如下</span>
+<span class="token function-variable function">render</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">with</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> <span class="token function">_c</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">,</span><span class="token punctuation">{</span>attrs<span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">&quot;id&quot;</span><span class="token punctuation">:</span><span class="token string">&quot;app&quot;</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token function">_c</span><span class="token punctuation">(</span><span class="token string">'p'</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token function">_v</span><span class="token punctuation">(</span><span class="token function">_s</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 此定义与render调用中一一对应</span>
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_o <span class="token operator">=</span> markOnce
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_n <span class="token operator">=</span> toNumber
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_s <span class="token operator">=</span> _toString
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_l <span class="token operator">=</span> renderList
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_t <span class="token operator">=</span> renderSlot
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_q <span class="token operator">=</span> looseEqual
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_i <span class="token operator">=</span> looseIndexOf
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_m <span class="token operator">=</span> renderStatic
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_f <span class="token operator">=</span> resolveFilter
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_k <span class="token operator">=</span> checkKeyCodes
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_b <span class="token operator">=</span> bindObjectProps
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_v <span class="token operator">=</span> createTextVNode
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_e <span class="token operator">=</span> createEmptyVNode
+Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>_u <span class="token operator">=</span> resolveScopedSlots
+
+<span class="token comment">// 静态内容的render</span>
+<span class="token function-variable function">staticRenderFns</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">with</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> <span class="token function">_c</span><span class="token punctuation">(</span><span class="token string">'p'</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token function">_v</span><span class="token punctuation">(</span><span class="token string">&quot;这是&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">_c</span><span class="token punctuation">(</span><span class="token string">'span'</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token function">_v</span><span class="token punctuation">(</span><span class="token string">&quot;静态内容&quot;</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre><h2 id="生成ast-parse调用parsehtml">生成AST--parse调用parseHTML</h2><pre class="language-javascript"><code><span class="token comment">// 入口</span>
+<span class="token keyword">function</span> <span class="token function">baseCompile</span> <span class="token punctuation">(</span>
+  template<span class="token punctuation">:</span> string<span class="token punctuation">,</span>
+  options<span class="token punctuation">:</span> CompilerOptions
+<span class="token punctuation">)</span><span class="token punctuation">:</span> CompiledResult <span class="token punctuation">{</span>
+<span class="token comment">// 解析template，生成AST</span>
+  <span class="token keyword">const</span> ast <span class="token operator">=</span> <span class="token function">parse</span><span class="token punctuation">(</span>template<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+<span class="token comment">// optimize(ast, options)主要是对ast进行优化，分析出静态不变的内容部分，增加了部分属性</span>
+  <span class="token function">optimize</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+<span class="token comment">// 根据AST生成render函数和staticRenderFns数组</span>
+  <span class="token keyword">const</span> code <span class="token operator">=</span> <span class="token function">generate</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    ast<span class="token punctuation">,</span>
+    render<span class="token punctuation">:</span> code<span class="token punctuation">.</span>render<span class="token punctuation">,</span>
+    staticRenderFns<span class="token punctuation">:</span> code<span class="token punctuation">.</span>staticRenderFns
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 开始</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> onRE <span class="token operator">=</span> <span class="token regex">/^@|^v-on:/</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> dirRE <span class="token operator">=</span> <span class="token regex">/^v-|^@|^:/</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> forAliasRE <span class="token operator">=</span> <span class="token regex">/([^]*?)\s+(?:in|of)\s+([^]*)/</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> forIteratorRE <span class="token operator">=</span> <span class="token regex">/,([^,\}\]]*)(?:,([^,\}\]]*))?$/</span>
+<span class="token keyword">const</span> stripParensRE <span class="token operator">=</span> <span class="token regex">/^\(|\)$/g</span>
+
+<span class="token keyword">const</span> argRE <span class="token operator">=</span> <span class="token regex">/:(.*)$/</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> bindRE <span class="token operator">=</span> <span class="token regex">/^:|^v-bind:/</span>
+<span class="token keyword">const</span> modifierRE <span class="token operator">=</span> <span class="token regex">/\.[^.]+/g</span>
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">parse</span> <span class="token punctuation">(</span>
+  template<span class="token punctuation">:</span> string<span class="token punctuation">,</span>
+  options<span class="token punctuation">:</span> CompilerOptions
+<span class="token punctuation">)</span><span class="token punctuation">:</span> ASTElement <span class="token operator">|</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+  warn <span class="token operator">=</span> options<span class="token punctuation">.</span>warn <span class="token operator">||</span> baseWarn
+
+  platformIsPreTag <span class="token operator">=</span> options<span class="token punctuation">.</span>isPreTag <span class="token operator">||</span> no
+  platformMustUseProp <span class="token operator">=</span> options<span class="token punctuation">.</span>mustUseProp <span class="token operator">||</span> no
+  platformGetTagNamespace <span class="token operator">=</span> options<span class="token punctuation">.</span>getTagNamespace <span class="token operator">||</span> no
+
+  <span class="token comment">// 指令组件的配置modules[{staticKeys, transformNode/preTransformNode, genData}]</span>
+  transforms <span class="token operator">=</span> <span class="token function">pluckModuleFunction</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>modules<span class="token punctuation">,</span> <span class="token string">'transformNode'</span><span class="token punctuation">)</span>
+  preTransforms <span class="token operator">=</span> <span class="token function">pluckModuleFunction</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>modules<span class="token punctuation">,</span> <span class="token string">'preTransformNode'</span><span class="token punctuation">)</span>
+  postTransforms <span class="token operator">=</span> <span class="token function">pluckModuleFunction</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>modules<span class="token punctuation">,</span> <span class="token string">'postTransformNode'</span><span class="token punctuation">)</span>
+
+  delimiters <span class="token operator">=</span> options<span class="token punctuation">.</span>delimiters
+
+  <span class="token keyword">const</span> stack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token keyword">const</span> preserveWhitespace <span class="token operator">=</span> options<span class="token punctuation">.</span>preserveWhitespace <span class="token operator">!==</span> <span class="token boolean">false</span>
+  <span class="token keyword">let</span> root
+  <span class="token keyword">let</span> currentParent
+  <span class="token keyword">let</span> inVPre <span class="token operator">=</span> <span class="token boolean">false</span>
+  <span class="token keyword">let</span> inPre <span class="token operator">=</span> <span class="token boolean">false</span>
+  <span class="token keyword">let</span> warned <span class="token operator">=</span> <span class="token boolean">false</span>
+
+  <span class="token keyword">function</span> <span class="token function">warnOnce</span> <span class="token punctuation">(</span>msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>warned<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      warned <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token function">warn</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">function</span> <span class="token function">closeElement</span> <span class="token punctuation">(</span>element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// check pre state</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>element<span class="token punctuation">.</span>pre<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      inVPre <span class="token operator">=</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">platformIsPreTag</span><span class="token punctuation">(</span>element<span class="token punctuation">.</span>tag<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      inPre <span class="token operator">=</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// apply post-transforms weex中的组件有该配置需要处理</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> postTransforms<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      postTransforms<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">parseHTML</span><span class="token punctuation">(</span>template<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    warn<span class="token punctuation">,</span>
+    expectHTML<span class="token punctuation">:</span> options<span class="token punctuation">.</span>expectHTML<span class="token punctuation">,</span>
+    isUnaryTag<span class="token punctuation">:</span> options<span class="token punctuation">.</span>isUnaryTag<span class="token punctuation">,</span>
+    canBeLeftOpenTag<span class="token punctuation">:</span> options<span class="token punctuation">.</span>canBeLeftOpenTag<span class="token punctuation">,</span>
+    shouldDecodeNewlines<span class="token punctuation">:</span> options<span class="token punctuation">.</span>shouldDecodeNewlines<span class="token punctuation">,</span>
+    shouldDecodeNewlinesForHref<span class="token punctuation">:</span> options<span class="token punctuation">.</span>shouldDecodeNewlinesForHref<span class="token punctuation">,</span>
+    shouldKeepComment<span class="token punctuation">:</span> options<span class="token punctuation">.</span>comments<span class="token punctuation">,</span>
+    <span class="token comment">// 更新element</span>
+    <span class="token function">start</span> <span class="token punctuation">(</span>tag<span class="token punctuation">,</span> attrs<span class="token punctuation">,</span> unary<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// check namespace.</span>
+      <span class="token comment">// inherit parent ns if there is one</span>
+      <span class="token keyword">const</span> ns <span class="token operator">=</span> <span class="token punctuation">(</span>currentParent <span class="token operator">&amp;&amp;</span> currentParent<span class="token punctuation">.</span>ns<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">platformGetTagNamespace</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span>
+
+      <span class="token comment">// handle IE svg bug</span>
+      <span class="token comment">/* istanbul ignore if */</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>isIE <span class="token operator">&amp;&amp;</span> ns <span class="token operator">===</span> <span class="token string">'svg'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        attrs <span class="token operator">=</span> <span class="token function">guardIESVGBug</span><span class="token punctuation">(</span>attrs<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// 处理成该格式的对象{ type: 1, tag, attrsList: attrs, attrsMap: makeAttrsMap(attrs), parent, children: [], ns}</span>
+      <span class="token comment">// 如element1 = {type: 1,tag: &quot;div&quot;,attrsList: [{name: &quot;id&quot;, value: &quot;app&quot;}],attrsMap: {id: &quot;app&quot;},parent: undefined,children: []}</span>
+      <span class="token keyword">let</span> element<span class="token punctuation">:</span> ASTElement <span class="token operator">=</span> <span class="token function">createASTElement</span><span class="token punctuation">(</span>tag<span class="token punctuation">,</span> attrs<span class="token punctuation">,</span> currentParent<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>ns<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        element<span class="token punctuation">.</span>ns <span class="token operator">=</span> ns
+      <span class="token punctuation">}</span>
+ 
+      <span class="token comment">// 是style或script 且不是服务端渲染[_isServer]</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isForbiddenTag</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">isServerRendering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        element<span class="token punctuation">.</span>forbidden <span class="token operator">=</span> <span class="token boolean">true</span>
+        process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> <span class="token function">warn</span><span class="token punctuation">(</span>
+          <span class="token string">'Templates should only be responsible for mapping the state to the '</span> <span class="token operator">+</span>
+          <span class="token string">'UI. Avoid placing tags with side-effects in your templates, such as '</span> <span class="token operator">+</span>
+          <span class="token template-string"><span class="token string">`&lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>tag<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&gt;`</span></span> <span class="token operator">+</span> <span class="token string">', as they will not be parsed.'</span>
+        <span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// apply pre-transforms 执行指针的预处理，负责处理元素的动态type属性，if、for</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> preTransforms<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        element <span class="token operator">=</span> preTransforms<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token operator">||</span> element
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// 判断是否为v-pre，判断元素是否有v-pre属性，如果是则从attrsList中删除该元素</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>inVPre<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">processPre</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>element<span class="token punctuation">.</span>pre<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          inVPre <span class="token operator">=</span> <span class="token boolean">true</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// 判断是否为pre tag</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">platformIsPreTag</span><span class="token punctuation">(</span>element<span class="token punctuation">.</span>tag<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        inPre <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// 如果是pre，则将其attrsList处理成attrs[{name, value}] 或无属性el.plain = true</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>inVPre<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">processRawAttrs</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>element<span class="token punctuation">.</span>processed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// structural directives 判断是否有v-for，进行res = parseFor(value)，将res更新到element上</span>
+        <span class="token function">processFor</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+        <span class="token comment">// element{if:value, else, elseif} 1. 添加条件addIfCondition：element.ifConditions[{exp: value, block: element}] 2.else = true, 3. elseif = value</span>
+        <span class="token function">processIf</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+
+        <span class="token comment">// 如果有v-once属性更新el.once = true</span>
+        <span class="token function">processOnce</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+        <span class="token comment">// stuff element{key, plain, ref, refInFor[是否有for属性]}</span>
+        <span class="token comment">// 如果tag是slot， element{slotName}</span>
+        <span class="token comment">// 否则如果 tag是template，取scope属性值，element{slotScope: scope || el.slot-scope}</span>
+        <span class="token comment">// 否则如果有slot-scope 属性则 element{slotScope: el.slot-scope}</span>
+        <span class="token comment">// 更新element{slotTarget} 即element的slot属性值 并更新element{attr[{slot: slotTarget}]}</span>
+        <span class="token function">processElement</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">function</span> <span class="token function">checkRootConstraints</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'slot'</span> <span class="token operator">||</span> el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'template'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">warnOnce</span><span class="token punctuation">(</span>
+              <span class="token template-string"><span class="token string">`Cannot use &lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>el<span class="token punctuation">.</span>tag<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&gt; as component root element because it may `</span></span> <span class="token operator">+</span>
+              <span class="token string">'contain multiple nodes.'</span>
+            <span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>attrsMap<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">(</span><span class="token string">'v-for'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">warnOnce</span><span class="token punctuation">(</span>
+              <span class="token string">'Cannot use v-for on stateful component root element because '</span> <span class="token operator">+</span>
+              <span class="token string">'it renders multiple elements.'</span>
+            <span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// tree management 检查root的属性，允许有if属性</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>root<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        root <span class="token operator">=</span> element
+        <span class="token function">checkRootConstraints</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// allow root elements with v-if, v-else-if and v-else</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>root<span class="token punctuation">.</span><span class="token keyword">if</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>element<span class="token punctuation">.</span>elseif <span class="token operator">||</span> element<span class="token punctuation">.</span><span class="token keyword">else</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">checkRootConstraints</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+          <span class="token function">addIfCondition</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            exp<span class="token punctuation">:</span> element<span class="token punctuation">.</span>elseif<span class="token punctuation">,</span>
+            block<span class="token punctuation">:</span> element
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">warnOnce</span><span class="token punctuation">(</span>
+            <span class="token template-string"><span class="token string">`Component template should contain exactly one root element. `</span></span> <span class="token operator">+</span>
+            <span class="token template-string"><span class="token string">`If you are using v-if on multiple elements, `</span></span> <span class="token operator">+</span>
+            <span class="token template-string"><span class="token string">`use v-else-if to chain them instead.`</span></span>
+          <span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// 处理元素的else, elseif及slotScope属性，更新currentParent.scopeSlots[name] = element；更新currentParent.children与element.parent</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>currentParent <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>element<span class="token punctuation">.</span>forbidden<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>element<span class="token punctuation">.</span>elseif <span class="token operator">||</span> element<span class="token punctuation">.</span><span class="token keyword">else</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">processIfConditions</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> currentParent<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>element<span class="token punctuation">.</span>slotScope<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// scoped slot</span>
+          currentParent<span class="token punctuation">.</span>plain <span class="token operator">=</span> <span class="token boolean">false</span>
+          <span class="token keyword">const</span> name <span class="token operator">=</span> element<span class="token punctuation">.</span>slotTarget <span class="token operator">||</span> <span class="token string">'&quot;default&quot;'</span>
+          <span class="token punctuation">;</span><span class="token punctuation">(</span>currentParent<span class="token punctuation">.</span>scopedSlots <span class="token operator">||</span> <span class="token punctuation">(</span>currentParent<span class="token punctuation">.</span>scopedSlots <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> element
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          currentParent<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+          element<span class="token punctuation">.</span>parent <span class="token operator">=</span> currentParent
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// 更新currentParent, stack 或 关闭pre 执行weex的postTransforms</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>unary<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        currentParent <span class="token operator">=</span> element
+        stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token function">closeElement</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token function">end</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// remove trailing whitespace </span>
+      <span class="token comment">// 处理stack中最后一个元素的最后一个子元素，如果是空白文本则删除该子元素，并取出该元素，结束该元素</span>
+      <span class="token keyword">const</span> element <span class="token operator">=</span> stack<span class="token punctuation">[</span>stack<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span>
+      <span class="token keyword">const</span> lastNode <span class="token operator">=</span> element<span class="token punctuation">.</span>children<span class="token punctuation">[</span>element<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>lastNode <span class="token operator">&amp;&amp;</span> lastNode<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token number">3</span> <span class="token operator">&amp;&amp;</span> lastNode<span class="token punctuation">.</span>text <span class="token operator">===</span> <span class="token string">' '</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>inPre<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        element<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// pop stack</span>
+      stack<span class="token punctuation">.</span>length <span class="token operator">-=</span> <span class="token number">1</span>
+      currentParent <span class="token operator">=</span> stack<span class="token punctuation">[</span>stack<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span>
+      <span class="token function">closeElement</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token function">chars</span> <span class="token punctuation">(</span>text<span class="token punctuation">:</span> string<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>currentParent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>text <span class="token operator">===</span> template<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">warnOnce</span><span class="token punctuation">(</span>
+              <span class="token string">'Component template requires a root element, rather than just text.'</span>
+            <span class="token punctuation">)</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>text <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">warnOnce</span><span class="token punctuation">(</span>
+              <span class="token template-string"><span class="token string">`text &quot;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>text<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&quot; outside root element will be ignored.`</span></span>
+            <span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// IE textarea placeholder bug</span>
+      <span class="token comment">/* istanbul ignore if */</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>isIE <span class="token operator">&amp;&amp;</span>
+        currentParent<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'textarea'</span> <span class="token operator">&amp;&amp;</span>
+        currentParent<span class="token punctuation">.</span>attrsMap<span class="token punctuation">.</span>placeholder <span class="token operator">===</span> text
+      <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// 如果是非style, script则进行decode及预留空白符处理</span>
+      <span class="token keyword">const</span> children <span class="token operator">=</span> currentParent<span class="token punctuation">.</span>children
+      text <span class="token operator">=</span> inPre <span class="token operator">||</span> text<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token operator">?</span> <span class="token function">isTextTag</span><span class="token punctuation">(</span>currentParent<span class="token punctuation">)</span> <span class="token operator">?</span> text <span class="token punctuation">:</span> <span class="token function">decodeHTMLCached</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+        <span class="token comment">// only preserve whitespace if its not right after a starting tag</span>
+        <span class="token punctuation">:</span> preserveWhitespace <span class="token operator">&amp;&amp;</span> children<span class="token punctuation">.</span>length <span class="token operator">?</span> <span class="token string">' '</span> <span class="token punctuation">:</span> <span class="token string">''</span>
+      <span class="token comment">// 有表达式或有文本</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> res
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>inVPre <span class="token operator">&amp;&amp;</span> text <span class="token operator">!==</span> <span class="token string">' '</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>res <span class="token operator">=</span> <span class="token function">parseText</span><span class="token punctuation">(</span>text<span class="token punctuation">,</span> delimiters<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          children<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            type<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+            expression<span class="token punctuation">:</span> res<span class="token punctuation">.</span>expression<span class="token punctuation">,</span>
+            tokens<span class="token punctuation">:</span> res<span class="token punctuation">.</span>tokens<span class="token punctuation">,</span>
+            text
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment">// 空文本</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>text <span class="token operator">!==</span> <span class="token string">' '</span> <span class="token operator">||</span> <span class="token operator">!</span>children<span class="token punctuation">.</span>length <span class="token operator">||</span> children<span class="token punctuation">[</span>children<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>text <span class="token operator">!==</span> <span class="token string">' '</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          children<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            type<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+            text
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function">comment</span> <span class="token punctuation">(</span>text<span class="token punctuation">:</span> string<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      currentParent<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        type<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+        text<span class="token punctuation">,</span>
+        isComment<span class="token punctuation">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> root
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processPre</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'v-pre'</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>pre <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processRawAttrs</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> l <span class="token operator">=</span> el<span class="token punctuation">.</span>attrsList<span class="token punctuation">.</span>length
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> attrs <span class="token operator">=</span> el<span class="token punctuation">.</span>attrs <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        name<span class="token punctuation">:</span> el<span class="token punctuation">.</span>attrsList<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+        value<span class="token punctuation">:</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>el<span class="token punctuation">.</span>attrsList<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>el<span class="token punctuation">.</span>pre<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// non root node in pre blocks with no attributes</span>
+    el<span class="token punctuation">.</span>plain <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">processElement</span> <span class="token punctuation">(</span>element<span class="token punctuation">:</span> ASTElement<span class="token punctuation">,</span> options<span class="token punctuation">:</span> CompilerOptions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">processKey</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+
+  <span class="token comment">// determine whether this is a plain element after</span>
+  <span class="token comment">// removing structural attributes</span>
+  element<span class="token punctuation">.</span>plain <span class="token operator">=</span> <span class="token operator">!</span>element<span class="token punctuation">.</span>key <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>element<span class="token punctuation">.</span>attrsList<span class="token punctuation">.</span>length
+
+  <span class="token function">processRef</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+  <span class="token function">processSlot</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+  <span class="token function">processComponent</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> transforms<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    element <span class="token operator">=</span> transforms<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token operator">||</span> element
+  <span class="token punctuation">}</span>
+  <span class="token function">processAttrs</span><span class="token punctuation">(</span>element<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processKey</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> exp <span class="token operator">=</span> <span class="token function">getBindingAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'key'</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>exp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'template'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">warn</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`&lt;template&gt; cannot be keyed. Place the key on real elements instead.`</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    el<span class="token punctuation">.</span>key <span class="token operator">=</span> exp
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processRef</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> ref <span class="token operator">=</span> <span class="token function">getBindingAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'ref'</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>ref<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>ref <span class="token operator">=</span> ref
+    el<span class="token punctuation">.</span>refInFor <span class="token operator">=</span> <span class="token function">checkInFor</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">processFor</span> <span class="token punctuation">(</span>el<span class="token punctuation">:</span> ASTElement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> exp
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>exp <span class="token operator">=</span> <span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'v-for'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token function">parseFor</span><span class="token punctuation">(</span>exp<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">extend</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">warn</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token string">`Invalid v-for expression: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>exp<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span>
+      <span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+type ForParseResult <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span><span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+  alias<span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+  iterator1<span class="token operator">?</span><span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+  iterator2<span class="token operator">?</span><span class="token punctuation">:</span> string<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">parseFor</span> <span class="token punctuation">(</span>exp<span class="token punctuation">:</span> string<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token operator">?</span>ForParseResult <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> inMatch <span class="token operator">=</span> exp<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>forAliasRE<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>inMatch<span class="token punctuation">)</span> <span class="token keyword">return</span>
+  <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  res<span class="token punctuation">.</span><span class="token keyword">for</span> <span class="token operator">=</span> inMatch<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> alias <span class="token operator">=</span> inMatch<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>stripParensRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> iteratorMatch <span class="token operator">=</span> alias<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>forIteratorRE<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>iteratorMatch<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span>alias <span class="token operator">=</span> alias<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>forIteratorRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+    res<span class="token punctuation">.</span>iterator1 <span class="token operator">=</span> iteratorMatch<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>iteratorMatch<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      res<span class="token punctuation">.</span>iterator2 <span class="token operator">=</span> iteratorMatch<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span>alias <span class="token operator">=</span> alias
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> res
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processIf</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> exp <span class="token operator">=</span> <span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'v-if'</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>exp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span><span class="token keyword">if</span> <span class="token operator">=</span> exp
+    <span class="token function">addIfCondition</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      exp<span class="token punctuation">:</span> exp<span class="token punctuation">,</span>
+      block<span class="token punctuation">:</span> el
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'v-else'</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      el<span class="token punctuation">.</span><span class="token keyword">else</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">const</span> elseif <span class="token operator">=</span> <span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'v-else-if'</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>elseif<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      el<span class="token punctuation">.</span>elseif <span class="token operator">=</span> elseif
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processIfConditions</span> <span class="token punctuation">(</span>el<span class="token punctuation">,</span> parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> prev <span class="token operator">=</span> <span class="token function">findPrevElement</span><span class="token punctuation">(</span>parent<span class="token punctuation">.</span>children<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>prev <span class="token operator">&amp;&amp;</span> prev<span class="token punctuation">.</span><span class="token keyword">if</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">addIfCondition</span><span class="token punctuation">(</span>prev<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      exp<span class="token punctuation">:</span> el<span class="token punctuation">.</span>elseif<span class="token punctuation">,</span>
+      block<span class="token punctuation">:</span> el
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">warn</span><span class="token punctuation">(</span>
+      <span class="token template-string"><span class="token string">`v-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>el<span class="token punctuation">.</span>elseif <span class="token operator">?</span> <span class="token punctuation">(</span><span class="token string">'else-if=&quot;'</span> <span class="token operator">+</span> el<span class="token punctuation">.</span>elseif <span class="token operator">+</span> <span class="token string">'&quot;'</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> <span class="token string">'else'</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> `</span></span> <span class="token operator">+</span>
+      <span class="token template-string"><span class="token string">`used on element &lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>el<span class="token punctuation">.</span>tag<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&gt; without corresponding v-if.`</span></span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">findPrevElement</span> <span class="token punctuation">(</span>children<span class="token punctuation">:</span> Array<span class="token operator">&lt;</span>any<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token punctuation">:</span> ASTElement <span class="token operator">|</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> i <span class="token operator">=</span> children<span class="token punctuation">.</span>length
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>children<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> children<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> children<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>text <span class="token operator">!==</span> <span class="token string">' '</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">warn</span><span class="token punctuation">(</span>
+          <span class="token template-string"><span class="token string">`text &quot;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>children<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>text<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&quot; between v-if and v-else(-if) `</span></span> <span class="token operator">+</span>
+          <span class="token template-string"><span class="token string">`will be ignored.`</span></span>
+        <span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      children<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">addIfCondition</span> <span class="token punctuation">(</span>el<span class="token punctuation">:</span> ASTElement<span class="token punctuation">,</span> condition<span class="token punctuation">:</span> ASTIfCondition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>el<span class="token punctuation">.</span>ifConditions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>ifConditions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+  el<span class="token punctuation">.</span>ifConditions<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>condition<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processOnce</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> once <span class="token operator">=</span> <span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'v-once'</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>once <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>once <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processSlot</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'slot'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>slotName <span class="token operator">=</span> <span class="token function">getBindingAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> el<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">warn</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token string">`\`key\` does not work on &lt;slot&gt; because slots are abstract outlets `</span></span> <span class="token operator">+</span>
+        <span class="token template-string"><span class="token string">`and can possibly expand into multiple elements. `</span></span> <span class="token operator">+</span>
+        <span class="token template-string"><span class="token string">`Use the key on a wrapping element instead.`</span></span>
+      <span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> slotScope
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'template'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      slotScope <span class="token operator">=</span> <span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'scope'</span><span class="token punctuation">)</span>
+      <span class="token comment">/* istanbul ignore if */</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> slotScope<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">warn</span><span class="token punctuation">(</span>
+          <span class="token template-string"><span class="token string">`the &quot;scope&quot; attribute for scoped slots have been deprecated and `</span></span> <span class="token operator">+</span>
+          <span class="token template-string"><span class="token string">`replaced by &quot;slot-scope&quot; since 2.5. The new &quot;slot-scope&quot; attribute `</span></span> <span class="token operator">+</span>
+          <span class="token template-string"><span class="token string">`can also be used on plain elements in addition to &lt;template&gt; to `</span></span> <span class="token operator">+</span>
+          <span class="token template-string"><span class="token string">`denote scoped slots.`</span></span><span class="token punctuation">,</span>
+          <span class="token boolean">true</span>
+        <span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      el<span class="token punctuation">.</span>slotScope <span class="token operator">=</span> slotScope <span class="token operator">||</span> <span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'slot-scope'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>slotScope <span class="token operator">=</span> <span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'slot-scope'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">/* istanbul ignore if */</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> el<span class="token punctuation">.</span>attrsMap<span class="token punctuation">[</span><span class="token string">'v-for'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">warn</span><span class="token punctuation">(</span>
+          <span class="token template-string"><span class="token string">`Ambiguous combined usage of slot-scope and v-for on &lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>el<span class="token punctuation">.</span>tag<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&gt; `</span></span> <span class="token operator">+</span>
+          <span class="token template-string"><span class="token string">`(v-for takes higher priority). Use a wrapper &lt;template&gt; for the `</span></span> <span class="token operator">+</span>
+          <span class="token template-string"><span class="token string">`scoped slot to make it clearer.`</span></span><span class="token punctuation">,</span>
+          <span class="token boolean">true</span>
+        <span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      el<span class="token punctuation">.</span>slotScope <span class="token operator">=</span> slotScope
+    <span class="token punctuation">}</span>
+    <span class="token keyword">const</span> slotTarget <span class="token operator">=</span> <span class="token function">getBindingAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'slot'</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>slotTarget<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      el<span class="token punctuation">.</span>slotTarget <span class="token operator">=</span> slotTarget <span class="token operator">===</span> <span class="token string">'&quot;&quot;'</span> <span class="token operator">?</span> <span class="token string">'&quot;default&quot;'</span> <span class="token punctuation">:</span> slotTarget
+      <span class="token comment">// preserve slot as an attribute for native shadow DOM compat</span>
+      <span class="token comment">// only for non-scoped slots.</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>tag <span class="token operator">!==</span> <span class="token string">'template'</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>el<span class="token punctuation">.</span>slotScope<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">addAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'slot'</span><span class="token punctuation">,</span> slotTarget<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processComponent</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> binding
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>binding <span class="token operator">=</span> <span class="token function">getBindingAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'is'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>component <span class="token operator">=</span> binding
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">getAndRemoveAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> <span class="token string">'inline-template'</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>inlineTemplate <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">processAttrs</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> list <span class="token operator">=</span> el<span class="token punctuation">.</span>attrsList
+  <span class="token keyword">let</span> i<span class="token punctuation">,</span> l<span class="token punctuation">,</span> name<span class="token punctuation">,</span> rawName<span class="token punctuation">,</span> value<span class="token punctuation">,</span> modifiers<span class="token punctuation">,</span> isProp
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">=</span> list<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    name <span class="token operator">=</span> rawName <span class="token operator">=</span> list<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name
+    value <span class="token operator">=</span> list<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>value
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>dirRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// mark element as dynamic</span>
+      el<span class="token punctuation">.</span>hasBindings <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token comment">// modifiers</span>
+      modifiers <span class="token operator">=</span> <span class="token function">parseModifiers</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>modifiers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>modifierRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>bindRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// v-bind</span>
+        name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>bindRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+        value <span class="token operator">=</span> <span class="token function">parseFilters</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+        isProp <span class="token operator">=</span> <span class="token boolean">false</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>modifiers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>modifiers<span class="token punctuation">.</span>prop<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            isProp <span class="token operator">=</span> <span class="token boolean">true</span>
+            name <span class="token operator">=</span> <span class="token function">camelize</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>name <span class="token operator">===</span> <span class="token string">'innerHtml'</span><span class="token punctuation">)</span> name <span class="token operator">=</span> <span class="token string">'innerHTML'</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>modifiers<span class="token punctuation">.</span>camel<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            name <span class="token operator">=</span> <span class="token function">camelize</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>modifiers<span class="token punctuation">.</span>sync<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">addHandler</span><span class="token punctuation">(</span>
+              el<span class="token punctuation">,</span>
+              <span class="token template-string"><span class="token string">`update:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token function">camelize</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">,</span>
+              <span class="token function">genAssignmentCode</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`$event`</span></span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>isProp <span class="token operator">||</span> <span class="token punctuation">(</span>
+          <span class="token operator">!</span>el<span class="token punctuation">.</span>component <span class="token operator">&amp;&amp;</span> <span class="token function">platformMustUseProp</span><span class="token punctuation">(</span>el<span class="token punctuation">.</span>tag<span class="token punctuation">,</span> el<span class="token punctuation">.</span>attrsMap<span class="token punctuation">.</span>type<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">addProp</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> name<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token function">addAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> name<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>onRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// v-on</span>
+        name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>onRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+        <span class="token function">addHandler</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> modifiers<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> warn<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment">// normal directives</span>
+        name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>dirRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+        <span class="token comment">// parse arg</span>
+        <span class="token keyword">const</span> argMatch <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>argRE<span class="token punctuation">)</span>
+        <span class="token keyword">const</span> arg <span class="token operator">=</span> argMatch <span class="token operator">&amp;&amp;</span> argMatch<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>arg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token punctuation">(</span>arg<span class="token punctuation">.</span>length <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">addDirective</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> name<span class="token punctuation">,</span> rawName<span class="token punctuation">,</span> value<span class="token punctuation">,</span> arg<span class="token punctuation">,</span> modifiers<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> name <span class="token operator">===</span> <span class="token string">'model'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">checkForAliasModel</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> value<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// literal attribute</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token function">parseText</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> delimiters<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">warn</span><span class="token punctuation">(</span>
+            <span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">=&quot;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&quot;: `</span></span> <span class="token operator">+</span>
+            <span class="token string">'Interpolation inside attributes has been removed. '</span> <span class="token operator">+</span>
+            <span class="token string">'Use v-bind or the colon shorthand instead. For example, '</span> <span class="token operator">+</span>
+            <span class="token string">'instead of &lt;div id=&quot;{{ val }}&quot;&gt;, use &lt;div :id=&quot;val&quot;&gt;.'</span>
+          <span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token function">addAttr</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> name<span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token comment">// #6887 firefox doesn't update muted state if set via attribute</span>
+      <span class="token comment">// even immediately after element creation</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>el<span class="token punctuation">.</span>component <span class="token operator">&amp;&amp;</span>
+          name <span class="token operator">===</span> <span class="token string">'muted'</span> <span class="token operator">&amp;&amp;</span>
+          <span class="token function">platformMustUseProp</span><span class="token punctuation">(</span>el<span class="token punctuation">.</span>tag<span class="token punctuation">,</span> el<span class="token punctuation">.</span>attrsMap<span class="token punctuation">.</span>type<span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">addProp</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> name<span class="token punctuation">,</span> <span class="token string">'true'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">checkInFor</span> <span class="token punctuation">(</span>el<span class="token punctuation">:</span> ASTElement<span class="token punctuation">)</span><span class="token punctuation">:</span> boolean <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> parent <span class="token operator">=</span> el
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>parent<span class="token punctuation">.</span><span class="token keyword">for</span> <span class="token operator">!==</span> undefined<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+    parent <span class="token operator">=</span> parent<span class="token punctuation">.</span>parent
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">parseModifiers</span> <span class="token punctuation">(</span>name<span class="token punctuation">:</span> string<span class="token punctuation">)</span><span class="token punctuation">:</span> Object <span class="token operator">|</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> match <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>modifierRE<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>match<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> ret <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    match<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>m <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> ret<span class="token punctuation">[</span>m<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> ret
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">makeAttrsMap</span> <span class="token punctuation">(</span>attrs<span class="token punctuation">:</span> Array<span class="token operator">&lt;</span>Object<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Object <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> map <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">=</span> attrs<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+      process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span>
+      map<span class="token punctuation">[</span>attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>isIE <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>isEdge
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">'duplicate attribute: '</span> <span class="token operator">+</span> attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    map<span class="token punctuation">[</span>attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>value
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> map
+<span class="token punctuation">}</span>
+
+<span class="token comment">// for script (e.g. type=&quot;x/template&quot;) or style, do not decode content</span>
+<span class="token keyword">function</span> <span class="token function">isTextTag</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span><span class="token punctuation">:</span> boolean <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'script'</span> <span class="token operator">||</span> el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'style'</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">isForbiddenTag</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span><span class="token punctuation">:</span> boolean <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">(</span>
+    el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'style'</span> <span class="token operator">||</span>
+    <span class="token punctuation">(</span>el<span class="token punctuation">.</span>tag <span class="token operator">===</span> <span class="token string">'script'</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>
+      <span class="token operator">!</span>el<span class="token punctuation">.</span>attrsMap<span class="token punctuation">.</span>type <span class="token operator">||</span>
+      el<span class="token punctuation">.</span>attrsMap<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'text/javascript'</span>
+    <span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> ieNSBug <span class="token operator">=</span> <span class="token regex">/^xmlns:NS\d+/</span>
+<span class="token keyword">const</span> ieNSPrefix <span class="token operator">=</span> <span class="token regex">/^NS\d+:/</span>
+
+<span class="token comment">/* istanbul ignore next */</span>
+<span class="token keyword">function</span> <span class="token function">guardIESVGBug</span> <span class="token punctuation">(</span>attrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> attrs<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> attr <span class="token operator">=</span> attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>ieNSBug<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>attr<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      attr<span class="token punctuation">.</span>name <span class="token operator">=</span> attr<span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>ieNSPrefix<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+      res<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>attr<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> res
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">checkForAliasModel</span> <span class="token punctuation">(</span>el<span class="token punctuation">,</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> _el <span class="token operator">=</span> el
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>_el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>_el<span class="token punctuation">.</span><span class="token keyword">for</span> <span class="token operator">&amp;&amp;</span> _el<span class="token punctuation">.</span>alias <span class="token operator">===</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">warn</span><span class="token punctuation">(</span>
+        <span class="token template-string"><span class="token string">`&lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>el<span class="token punctuation">.</span>tag<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> v-model=&quot;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>value<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&quot;&gt;: `</span></span> <span class="token operator">+</span>
+        <span class="token template-string"><span class="token string">`You are binding v-model directly to a v-for iteration alias. `</span></span> <span class="token operator">+</span>
+        <span class="token template-string"><span class="token string">`This will not be able to modify the v-for source array because `</span></span> <span class="token operator">+</span>
+        <span class="token template-string"><span class="token string">`writing to the alias is like modifying a function local variable. `</span></span> <span class="token operator">+</span>
+        <span class="token template-string"><span class="token string">`Consider using an array of objects and use v-model on an object property instead.`</span></span>
+      <span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    _el <span class="token operator">=</span> _el<span class="token punctuation">.</span>parent
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// src/compiler/parser/index.js</span>
+</code></pre><h2 id="对上面代码的语言讲解">对上面代码的语言讲解</h2><ol><li>createASTElement(tag, attrs, parent) 创建AST元素；返回{type: 1, tag, attrsList, attrsMap, parent, childern}</li><li>parse(template, options)
+<ul><li>options{isPreTag, mustUseProp, getTagNamespace, delimiters, preserveWhitespace, modules{transformNode, preTransformNode, postTransformNode}}</li><li>parseHTML(template, {options, start: Fn, end: Fn})；options{expectHTML, isUnaryTag, canBeLeftOpenTag, shouldDecodeNewlines, shouldDecodeNewlinesForHref, comments}</li><li>start(tag, attrs, unary)，inVPre是<code>v-pre</code>， inPre<code>options传入的方法判断是否是v-pretag</code>；
+功能实现：元素预处理校验，if处理，更新element与currentParent 及 stack 并关闭元素
+<ul><li>对element---preTransforms[i](element, options)创建的AST元素， processPre存在时，进行处理processPre(element); 如果element.pre则inVPre = true;</li><li>platformIsPreTag(element.tag)时，inPre = true</li><li>inVPre时processRawAttrs，否则!element.processed时，processFor，processIf，processOnce，processElement</li><li>processRawAttrs(el)：处理v-pre上的属性[{name, value}]，!el.pre---el.plain = true</li><li>root不存在时，取element, 并检查root 不可是 slot与 template 及 v-for属性；否则stack不存在时，root.if 且存在element.elseif 或element.else时，对element进行slot...检查，为root添加if条件----addIfCondition</li><li>其他。。。。</li></ul></li><li>end() 循环关闭元素</li><li>chars(text)</li><li>comment(text)</li></ul></li></ol><h2 id="parsehtml-html-options">parseHTML(html, options)</h2><pre class="language-javascript"><code>
+<span class="token keyword">const</span> attribute <span class="token operator">=</span> <span class="token regex">/^\s*([^\s&quot;'&lt;&gt;\/=]+)(?:\s*(=)\s*(?:&quot;([^&quot;]*)&quot;+|'([^']*)'+|([^\s&quot;'=&lt;&gt;`]+)))?/</span>
+<span class="token keyword">const</span> ncname <span class="token operator">=</span> <span class="token string">'[a-zA-Z_][\\w\\-\\.]*'</span>
+<span class="token keyword">const</span> qnameCapture <span class="token operator">=</span> <span class="token template-string"><span class="token string">`((?:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>ncname<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">\\:)?</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>ncname<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">)`</span></span>
+<span class="token keyword">const</span> startTagOpen <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">RegExp</span><span class="token punctuation">(</span>`<span class="token operator">^</span><span class="token operator">&lt;</span>$<span class="token punctuation">{</span>qnameCapture<span class="token punctuation">}</span><span class="token template-string"><span class="token string">`)
+const startTagClose = /^\s*(\/?)&gt;/
+const endTag = new RegExp(`</span></span><span class="token operator">^</span><span class="token operator">&lt;</span>\\<span class="token operator">/</span>$<span class="token punctuation">{</span>qnameCapture<span class="token punctuation">}</span><span class="token punctuation">[</span><span class="token operator">^</span><span class="token operator">&gt;</span><span class="token punctuation">]</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token template-string"><span class="token string">`)
+const doctype = /^&lt;!DOCTYPE [^&gt;]+&gt;/i
+// #7298: escape - to avoid being pased as HTML comment when inlined in page
+const comment = /^&lt;!\--/
+const conditionalComment = /^&lt;!\[/
+
+// 正则捕获，$1，正常是未匹配为undefined
+let IS_REGEX_CAPTURING_BROKEN = false
+'x'.replace(/x(.)?/g, function (m, g) {
+  IS_REGEX_CAPTURING_BROKEN = g === ''
+})
+
+export function parseHTML (html, options) {
+    const stack = []
+    const expectHTML = options.expectHTML
+    const isUnaryTag = options.isUnaryTag || no
+    const canBeLeftOpenTag = options.canBeLeftOpenTag || no
+    let index = 0
+    let last, lastTag
+    while (html) {
+        last = html
+        // Make sure we're not in a plaintext content element like script/style
+        // 无lastTag或非script, style, textarea且没有前一个标签
+        if (!lastTag || !isPlainTextElement(lastTag)) {
+          let textEnd = html.indexOf('&lt;')
+          // html注释文本，根据注释文本结束，更新剩下的html及index
+          if (textEnd === 0) {
+            // Comment:
+            if (comment.test(html)) {
+              const commentEnd = html.indexOf('--&gt;')
+
+              if (commentEnd &gt;= 0) {
+                if (options.shouldKeepComment) {
+                  options.comment(html.substring(4, commentEnd))
+                }
+                advance(commentEnd + 3)
+                continue
+              }
+            }
+
+            // 条件注释
+            if (conditionalComment.test(html)) {
+              const conditionalEnd = html.indexOf(']&gt;')
+
+              if (conditionalEnd &gt;= 0) {
+                advance(conditionalEnd + 2)
+                continue
+              }
+            }
+
+            // 文档声明
+            const doctypeMatch = html.match(doctype)
+            if (doctypeMatch) {
+              advance(doctypeMatch[0].length)
+              continue
+            }
+
+            // 结束标签，更新html与index，再
+            const endTagMatch = html.match(endTag)
+            if (endTagMatch) {
+              const curIndex = index
+              advance(endTagMatch[0].length)
+              parseEndTag(endTagMatch[1], curIndex, index)
+              continue
+            }
+
+            // Start tag: 返回{tagName, unarySlash, attrs, start, end}
+            const startTagMatch = parseStartTag()
+            if (startTagMatch) {
+              handleStartTag(startTagMatch)
+              // 处理pre, textarea标签后的换行符，并更新html及index
+              if (shouldIgnoreFirstNewline(lastTag, html)) {
+                advance(1)
+              }
+              continue
+            }
+          }
+
+          // 处理有&lt;的文本
+          // 开始处不是&lt;，rest存从&lt;开始向后的内容，如果rest非标签或注释更新textEnd，根据textEnd更新text存储文本内容，next为下个出现&lt;的位置，再更新html及index
+          let text, rest, next
+          if (textEnd &gt;= 0) {
+            rest = html.slice(textEnd)
+            while (
+              !endTag.test(rest) &amp;&amp;
+              !startTagOpen.test(rest) &amp;&amp;
+              !comment.test(rest) &amp;&amp;
+              !conditionalComment.test(rest)
+            ) {
+              // &lt; in plain text, be forgiving and treat it as text
+              // 根据下次出现&lt;的位置next，更新textEnd及rest
+              next = rest.indexOf('&lt;', 1)
+              if (next &lt; 0) break
+              textEnd += next
+              rest = html.slice(textEnd)
+            }
+            text = html.substring(0, textEnd)
+            advance(textEnd)
+          }
+          // 无&lt;的文本
+          if (textEnd &lt; 0) {
+            text = html
+            html = ''
+          }
+          // 对text进行options.chars处理
+          if (options.chars &amp;&amp; text) {
+            options.chars(text)
+          }
+        } else {
+          // 根据lastTag创建正则表达式，并更新到reChache对象，如果非script, style，textarea且lastTag不为noscript
+          let endTagLength = 0
+          const stackedTag = lastTag.toLowerCase()
+          const reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(&lt;/' + stackedTag + '[^&gt;]*&gt;)', 'i'))
+          // 
+          const rest = html.replace(reStackedTag, function (all, text, endTag) {
+            endTagLength = endTag.length
+
+            // 非script, style，textarea且lastTag不为noscript，把注释外层去掉
+            if (!isPlainTextElement(stackedTag) &amp;&amp; stackedTag !== 'noscript') {
+              text = text
+                .replace(/&lt;!\--([\s\S]*?)--&gt;/g, '$1') // #7298
+                .replace(/&lt;!\[CDATA\[([\s\S]*?)]]&gt;/g, '$1')
+            }
+            // pre与textarea的\n处理
+            if (shouldIgnoreFirstNewline(stackedTag, text)) {
+              text = text.slice(1)
+            }
+            if (options.chars) {
+              options.chars(text)
+            }
+            return ''
+          })
+          // 更新html与index
+          index += html.length - rest.length
+          html = rest
+          parseEndTag(stackedTag, index - endTagLength, index)
+        }
+
+        if (html === last) {
+            options.chars &amp;&amp; options.chars(html)
+            if (process.env.NODE_ENV !== 'production' &amp;&amp; !stack.length &amp;&amp; options.warn) {
+                options.warn(`</span></span>Mal<span class="token operator">-</span>formatted tag at end <span class="token keyword">of</span> template<span class="token punctuation">:</span> <span class="token string">&quot;${html}&quot;</span><span class="token template-string"><span class="token string">`)
+            }
+            break
+        }
+    }
+    // 从n开始截取，并更新记录index
+    function advance (n) {
+        index += n
+        html = html.substring(n)
+    }
+
+    // 解析tag的属性、起始、结束位置、单标签
+    function parseStartTag () {
+        const start = html.match(startTagOpen)
+
+        // 匹配标签名，并更新其html及index
+        if (start) {
+          const match = {
+            tagName: start[1],
+            attrs: [],
+            start: index
+          }
+          advance(start[0].length)
+          let end, attr
+          // 匹配属性，且未匹配到结束标签，更新html及index，并将attr更新到match.attrs中
+          while (!(end = html.match(startTagClose)) &amp;&amp; (attr = html.match(attribute))) {
+            advance(attr[0].length)
+            match.attrs.push(attr)
+          }
+
+          // 是否是单标签，更新html及index，更新index到match.end
+          if (end) {
+            match.unarySlash = end[1]
+            advance(end[0].length)
+            match.end = index
+            return match
+          }
+        }
+    }
+    // 外部HTML，元素属性结构化，并将非单标签更新到stack，执行options.start
+    function handleStartTag (match) {
+        const tagName = match.tagName
+        const unarySlash = match.unarySlash
+
+        if (expectHTML) {
+          // 上一个标签p和外层标签为isNonPhrasingTag列表中的时，处理结束标签
+          if (lastTag === 'p' &amp;&amp; isNonPhrasingTag(tagName)) {
+            parseEndTag(lastTag)
+          }
+          // 上一个标签与当前标签一样，且是canBeLeftOpenTag列表中的标签时，处理结束标签
+          if (canBeLeftOpenTag(tagName) &amp;&amp; lastTag === tagName) {
+            parseEndTag(tagName)
+          }
+        }
+
+        // 是单标签
+        const unary = isUnaryTag(tagName) || !!unarySlash
+
+        const l = match.attrs.length
+        const attrs = new Array(l)
+        for (let i = 0; i &lt; l; i++) {
+          const args = match.attrs[i]
+          // hackish work around FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=369778
+          // 如 attribute = /^\s*([^\s&quot;'&lt;&gt;\/=]+)(?:\s*(=)\s*(?:&quot;([^&quot;]*)&quot;+|'([^']*)'+|([^\s&quot;'=&lt;&gt;`</span></span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token operator">/</span>
+          <span class="token comment">// $1属性名，未捕获的空白子项，$2是=，未捕获的引号，$3属性值，或$4单引号属性值，或$5 另一个属性，下面判断如果未捕获则删除该项</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token constant">IS_REGEX_CAPTURING_BROKEN</span> <span class="token operator">&amp;&amp;</span> args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'&quot;&quot;'</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">delete</span> args<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">delete</span> args<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>args<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">delete</span> args<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">const</span> value <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">''</span>
+          <span class="token comment">// 将属性的字符实体转为其对应的符号</span>
+          <span class="token keyword">const</span> shouldDecodeNewlines <span class="token operator">=</span> tagName <span class="token operator">===</span> <span class="token string">'a'</span> <span class="token operator">&amp;&amp;</span> args<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'href'</span>
+            <span class="token operator">?</span> options<span class="token punctuation">.</span>shouldDecodeNewlinesForHref
+            <span class="token punctuation">:</span> options<span class="token punctuation">.</span>shouldDecodeNewlines
+          attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+            name<span class="token punctuation">:</span> args<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            value<span class="token punctuation">:</span> <span class="token function">decodeAttr</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> shouldDecodeNewlines<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 把非单标签更新到stack，更新tagName为lastTag</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>unary<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span> tag<span class="token punctuation">:</span> tagName<span class="token punctuation">,</span> lowerCasedTag<span class="token punctuation">:</span> tagName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> attrs<span class="token punctuation">:</span> attrs <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          lastTag <span class="token operator">=</span> tagName
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// 执行options.start方法</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          options<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> attrs<span class="token punctuation">,</span> unary<span class="token punctuation">,</span> match<span class="token punctuation">.</span>start<span class="token punctuation">,</span> match<span class="token punctuation">.</span>end<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 根据tagName从stack取元素并执行options.end方法，并更新stack.length及lastTag</span>
+    <span class="token keyword">function</span> <span class="token function">parseEndTag</span> <span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> pos<span class="token punctuation">,</span> lowerCasedTagName
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> start <span class="token operator">=</span> index
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> end <span class="token operator">=</span> index
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>tagName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          lowerCasedTagName <span class="token operator">=</span> tagName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// 取tagName其在stack中存的位置，并执行options.warn及options.end方法，并更新stack的长度为pos，lastTag更新为stack中下一个标签</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>tagName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">for</span> <span class="token punctuation">(</span>pos <span class="token operator">=</span> stack<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> pos <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">;</span> pos<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">[</span>pos<span class="token punctuation">]</span><span class="token punctuation">.</span>lowerCasedTag <span class="token operator">===</span> lowerCasedTagName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">break</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token comment">// If no tag name is provided, clean shop</span>
+          pos <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pos <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// Close all the open elements, up the stack</span>
+          <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> stack<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> pos<span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span>
+              <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> pos <span class="token operator">||</span> <span class="token operator">!</span>tagName<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+              options<span class="token punctuation">.</span>warn
+            <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              options<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span>
+                <span class="token template-string"><span class="token string">`tag &lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>stack<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>tag<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&gt; has no matching end tag.`</span></span>
+              <span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              options<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>stack<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>tag<span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+
+          <span class="token comment">// Remove the open elements from the stack</span>
+          stack<span class="token punctuation">.</span>length <span class="token operator">=</span> pos
+          lastTag <span class="token operator">=</span> pos <span class="token operator">&amp;&amp;</span> stack<span class="token punctuation">[</span>pos <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tag
+
+        <span class="token comment">// br标签执行其options.start方法，p标签执行其options.start及options.end方法</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>lowerCasedTagName <span class="token operator">===</span> <span class="token string">'br'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                options<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>lowerCasedTagName <span class="token operator">===</span> <span class="token string">'p'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                options<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                options<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 将实体字符转为对应符号</span>
+<span class="token keyword">const</span> decodingMap <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string">'&amp;lt;'</span><span class="token punctuation">:</span> <span class="token string">'&lt;'</span><span class="token punctuation">,</span>
+  <span class="token string">'&amp;gt;'</span><span class="token punctuation">:</span> <span class="token string">'&gt;'</span><span class="token punctuation">,</span>
+  <span class="token string">'&amp;quot;'</span><span class="token punctuation">:</span> <span class="token string">'&quot;'</span><span class="token punctuation">,</span>
+  <span class="token string">'&amp;amp;'</span><span class="token punctuation">:</span> <span class="token string">'&amp;'</span><span class="token punctuation">,</span>
+  <span class="token string">'&amp;#10;'</span><span class="token punctuation">:</span> <span class="token string">'\n'</span><span class="token punctuation">,</span>
+  <span class="token string">'&amp;#9;'</span><span class="token punctuation">:</span> <span class="token string">'\t'</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> encodedAttr <span class="token operator">=</span> <span class="token regex">/&amp;(?:lt|gt|quot|amp);/g</span>
+<span class="token keyword">const</span> encodedAttrWithNewLines <span class="token operator">=</span> <span class="token regex">/&amp;(?:lt|gt|quot|amp|#10|#9);/g</span>
+
+<span class="token keyword">function</span> <span class="token function">decodeAttr</span> <span class="token punctuation">(</span>value<span class="token punctuation">,</span> shouldDecodeNewlines<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> re <span class="token operator">=</span> shouldDecodeNewlines <span class="token operator">?</span> encodedAttrWithNewLines <span class="token punctuation">:</span> encodedAttr
+  <span class="token keyword">return</span> value<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>re<span class="token punctuation">,</span> match <span class="token operator">=&gt;</span> decodingMap<span class="token punctuation">[</span>match<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// pre, textarea中的换行符</span>
+<span class="token keyword">const</span> isIgnoreNewlineTag <span class="token operator">=</span> <span class="token function">makeMap</span><span class="token punctuation">(</span><span class="token string">'pre,textarea'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> <span class="token function-variable function">shouldIgnoreFirstNewline</span> <span class="token operator">=</span> <span class="token punctuation">(</span>tag<span class="token punctuation">,</span> html<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> tag <span class="token operator">&amp;&amp;</span> <span class="token function">isIgnoreNewlineTag</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> html<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'\n'</span>
+
+</code></pre><h2 id="opitons-start-tag-attrs-unary-start-end-options-end-tag-start-end-options-chars-text">opitons.start(tag, attrs, unary, start, end), options.end(tag, start, end), options.chars(text)</h2><ul><li><p>处理的情况
+前提处理：last暂存此轮未处理的htl；!lastTag &amp;&amp; !isPlainTextElement(lastTag)；textEnd取html中<code>&lt;</code>的下标；如果为0，处理1--5的情况；否则处理情况6，7</p><ol><li>注释</li></ol><pre class="language-javascript"><code><span class="token comment">// 注释开始</span>
+<span class="token regex">/^&lt;!\--/</span>
+</code></pre><pre><code>  - 如果options.shouldKeepComment, 更新注释内容到options.comment中
+  - 更新位置，注释结束符的index+3
+</code></pre><ol start="2"><li>条件注释
+<ul><li>有条件结束符的结束，更新位置，注释结束符的index+2</li></ul></li></ol><pre class="language-javascript"><code>    <span class="token comment">// 条件注释开始</span>
+    <span class="token operator">/</span><span class="token operator">^</span><span class="token operator">&lt;</span><span class="token operator">!</span>\<span class="token punctuation">[</span><span class="token operator">/</span>
+</code></pre><ol start="3"><li><p>文档类型声明----/^&lt;!DOCTYPE [^&gt;]+&gt;/i</p><ul><li>更新位置即文档类型声明的长度 index+=length</li></ul></li><li><p>结束标签----/^&lt;/[字母_][\w-.][^&gt;]*&gt;/</p><ul><li>将index暂存---curIndex</li><li>更新index为结束标签的长度 index+=length</li><li>parseEndTag(结束标签, curIndex, index)</li></ul></li><li><p>开始标签</p><ul><li>parseStartTag()</li><li>handleStartTag()</li><li>shouldIgnoreFirstNewline()</li><li>更新index += 1</li></ul></li><li><p>textEnd&gt;=0</p><ul><li>rest 存储html 的 textEnd之后的内容</li><li>跳过这些不处理；循环rest 不是结束标签，不是标签的开始，不是注释，不是条件注释；更新next即下一个<code>&lt;</code>的下标，index&gt;=0时，更新到textEnd += next；根据html从textEnd更新rest</li><li>从html更新text,(0---textEnd)</li><li>更新index，即textEnd</li></ul></li><li><p>textEnd小于0， 更新text = html; html = '';
+结束处理：options.chars存在且text时，对options.chars(text)</p></li></ol></li><li><p>advance(n) 更新下次开始位置及html的内容</p></li><li><p>parseStartTag()</p></li><li><p>handleStartTag()</p></li><li><p>parseEndTag(tagName, start, end)</p><ul><li>查找stack中是否有该tagName</li><li>没有该tagName, 进行options.end()处理，更新stack的长度与lastTag</li><li>如果是br标签，则进行options.start();</li><li>如果是p标签，则进行options.start(), options.end();</li></ul></li></ul><p>开始标签开始：/^&lt;[字母_][\w-.]/
+开始标签结束：</p><pre class="language-javascript"><code><span class="token regex">/^\s*(\/?)&gt;/</span>
+</code></pre><h2 id="text-parser">text-parser</h2><pre class="language-javascript"><code><span class="token keyword">const</span> defaultTagRE <span class="token operator">=</span> <span class="token regex">/\{\{((?:.|\n)+?)\}\}/g</span>
+<span class="token keyword">const</span> regexEscapeRE <span class="token operator">=</span> <span class="token regex">/[-.*+?^${}()|[\]\/\\]/g</span>
+
+<span class="token keyword">const</span> buildRegex <span class="token operator">=</span> <span class="token function">cached</span><span class="token punctuation">(</span>delimiters <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> open <span class="token operator">=</span> delimiters<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>regexEscapeRE<span class="token punctuation">,</span> <span class="token string">'\\$&amp;'</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> close <span class="token operator">=</span> delimiters<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>regexEscapeRE<span class="token punctuation">,</span> <span class="token string">'\\$&amp;'</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span>open <span class="token operator">+</span> <span class="token string">'((?:.|\\n)+?)'</span> <span class="token operator">+</span> close<span class="token punctuation">,</span> <span class="token string">'g'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+</code></pre><h2 id="filter-parser">filter-parser</h2><pre class="language-javascript"><code><span class="token keyword">const</span> validDivisionCharRE <span class="token operator">=</span> <span class="token regex">/[\w).+\-_$\]]/</span>
+</code></pre></div><!----><!----></div></div></div>
+    <script src="/assets/js/139.6cc472eb.js" defer></script><script src="/assets/js/app.0449fb95.js" defer></script>
+  </body>
+</html>

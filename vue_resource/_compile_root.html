@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>技术文档 | 编译其他节点</title>
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    
+    <link rel="preload" href="/assets/css/142.styles.8baecc0a.css" as="style"><link rel="preload" href="/assets/js/app.0449fb95.js" as="script"><link rel="preload" href="/assets/js/20.e4846e3b.js" as="script"><link rel="prefetch" href="/assets/js/65.7d7604b1.js"><link rel="prefetch" href="/assets/js/0.2b664149.js"><link rel="prefetch" href="/assets/js/1.89837018.js"><link rel="prefetch" href="/assets/js/2.04ac93f5.js"><link rel="prefetch" href="/assets/js/3.0572817a.js"><link rel="prefetch" href="/assets/js/4.7d4d5d42.js"><link rel="prefetch" href="/assets/js/5.9f383942.js"><link rel="prefetch" href="/assets/js/6.84049ebc.js"><link rel="prefetch" href="/assets/js/7.b8224291.js"><link rel="prefetch" href="/assets/js/8.1d4757e8.js"><link rel="prefetch" href="/assets/js/9.060903eb.js"><link rel="prefetch" href="/assets/js/10.39aac531.js"><link rel="prefetch" href="/assets/js/11.bd16e2a2.js"><link rel="prefetch" href="/assets/js/12.6c7aa3c3.js"><link rel="prefetch" href="/assets/js/13.6ec00222.js"><link rel="prefetch" href="/assets/js/14.54e5588f.js"><link rel="prefetch" href="/assets/js/15.85452bd3.js"><link rel="prefetch" href="/assets/js/16.a47c69d4.js"><link rel="prefetch" href="/assets/js/17.d0f27c82.js"><link rel="prefetch" href="/assets/js/18.357ff19c.js"><link rel="prefetch" href="/assets/js/19.5a8eb230.js"><link rel="prefetch" href="/assets/js/21.4994aa72.js"><link rel="prefetch" href="/assets/js/22.9120de5c.js"><link rel="prefetch" href="/assets/js/23.c2b942bc.js"><link rel="prefetch" href="/assets/js/24.5474b8f2.js"><link rel="prefetch" href="/assets/js/25.e20db8c4.js"><link rel="prefetch" href="/assets/js/26.6e0d9d16.js"><link rel="prefetch" href="/assets/js/27.afe56b35.js"><link rel="prefetch" href="/assets/js/28.73eab25c.js"><link rel="prefetch" href="/assets/js/29.ed3c5ec1.js"><link rel="prefetch" href="/assets/js/30.0a83f707.js"><link rel="prefetch" href="/assets/js/31.ef9b88e8.js"><link rel="prefetch" href="/assets/js/32.dad42837.js"><link rel="prefetch" href="/assets/js/33.77dee06c.js"><link rel="prefetch" href="/assets/js/34.e7380976.js"><link rel="prefetch" href="/assets/js/35.3eb60e12.js"><link rel="prefetch" href="/assets/js/36.0180d2d3.js"><link rel="prefetch" href="/assets/js/37.e7d42a60.js"><link rel="prefetch" href="/assets/js/38.f4fb998b.js"><link rel="prefetch" href="/assets/js/39.2d505e64.js"><link rel="prefetch" href="/assets/js/40.ba8449e7.js"><link rel="prefetch" href="/assets/js/41.4ef7223e.js"><link rel="prefetch" href="/assets/js/42.d8a62e36.js"><link rel="prefetch" href="/assets/js/43.5f284fd4.js"><link rel="prefetch" href="/assets/js/44.afc28fe2.js"><link rel="prefetch" href="/assets/js/45.28888c39.js"><link rel="prefetch" href="/assets/js/46.d5a574ed.js"><link rel="prefetch" href="/assets/js/47.b41f625a.js"><link rel="prefetch" href="/assets/js/48.38efb5e8.js"><link rel="prefetch" href="/assets/js/49.3d6afeff.js"><link rel="prefetch" href="/assets/js/50.e5c7ca5f.js"><link rel="prefetch" href="/assets/js/51.accf4534.js"><link rel="prefetch" href="/assets/js/52.6dc8062b.js"><link rel="prefetch" href="/assets/js/53.b4f69d3f.js"><link rel="prefetch" href="/assets/js/54.91619a68.js"><link rel="prefetch" href="/assets/js/55.a1698b19.js"><link rel="prefetch" href="/assets/js/56.e46aee9d.js"><link rel="prefetch" href="/assets/js/57.59767b01.js"><link rel="prefetch" href="/assets/js/58.cea59f7b.js"><link rel="prefetch" href="/assets/js/59.13f7389e.js"><link rel="prefetch" href="/assets/js/60.831e6ec1.js"><link rel="prefetch" href="/assets/js/61.e3b3a5e0.js"><link rel="prefetch" href="/assets/js/62.63493c35.js"><link rel="prefetch" href="/assets/js/63.115ff67c.js"><link rel="prefetch" href="/assets/js/64.5e501197.js"><link rel="prefetch" href="/assets/js/66.e7e4b4fd.js"><link rel="prefetch" href="/assets/js/67.266e6fd7.js"><link rel="prefetch" href="/assets/js/68.d7eef6fb.js"><link rel="prefetch" href="/assets/js/69.9b15d854.js"><link rel="prefetch" href="/assets/js/70.32de467c.js"><link rel="prefetch" href="/assets/js/71.4f448c58.js"><link rel="prefetch" href="/assets/js/72.4a2cd993.js"><link rel="prefetch" href="/assets/js/73.22c31bb8.js"><link rel="prefetch" href="/assets/js/74.1f1353be.js"><link rel="prefetch" href="/assets/js/75.bfb5503f.js"><link rel="prefetch" href="/assets/js/76.f8fe33db.js"><link rel="prefetch" href="/assets/js/77.d4ca9bcf.js"><link rel="prefetch" href="/assets/js/78.590a13c1.js"><link rel="prefetch" href="/assets/js/79.46784c6f.js"><link rel="prefetch" href="/assets/js/80.ec637c45.js"><link rel="prefetch" href="/assets/js/81.4d8593a5.js"><link rel="prefetch" href="/assets/js/82.3583ff89.js"><link rel="prefetch" href="/assets/js/83.730c9b53.js"><link rel="prefetch" href="/assets/js/84.8e74b6d1.js"><link rel="prefetch" href="/assets/js/85.f3a295f0.js"><link rel="prefetch" href="/assets/js/86.ff4ab1bc.js"><link rel="prefetch" href="/assets/js/87.40412755.js"><link rel="prefetch" href="/assets/js/88.7d7c762d.js"><link rel="prefetch" href="/assets/js/89.c9db291c.js"><link rel="prefetch" href="/assets/js/90.38e0a01a.js"><link rel="prefetch" href="/assets/js/91.23130e77.js"><link rel="prefetch" href="/assets/js/92.92daa152.js"><link rel="prefetch" href="/assets/js/93.fb6c8365.js"><link rel="prefetch" href="/assets/js/94.fb7e2503.js"><link rel="prefetch" href="/assets/js/95.35de0ab3.js"><link rel="prefetch" href="/assets/js/96.a4a73991.js"><link rel="prefetch" href="/assets/js/97.ebe18e70.js"><link rel="prefetch" href="/assets/js/98.e4e0f45d.js"><link rel="prefetch" href="/assets/js/99.cf03d7e8.js"><link rel="prefetch" href="/assets/js/100.683a49f1.js"><link rel="prefetch" href="/assets/js/101.9a045db8.js"><link rel="prefetch" href="/assets/js/102.cc46d5b2.js"><link rel="prefetch" href="/assets/js/103.be6a56bc.js"><link rel="prefetch" href="/assets/js/104.d6edd262.js"><link rel="prefetch" href="/assets/js/105.209def7c.js"><link rel="prefetch" href="/assets/js/106.3af49bc7.js"><link rel="prefetch" href="/assets/js/107.f398c0c2.js"><link rel="prefetch" href="/assets/js/108.73b3e38d.js"><link rel="prefetch" href="/assets/js/109.0b4ec68c.js"><link rel="prefetch" href="/assets/js/110.4ca42bfe.js"><link rel="prefetch" href="/assets/js/111.2e0a7bee.js"><link rel="prefetch" href="/assets/js/112.f0531039.js"><link rel="prefetch" href="/assets/js/113.2ba364b5.js"><link rel="prefetch" href="/assets/js/114.d514164c.js"><link rel="prefetch" href="/assets/js/115.51677196.js"><link rel="prefetch" href="/assets/js/116.bbb112fe.js"><link rel="prefetch" href="/assets/js/117.271c1917.js"><link rel="prefetch" href="/assets/js/118.8d071e34.js"><link rel="prefetch" href="/assets/js/119.1dfb6ef0.js"><link rel="prefetch" href="/assets/js/120.2653a74e.js"><link rel="prefetch" href="/assets/js/121.5f9e16ba.js"><link rel="prefetch" href="/assets/js/122.08f9edd0.js"><link rel="prefetch" href="/assets/js/123.c445e5ab.js"><link rel="prefetch" href="/assets/js/124.fb8d7bdf.js"><link rel="prefetch" href="/assets/js/125.f54b24d6.js"><link rel="prefetch" href="/assets/js/126.4c72a650.js"><link rel="prefetch" href="/assets/js/127.22879221.js"><link rel="prefetch" href="/assets/js/128.1f8d1a10.js"><link rel="prefetch" href="/assets/js/129.1552fcc7.js"><link rel="prefetch" href="/assets/js/130.0f4ddc21.js"><link rel="prefetch" href="/assets/js/131.5c0265d6.js"><link rel="prefetch" href="/assets/js/132.b7726539.js"><link rel="prefetch" href="/assets/js/133.d90ae7de.js"><link rel="prefetch" href="/assets/js/134.7f583da4.js"><link rel="prefetch" href="/assets/js/135.1283e641.js"><link rel="prefetch" href="/assets/js/136.05162dac.js"><link rel="prefetch" href="/assets/js/137.191164c1.js"><link rel="prefetch" href="/assets/js/138.945fe948.js"><link rel="prefetch" href="/assets/js/139.6cc472eb.js"><link rel="prefetch" href="/assets/js/140.4822af41.js"><link rel="prefetch" href="/assets/js/141.d34f3964.js">
+    <link rel="stylesheet" href="/assets/css/142.styles.8baecc0a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      技术文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><ul class="sidebar-links"><li><a href="/" class="sidebar-link">技术文档</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>node学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>ES6学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>Vue源码学习</span><span class="arrow up"></span></p><ul class="sidebar-group-items"><li><a href="/vue_resource/structure.html" class="sidebar-link">vue目录结构导读</a></li><li><a href="/vue_resource/start.html" class="sidebar-link">Vue之旅开始</a></li><li><a href="/vue_resource/options.html" class="sidebar-link">mergeOption的初始化与合并规则</a></li><li><a href="/vue_resource/init_data.html" class="sidebar-link">init_data</a></li><li><a href="/vue_resource/events.html" class="sidebar-link">内部事件初始始化与事件的实现</a></li><li><a href="/vue_resource/compile_el.html" class="sidebar-link">编译的整个过程与相关方法讲解</a></li><li><a href="/vue_resource/_compile_root.html" class="active sidebar-link">编译其他节点</a></li><li><a href="/vue_resource/_compile_rest.html" class="sidebar-link">编译根节点</a></li><li><a href="/vue_resource/directive_base.html" class="sidebar-link">指令的创建与生成及更新</a></li><li><a href="/vue_resource/watch_observer.html" class="sidebar-link">watch</a></li><li><a href="/vue_resource/batcher.html" class="sidebar-link">管理watcher队列</a></li><li><a href="/vue_resource/calculate.html" class="sidebar-link">表达式的运算与执行过滤</a></li><li><a href="/vue_resource/hook.html" class="sidebar-link">钩子函数的初始化与实现</a></li><li><a href="/vue_resource/transition.html" class="sidebar-link">transition实现讲解</a></li><li><a href="/vue_resource/dom.html" class="sidebar-link">DOM操作的几个方法实现</a></li><li><a href="/vue_resource/fragmentFactory.html" class="sidebar-link">工厂</a></li><li><a href="/vue_resource/directive_every.html" class="sidebar-link">内部几个指令的实现讲解</a></li><li><a href="/vue_resource/parse.html" class="sidebar-link">表达式解析的相关实现</a></li></ul></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端常见问题</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端基础</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>算法</span><span class="arrow down"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h1 id="编译其他节点">编译其他节点</h1><h2 id="根节点编译-返回一个linker复合链接函数">根节点编译, 返回一个linker复合链接函数</h2><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">compileRoot</span> <span class="token punctuation">(</span>el<span class="token punctuation">,</span> options<span class="token punctuation">,</span> contextOptions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> containerAttrs <span class="token operator">=</span> options<span class="token punctuation">.</span>_containerAttrs
+  <span class="token keyword">var</span> replacerAttrs <span class="token operator">=</span> options<span class="token punctuation">.</span>_replacerAttrs
+  <span class="token keyword">var</span> contextLinkFn<span class="token punctuation">,</span> replacerLinkFn
+
+  <span class="token comment">// 编译non-fragment的属性</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>el<span class="token punctuation">.</span>nodeType <span class="token operator">!==</span> <span class="token number">11</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// for components, container and replacer need to be</span>
+    <span class="token comment">// compiled separately and linked in different scopes.</span>
+    <span class="token comment">// 组件属性编译</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>_asComponent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 2. container attributes 外层属性</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>containerAttrs <span class="token operator">&amp;&amp;</span> contextOptions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        contextLinkFn <span class="token operator">=</span> <span class="token function">compileDirectives</span><span class="token punctuation">(</span>containerAttrs<span class="token punctuation">,</span> contextOptions<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>replacerAttrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 3. replacer attributes 替换元素属性</span>
+        replacerLinkFn <span class="token operator">=</span> <span class="token function">compileDirectives</span><span class="token punctuation">(</span>replacerAttrs<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// non-component, just compile as a normal element. 其他元素编译</span>
+      replacerLinkFn <span class="token operator">=</span> <span class="token function">compileDirectives</span><span class="token punctuation">(</span>el<span class="token punctuation">.</span>attributes<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> containerAttrs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// warn container directives for fragment instances</span>
+    <span class="token keyword">var</span> names <span class="token operator">=</span> containerAttrs
+      <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>attr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// allow vue-loader/vueify scoped css attributes</span>
+        <span class="token keyword">return</span> attr<span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'_v-'</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+          <span class="token comment">// allow event listeners</span>
+          <span class="token operator">!</span>onRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>attr<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+          <span class="token comment">// allow slots</span>
+          attr<span class="token punctuation">.</span>name <span class="token operator">!==</span> <span class="token string">'slot'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>attr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">'&quot;'</span> <span class="token operator">+</span> attr<span class="token punctuation">.</span>name <span class="token operator">+</span> <span class="token string">'&quot;'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>names<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> plural <span class="token operator">=</span> names<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">1</span>
+      <span class="token function">warn</span><span class="token punctuation">(</span>
+        <span class="token string">'Attribute'</span> <span class="token operator">+</span> <span class="token punctuation">(</span>plural <span class="token operator">?</span> <span class="token string">'s '</span> <span class="token punctuation">:</span> <span class="token string">' '</span><span class="token punctuation">)</span> <span class="token operator">+</span> names<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">', '</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+        <span class="token punctuation">(</span>plural <span class="token operator">?</span> <span class="token string">' are'</span> <span class="token punctuation">:</span> <span class="token string">' is'</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">' ignored on component '</span> <span class="token operator">+</span>
+        <span class="token string">'&lt;'</span> <span class="token operator">+</span> options<span class="token punctuation">.</span>el<span class="token punctuation">.</span>tagName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'&gt; because '</span> <span class="token operator">+</span>
+        <span class="token string">'the component is a fragment instance: '</span> <span class="token operator">+</span>
+        <span class="token string">'http://vuejs.org/guide/components.html#Fragment_Instance'</span>
+      <span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  options<span class="token punctuation">.</span>_containerAttrs <span class="token operator">=</span> options<span class="token punctuation">.</span>_replacerAttrs <span class="token operator">=</span> <span class="token keyword">null</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">rootLinkFn</span> <span class="token punctuation">(</span>vm<span class="token punctuation">,</span> el<span class="token punctuation">,</span> scope<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// link context scope dirs</span>
+    <span class="token keyword">var</span> context <span class="token operator">=</span> vm<span class="token punctuation">.</span>_context
+    <span class="token keyword">var</span> contextDirs
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>context <span class="token operator">&amp;&amp;</span> contextLinkFn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      contextDirs <span class="token operator">=</span> <span class="token function">linkAndCapture</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">contextLinkFn</span><span class="token punctuation">(</span>context<span class="token punctuation">,</span> el<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> scope<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// link self</span>
+    <span class="token keyword">var</span> selfDirs <span class="token operator">=</span> <span class="token function">linkAndCapture</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>replacerLinkFn<span class="token punctuation">)</span> <span class="token function">replacerLinkFn</span><span class="token punctuation">(</span>vm<span class="token punctuation">,</span> el<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> vm<span class="token punctuation">)</span>
+
+    <span class="token comment">// return the unlink function that tearsdown context</span>
+    <span class="token comment">// container directives.</span>
+    <span class="token keyword">return</span> <span class="token function">makeUnlinkFn</span><span class="token punctuation">(</span>vm<span class="token punctuation">,</span> selfDirs<span class="token punctuation">,</span> context<span class="token punctuation">,</span> contextDirs<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><pre class="language-js"><code><span class="token comment">/**
+  * Compile the directives on an element and return a linker.
+  *
+  * @param {Array|NamedNodeMap} attrs
+  * @param {Object} options
+  * @return {Function}
+  */</span>
+
+<span class="token keyword">function</span> <span class="token function">compileDirectives</span> <span class="token punctuation">(</span>attrs<span class="token punctuation">,</span> options<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> i <span class="token operator">=</span> attrs<span class="token punctuation">.</span>length
+  <span class="token keyword">var</span> dirs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token keyword">var</span> attr<span class="token punctuation">,</span> name<span class="token punctuation">,</span> value<span class="token punctuation">,</span> rawName<span class="token punctuation">,</span> rawValue<span class="token punctuation">,</span> dirName<span class="token punctuation">,</span> arg<span class="token punctuation">,</span> modifiers<span class="token punctuation">,</span> dirDef<span class="token punctuation">,</span> tokens<span class="token punctuation">,</span> matched
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    attr <span class="token operator">=</span> attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    name <span class="token operator">=</span> rawName <span class="token operator">=</span> attr<span class="token punctuation">.</span>name
+    value <span class="token operator">=</span> rawValue <span class="token operator">=</span> attr<span class="token punctuation">.</span>value
+    <span class="token comment">// 解析 {{}}里面的内容 或 解析成[{value: value}]</span>
+    tokens <span class="token operator">=</span> <span class="token function">parseText</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    <span class="token comment">// reset arg</span>
+    arg <span class="token operator">=</span> <span class="token keyword">null</span>
+    <span class="token comment">// 解析限定</span>
+    modifiers <span class="token operator">=</span> <span class="token function">parseModifiers</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+    <span class="token comment">// 去除限定后的属性名</span>
+    name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>modifierRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// attribute interpolations 属性内插值</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>tokens<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 处理过后的表达式</span>
+      value <span class="token operator">=</span> <span class="token function">tokensToExp</span><span class="token punctuation">(</span>tokens<span class="token punctuation">)</span>
+      <span class="token comment">// arg为属性名</span>
+      arg <span class="token operator">=</span> name
+      <span class="token comment">// 更新指令集</span>
+      <span class="token function">pushDir</span><span class="token punctuation">(</span><span class="token string">'bind'</span><span class="token punctuation">,</span> publicDirectives<span class="token punctuation">.</span>bind<span class="token punctuation">,</span> tokens<span class="token punctuation">)</span>
+      <span class="token comment">// warn against mixing mustaches with v-bind</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>name <span class="token operator">===</span> <span class="token string">'class'</span> <span class="token operator">&amp;&amp;</span> Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>some<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>attrs<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>attr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> attr<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">':class'</span> <span class="token operator">||</span> attr<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">'v-bind:class'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">warn</span><span class="token punctuation">(</span>
+            <span class="token string">'class=&quot;'</span> <span class="token operator">+</span> rawValue <span class="token operator">+</span> <span class="token string">'&quot;: Do not mix mustache interpolation '</span> <span class="token operator">+</span>
+            <span class="token string">'and v-bind for &quot;class&quot; on the same element. Use one or the other.'</span>
+          <span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span>
+
+    <span class="token comment">// special attribute: transition</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>transitionRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 不包含v-bind 或 :transition 为常量值</span>
+      modifiers<span class="token punctuation">.</span>literal <span class="token operator">=</span> <span class="token operator">!</span>bindRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+      <span class="token function">pushDir</span><span class="token punctuation">(</span><span class="token string">'transition'</span><span class="token punctuation">,</span> internalDirectives<span class="token punctuation">.</span>transition<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span>
+
+    <span class="token comment">// event handlers 不包含v-on 或 @</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>onRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// arg为事件名</span>
+      arg <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>onRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+      <span class="token function">pushDir</span><span class="token punctuation">(</span><span class="token string">'on'</span><span class="token punctuation">,</span> publicDirectives<span class="token punctuation">.</span>on<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span>
+
+    <span class="token comment">// attribute bindings</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>bindRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// style或class动态属性, 或其他动态属性</span>
+      dirName <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>bindRE<span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>dirName <span class="token operator">===</span> <span class="token string">'style'</span> <span class="token operator">||</span> dirName <span class="token operator">===</span> <span class="token string">'class'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">pushDir</span><span class="token punctuation">(</span>dirName<span class="token punctuation">,</span> internalDirectives<span class="token punctuation">[</span>dirName<span class="token punctuation">]</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        arg <span class="token operator">=</span> dirName
+        <span class="token function">pushDir</span><span class="token punctuation">(</span><span class="token string">'bind'</span><span class="token punctuation">,</span> publicDirectives<span class="token punctuation">.</span>bind<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span>
+
+    <span class="token comment">// 正常指令 /^v-([^:]+)(?:$|:(.*)$)/</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>matched <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>dirAttrRE<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      dirName <span class="token operator">=</span> matched<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+      arg <span class="token operator">=</span> matched<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+
+      <span class="token comment">// skip v-else (when used with v-show)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>dirName <span class="token operator">===</span> <span class="token string">'else'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">continue</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// 获取指令的定义</span>
+      dirDef <span class="token operator">=</span> <span class="token function">resolveAsset</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> <span class="token string">'directives'</span><span class="token punctuation">,</span> dirName<span class="token punctuation">)</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">assertAsset</span><span class="token punctuation">(</span>dirDef<span class="token punctuation">,</span> <span class="token string">'directive'</span><span class="token punctuation">,</span> dirName<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>dirDef<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">pushDir</span><span class="token punctuation">(</span>dirName<span class="token punctuation">,</span> dirDef<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+
+  <span class="token comment">// 更新directive</span>
+  <span class="token keyword">function</span> <span class="token function">pushDir</span> <span class="token punctuation">(</span>dirName<span class="token punctuation">,</span> def<span class="token punctuation">,</span> interpTokens<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> hasOneTimeToken <span class="token operator">=</span> interpTokens <span class="token operator">&amp;&amp;</span> <span class="token function">hasOneTime</span><span class="token punctuation">(</span>interpTokens<span class="token punctuation">)</span>
+    <span class="token comment">// 对内插件进行过滤器解析</span>
+    <span class="token keyword">var</span> parsed <span class="token operator">=</span> <span class="token operator">!</span>hasOneTimeToken <span class="token operator">&amp;&amp;</span> <span class="token function">parseDirective</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    dirs<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      name<span class="token punctuation">:</span> dirName<span class="token punctuation">,</span>
+      attr<span class="token punctuation">:</span> rawName<span class="token punctuation">,</span>
+      raw<span class="token punctuation">:</span> rawValue<span class="token punctuation">,</span>
+      def<span class="token punctuation">:</span> def<span class="token punctuation">,</span>
+      arg<span class="token punctuation">:</span> arg<span class="token punctuation">,</span>
+      modifiers<span class="token punctuation">:</span> modifiers<span class="token punctuation">,</span>
+      <span class="token comment">// conversion from interpolation strings with one-time token</span>
+      <span class="token comment">// to expression is differed until directive bind time so that we</span>
+      <span class="token comment">// have access to the actual vm context for one-time bindings.</span>
+      expression<span class="token punctuation">:</span> parsed <span class="token operator">&amp;&amp;</span> parsed<span class="token punctuation">.</span>expression<span class="token punctuation">,</span>
+      filters<span class="token punctuation">:</span> parsed <span class="token operator">&amp;&amp;</span> parsed<span class="token punctuation">.</span>filters<span class="token punctuation">,</span>
+      interp<span class="token punctuation">:</span> interpTokens<span class="token punctuation">,</span>
+      hasOneTime<span class="token punctuation">:</span> hasOneTimeToken
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>dirs<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">makeNodeLinkFn</span><span class="token punctuation">(</span>dirs<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// 根据指令集, 创建连接linker函数</span>
+<span class="token keyword">function</span> <span class="token function">makeNodeLinkFn</span> <span class="token punctuation">(</span>directives<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">nodeLinkFn</span> <span class="token punctuation">(</span>vm<span class="token punctuation">,</span> el<span class="token punctuation">,</span> host<span class="token punctuation">,</span> scope<span class="token punctuation">,</span> frag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// reverse apply because it's sorted low to high</span>
+    <span class="token keyword">var</span> i <span class="token operator">=</span> directives<span class="token punctuation">.</span>length
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      vm<span class="token punctuation">.</span><span class="token function">_bindDir</span><span class="token punctuation">(</span>directives<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> el<span class="token punctuation">,</span> host<span class="token punctuation">,</span> scope<span class="token punctuation">,</span> frag<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="解析后的表达式处理">解析后的表达式处理</h2><ol><li>加双引号后返回</li><li>加括号后返回</li><li>vm.$eval运算后加引号返回</li><li>返回_applyFilters对表达式运算的字符串表达式</li></ol><pre class="language-js"><code><span class="token comment">// 将多个表达式处理后用+连接</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">tokensToExp</span> <span class="token punctuation">(</span>tokens<span class="token punctuation">,</span> vm<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>tokens<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> tokens<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>token<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">formatToken</span><span class="token punctuation">(</span>token<span class="token punctuation">,</span> vm<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'+'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">formatToken</span><span class="token punctuation">(</span>tokens<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> vm<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// token包含{{}}</span>
+<span class="token comment">// 且为oneTime时, 将表达式用vm.$eval运算再用双引号括号起来</span>
+<span class="token comment">// 否则 inlineFilters对表达式运算</span>
+<span class="token comment">// 否则对表达式用双引号括号起来</span>
+<span class="token keyword">function</span> <span class="token function">formatToken</span> <span class="token punctuation">(</span>token<span class="token punctuation">,</span> vm<span class="token punctuation">,</span> single<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> token<span class="token punctuation">.</span>tag
+    <span class="token operator">?</span> token<span class="token punctuation">.</span>oneTime <span class="token operator">&amp;&amp;</span> vm
+      <span class="token operator">?</span> <span class="token string">'&quot;'</span> <span class="token operator">+</span> vm<span class="token punctuation">.</span><span class="token function">$eval</span><span class="token punctuation">(</span>token<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'&quot;'</span>
+      <span class="token punctuation">:</span> <span class="token function">inlineFilters</span><span class="token punctuation">(</span>token<span class="token punctuation">.</span>value<span class="token punctuation">,</span> single<span class="token punctuation">)</span>
+    <span class="token punctuation">:</span> <span class="token string">'&quot;'</span> <span class="token operator">+</span> token<span class="token punctuation">.</span>value <span class="token operator">+</span> <span class="token string">'&quot;'</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+  * For an attribute with multiple interpolation tags,
+  * e.g. attr=&quot;some-{{thing | filter}}&quot;, in order to combine
+  * the whole thing into a single watchable expression, we
+  * have to inline those filters. This function does exactly
+  * that. This is a bit hacky but it avoids heavy changes
+  * to directive parser and watcher mechanism.
+  *
+  * @param {String} exp
+  * @param {Boolean} single
+  * @return {String}
+  */</span>
+
+<span class="token keyword">var</span> filterRE <span class="token operator">=</span> <span class="token regex">/[^|]\|[^|]/</span>
+<span class="token keyword">function</span> <span class="token function">inlineFilters</span> <span class="token punctuation">(</span>exp<span class="token punctuation">,</span> single<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 不包含filter, 单个表达式时不加括号</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>filterRE<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>exp<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> single
+      <span class="token operator">?</span> exp
+      <span class="token punctuation">:</span> <span class="token string">'('</span> <span class="token operator">+</span> exp <span class="token operator">+</span> <span class="token string">')'</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 解析表达式中的过滤器</span>
+    <span class="token keyword">var</span> dir <span class="token operator">=</span> <span class="token function">parseDirective</span><span class="token punctuation">(</span>exp<span class="token punctuation">)</span>
+    <span class="token comment">// 不包含过滤器则加括号返回</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>dir<span class="token punctuation">.</span>filters<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token string">'('</span> <span class="token operator">+</span> exp <span class="token operator">+</span> <span class="token string">')'</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 否则 返回字符表达式对_applyFilters的调用</span>
+      <span class="token keyword">return</span> <span class="token string">'this._applyFilters('</span> <span class="token operator">+</span>
+        dir<span class="token punctuation">.</span>expression <span class="token operator">+</span> <span class="token comment">// value</span>
+        <span class="token string">',null,'</span> <span class="token operator">+</span>       <span class="token comment">// oldValue (null for read)</span>
+        <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>dir<span class="token punctuation">.</span>filters<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token comment">// filter descriptors</span>
+        <span class="token string">',false)'</span>        <span class="token comment">// write?</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><!----><div class="content page-nav"><p class="inner"><span class="prev">
+        ← <a href="/vue_resource/compile_el.html" class="prev">
+          编译的整个过程与相关方法讲解
+        </a></span><span class="next"><a href="/vue_resource/_compile_rest.html">
+          编译根节点
+        </a> →
+      </span></p></div></div></div></div>
+    <script src="/assets/js/20.e4846e3b.js" defer></script><script src="/assets/js/app.0449fb95.js" defer></script>
+  </body>
+</html>

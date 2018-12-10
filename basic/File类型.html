@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>技术文档 | File独立文件，提供只读信息(名称、大小、mimetype和对文件句柄的引用)</title>
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    
+    <link rel="preload" href="/assets/css/142.styles.8baecc0a.css" as="style"><link rel="preload" href="/assets/js/app.0449fb95.js" as="script"><link rel="preload" href="/assets/js/72.4a2cd993.js" as="script"><link rel="prefetch" href="/assets/js/65.7d7604b1.js"><link rel="prefetch" href="/assets/js/0.2b664149.js"><link rel="prefetch" href="/assets/js/1.89837018.js"><link rel="prefetch" href="/assets/js/2.04ac93f5.js"><link rel="prefetch" href="/assets/js/3.0572817a.js"><link rel="prefetch" href="/assets/js/4.7d4d5d42.js"><link rel="prefetch" href="/assets/js/5.9f383942.js"><link rel="prefetch" href="/assets/js/6.84049ebc.js"><link rel="prefetch" href="/assets/js/7.b8224291.js"><link rel="prefetch" href="/assets/js/8.1d4757e8.js"><link rel="prefetch" href="/assets/js/9.060903eb.js"><link rel="prefetch" href="/assets/js/10.39aac531.js"><link rel="prefetch" href="/assets/js/11.bd16e2a2.js"><link rel="prefetch" href="/assets/js/12.6c7aa3c3.js"><link rel="prefetch" href="/assets/js/13.6ec00222.js"><link rel="prefetch" href="/assets/js/14.54e5588f.js"><link rel="prefetch" href="/assets/js/15.85452bd3.js"><link rel="prefetch" href="/assets/js/16.a47c69d4.js"><link rel="prefetch" href="/assets/js/17.d0f27c82.js"><link rel="prefetch" href="/assets/js/18.357ff19c.js"><link rel="prefetch" href="/assets/js/19.5a8eb230.js"><link rel="prefetch" href="/assets/js/20.e4846e3b.js"><link rel="prefetch" href="/assets/js/21.4994aa72.js"><link rel="prefetch" href="/assets/js/22.9120de5c.js"><link rel="prefetch" href="/assets/js/23.c2b942bc.js"><link rel="prefetch" href="/assets/js/24.5474b8f2.js"><link rel="prefetch" href="/assets/js/25.e20db8c4.js"><link rel="prefetch" href="/assets/js/26.6e0d9d16.js"><link rel="prefetch" href="/assets/js/27.afe56b35.js"><link rel="prefetch" href="/assets/js/28.73eab25c.js"><link rel="prefetch" href="/assets/js/29.ed3c5ec1.js"><link rel="prefetch" href="/assets/js/30.0a83f707.js"><link rel="prefetch" href="/assets/js/31.ef9b88e8.js"><link rel="prefetch" href="/assets/js/32.dad42837.js"><link rel="prefetch" href="/assets/js/33.77dee06c.js"><link rel="prefetch" href="/assets/js/34.e7380976.js"><link rel="prefetch" href="/assets/js/35.3eb60e12.js"><link rel="prefetch" href="/assets/js/36.0180d2d3.js"><link rel="prefetch" href="/assets/js/37.e7d42a60.js"><link rel="prefetch" href="/assets/js/38.f4fb998b.js"><link rel="prefetch" href="/assets/js/39.2d505e64.js"><link rel="prefetch" href="/assets/js/40.ba8449e7.js"><link rel="prefetch" href="/assets/js/41.4ef7223e.js"><link rel="prefetch" href="/assets/js/42.d8a62e36.js"><link rel="prefetch" href="/assets/js/43.5f284fd4.js"><link rel="prefetch" href="/assets/js/44.afc28fe2.js"><link rel="prefetch" href="/assets/js/45.28888c39.js"><link rel="prefetch" href="/assets/js/46.d5a574ed.js"><link rel="prefetch" href="/assets/js/47.b41f625a.js"><link rel="prefetch" href="/assets/js/48.38efb5e8.js"><link rel="prefetch" href="/assets/js/49.3d6afeff.js"><link rel="prefetch" href="/assets/js/50.e5c7ca5f.js"><link rel="prefetch" href="/assets/js/51.accf4534.js"><link rel="prefetch" href="/assets/js/52.6dc8062b.js"><link rel="prefetch" href="/assets/js/53.b4f69d3f.js"><link rel="prefetch" href="/assets/js/54.91619a68.js"><link rel="prefetch" href="/assets/js/55.a1698b19.js"><link rel="prefetch" href="/assets/js/56.e46aee9d.js"><link rel="prefetch" href="/assets/js/57.59767b01.js"><link rel="prefetch" href="/assets/js/58.cea59f7b.js"><link rel="prefetch" href="/assets/js/59.13f7389e.js"><link rel="prefetch" href="/assets/js/60.831e6ec1.js"><link rel="prefetch" href="/assets/js/61.e3b3a5e0.js"><link rel="prefetch" href="/assets/js/62.63493c35.js"><link rel="prefetch" href="/assets/js/63.115ff67c.js"><link rel="prefetch" href="/assets/js/64.5e501197.js"><link rel="prefetch" href="/assets/js/66.e7e4b4fd.js"><link rel="prefetch" href="/assets/js/67.266e6fd7.js"><link rel="prefetch" href="/assets/js/68.d7eef6fb.js"><link rel="prefetch" href="/assets/js/69.9b15d854.js"><link rel="prefetch" href="/assets/js/70.32de467c.js"><link rel="prefetch" href="/assets/js/71.4f448c58.js"><link rel="prefetch" href="/assets/js/73.22c31bb8.js"><link rel="prefetch" href="/assets/js/74.1f1353be.js"><link rel="prefetch" href="/assets/js/75.bfb5503f.js"><link rel="prefetch" href="/assets/js/76.f8fe33db.js"><link rel="prefetch" href="/assets/js/77.d4ca9bcf.js"><link rel="prefetch" href="/assets/js/78.590a13c1.js"><link rel="prefetch" href="/assets/js/79.46784c6f.js"><link rel="prefetch" href="/assets/js/80.ec637c45.js"><link rel="prefetch" href="/assets/js/81.4d8593a5.js"><link rel="prefetch" href="/assets/js/82.3583ff89.js"><link rel="prefetch" href="/assets/js/83.730c9b53.js"><link rel="prefetch" href="/assets/js/84.8e74b6d1.js"><link rel="prefetch" href="/assets/js/85.f3a295f0.js"><link rel="prefetch" href="/assets/js/86.ff4ab1bc.js"><link rel="prefetch" href="/assets/js/87.40412755.js"><link rel="prefetch" href="/assets/js/88.7d7c762d.js"><link rel="prefetch" href="/assets/js/89.c9db291c.js"><link rel="prefetch" href="/assets/js/90.38e0a01a.js"><link rel="prefetch" href="/assets/js/91.23130e77.js"><link rel="prefetch" href="/assets/js/92.92daa152.js"><link rel="prefetch" href="/assets/js/93.fb6c8365.js"><link rel="prefetch" href="/assets/js/94.fb7e2503.js"><link rel="prefetch" href="/assets/js/95.35de0ab3.js"><link rel="prefetch" href="/assets/js/96.a4a73991.js"><link rel="prefetch" href="/assets/js/97.ebe18e70.js"><link rel="prefetch" href="/assets/js/98.e4e0f45d.js"><link rel="prefetch" href="/assets/js/99.cf03d7e8.js"><link rel="prefetch" href="/assets/js/100.683a49f1.js"><link rel="prefetch" href="/assets/js/101.9a045db8.js"><link rel="prefetch" href="/assets/js/102.cc46d5b2.js"><link rel="prefetch" href="/assets/js/103.be6a56bc.js"><link rel="prefetch" href="/assets/js/104.d6edd262.js"><link rel="prefetch" href="/assets/js/105.209def7c.js"><link rel="prefetch" href="/assets/js/106.3af49bc7.js"><link rel="prefetch" href="/assets/js/107.f398c0c2.js"><link rel="prefetch" href="/assets/js/108.73b3e38d.js"><link rel="prefetch" href="/assets/js/109.0b4ec68c.js"><link rel="prefetch" href="/assets/js/110.4ca42bfe.js"><link rel="prefetch" href="/assets/js/111.2e0a7bee.js"><link rel="prefetch" href="/assets/js/112.f0531039.js"><link rel="prefetch" href="/assets/js/113.2ba364b5.js"><link rel="prefetch" href="/assets/js/114.d514164c.js"><link rel="prefetch" href="/assets/js/115.51677196.js"><link rel="prefetch" href="/assets/js/116.bbb112fe.js"><link rel="prefetch" href="/assets/js/117.271c1917.js"><link rel="prefetch" href="/assets/js/118.8d071e34.js"><link rel="prefetch" href="/assets/js/119.1dfb6ef0.js"><link rel="prefetch" href="/assets/js/120.2653a74e.js"><link rel="prefetch" href="/assets/js/121.5f9e16ba.js"><link rel="prefetch" href="/assets/js/122.08f9edd0.js"><link rel="prefetch" href="/assets/js/123.c445e5ab.js"><link rel="prefetch" href="/assets/js/124.fb8d7bdf.js"><link rel="prefetch" href="/assets/js/125.f54b24d6.js"><link rel="prefetch" href="/assets/js/126.4c72a650.js"><link rel="prefetch" href="/assets/js/127.22879221.js"><link rel="prefetch" href="/assets/js/128.1f8d1a10.js"><link rel="prefetch" href="/assets/js/129.1552fcc7.js"><link rel="prefetch" href="/assets/js/130.0f4ddc21.js"><link rel="prefetch" href="/assets/js/131.5c0265d6.js"><link rel="prefetch" href="/assets/js/132.b7726539.js"><link rel="prefetch" href="/assets/js/133.d90ae7de.js"><link rel="prefetch" href="/assets/js/134.7f583da4.js"><link rel="prefetch" href="/assets/js/135.1283e641.js"><link rel="prefetch" href="/assets/js/136.05162dac.js"><link rel="prefetch" href="/assets/js/137.191164c1.js"><link rel="prefetch" href="/assets/js/138.945fe948.js"><link rel="prefetch" href="/assets/js/139.6cc472eb.js"><link rel="prefetch" href="/assets/js/140.4822af41.js"><link rel="prefetch" href="/assets/js/141.d34f3964.js">
+    <link rel="stylesheet" href="/assets/css/142.styles.8baecc0a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      技术文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><ul class="sidebar-links"><li><a href="/" class="sidebar-link">技术文档</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>node学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>ES6学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Vue源码学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端常见问题</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端基础</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>算法</span><span class="arrow down"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h2 id="file独立文件，提供只读信息-名称、大小、mimetype和对文件句柄的引用">File独立文件，提供只读信息(名称、大小、mimetype和对文件句柄的引用)</h2><ol><li>dom.files[0] 来获取File</li></ol><h2 id="filelist-file对象的类数组序列">FileList  File对象的类数组序列</h2><h2 id="blob-可将文件分割为字节范围">Blob  可将文件分割为字节范围</h2><h2 id="filereader-读取file或blob">FileReader 读取File或Blob</h2><ol><li><p>reader = new FileReader(); reader.readAsDataURL(file) 读取文件</p></li><li><p>reader.onload = function(e){} 渲染文件</p></li><li><p>方法</p></li></ol><ul><li>FileReader(Blob, File)</li><li>FileReader.readAsBinaryString(Blob | File)   结果为二进制字符串</li><li>FileReader.readAsText(Blob | File)  文本字符串</li><li>FileReader.readAsDataURL(Blob | File)   基于base64编码的data-uri对象</li><li>FileReader.readAsArrayBuffer(Blob | File)  ArrayBuffer对象</li></ul><ol start="2"><li>事件回调</li></ol><ul><li>onabort</li><li>onerror</li><li>onload</li><li>onloadend</li><li>onloadstart</li><li>onprogress</li></ul><ol start="3"><li>reader属性</li></ol><ul><li>result</li><li>refs</li><li>readystate</li></ul><h2 id="url-scheme">URL scheme</h2><h2 id="上传文件">上传文件</h2><ol><li>form_data = new FormData();</li><li>form_data.append('key', file)</li></ol><ul><li>new Blob(实际数据的数组, {type: MIME})</li><li>blob.slice(startByte, endByte)</li></ul><h2 id="file-dom">file DOM</h2><ul><li>value--&gt;fakeURL/filename</li><li>files--&gt;FileList</li><li>lastModified</li><li>name</li><li>lastModifiedDate</li><li>webkitRelativePath</li><li>size</li></ul><h2 id="filereader-负责二进制数据读入内存，异步方式读取，读取客户端文件，读取完毕不会载入到缓存">FileReader  负责二进制数据读入内存，异步方式读取，读取客户端文件，读取完毕不会载入到缓存</h2><h2 id="url-对二进制数据生成url">URL  对二进制数据生成URL</h2><ul><li>URL.createObjectURL(blob)</li><li>URL.revokeObjectURL(img.src)  清除释放</li></ul><h2 id="formdata">FormData();</h2><h2 id="form-enctype-multipart-form-data-把文件传到本机的temp目录">form  enctype=&quot;multipart/form-data&quot;  把文件传到本机的temp目录</h2><p>co-busbody  解析multipart请求体
+koa-cors
+koa-multer</p><hr><p>form + iframe 实现异步上传
+将form的target指向iframe，选择完文件，提交子页面的form，这时iframe跳转，父页面没有刷新</p><hr><p>FormData + xhr.send()
+.append(‘key’, params[key])  Blob或String</p><h2 id="append-filename-fileobj">.append(fileName, fileObj)</h2><p>drop, dragover, drag leave
+event.dataTransfer.files</p><hr><p>进度
+xhr.onreadystatechange
+xhr.readyState = 4  loaded</p><h2 id="xhr-upload-onprogress-ee-lengthcomputable-e-loaded-e-total">xhr.upload.onprogress--&gt;e
+e.lengthComputable,  e.loaded, e.total</h2><p>file切割：
+File.prototype.mozSlice
+webkitSlice
+slice(file, start, end)</p><p>FileReader---load事件  progress
+result 预览地址
+readAsDataUrl----base64编码串
+readAsArrayBuffer
+readAsBinaryString</p><hr><hr><p>XMLHttpRequest  2.0新增的传送数据类型：
+DOMString:  UTF-16, 即普通字符串
+Document：类似XML
+FormData(FormElement)：send方法提交，可以上传二进制文件，类似于serialize(); 键值对？
+Blob：(二进制大文件)只读原始数据的类文件对象，有slice方法切出另一个Blob，canvas对象的toBlob方法，与window.URL；可以append ArrayBuffer数据
+new Blob([ , ], {type: })</p><p>File：基于Blob
+ArrayBuffer：二进制数据的原始缓冲区？作为数据源提前pgtygc内存中，不可改变的二进制数据，本身不可读写；-----类型化数组或DataView来解释原始缓冲区。</p><p>类型化数组：get-    set-
+Int8Array, Uint8Array, Int16Array, Uint16Array, Int16Array, Uint16Array, Float32Array, Float64Array</p><p>(new Uint8Array([1, 2, 3])).buffer</p><p>使用：b = new ArrayBuffer(8)
+v1 = new Int32Array(b)
+v1 = new Int32Array(b, 2, 2)  索引   长度</p><p>new DataView(buffer, offset, length)</p><h2 id="对webgl-canvas">对WebGL  Canvas</h2><p>Uint8Array
+window.atob
+Blob</p><p>类型化数组----与显卡之间的大量、实时数据交换！
+针对内存进行操作。</p><p>bf.byteLength  占据内存长度
+byteOffset   从底层ArrayBuffer对象的哪个字节开始</p><p>分配内存
+bf = new ArrayBuffer(40)
+bf.slice(0, 10)  拷贝生成一个新的ArrayBuffer</p><p>类型化数组：get-    set-
+Int8Array  1字节
+Uint8Array  1字节
+Int16Array  2字节
+Uint16Array  2字节
+Int32Array  4字节
+Uint32Array  4字节
+Float32Array  4字节
+Float64Array  8字节</p><p>Int8Array.BYTES_PER_ELEMENT   占的字节数</p><p>v1 = new Int32Array(bf)
+v2 = new Unit32Array(bf，2)
+v3 = new Unit16Array(bf，2，2)
+同一对象上，可以根据不同的数据类型，建立多个视图，重叠的，任何一个视图对内存个性，另外两个视图都会反应出来</p><p>v1.set(v2, 2)</p><p>v3.subarray(2, 3)再建立一个视图</p><p>2、直接生成  new Float64Array(8)</p><p>3、普通数组转为视图数组
+typedArray = new Unit8Array([1, 2, 3,4])</p><p>视图转为数组  Array.from(typedArray)</p><p>FileReader类，读取客户端文件，读取完毕不会载入到缓存
+实例方法：
+onabort
+abort
+onerror
+onload
+onloadend
+onloadstart
+onprogress
+readyState
+result
+DONE: 2
+EMPTY: 0
+LOADING: 1
+readAsBinaryString(File Object)
+readAsDataURL(File Object)
+readAsText(File Object)</p><p>此名之后，上面的result才会有值：
+fileReader.readAsDataURL(uploadButton.files[0]);</p><p>File 是H5的对象，file input DOM在onchange事件上，有files属性，可以返回选中文件数组  Dom.files[0] 是File对象的实例；
+File属性：lastModified，lastModifiedDate，name，type</p><p>File Error类：可以自己生成此类，用于错误提示，【类名.属性】可以直接使用
+ABORT_ERR: 3
+ENCODING_ERR: 5
+INVALID_MODIFICATION_ERR: 9
+INVALID_STATE_ERR: 7
+NOT_FOUND_ERR: 1
+NOT_READABLE_ERR: 4
+NO_MODIFICATION_ALLOWED_ERR: 6
+PATH_EXISTS_ERR: 12
+QUOTA_EXCEEDED_ERR: 10
+SECURITY_ERR: 2
+SYNTAX_ERR: 8
+TYPE_MISMATCH_ERR: 11</p><p>二进制数据Blob：为了存储方便，手动把数据转换为Blob，H5中
+var myblob = new Blob([html, html], {“type”: “text/xml”}); 两个可选参数，一个是数据，另一个是mine-type</p><p>var blob = new Blob([“hello”]);
+a.href = window.URL.createObjectURL(blob);
+a.download = “hello.txt”;
+a.textContent = “download hello&quot;
+body.append(a);</p><p>DataTransfer与DataTransferItemList：用于数据的交互，如拖拽上传、拖拽选择
+事件：img外层：ondrop   ondragover(处理ev.preventDefault)
+ondrop处理：1、阻止默认行为；2、data = ev.dataTransfer.getData(“Text”);</p><p>img：draggable属性为true  事件：ondragstart
+ondrag处理ev.dataTransfer.setData(“Text”, ev.target.id)</p><p>例子：</p><pre class="language-javascript"><code><span class="token keyword">var</span> uploadButton <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'uploadFile'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    uploadButton<span class="token punctuation">.</span><span class="token function-variable function">onchange</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">var</span> img <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> fileReader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>fileReader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        fileReader<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>evt<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">var</span> img <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            img<span class="token punctuation">.</span>src <span class="token operator">=</span> fileReader<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>img<span class="token punctuation">.</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>img<span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        fileReader<span class="token punctuation">.</span><span class="token function-variable function">onloadstart</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>evt<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        <span class="token punctuation">}</span>
+        fileReader<span class="token punctuation">.</span><span class="token function-variable function">onloadend</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>evt<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        <span class="token punctuation">}</span>
+        fileReader<span class="token punctuation">.</span><span class="token function-variable function">onprogress</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>evt<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        <span class="token punctuation">}</span>
+        fileReader<span class="token punctuation">.</span><span class="token function-variable function">onerror</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>evt<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token punctuation">}</span>
+        fileReader<span class="token punctuation">.</span><span class="token function">readAsDataURL</span><span class="token punctuation">(</span>uploadButton<span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// img.src = this.value;</span>
+        <span class="token comment">// var fso = new ActiveXObject(&quot;Scripting.FileSystemObject&quot;);</span>
+        <span class="token comment">// var file = fso.GetFile(this.value);</span>
+        <span class="token comment">// console.log(file.Attribute);</span>
+        <span class="token comment">// console.log(uploadButton.files[0]);</span>
+        <span class="token comment">// console.log(uploadButton.files[0] instanceOf File);</span>
+        img<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">function</span> <span class="token function">dropHandler</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+          e<span class="token punctuation">.</span><span class="token function">stopPropagation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">var</span> files <span class="token operator">=</span> e<span class="token punctuation">.</span>dataTransfer<span class="token punctuation">.</span>files<span class="token punctuation">;</span>
+         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> len <span class="token operator">=</span> files<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+         <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> f <span class="token operator">=</span> files<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+
+   <span class="token punctuation">}</span>
+
+    <span class="token keyword">function</span> <span class="token function">dragOverHandler</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+          e<span class="token punctuation">.</span><span class="token function">stopPropagation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          e<span class="token punctuation">.</span>dataTransfer<span class="token punctuation">.</span>dragEffect <span class="token operator">=</span> <span class="token string">'copy'</span><span class="token punctuation">;</span> <span class="token comment">//设置当拖拽到指定区域时，让文件可被复制</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">function</span> <span class="token function">dragStartHandler</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">var</span> drag <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'drag'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    drag<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'drop'</span><span class="token punctuation">,</span> dropHandler<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    drag<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'dragover'</span><span class="token punctuation">,</span> dragOverHandler<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    drag<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'dragover'</span><span class="token punctuation">,</span> dragStartHandler<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><!----><!----></div></div></div>
+    <script src="/assets/js/72.4a2cd993.js" defer></script><script src="/assets/js/app.0449fb95.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>技术文档 | watch</title>
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    
+    <link rel="preload" href="/assets/css/142.styles.8baecc0a.css" as="style"><link rel="preload" href="/assets/js/app.0449fb95.js" as="script"><link rel="preload" href="/assets/js/86.ff4ab1bc.js" as="script"><link rel="prefetch" href="/assets/js/65.7d7604b1.js"><link rel="prefetch" href="/assets/js/0.2b664149.js"><link rel="prefetch" href="/assets/js/1.89837018.js"><link rel="prefetch" href="/assets/js/2.04ac93f5.js"><link rel="prefetch" href="/assets/js/3.0572817a.js"><link rel="prefetch" href="/assets/js/4.7d4d5d42.js"><link rel="prefetch" href="/assets/js/5.9f383942.js"><link rel="prefetch" href="/assets/js/6.84049ebc.js"><link rel="prefetch" href="/assets/js/7.b8224291.js"><link rel="prefetch" href="/assets/js/8.1d4757e8.js"><link rel="prefetch" href="/assets/js/9.060903eb.js"><link rel="prefetch" href="/assets/js/10.39aac531.js"><link rel="prefetch" href="/assets/js/11.bd16e2a2.js"><link rel="prefetch" href="/assets/js/12.6c7aa3c3.js"><link rel="prefetch" href="/assets/js/13.6ec00222.js"><link rel="prefetch" href="/assets/js/14.54e5588f.js"><link rel="prefetch" href="/assets/js/15.85452bd3.js"><link rel="prefetch" href="/assets/js/16.a47c69d4.js"><link rel="prefetch" href="/assets/js/17.d0f27c82.js"><link rel="prefetch" href="/assets/js/18.357ff19c.js"><link rel="prefetch" href="/assets/js/19.5a8eb230.js"><link rel="prefetch" href="/assets/js/20.e4846e3b.js"><link rel="prefetch" href="/assets/js/21.4994aa72.js"><link rel="prefetch" href="/assets/js/22.9120de5c.js"><link rel="prefetch" href="/assets/js/23.c2b942bc.js"><link rel="prefetch" href="/assets/js/24.5474b8f2.js"><link rel="prefetch" href="/assets/js/25.e20db8c4.js"><link rel="prefetch" href="/assets/js/26.6e0d9d16.js"><link rel="prefetch" href="/assets/js/27.afe56b35.js"><link rel="prefetch" href="/assets/js/28.73eab25c.js"><link rel="prefetch" href="/assets/js/29.ed3c5ec1.js"><link rel="prefetch" href="/assets/js/30.0a83f707.js"><link rel="prefetch" href="/assets/js/31.ef9b88e8.js"><link rel="prefetch" href="/assets/js/32.dad42837.js"><link rel="prefetch" href="/assets/js/33.77dee06c.js"><link rel="prefetch" href="/assets/js/34.e7380976.js"><link rel="prefetch" href="/assets/js/35.3eb60e12.js"><link rel="prefetch" href="/assets/js/36.0180d2d3.js"><link rel="prefetch" href="/assets/js/37.e7d42a60.js"><link rel="prefetch" href="/assets/js/38.f4fb998b.js"><link rel="prefetch" href="/assets/js/39.2d505e64.js"><link rel="prefetch" href="/assets/js/40.ba8449e7.js"><link rel="prefetch" href="/assets/js/41.4ef7223e.js"><link rel="prefetch" href="/assets/js/42.d8a62e36.js"><link rel="prefetch" href="/assets/js/43.5f284fd4.js"><link rel="prefetch" href="/assets/js/44.afc28fe2.js"><link rel="prefetch" href="/assets/js/45.28888c39.js"><link rel="prefetch" href="/assets/js/46.d5a574ed.js"><link rel="prefetch" href="/assets/js/47.b41f625a.js"><link rel="prefetch" href="/assets/js/48.38efb5e8.js"><link rel="prefetch" href="/assets/js/49.3d6afeff.js"><link rel="prefetch" href="/assets/js/50.e5c7ca5f.js"><link rel="prefetch" href="/assets/js/51.accf4534.js"><link rel="prefetch" href="/assets/js/52.6dc8062b.js"><link rel="prefetch" href="/assets/js/53.b4f69d3f.js"><link rel="prefetch" href="/assets/js/54.91619a68.js"><link rel="prefetch" href="/assets/js/55.a1698b19.js"><link rel="prefetch" href="/assets/js/56.e46aee9d.js"><link rel="prefetch" href="/assets/js/57.59767b01.js"><link rel="prefetch" href="/assets/js/58.cea59f7b.js"><link rel="prefetch" href="/assets/js/59.13f7389e.js"><link rel="prefetch" href="/assets/js/60.831e6ec1.js"><link rel="prefetch" href="/assets/js/61.e3b3a5e0.js"><link rel="prefetch" href="/assets/js/62.63493c35.js"><link rel="prefetch" href="/assets/js/63.115ff67c.js"><link rel="prefetch" href="/assets/js/64.5e501197.js"><link rel="prefetch" href="/assets/js/66.e7e4b4fd.js"><link rel="prefetch" href="/assets/js/67.266e6fd7.js"><link rel="prefetch" href="/assets/js/68.d7eef6fb.js"><link rel="prefetch" href="/assets/js/69.9b15d854.js"><link rel="prefetch" href="/assets/js/70.32de467c.js"><link rel="prefetch" href="/assets/js/71.4f448c58.js"><link rel="prefetch" href="/assets/js/72.4a2cd993.js"><link rel="prefetch" href="/assets/js/73.22c31bb8.js"><link rel="prefetch" href="/assets/js/74.1f1353be.js"><link rel="prefetch" href="/assets/js/75.bfb5503f.js"><link rel="prefetch" href="/assets/js/76.f8fe33db.js"><link rel="prefetch" href="/assets/js/77.d4ca9bcf.js"><link rel="prefetch" href="/assets/js/78.590a13c1.js"><link rel="prefetch" href="/assets/js/79.46784c6f.js"><link rel="prefetch" href="/assets/js/80.ec637c45.js"><link rel="prefetch" href="/assets/js/81.4d8593a5.js"><link rel="prefetch" href="/assets/js/82.3583ff89.js"><link rel="prefetch" href="/assets/js/83.730c9b53.js"><link rel="prefetch" href="/assets/js/84.8e74b6d1.js"><link rel="prefetch" href="/assets/js/85.f3a295f0.js"><link rel="prefetch" href="/assets/js/87.40412755.js"><link rel="prefetch" href="/assets/js/88.7d7c762d.js"><link rel="prefetch" href="/assets/js/89.c9db291c.js"><link rel="prefetch" href="/assets/js/90.38e0a01a.js"><link rel="prefetch" href="/assets/js/91.23130e77.js"><link rel="prefetch" href="/assets/js/92.92daa152.js"><link rel="prefetch" href="/assets/js/93.fb6c8365.js"><link rel="prefetch" href="/assets/js/94.fb7e2503.js"><link rel="prefetch" href="/assets/js/95.35de0ab3.js"><link rel="prefetch" href="/assets/js/96.a4a73991.js"><link rel="prefetch" href="/assets/js/97.ebe18e70.js"><link rel="prefetch" href="/assets/js/98.e4e0f45d.js"><link rel="prefetch" href="/assets/js/99.cf03d7e8.js"><link rel="prefetch" href="/assets/js/100.683a49f1.js"><link rel="prefetch" href="/assets/js/101.9a045db8.js"><link rel="prefetch" href="/assets/js/102.cc46d5b2.js"><link rel="prefetch" href="/assets/js/103.be6a56bc.js"><link rel="prefetch" href="/assets/js/104.d6edd262.js"><link rel="prefetch" href="/assets/js/105.209def7c.js"><link rel="prefetch" href="/assets/js/106.3af49bc7.js"><link rel="prefetch" href="/assets/js/107.f398c0c2.js"><link rel="prefetch" href="/assets/js/108.73b3e38d.js"><link rel="prefetch" href="/assets/js/109.0b4ec68c.js"><link rel="prefetch" href="/assets/js/110.4ca42bfe.js"><link rel="prefetch" href="/assets/js/111.2e0a7bee.js"><link rel="prefetch" href="/assets/js/112.f0531039.js"><link rel="prefetch" href="/assets/js/113.2ba364b5.js"><link rel="prefetch" href="/assets/js/114.d514164c.js"><link rel="prefetch" href="/assets/js/115.51677196.js"><link rel="prefetch" href="/assets/js/116.bbb112fe.js"><link rel="prefetch" href="/assets/js/117.271c1917.js"><link rel="prefetch" href="/assets/js/118.8d071e34.js"><link rel="prefetch" href="/assets/js/119.1dfb6ef0.js"><link rel="prefetch" href="/assets/js/120.2653a74e.js"><link rel="prefetch" href="/assets/js/121.5f9e16ba.js"><link rel="prefetch" href="/assets/js/122.08f9edd0.js"><link rel="prefetch" href="/assets/js/123.c445e5ab.js"><link rel="prefetch" href="/assets/js/124.fb8d7bdf.js"><link rel="prefetch" href="/assets/js/125.f54b24d6.js"><link rel="prefetch" href="/assets/js/126.4c72a650.js"><link rel="prefetch" href="/assets/js/127.22879221.js"><link rel="prefetch" href="/assets/js/128.1f8d1a10.js"><link rel="prefetch" href="/assets/js/129.1552fcc7.js"><link rel="prefetch" href="/assets/js/130.0f4ddc21.js"><link rel="prefetch" href="/assets/js/131.5c0265d6.js"><link rel="prefetch" href="/assets/js/132.b7726539.js"><link rel="prefetch" href="/assets/js/133.d90ae7de.js"><link rel="prefetch" href="/assets/js/134.7f583da4.js"><link rel="prefetch" href="/assets/js/135.1283e641.js"><link rel="prefetch" href="/assets/js/136.05162dac.js"><link rel="prefetch" href="/assets/js/137.191164c1.js"><link rel="prefetch" href="/assets/js/138.945fe948.js"><link rel="prefetch" href="/assets/js/139.6cc472eb.js"><link rel="prefetch" href="/assets/js/140.4822af41.js"><link rel="prefetch" href="/assets/js/141.d34f3964.js">
+    <link rel="stylesheet" href="/assets/css/142.styles.8baecc0a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      技术文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><ul class="sidebar-links"><li><a href="/" class="sidebar-link">技术文档</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>node学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>ES6学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Vue源码学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端常见问题</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端基础</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>算法</span><span class="arrow down"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h2 id="watch">watch</h2><p><img src="/assets/img/vue_watcher.96244100.png" alt="流程 text" title="title"></p><pre class="language-text"><code>
+let uid = 0
+
+/**
+* 监听表达式, 收集依赖, 当表达式值改变时触发callback
+* @param {Vue} vm
+* @param {String} expression
+* @param {Function} cb
+* @param {Object} options
+*                 - {Array} filters
+*                 - {Boolean} twoWay
+*                 - {Boolean} deep
+*                 - {Boolean} user
+*                 - {Boolean} sync  异步
+*                 - {Boolean} lazy  延迟
+*                 - {Function} [preProcess]
+*                 - {Function} [postProcess]
+* @constructor
+*/
+
+export default function Watcher (vm, expOrFn, cb, options) {
+// mix in options
+if (options) {
+  extend(this, options)
+}
+var isFn = typeof expOrFn === 'function'
+this.vm = vm
+// 更新Vue当中_watchers
+vm._watchers.push(this)
+this.expression = isFn ? expOrFn.toString() : expOrFn
+this.cb = cb
+this.id = ++uid // uid for batching
+this.active = true   // 是否存在
+this.dirty = this.lazy // lazy watcher是否已获取数据, 未获取为true
+this.deps = Object.create(null)
+this.newDeps = null
+this.prevError = null // 异步错误堆栈
+// parse expression for getter/setter
+if (isFn) {
+  this.getter = expOrFn
+  this.setter = undefined
+} else {
+  // 解析表达式, 获取其get与set
+  var res = parseExpression(expOrFn, this.twoWay)
+  this.getter = res.get
+  this.setter = res.set
+}
+// 是否延迟获取值
+this.value = this.lazy
+  ? undefined
+  : this.get()
+// 初始化数据时, 监听调用vm._digest(true)避免触发
+// state for avoiding false triggers for deep and Array
+// watchers during vm._digest()
+this.queued = this.shallow = false  // 是否为深度更新
+}
+
+/**
+* Add a dependency to this directive.
+* 添加一个dep到当前实例属性队列, 同时更新dep属性队列中的watcher实例
+* @param {Dep} dep
+*/
+
+Watcher.prototype.addDep = function (dep) {
+var id = dep.id
+if (!this.newDeps[id]) {
+  this.newDeps[id] = dep
+  if (!this.deps[id]) {
+    this.deps[id] = dep
+    dep.addSub(this)
+  }
+}
+}
+
+/**
+* Dep.target指向当前实例, 创建newDeps对象
+*/
+
+Watcher.prototype.beforeGet = function () {
+Dep.target = this
+this.newDeps = Object.create(null)
+}
+
+/**
+* Evaluate the getter, and re-collect dependencies.
+*/
+
+Watcher.prototype.get = function () {
+// 更新Dep.target 与 创建newDeps
+this.beforeGet()
+var scope = this.scope || this.vm
+var value
+// 执行getter获取值
+try {
+  value = this.getter.call(scope, scope)
+} catch (e) {
+  if (
+    process.env.NODE_ENV !== 'production' &amp;&amp;
+    config.warnExpressionErrors
+  ) {
+    warn(
+      'Error when evaluating expression &quot;' +
+      this.expression + '&quot;. ' +
+      (config.debug
+        ? ''
+        : 'Turn on debug mode to see stack trace.'
+      ), e
+    )
+  }
+}
+// &quot;touch&quot; every property so they are all tracked as
+// dependencies for deep watching
+if (this.deep) {
+  traverse(value)
+}
+// 执行value预处理
+if (this.preProcess) {
+  value = this.preProcess(value)
+}
+// 执行filters
+if (this.filters) {
+  value = scope._applyFilters(value, null, this.filters, false)
+}
+// 结束处理
+if (this.postProcess) {
+  value = this.postProcess(value)
+}
+this.afterGet()
+return value
+}
+
+/**
+* Recrusively traverse an object to evoke all converted
+* getters, so that every nested property inside the object
+* is collected as a &quot;deep&quot; dependency.
+*
+* @param {*} val
+*/
+
+function traverse (val) {
+var i, keys
+if (isArray(val)) {
+  i = val.length
+  while (i--) traverse(val[i])
+} else if (isObject(val)) {
+  keys = Object.keys(val)
+  i = keys.length
+  while (i--) traverse(val[keys[i]])
+}
+}
+
+/**
+* Clean up for dependency collection.
+* 清除依赖集合, 根据newDeps更新deps集合
+*/
+
+Watcher.prototype.afterGet = function () {
+Dep.target = null
+var ids = Object.keys(this.deps)
+var i = ids.length
+while (i--) {
+  var id = ids[i]
+  if (!this.newDeps[id]) {
+    this.deps[id].removeSub(this)
+  }
+}
+this.deps = this.newDeps
+}
+
+/**
+* Set the corresponding value with the setter.
+*
+* @param {*} value
+*/
+
+Watcher.prototype.set = function (value) {
+var scope = this.scope || this.vm
+// 执行filters
+if (this.filters) {
+  value = scope._applyFilters(
+    value, this.value, this.filters, true)
+}
+// 执行setter
+try {
+  this.setter.call(scope, scope, value)
+} catch (e) {
+  if (
+    process.env.NODE_ENV !== 'production' &amp;&amp;
+    config.warnExpressionErrors
+  ) {
+    warn(
+      'Error when evaluating setter &quot;' +
+      this.expression + '&quot;', e
+    )
+  }
+}
+// for循环时的指令实例
+var forContext = scope.$forContext
+if (forContext &amp;&amp; forContext.alias === this.expression) {
+  if (forContext.filters) {
+    process.env.NODE_ENV !== 'production' &amp;&amp; warn(
+      'It seems you are using two-way binding on ' +
+      'a v-for alias (' + this.expression + '), and the ' +
+      'v-for has filters. This will not work properly. ' +
+      'Either remove the filters or use an array of ' +
+      'objects and bind to object properties instead.'
+    )
+    return
+  }
+  forContext._withLock(function () {
+    if (scope.$key) { // original is an object
+      forContext.rawValue[scope.$key] = value
+    } else {
+      //
+      forContext.rawValue.$set(scope.$index, value)
+    }
+  })
+}
+}
+
+/**
+* 订单接口, 依赖发生改变时被调用
+* @param {Boolean} shallow
+*/
+
+Watcher.prototype.update = function (shallow) {
+// 延迟
+if (this.lazy) {
+  this.dirty = true
+// 同步
+} else if (this.sync || !config.async) {
+  this.run()
+} else {
+  // if queued, only overwrite shallow with non-shallow,
+  // but not the other way around.
+  this.shallow = this.queued
+    ? shallow
+      ? this.shallow
+      : false
+    : !!shallow
+  this.queued = true
+  // record before-push error stack in debug mode
+  /* istanbul ignore if */
+  if (process.env.NODE_ENV !== 'production' &amp;&amp; config.debug) {
+    this.prevError = new Error('[vue] async stack trace')
+  }
+  // 更新watcher队列
+  pushWatcher(this)
+}
+}
+
+/**
+* Batcher job interface.
+* Will be called by the batcher.
+*/
+
+Watcher.prototype.run = function () {
+if (this.active) {
+  var value = this.get()
+  if (
+    value !== this.value ||
+    // Deep watchers and watchers on Object/Arrays should fire even
+    // when the value is the same, because the value may
+    // have mutated; but only do so if this is a
+    // non-shallow update (caused by a vm digest).
+    ((isObject(value) || this.deep) &amp;&amp; !this.shallow)
+  ) {
+    // set new value
+    var oldValue = this.value
+    this.value = value
+    // in debug + async mode, when a watcher callbacks
+    // throws, we also throw the saved before-push error
+    // so the full cross-tick stack trace is available.
+    var prevError = this.prevError
+    /* istanbul ignore if */
+    if (process.env.NODE_ENV !== 'production' &amp;&amp;
+        config.debug &amp;&amp; prevError) {
+      this.prevError = null
+      try {
+        this.cb.call(this.vm, value, oldValue)
+      } catch (e) {
+        nextTick(function () {
+          throw prevError
+        }, 0)
+        throw e
+      }
+    } else {
+      this.cb.call(this.vm, value, oldValue)
+    }
+  }
+  this.queued = this.shallow = false
+}
+}
+
+/**
+* 计算watcher的值, lazy watcher, compute需计算时运用
+*/
+
+Watcher.prototype.evaluate = function () {
+// avoid overwriting another watcher that is being
+// collected.
+var current = Dep.target
+this.value = this.get()
+this.dirty = false
+Dep.target = current
+}
+
+/**
+* Depend on all deps collected by this watcher.
+*/
+
+Watcher.prototype.depend = function () {
+var depIds = Object.keys(this.deps)
+var i = depIds.length
+while (i--) {
+  this.deps[depIds[i]].depend()
+}
+}
+
+/**
+* Remove self from all dependencies' subcriber list.
+*/
+
+Watcher.prototype.teardown = function () {
+if (this.active) {
+  // remove self from vm's watcher list
+  // this is a somewhat expensive operation so we skip it
+  // if the vm is being destroyed or is performing a v-for
+  // re-render (the watcher list is then filtered by v-for).
+  if (!this.vm._isBeingDestroyed &amp;&amp; !this.vm._vForRemoving) {
+    this.vm._watchers.$remove(this)
+  }
+  var depIds = Object.keys(this.deps)
+  var i = depIds.length
+  while (i--) {
+    this.deps[depIds[i]].removeSub(this)
+  }
+  this.active = false
+  this.vm = this.cb = this.value = null
+}
+}
+
+
+Vue.prototype.$watch = function (expOrFn, cb, options) {
+  var vm = this
+  var parsed
+  if (typeof expOrFn === 'string') {
+    parsed = parseDirective(expOrFn)
+    expOrFn = parsed.expression
+  }
+  var watcher = new Watcher(vm, expOrFn, cb, {
+    deep: options &amp;&amp; options.deep,
+    sync: options &amp;&amp; options.sync,
+    filters: parsed &amp;&amp; parsed.filters,
+    user: !options || options.user !== false
+  })
+  if (options &amp;&amp; options.immediate) {
+    cb.call(vm, watcher.value)
+  }
+  return function unwatchFn () {
+    watcher.teardown()
+  }
+}
+</code></pre><h2 id="提供的几个方法-更新数据都会监听并通知进行watcher更新">提供的几个方法, 更新数据都会监听并通知进行watcher更新</h2><pre class="language-text"><code>
+/**
+  * Intercept mutating methods and emit events
+  */
+
+;[
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse'
+]
+.forEach(function (method) {
+  // cache original method
+  var original = arrayProto[method]
+  def(arrayMethods, method, function mutator () {
+    // avoid leaking arguments:
+    // http://jsperf.com/closure-with-arguments
+    var i = arguments.length
+    var args = new Array(i)
+    while (i--) {
+      args[i] = arguments[i]
+    }
+    var result = original.apply(this, args)
+    var ob = this.__ob__
+    var inserted
+    switch (method) {
+      case 'push':
+        inserted = args
+        break
+      case 'unshift':
+        inserted = args
+        break
+      case 'splice':
+        inserted = args.slice(2)
+        break
+    }
+    if (inserted) ob.observeArray(inserted)
+    // notify change
+    ob.dep.notify()
+    return result
+  })
+})
+
+/**
+  * Swap the element at the given index with a new value
+  * and emits corresponding event.
+  *
+  * @param {Number} index
+  * @param {*} val
+  * @return {*} - replaced element
+  */
+
+def(
+  arrayProto,
+  '$set',
+  function $set (index, val) {
+    if (index &gt;= this.length) {
+      this.length = Number(index) + 1
+    }
+    return this.splice(index, 1, val)[0]
+  }
+)
+
+/**
+  * Convenience method to remove the element at given index.
+  *
+  * @param {Number} index
+  * @param {*} val
+  */
+
+def(
+  arrayProto,
+  '$remove',
+  function $remove (item) {
+    /* istanbul ignore if */
+    if (!this.length) return
+    var index = indexOf(this, item)
+    if (index &gt; -1) {
+      return this.splice(index, 1)
+    }
+  }
+)
+</code></pre><h2 id="observer-利用object-defineproperty添加get与set-通过递归将甩有属性添加get与set">observer 利用Object.defineProperty添加get与set, 通过递归将甩有属性添加get与set.</h2><pre class="language-text"><code>
+export function defineReactive (obj, key, val) {
+  var dep = new Dep()
+
+  // cater for pre-defined getter/setters
+  var getter, setter
+  if (config.convertAllProperties) {
+    var property = Object.getOwnPropertyDescriptor(obj, key)
+    if (property &amp;&amp; property.configurable === false) {
+      return
+    }
+    getter = property &amp;&amp; property.get
+    setter = property &amp;&amp; property.set
+  }
+
+  var childOb = observe(val)
+  Object.defineProperty(obj, key, {
+    enumerable: true,
+    configurable: true,
+    get: function reactiveGetter () {
+      var value = getter ? getter.call(obj) : val
+      // 判断是不是watcher.get调用
+      if (Dep.target) {
+        // dep更新到watcher的属性队列中
+        dep.depend()
+        if (childOb) {
+          childOb.dep.depend()
+        }
+        if (isArray(value)) {
+          for (var e, i = 0, l = value.length; i &lt; l; i++) {
+            e = value[i]
+            e &amp;&amp; e.__ob__ &amp;&amp; e.__ob__.dep.depend()
+          }
+        }
+      }
+      return value
+    },
+    set: function reactiveSetter (newVal) {
+      var value = getter ? getter.call(obj) : val
+      if (newVal === value) {
+        return
+      }
+      if (setter) {
+        setter.call(obj, newVal)
+      } else {
+        val = newVal
+      }
+      childOb = observe(newVal)
+      // 进行赋值时会触发watcher更新
+      dep.notify()
+    }
+  })
+}
+  export function Observer (value) {
+  this.value = value
+  this.dep = new Dep()
+  def(value, '__ob__', this)
+  if (isArray(value)) {
+    var augment = hasProto
+      ? protoAugment
+      : copyAugment
+    augment(value, arrayMethods, arrayKeys)
+    this.observeArray(value)
+  } else {
+    this.walk(value)
+  }
+}
+
+// Instance methods
+
+/**
+  * Walk through each property and convert them into
+  * getter/setters. This method should only be called when
+  * value type is Object.
+  *
+  * @param {Object} obj
+  */
+
+Observer.prototype.walk = function (obj) {
+  var keys = Object.keys(obj)
+  for (var i = 0, l = keys.length; i &lt; l; i++) {
+    this.convert(keys[i], obj[keys[i]])
+  }
+}
+
+/**
+  * Observe a list of Array items.
+  *
+  * @param {Array} items
+  */
+
+Observer.prototype.observeArray = function (items) {
+  for (var i = 0, l = items.length; i &lt; l; i++) {
+    observe(items[i])
+  }
+}
+
+/**
+  * Convert a property into getter/setter so we can emit
+  * the events when the property is accessed/changed.
+  *
+  * @param {String} key
+  * @param {*} val
+  */
+
+Observer.prototype.convert = function (key, val) {
+  defineReactive(this.value, key, val)
+}
+
+/**
+  * Add an owner vm, so that when $set/$delete mutations
+  * happen we can notify owner vms to proxy the keys and
+  * digest the watchers. This is only called when the object
+  * is observed as an instance's root $data.
+  *
+  * @param {Vue} vm
+  */
+
+Observer.prototype.addVm = function (vm) {
+  (this.vms || (this.vms = [])).push(vm)
+}
+
+/**
+  * Remove an owner vm. This is called when the object is
+  * swapped out as an instance's $data object.
+  *
+  * @param {Vue} vm
+  */
+
+Observer.prototype.removeVm = function (vm) {
+  this.vms.$remove(vm)
+}
+
+// helpers
+
+/**
+  * Augment an target Object or Array by intercepting
+  * the prototype chain using __proto__
+  *
+  * @param {Object|Array} target
+  * @param {Object} proto
+  */
+
+function protoAugment (target, src) {
+  target.__proto__ = src
+}
+
+/**
+  * Augment an target Object or Array by defining
+  * hidden properties.
+  *
+  * @param {Object|Array} target
+  * @param {Object} proto
+  */
+
+function copyAugment (target, src, keys) {
+  for (var i = 0, l = keys.length; i &lt; l; i++) {
+    var key = keys[i]
+    def(target, key, src[key])
+  }
+}
+
+/**
+  * Attempt to create an observer instance for a value,
+  * returns the new observer if successfully observed,
+  * or the existing observer if the value already has one.
+  *
+  * @param {*} value
+  * @param {Vue} [vm]
+  * @return {Observer|undefined}
+  * @static
+  */
+
+export function observe (value, vm) {
+  if (!value || typeof value !== 'object') {
+    return
+  }
+  var ob
+  if (
+    hasOwn(value, '__ob__') &amp;&amp;
+    value.__ob__ instanceof Observer
+  ) {
+    ob = value.__ob__
+  } else if (
+    (isArray(value) || isPlainObject(value)) &amp;&amp;
+    Object.isExtensible(value) &amp;&amp;
+    !value._isVue
+  ) {
+    ob = new Observer(value)
+  }
+  if (ob &amp;&amp; vm) {
+    ob.addVm(vm)
+  }
+  return ob
+}
+
+/**
+  * Set a property on an object. Adds the new property and
+  * triggers change notification if the property doesn't
+  * already exist.
+  *
+  * @param {Object} obj
+  * @param {String} key
+  * @param {*} val
+  * @public
+  */
+
+export function set (obj, key, val) {
+  if (hasOwn(obj, key)) {
+    obj[key] = val
+    return
+  }
+  if (obj._isVue) {
+    set(obj._data, key, val)
+    return
+  }
+  var ob = obj.__ob__
+  if (!ob) {
+    obj[key] = val
+    return
+  }
+  ob.convert(key, val)
+  ob.dep.notify()
+  if (ob.vms) {
+    var i = ob.vms.length
+    while (i--) {
+      var vm = ob.vms[i]
+      vm._proxy(key)
+      vm._digest()
+    }
+  }
+  return val
+}
+
+/**
+  * Delete a property and trigger change if necessary.
+  *
+  * @param {Object} obj
+  * @param {String} key
+  */
+
+export function del (obj, key) {
+  if (!hasOwn(obj, key)) {
+    return
+  }
+  delete obj[key]
+  var ob = obj.__ob__
+  if (!ob) {
+    return
+  }
+  ob.dep.notify()
+  if (ob.vms) {
+    var i = ob.vms.length
+    while (i--) {
+      var vm = ob.vms[i]
+      vm._unproxy(key)
+      vm._digest()
+    }
+  }
+}
+
+/**
+* Get the value from an expression on this vm.
+*
+* @param {String} exp
+* @param {Boolean} [asStatement]
+* @return {*}
+*/
+
+Vue.prototype.$get = function (exp, asStatement) {
+var res = parseExpression(exp)
+if (res) {
+  if (asStatement &amp;&amp; !isSimplePath(exp)) {
+    var self = this
+    return function statementHandler () {
+      self.$arguments = toArray(arguments)
+      var result = res.get.call(self, self)
+      self.$arguments = null
+      return result
+    }
+  } else {
+    try {
+      return res.get.call(this, this)
+    } catch (e) {}
+  }
+}
+}
+
+/**
+* Set the value from an expression on this vm.
+* The expression must be a valid left-hand
+* expression in an assignment.
+*
+* @param {String} exp
+* @param {*} val
+*/
+
+Vue.prototype.$set = function (exp, val) {
+    var res = parseExpression(exp, true)
+    if (res &amp;&amp; res.set) {
+      res.set.call(this, this, val)
+    }
+}
+
+/**
+* Delete a property on the VM
+*
+* @param {String} key
+*/
+
+Vue.prototype.$delete = function (key) {
+    del(this._data, key)
+}
+</code></pre></div><!----><!----></div></div></div>
+    <script src="/assets/js/86.ff4ab1bc.js" defer></script><script src="/assets/js/app.0449fb95.js" defer></script>
+  </body>
+</html>

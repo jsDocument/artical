@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>技术文档 | Vue之旅开始</title>
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    
+    <link rel="preload" href="/assets/css/142.styles.8baecc0a.css" as="style"><link rel="preload" href="/assets/js/app.0449fb95.js" as="script"><link rel="preload" href="/assets/js/89.c9db291c.js" as="script"><link rel="prefetch" href="/assets/js/65.7d7604b1.js"><link rel="prefetch" href="/assets/js/0.2b664149.js"><link rel="prefetch" href="/assets/js/1.89837018.js"><link rel="prefetch" href="/assets/js/2.04ac93f5.js"><link rel="prefetch" href="/assets/js/3.0572817a.js"><link rel="prefetch" href="/assets/js/4.7d4d5d42.js"><link rel="prefetch" href="/assets/js/5.9f383942.js"><link rel="prefetch" href="/assets/js/6.84049ebc.js"><link rel="prefetch" href="/assets/js/7.b8224291.js"><link rel="prefetch" href="/assets/js/8.1d4757e8.js"><link rel="prefetch" href="/assets/js/9.060903eb.js"><link rel="prefetch" href="/assets/js/10.39aac531.js"><link rel="prefetch" href="/assets/js/11.bd16e2a2.js"><link rel="prefetch" href="/assets/js/12.6c7aa3c3.js"><link rel="prefetch" href="/assets/js/13.6ec00222.js"><link rel="prefetch" href="/assets/js/14.54e5588f.js"><link rel="prefetch" href="/assets/js/15.85452bd3.js"><link rel="prefetch" href="/assets/js/16.a47c69d4.js"><link rel="prefetch" href="/assets/js/17.d0f27c82.js"><link rel="prefetch" href="/assets/js/18.357ff19c.js"><link rel="prefetch" href="/assets/js/19.5a8eb230.js"><link rel="prefetch" href="/assets/js/20.e4846e3b.js"><link rel="prefetch" href="/assets/js/21.4994aa72.js"><link rel="prefetch" href="/assets/js/22.9120de5c.js"><link rel="prefetch" href="/assets/js/23.c2b942bc.js"><link rel="prefetch" href="/assets/js/24.5474b8f2.js"><link rel="prefetch" href="/assets/js/25.e20db8c4.js"><link rel="prefetch" href="/assets/js/26.6e0d9d16.js"><link rel="prefetch" href="/assets/js/27.afe56b35.js"><link rel="prefetch" href="/assets/js/28.73eab25c.js"><link rel="prefetch" href="/assets/js/29.ed3c5ec1.js"><link rel="prefetch" href="/assets/js/30.0a83f707.js"><link rel="prefetch" href="/assets/js/31.ef9b88e8.js"><link rel="prefetch" href="/assets/js/32.dad42837.js"><link rel="prefetch" href="/assets/js/33.77dee06c.js"><link rel="prefetch" href="/assets/js/34.e7380976.js"><link rel="prefetch" href="/assets/js/35.3eb60e12.js"><link rel="prefetch" href="/assets/js/36.0180d2d3.js"><link rel="prefetch" href="/assets/js/37.e7d42a60.js"><link rel="prefetch" href="/assets/js/38.f4fb998b.js"><link rel="prefetch" href="/assets/js/39.2d505e64.js"><link rel="prefetch" href="/assets/js/40.ba8449e7.js"><link rel="prefetch" href="/assets/js/41.4ef7223e.js"><link rel="prefetch" href="/assets/js/42.d8a62e36.js"><link rel="prefetch" href="/assets/js/43.5f284fd4.js"><link rel="prefetch" href="/assets/js/44.afc28fe2.js"><link rel="prefetch" href="/assets/js/45.28888c39.js"><link rel="prefetch" href="/assets/js/46.d5a574ed.js"><link rel="prefetch" href="/assets/js/47.b41f625a.js"><link rel="prefetch" href="/assets/js/48.38efb5e8.js"><link rel="prefetch" href="/assets/js/49.3d6afeff.js"><link rel="prefetch" href="/assets/js/50.e5c7ca5f.js"><link rel="prefetch" href="/assets/js/51.accf4534.js"><link rel="prefetch" href="/assets/js/52.6dc8062b.js"><link rel="prefetch" href="/assets/js/53.b4f69d3f.js"><link rel="prefetch" href="/assets/js/54.91619a68.js"><link rel="prefetch" href="/assets/js/55.a1698b19.js"><link rel="prefetch" href="/assets/js/56.e46aee9d.js"><link rel="prefetch" href="/assets/js/57.59767b01.js"><link rel="prefetch" href="/assets/js/58.cea59f7b.js"><link rel="prefetch" href="/assets/js/59.13f7389e.js"><link rel="prefetch" href="/assets/js/60.831e6ec1.js"><link rel="prefetch" href="/assets/js/61.e3b3a5e0.js"><link rel="prefetch" href="/assets/js/62.63493c35.js"><link rel="prefetch" href="/assets/js/63.115ff67c.js"><link rel="prefetch" href="/assets/js/64.5e501197.js"><link rel="prefetch" href="/assets/js/66.e7e4b4fd.js"><link rel="prefetch" href="/assets/js/67.266e6fd7.js"><link rel="prefetch" href="/assets/js/68.d7eef6fb.js"><link rel="prefetch" href="/assets/js/69.9b15d854.js"><link rel="prefetch" href="/assets/js/70.32de467c.js"><link rel="prefetch" href="/assets/js/71.4f448c58.js"><link rel="prefetch" href="/assets/js/72.4a2cd993.js"><link rel="prefetch" href="/assets/js/73.22c31bb8.js"><link rel="prefetch" href="/assets/js/74.1f1353be.js"><link rel="prefetch" href="/assets/js/75.bfb5503f.js"><link rel="prefetch" href="/assets/js/76.f8fe33db.js"><link rel="prefetch" href="/assets/js/77.d4ca9bcf.js"><link rel="prefetch" href="/assets/js/78.590a13c1.js"><link rel="prefetch" href="/assets/js/79.46784c6f.js"><link rel="prefetch" href="/assets/js/80.ec637c45.js"><link rel="prefetch" href="/assets/js/81.4d8593a5.js"><link rel="prefetch" href="/assets/js/82.3583ff89.js"><link rel="prefetch" href="/assets/js/83.730c9b53.js"><link rel="prefetch" href="/assets/js/84.8e74b6d1.js"><link rel="prefetch" href="/assets/js/85.f3a295f0.js"><link rel="prefetch" href="/assets/js/86.ff4ab1bc.js"><link rel="prefetch" href="/assets/js/87.40412755.js"><link rel="prefetch" href="/assets/js/88.7d7c762d.js"><link rel="prefetch" href="/assets/js/90.38e0a01a.js"><link rel="prefetch" href="/assets/js/91.23130e77.js"><link rel="prefetch" href="/assets/js/92.92daa152.js"><link rel="prefetch" href="/assets/js/93.fb6c8365.js"><link rel="prefetch" href="/assets/js/94.fb7e2503.js"><link rel="prefetch" href="/assets/js/95.35de0ab3.js"><link rel="prefetch" href="/assets/js/96.a4a73991.js"><link rel="prefetch" href="/assets/js/97.ebe18e70.js"><link rel="prefetch" href="/assets/js/98.e4e0f45d.js"><link rel="prefetch" href="/assets/js/99.cf03d7e8.js"><link rel="prefetch" href="/assets/js/100.683a49f1.js"><link rel="prefetch" href="/assets/js/101.9a045db8.js"><link rel="prefetch" href="/assets/js/102.cc46d5b2.js"><link rel="prefetch" href="/assets/js/103.be6a56bc.js"><link rel="prefetch" href="/assets/js/104.d6edd262.js"><link rel="prefetch" href="/assets/js/105.209def7c.js"><link rel="prefetch" href="/assets/js/106.3af49bc7.js"><link rel="prefetch" href="/assets/js/107.f398c0c2.js"><link rel="prefetch" href="/assets/js/108.73b3e38d.js"><link rel="prefetch" href="/assets/js/109.0b4ec68c.js"><link rel="prefetch" href="/assets/js/110.4ca42bfe.js"><link rel="prefetch" href="/assets/js/111.2e0a7bee.js"><link rel="prefetch" href="/assets/js/112.f0531039.js"><link rel="prefetch" href="/assets/js/113.2ba364b5.js"><link rel="prefetch" href="/assets/js/114.d514164c.js"><link rel="prefetch" href="/assets/js/115.51677196.js"><link rel="prefetch" href="/assets/js/116.bbb112fe.js"><link rel="prefetch" href="/assets/js/117.271c1917.js"><link rel="prefetch" href="/assets/js/118.8d071e34.js"><link rel="prefetch" href="/assets/js/119.1dfb6ef0.js"><link rel="prefetch" href="/assets/js/120.2653a74e.js"><link rel="prefetch" href="/assets/js/121.5f9e16ba.js"><link rel="prefetch" href="/assets/js/122.08f9edd0.js"><link rel="prefetch" href="/assets/js/123.c445e5ab.js"><link rel="prefetch" href="/assets/js/124.fb8d7bdf.js"><link rel="prefetch" href="/assets/js/125.f54b24d6.js"><link rel="prefetch" href="/assets/js/126.4c72a650.js"><link rel="prefetch" href="/assets/js/127.22879221.js"><link rel="prefetch" href="/assets/js/128.1f8d1a10.js"><link rel="prefetch" href="/assets/js/129.1552fcc7.js"><link rel="prefetch" href="/assets/js/130.0f4ddc21.js"><link rel="prefetch" href="/assets/js/131.5c0265d6.js"><link rel="prefetch" href="/assets/js/132.b7726539.js"><link rel="prefetch" href="/assets/js/133.d90ae7de.js"><link rel="prefetch" href="/assets/js/134.7f583da4.js"><link rel="prefetch" href="/assets/js/135.1283e641.js"><link rel="prefetch" href="/assets/js/136.05162dac.js"><link rel="prefetch" href="/assets/js/137.191164c1.js"><link rel="prefetch" href="/assets/js/138.945fe948.js"><link rel="prefetch" href="/assets/js/139.6cc472eb.js"><link rel="prefetch" href="/assets/js/140.4822af41.js"><link rel="prefetch" href="/assets/js/141.d34f3964.js">
+    <link rel="stylesheet" href="/assets/css/142.styles.8baecc0a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div><a href="/" class="home-link router-link-active"><!----><span class="site-name">
+      技术文档
+    </span></a><div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""><!----></div><!----></div></header><div class="sidebar-mask"></div><div class="sidebar"><!----><ul class="sidebar-links"><li><a href="/" class="sidebar-link">技术文档</a></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>node学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>ES6学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>Vue源码学习</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端常见问题</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>前端基础</span><span class="arrow down"></span></p><!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>算法</span><span class="arrow down"></span></p><!----></div></li></ul></div><div class="page"><div class="content"><h1 id="vue之旅开始">Vue之旅开始</h1><pre class="language-js"><code><span class="token comment">// 初始化实例属性</span>
+options <span class="token operator">=</span> options <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token keyword">this</span><span class="token punctuation">.</span>$el <span class="token operator">=</span> <span class="token keyword">null</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$parent <span class="token operator">=</span> options<span class="token punctuation">.</span>parent  <span class="token comment">// 用于处理事件广播....</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$root <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$parent
+  <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$parent<span class="token punctuation">.</span>$root
+  <span class="token punctuation">:</span> <span class="token keyword">this</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$children <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>  <span class="token comment">// 用于触发attached与detached及其钩子及销毁</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$refs <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>       <span class="token comment">// child vm references</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$els <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>        <span class="token comment">// element references</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_watchers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>   <span class="token comment">// all watchers as an array</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_directives <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment">// all directives</span>
+
+<span class="token comment">// a uid</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_uid <span class="token operator">=</span> uid<span class="token operator">++</span>
+
+<span class="token comment">// a flag to avoid this being observed</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_isVue <span class="token operator">=</span> <span class="token boolean">true</span>
+
+<span class="token comment">// events bookkeeping</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_events <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>            <span class="token comment">// 注册事件回调</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_eventsCount <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>       <span class="token comment">// 用于广播</span>
+
+<span class="token comment">// 编译的元素el为文档片断, this.$el为el的第一个子元素, 处理DOM时会将第一个与最后一个添加上相应的文本或注释节点</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_isFragment <span class="token operator">=</span> <span class="token boolean">false</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_fragment <span class="token operator">=</span>         <span class="token comment">// @type {DocumentFragment}</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_fragmentStart <span class="token operator">=</span>    <span class="token comment">// @type {Text|Comment}  第一个子元素</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_fragmentEnd <span class="token operator">=</span> <span class="token keyword">null</span> <span class="token comment">// @type {Text|Comment}  最后一个子元素</span>
+
+<span class="token comment">// lifecycle state</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_isCompiled <span class="token operator">=</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_isDestroyed <span class="token operator">=</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_isReady <span class="token operator">=</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_isAttached <span class="token operator">=</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_isBeingDestroyed <span class="token operator">=</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_vForRemoving <span class="token operator">=</span> <span class="token boolean">false</span>  <span class="token comment">// for指令中dom元素正在移除</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_unlinkFn <span class="token operator">=</span> <span class="token keyword">null</span>
+
+<span class="token comment">/**
+  * 包含组件时, _context为其公共的父实例和群集
+  */</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_context <span class="token operator">=</span> options<span class="token punctuation">.</span>_context <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$parent
+
+<span class="token comment">/**
+  * _scope 为v-for等行内作用域, 用于连接props与指令
+  */</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_scope <span class="token operator">=</span> options<span class="token punctuation">.</span>_scope
+
+<span class="token comment">/**
+  * 如果当前实例被编译到一个fragment中, 需要注册自己作为一个子元素为attach或detach作准备工作
+  */</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_frag <span class="token operator">=</span> options<span class="token punctuation">.</span>_frag
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_frag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_frag<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$parent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>$parent<span class="token punctuation">.</span>$children<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+  * 保存未经过合并的data
+  */</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_runtimeData <span class="token operator">=</span> options<span class="token punctuation">.</span>data
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+  * mergeOptions(parent, child, vm)
+  * 将实例构造函数的配置
+  * 传入的参数配置
+  *
+  */</span>
+options <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$options <span class="token operator">=</span> <span class="token function">mergeOptions</span><span class="token punctuation">(</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>options<span class="token punctuation">,</span>
+  options<span class="token punctuation">,</span>
+  <span class="token keyword">this</span>
+<span class="token punctuation">)</span>
+<span class="token comment">/**
+  * 根据this.$options_ref 更新其父类上的$refs, 将其加入父类上或从父类上移除
+  */</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_updateRef</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">// initialize data as empty object.</span>
+<span class="token comment">// it will be filled up in _initScope().</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>_data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+<span class="token comment">// 调用钩子函数init</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_callHook</span><span class="token punctuation">(</span><span class="token string">'init'</span><span class="token punctuation">)</span>
+
+<span class="token comment">/**
+  * 初始化数据监听与作用域继承
+  */</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_initState</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">// setup event system and option events.安装系统事件</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_initEvents</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 调用钩子函数created</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_callHook</span><span class="token punctuation">(</span><span class="token string">'created'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 挂载</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$mount</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>el<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre><h2 id="挂载">挂载</h2><ul><li>编译与更新el</li><li>初始化DOM hook</li><li>如果this.$el已在文档中, 则执行attached钩子, 执行ready方法</li><li>否则绑定一次hook:attached事件, 回调执行ready</li></ul><pre class="language-js"><code>Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">$mount</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_isCompiled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> <span class="token function">warn</span><span class="token punctuation">(</span>
+      <span class="token string">'$mount() should be called only once.'</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">return</span>
+  <span class="token punctuation">}</span>
+  el <span class="token operator">=</span> <span class="token function">query</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>el<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    el <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_compile</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_initDOMHooks</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">inDoc</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$el<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_callHook</span><span class="token punctuation">(</span><span class="token string">'attached'</span><span class="token punctuation">)</span>
+    ready<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$once</span><span class="token punctuation">(</span><span class="token string">'hook:attached'</span><span class="token punctuation">,</span> ready<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">ready</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_isAttached <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>_isReady <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">_callHook</span><span class="token punctuation">(</span><span class="token string">'ready'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><!----><!----></div></div></div>
+    <script src="/assets/js/89.c9db291c.js" defer></script><script src="/assets/js/app.0449fb95.js" defer></script>
+  </body>
+</html>
