@@ -33,7 +33,7 @@ module.exports = {
     displayAllHeaders: false,
     sidebarDepth: 3,
     // repo: 'kitdocs/kitdocs.org',
-    // editLinks: true,
+    editLinks: true,
     docsDir: 'docs',
     // #697 Provided by the official algolia team.
     locales: {

@@ -1,7 +1,7 @@
 # 项目构建
 
 类型检查
-1. 基本类型和引用类型(boolean, string, number, null, undefined, void没有返回值, number[], any, never没有值的类型 元组 枚举) 
+1. 基本类型和引用类型(boolean, string, number, null, undefined, void没有返回值, number[], any, never没有值的类型 元组 枚举)
 2. class中protected, private, public
 3. 联合类型 type | type
 4. 对象类型 interface P{name: String, age?: Number, [sex: Boolean]: any, readonly id: number, [index: number]: number}【可选，任意属性即key不定】 即P类型的接口；使用let s: P={name: 'aa', age: 24}，使用时属性需按照声明顺序
@@ -60,6 +60,7 @@
 
 
 ## Vue项目中加入typescript需要做的修改
+
 1. 安装ts相关的依赖 typescript ts-loader  vue-class-component  vue-decorator-property @types文件依赖
 2. webpack配置文件tsx加ts-loader，加上 options: {appendTsSuffixTo: [/\.vue$/]}配置
 3. 习惯用 vue-class-component 的可能还要配置 vue-decorator-property 依赖??
