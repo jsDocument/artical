@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vuepress dev .",
     "build": "vuepress build .",
+    "lint": "eslint --fix --ext .js,.vue bin/ lib/ test/",
+    "prepublishOnly": "conventional-changelog -p angular -r 2 -i CHANGELOG.md -s",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "deployOnly": "gh-pages -d dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "npm run deployOnly",
+    "deployOnly": "gh-pages -d dist --message $(git symbolic-ref --short -q HEAD)-$(git rev-parse --short HEAD)",
+    "test": "node test/prepare.js && jest --config test/jest.config.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +24,17 @@
   },
   "homepage": "https://github.com/jsDocument/artical#readme",
   "devDependencies": {
-    "gh-pages": "^1.1.0",
-    "vuepress": "^0.7.0"
+    "@vuepress/plugin-back-to-top": "^1.0.0-alpha.0",
+    "@vuepress/plugin-medium-zoom": "^1.0.0-alpha.0",
+    "@vuepress/plugin-notification": "^1.0.0-alpha.5",
+    "@vuepress/plugin-pwa": "^1.0.0-alpha.0",
+    "gh-pages": "^2.0.1",
+    "lint-staged": "8.1.0",
+    "markdown-it-checkbox": "^1.1.0",
+    "markdown-it-deflist": "^2.0.3",
+    "markdown-it-mark": "^2.0.0",
+    "remark": "^10.0.1",
+    "vuepress": "^1.0.0-alpha.27",
+    "vuepress-plugin-flowchart": "^1.4.3"
   }
 }

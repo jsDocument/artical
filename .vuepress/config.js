@@ -1,89 +1,109 @@
+
+const lang = 'zh'
+const locales = require('./locales')(lang);
+const genNav = require('./config/nav');
+const genSidebar = require('./config/sidebar');
+
 module.exports = {
   dest: 'dist',
-  title: '技术文档',
-  description: '偏重前端与node的技术文档',
-  serviceWorker: true,
-  evergreen: true,
-  markdown: {
-    // markdown-it-anchor 的选项
-    anchor: { permalink: false },
-    // markdown-it-toc 的选项
-    toc: { includeLevel: [1, 2] },
+  locales: {
+    '/': {
+      lang: locales.lang,
+      title: locales.title,
+      description: locales.description,
+    },
+    // '/en': locales['en'].site,
   },
-  // base: '/',
+  head: [
+    ['link', { rel: 'icon', href: `/logo.png` }],
+    ['link', { rel: 'manifest', href: '/manifest.json' }],
+    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
+    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
+    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
+    ['link', { rel: 'apple-touch-icon', href: `/icons/apple-touch-icon-152x152.png` }],
+    ['link', { rel: 'mask-icon', href: '/icons/safari-pinned-tab.svg', color: '#3eaf7c' }],
+    ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
+    ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
+  ],
+  // serviceWorker: {
+  //   updatePopup: true // Boolean | Object, 默认值是 undefined.
+  // },
+  // theme: '',
   themeConfig: {
-    sidebarDepth: 0,
-    sidebar: genSidebarConfig('技术文档'),
+    displayAllHeaders: false,
+    sidebarDepth: 3,
+    // repo: 'kitdocs/kitdocs.org',
+    // editLinks: true,
+    docsDir: 'docs',
+    // #697 Provided by the official algolia team.
+    locales: {
+      '/': {
+        label: '简体中文',
+        selectText: '选择语言',
+        editLinkText: '在 GitHub 上编辑此页',
+        lastUpdated: '上次更新',
+        nav: genNav(lang),
+        // sidebar: {
+        //   '/news/': getGuideSidebar('指南', '深入'),
+        //   '/topic/': getPluginSidebar('插件', '介绍'),
+        //   // '/theme/': getThemeSidebar('主题', '介绍'),
+        // },
+        sidebar: genSidebar(lang),
+      },
+    },
   },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        // '@alias': 'docs'
-      }
+  plugins: {
+    // '@vuepress/plugin-i18n-ui': true,
+    '@vuepress/plugin-back-to-top': true,
+    // '@vuepress/plugin-pwa': true,
+    '@vuepress/plugin-pwa': {
+      serviceWorker: true,
+      // popupComponent: 'SWUpdatePopup',
+      // updatePopup: false,
+      updatePopup: {
+        '/': {
+          message: "发现新内容可用",
+          buttonText: "刷新"
+        },
+      },
+    },
+    '@vuepress/plugin-medium-zoom': true,
+    '@vuepress/plugin-notification': true,
+    // 'flowchart': true
+  },
+  configureWebpack: (config, isServer) => {
+    if (!isServer) {
+      // 修改客户端的 webpack 配置
     }
-  }
+    // config.resolve.extensions.push('.css', '.styl', '.md');
+  },
+  // clientRootMixin: path.resolve(__dirname, 'mixin.js')
+  chainWebpack: (config, isServer) => {
+    if (!isServer) {
+      // 修改客户端的 webpack 配置
+    }
+
+    config.module
+      .rule('webp')
+      .test(/\.webp$/)
+      .use('file-loader')
+        .loader('file-loader')
+        .end()
+
+    // config.module
+    //   .rule('css')
+    //   .test(/\.css$/)
+    //   .use('css-loader')
+    //     .loader('css-loader')
+    //     .end()
+  },
+  markdown: {
+    config: md => {
+      md.set({ breaks: true })
+      md.use(require('markdown-it-checkbox'))
+      md.use(require('markdown-it-deflist'))
+      md.use(require('remark'))
+    }
+  },
 }
 
-function genSidebarConfig (title) {
-  return [
-    '/',
-    {
-      title: 'node学习',
-      children: [
-        '/node_basic/',
-        '/node_basic/readline',
-        '/node_basic/process',
-        '/node_basic/child_process',
-        '/node_basic/event',
-        '/node_basic/stream',
-        '/node_basic/net',
-        '/node_basic/udp',
-        '/node_basic/http',
-      ]
-    },
-    {
-      title: 'Vue源码学习',
-      children: [
-        '/vue_resource/structure.md',
-        '/vue_resource/start',
-        '/vue_resource/options',
-        '/vue_resource/init_data',
-        '/vue_resource/events',
-        '/vue_resource/compile_el',
-        '/vue_resource/_compile_root',
-        '/vue_resource/_compile_rest',
-        '/vue_resource/directive_base',
-        '/vue_resource/watch_observer',
-        '/vue_resource/batcher',
-        '/vue_resource/calculate',
-        '/vue_resource/hook',
-        '/vue_resource/transition',
-        '/vue_resource/dom',
-        '/vue_resource/fragmentFactory',
-        '/vue_resource/directive_every',
-        '/vue_resource/parse',
-      ]
-    },
-    {
-      title: '前端常见问题',
-      children: [
-        '/javascript_question/regexp',
-        '/javascript_question/http',
-        '/javascript_question/event',
-        '/javascript_question/others',
-        '/javascript_question/promise',
-        '/javascript_question/async&await',
-        '/bite',
-      ]
-    },
-    {
-      title: '算法',
-      children: [
-        '/arithmetic/reg_match',
-        '/arithmetic/search_str',
-        '/算法/callStack',
-        '/算法/sort'
-      ]
-    }
-  ]
-}
