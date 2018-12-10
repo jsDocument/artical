@@ -25,10 +25,6 @@ module.exports = {
     ['meta', { name: 'msapplication-TileImage', content: '/icons/msapplication-icon-144x144.png' }],
     ['meta', { name: 'msapplication-TileColor', content: '#000000' }]
   ],
-  // serviceWorker: {
-  //   updatePopup: true // Boolean | Object, 默认值是 undefined.
-  // },
-  // theme: '',
   themeConfig: {
     displayAllHeaders: false,
     sidebarDepth: 3,
@@ -53,7 +49,7 @@ module.exports = {
     },
   },
   plugins: {
-    // '@vuepress/plugin-i18n-ui': true,
+    '@vuepress/plugin-i18n-ui': true,
     '@vuepress/plugin-back-to-top': true,
     // '@vuepress/plugin-pwa': true,
     '@vuepress/plugin-pwa': {
