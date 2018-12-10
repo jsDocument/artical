@@ -1,0 +1,117 @@
+<!DOCtype html>
+<html>
+<head>
+    <title>测试drag</title>
+</head>
+<body>
+    <div class="wrapper" id="my_zone">
+        <div draggable="true" class="item blue">
+        </div>
+        <div draggable="true" class="item brown">
+        </div>
+        <div draggable="true" class="item darkgrey">
+        </div>
+        <div draggable="true" class="item yellow">
+        </div>
+    </div>
+    <div class="target"  id="drop_zone"></div>
+    <div class="swiper">
+        <div class="swiper_item blue"></div>
+        <div class="swiper_item brown"></div>
+        <div class="swiper_item darkgrey"></div>
+        <div class="swiper_item yellow"></div>
+        <div class="swiper_item red"></div>
+    </div>
+</body>
+<style>
+.wrapper{
+    height:  40px;
+    overflow: hidden;
+}
+.item{
+    width:  40px;
+    height:  40px;
+    float: left;
+}
+.yellow{
+    background-color: yellow;
+}
+.blue{
+    background-color: blue;
+}
+.brown{
+    background-color: brown;
+}
+.darkgrey{
+    background-color: darkgrey;
+}
+.red{
+    background-color: red;
+}
+.target{
+    width:  300px;
+    height:  300px;
+    border:  1px solid #f1f1f1;
+}
+</style>
+<script type="text/javascript">
+function init(){
+    var target;
+    var zone = document.getElementById('drop_zone');
+    var width = 40;
+    zone.addEventListener('dragover', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        return true;
+        
+    }, false)
+    zone.addEventListener('drop', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        this.style.backgroundColor = '#ffffff';
+        return false;
+
+    }, false)
+    zone.addEventListener('dragenter', function(e){
+        this.style.backgroundColor = '#efefef';
+        return true;
+    }, false)
+
+    var my_zone = document.getElementById('my_zone');
+
+    my_zone.addEventListener('dragleave', function(e){
+        e.dataTransfer.effectAllowed = 'none';
+        return false;
+    })
+
+    var items = document.getElementsByClassName('item');
+    for(let item of items){
+        item.addEventListener('dragstart', function(e){
+            target = e.target;
+            e.dataTransfer.effectAllowed = 'move';
+        });
+        item.addEventListener('dragend', function(e){
+            var index = parseInt(e.pageX/width);
+            if(index>items.length) index = items.length -1;
+            if(items[index] === this) return;
+            this.parentNode.insertBefore(this, items[index]);
+            return false;
+        })
+    }
+
+}
+if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', function() {
+        document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+        init();
+    }, false);
+}else if (document.attachEvent) {// 兼容ie
+    document.attachEvent('onreadytstatechange', function() {
+        if (document.readyState == "complete") {
+            document.detachEvent("onreadystatechange", arguments.callee);
+            init();
+        }
+    })
+}
+</script>
+</html>

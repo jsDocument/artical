@@ -62,12 +62,19 @@
     - initComputed(Sub)-->对computed进行defineComputed(Sub.prototype, key, computed[key])
 4. 循环定义Vue.component, Vue.directive, Vue.filter(id, definition)的方法；compoment且definition是纯对象，时加definition.name, 再添加到this.options.\_base上；是directive且definition是function，定义bind及update的方法为definition；并将其更新到this.options
 
+## 入口
+1. /src/entries/web-runtime.js：扩展了Vue.options.directives（model和show）和Vue.options.components（Transition和TransitionGroup)。在Vue.prototype上添加了__patch__(虚拟dom相关)和$mount（挂载元素）。
+2. /src/entries/web-runtime-with-compiler.js：定义了一个方法Vue.prototype.$mount 及 将compileToFunctions挂在到Vue.compile上
+
 ## 问题
 1. 不同的打包方式？只是导出的文件内容不一样？
 2. 会不会也和模块的组织方式有关系？
-3. mark, startTag, endTag(vue-pref-start:uid)的作用？
+3. mark, startTag, endTag(vue-pref-start:uid)的作用？性能统计？
 4. \__patch__() 方法
 5. 组件间传递事件
+6. \_isComponent创建内部子组件 时才会为true
+7. options.abstract用于判断是否是抽象组件，抽象组件比如keep-alive、transition等。
+8. \_parentListeners是父组件中绑定在自定义标签上的事件
 
 ## 代码中还是有flow作代码静态检查
 1. /* @flow \*/
@@ -116,16 +123,17 @@
 │   │   │   ├── entry-runtime-factory.js
 │   ├── compiler -------------------------- 编译器代码的存放目录，将 template 编译为 render 函数
 │   │   ├── parser ------------------------ 存放将模板字符串转换成元素抽象语法树的代码
+│   │   ├── directives -------------------- 通用生成render函数之前需要处理的指令
 │   │   ├── codegen ----------------------- 存放从抽象语法树(AST)生成render函数的代码
 │   │   ├── optimizer.js ------------------ 分析静态树，优化vdom渲染
 │   ├── core ------------------------------ 存放通用的，平台无关的代码
 │   │   ├── observer ---------------------- 反应系统，包含数据观测的核心代码
 │   │   ├── vdom -------------------------- 包含虚拟DOM创建(creation)和打补丁(patching)的代码
-│   │   ├── instance ---------------------- 包含Vue构造函数设计相关的代码
+│   │   ├── instance ---------------------- 实例相关内容，包括实例方法，生命周期，事件等
 │   │   ├── global-api -------------------- 包含给Vue构造函数挂载全局方法(静态方法)或属性的代码
-│   │   ├── components -------------------- 包含抽象出来的通用组件
+│   │   ├── components -------------------- 全局的组件，这里只有keep-alive
 │   ├── server ---------------------------- 包含服务端渲染(server-side rendering)的相关代码
 │   ├── platforms ------------------------- 包含平台特有的相关代码
 │   ├── sfc ------------------------------- 包含单文件组件(.vue文件)的解析逻辑，用于vue-template-compiler包
-│   ├── shared ---------------------------- 包含整个代码库通用的代码
+│   ├── shared ---------------------------- shared 共享的工具方法
 

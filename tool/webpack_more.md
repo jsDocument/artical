@@ -5,7 +5,7 @@
     - 通过loader-utils来获取loader的配置项，根据配置项去获取相应信息。
 
 
-```js
+```javascript
 module.exports = function(source){
     // 对source进行处理然后返回
 }
@@ -17,7 +17,7 @@ module.exports = function(source){
     - compilation对象，继承于compiler
 
 
-```js
+```javascript
 function func(opts){
     //参数处理
 }
@@ -41,16 +41,16 @@ func.prototype.apply = function(compiler, callback){
 ```
 
 ## 整体流程图
-![过程 text](./webpack整体流程.png "title")
+![过程](./webpack.png)
 
 ## compiler代表的是配置完的webpack环境，只在webpack启动时构建一次，由webpack组件 所有的配置项构建生成，核心功能与事件
-![核心功能 text](./Compiler核心-1.png "title")
-![核心事件 text](./webpack关键事件-1.png "title")
+![核心功能](./Compiler_core_1.png)
+![核心事件](./webpack_event.png)
 
 ## compilation代表一次单一的版本构建和生成资源，每当检测到文件变化，一次新的编译将被创建，生成一组新的编译资源，编译对象表示：当前的模块资源，编译生成资源， 变化的文件，以及被跟踪依赖的状态信息，核心功能与事件
-![核心功能 text](./Compilation核心.png "title")
-![核心事件 text](./Compilation事件.png "title")
+![核心功能](./Compilation_core.png)
+![核心事件](./Compilation_event.png)
 
 
 ## Tapable实现webpack的发布与订阅，类似于NodeJs的EventEmitter，核心函数与事件
-![函数 text](./Tapable.png "title")
+![函数](./Tapable.png)

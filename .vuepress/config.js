@@ -14,6 +14,9 @@ module.exports = {
   themeConfig: {
     sidebarDepth: 0,
     sidebar: genSidebarConfig('技术文档'),
+    // nav: [
+    //   {text: 'Home', link: '/'}
+    // ]
   },
   configureWebpack: {
     resolve: {
@@ -38,11 +41,20 @@ function genSidebarConfig (title) {
         '/node_basic/stream',
         '/node_basic/net',
         '/node_basic/udp',
-        '/node_basic/http',
+        '/node_basic/http'
+      ]
+    },
+    {
+      title: 'ES6学习',
+      children: [
+        'es6/set&map',
+        'es6/generator',
+        'es6/promise',
       ]
     },
     {
       title: 'Vue源码学习',
+      collapsable: false,
       children: [
         '/vue_resource/structure.md',
         '/vue_resource/start',
@@ -61,7 +73,7 @@ function genSidebarConfig (title) {
         '/vue_resource/dom',
         '/vue_resource/fragmentFactory',
         '/vue_resource/directive_every',
-        '/vue_resource/parse',
+        '/vue_resource/parse'
       ]
     },
     {
@@ -73,11 +85,20 @@ function genSidebarConfig (title) {
         '/javascript_question/others',
         '/javascript_question/promise',
         '/javascript_question/async&await',
-        '/bite',
+      ]
+    },
+    {
+      title: '前端基础',
+      children: [
+        '/basic/render',
+        '/basic/bite',
+        '/basic/mouse-event',
+        '/css/css_layer.md'
       ]
     },
     {
       title: '算法',
+      collapsable: false,
       children: [
         '/arithmetic/reg_match',
         '/arithmetic/search_str',

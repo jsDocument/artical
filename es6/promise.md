@@ -1,4 +1,31 @@
-# promise的相关题目
+# Promise
+是一种容器，里面保存着未来才会结束的事件的结束；也可以说Promise是一个对象，可以获取异步操作的消息。
+
+- 状态：Pending, fulfilled, rejected；异步操作的结果决定了当前是哪种状态。
+- 一旦状态改变，就不会再变。如果改变已经发生了，再对Promise添加回调函数也会立即得到这个结果。
+- 基本用法：构造函数接受函数作为参数，函数有两个参数：`resolve`, `reject`; resolve的作用是将状态从`pending`改为resolved, reject则是改为rejected
+```javascript
+const p = new Promise(function(resolve, reject){
+    // resolve(val) 或 reject(err)
+  })
+```
+- then方法，指定resolved与rejected时的回调函数
+- catch是.then(null, rejection) 指定错误时的回调函数。
+- finally指定Promise对象最后执行的回调函数
+- Promise.all([p1, p2, p3]) 将多个Promise包装成一个新Promise实例；只有所有实例都fulfilled，新实例才会fulfilled。
+- Promise.race([p1, p2, p3]) 只要有一个实例状态率先改变，新实例就跟着改变。
+- Promise.resolve()将对象转为Promise对象；参数可以是：
+  1. Promise实例：原封不动的返回；
+  2. 具有then方法的对象`{then:function(){resolve, reject}}`：将这个对象转为Promise对象，然后立即执行对象的then方法。
+  3. 参数不是对象时，返回一个新的Promise对象，状态为resolved.
+  4. 不带参数时，直接返回一个状态为resolved的Promise对象
+- Promise.reject('reason') 返回一个新的Promise实例，状态为rejected
+
+## 弊端
+1. 开发中我们希望同步函数，同步执行，异步操作再用Promise来处理，但又不想去区分。而Promise会将所有操作变为异步，此时可以用async函数来处理。
+
+
+### promise的相关题目
 
 ```js
 const promise = new Promise((resolve, reject) => {

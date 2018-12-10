@@ -1,23 +1,13 @@
-## Blob  一段二进制数据
+## File独立文件，提供只读信息(名称、大小、mimetype和对文件句柄的引用)
+1. dom.files[0] 来获取File
 
-- new Blob(实际数据的数组, {type: MIME})
-- blob.slice(startByte, endByte)
+## FileList  File对象的类数组序列
 
-## file DOM
+## Blob  可将文件分割为字节范围
 
-- value-->fakeURL/filename
-- files-->FileList
-- lastModified
-- name
-- lastModifiedDate
-- webkitRelativePath
-- size
-
-## File 以文件形式存在的二进制数据
-
-## FileList  File对象的网页表单接口
-
-## FileReader  负责二进制数据读入内存，异步方式读取，读取客户端文件，读取完毕不会载入到缓存
+## FileReader 读取File或Blob
+1. reader = new FileReader(); reader.readAsDataURL(file) 读取文件
+2. reader.onload = function(e){} 渲染文件
 
 1. 方法
   - FileReader(Blob, File)
@@ -36,6 +26,33 @@
 - result
 - refs
 - readystate
+
+## URL scheme
+
+
+
+## 上传文件
+1. form_data = new FormData();
+2. form_data.append('key', file)
+
+
+- new Blob(实际数据的数组, {type: MIME})
+- blob.slice(startByte, endByte)
+
+## file DOM
+
+- value-->fakeURL/filename
+- files-->FileList
+- lastModified
+- name
+- lastModifiedDate
+- webkitRelativePath
+- size
+
+
+## FileReader  负责二进制数据读入内存，异步方式读取，读取客户端文件，读取完毕不会载入到缓存
+
+
 
 ## URL  对二进制数据生成URL
 
@@ -216,7 +233,7 @@ img：draggable属性为true  事件：ondragstart
 ondrag处理ev.dataTransfer.setData(“Text”, ev.target.id)
 
 例子：
-<script type="text/javascript" >
+```javascript
 var uploadButton = document.getElementById('uploadFile');
     uploadButton.onchange = function(){
         var img = new Image();
@@ -281,8 +298,7 @@ var uploadButton = document.getElementById('uploadFile');
     drag.addEventListener('drop', dropHandler, false);
     drag.addEventListener('dragover', dragOverHandler, false);
     drag.addEventListener('dragover', dragStartHandler, false);
-
-</script>
+```
 
 </body>
 </html>

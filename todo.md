@@ -29,3 +29,29 @@
 
 
 ### 对异步模型的理解？
+
+
+
+
+1. 添加mousedown事件，isDragging时，返回；doucment.onselectstart与document.ondragstart时返回false
+2. 添加mousemove、mouseup事件及回调；move回调中调用drag函数，up回调中移除mousemove、mouseup事件，doucment.onselectstart与document.ondragstart为null
+3. isDragging = true;
+4. event.preventDefault()；options.start调用
+5. option.start：取消动画；this.animationFrameId = null; dragState对象
+6. option.drag：this.dragging = true; dragState.left, dragState.top更新；计算start时与当前元素的pageY的差，进行动画；
+7. this.dragging = false，
+
+
+
+1. 运行时---virtual DOM (检查是否为原生)---->其实编译时就可以确定
+2. 直接在编译时分析其模板，做好数据分析留下提示
+3. slot也与scope-slot一样，生成一个函数
+4. 更新与检查---组件优化
+5. 生成子组件函数的cache
+6. proxy----setter/getter
+
+## Promise的兼容实现
+1. 实现Promise函数，接收函数参数，并调用该函数，传入两个回调函数作为参数；两个回调函数即`resolve`与`reject`，负责更新状态信息；
+2. 状态改变，再调用实例then方法，根据状态调用调用`then`的回调函数。[如果Promise本身不存在异步，但then还是异步执行是如何实现的？]
+
+

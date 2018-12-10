@@ -5,9 +5,9 @@
 2. class中protected, private, public
 3. 联合类型 type | type
 4. 对象类型 interface P{name: String, age?: Number, [sex: Boolean]: any, readonly id: number, [index: number]: number}【可选，任意属性即key不定】 即P类型的接口；使用let s: P={name: 'aa', age: 24}，使用时属性需按照声明顺序
-5. 泛型 a: Array<Number> = [1,2]
+5. 泛型 a: Array\<Number> = [1,2]
 6. 函数类型  function add(x: number = 2, y?: number, ...items: any[]):void{} 或 add:(x:number)=>number = function(x: number):number{} 支持重载
-7. 类型断言 <类型>值 或 值 as 类型；类型不确定时：<string>a.length
+7. 类型断言 <类型>值 或 值 as 类型；类型不确定时：`<string>`a.length
 
 
 
@@ -29,14 +29,14 @@
 
 
 ## 泛型 支持多种类型的数据
-1. 如mpvue中：ComponentOptions<V extends Vue> = Options.ComponentOptions<V>
-2. 使用 ComponentOptions<V>(this)
+1. 如mpvue中：ComponentOptions发`<V extends Vue> = Options.ComponentOptions<V>`
+2. 使用 `ComponentOptions<V>(this)`
 3. 使用 ComponentOptions(this) 进行的类型推论
 
 ## 类型
 1. number
 2. any 丢失一些信息，任何类型的都有可能被返回 function ident(arg: any): any{}
-3. function ident<T>(arg: T): T{} 返回类型与传入参数类型是相同的。
+3. `function ident<T>(arg: T): T{}` 返回类型与传入参数类型是相同的。
 
 ## typescript 接口定义declare
 1. module
@@ -54,7 +54,7 @@
 
 ## 三斜线指令
 1. 需要在文件顶端，上面只能出现注释
-2. 是包含单个XML标签的单行注释，如///<reference path=""/>
+2. 是包含单个XML标签的单行注释，如///\<reference path=""\/\>
 3. 是指编译过程中需要引入的额外的文件，使用--out时，可以做为调整输出内容顺序的一种方法
 4. 对输入文件(files)按指定的顺序进行预处理，在文件被加入列表前，它包含的所有三斜线引用都要被处理，还有它们包含的目标。？
 
@@ -63,7 +63,7 @@
 1. 安装ts相关的依赖 typescript ts-loader  vue-class-component  vue-decorator-property @types文件依赖
 2. webpack配置文件tsx加ts-loader，加上 options: {appendTsSuffixTo: [/\.vue$/]}配置
 3. 习惯用 vue-class-component 的可能还要配置 vue-decorator-property 依赖??
-4. vue文件中的<script lang="ts"> class前加@Component
+4. vue文件中的声明语言为ts，class前加@Component
 5. 添加声明模块.d.ts，declare module "*.vue"{import Vue..., export default Vue}
 6. tsconfig.json文件配置
 

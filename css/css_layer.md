@@ -38,4 +38,68 @@ will-change: initial;
 will-change: unset;
 ```
 
-未完待续。。。
+##会继承的属性: line-height
+
+
+css: line-height, vertical-align
+1. line-height的数字值与font-size有关
+2. vertical-align的百分比值 和line-height值有关
+3. inline元素的vertical-align默认值是什么？baseline，但为什么图片与其他行内元素不在同一个水平线上？因为img默认表现与inline-block表现一样,  所以表现为元素margin底边缘; baseline指的是x的低边缘
+4. 父元素的基线，中线。。。是怎么决定的？每个字体在定义的时候, 就有基线？
+5. line元素的高度是由line-height决定的, 
+6. BFC, IFC
+
+每个字体都会绘出自己的容器em-square
+
+
+font-size
+1em 与 字体大小相同, em-box高度即为字体大小
+
+!["行高"](./PastedGraphic.png)
+￼
+content-area 高度是 line-height
+
+vertical-align: middle是与x-height的一半对齐
+
+font-size:0 可以让line-height变为0, 决定line-height的缝隙问题
+
+line-height: 默认normal(1或1.2) 无单位时相对于font-size
+
+!["盒模型"](./PastedGraphic_1.png)
+￼
+每一行都有一个line-box, line-box的高度基本由其中最大的内联盒子决定, 但爱vertical-align的影响
+
+containing-box外层盒子
+
+struct 宽度为0的支柱, 但其有自己的line-height
+
+!["行高"](./PastedGraphic_2.png)
+￼
+内联元素之间本来就是有间隙的, 但底部的间隙是由于struct的行高造成的，内联元素的基线与其基线不同造成行高会撑起一部分
+
+
+vertical-align接受值：提高或降低合子的基线, 值相对于line-height计算的
+
+
+
+vertical-align: baseline;
+vertical-align: sub;
+vertical-align: super;
+vertical-align: text-top;
+vertical-align: text-bottom;
+vertical-align: middle;
+vertical-align: top;
+vertical-align: bottom;
+
+/* <长度> 值 */
+vertical-align: 10em;
+vertical-align: 4px;
+
+/* <百分比> 值 */
+vertical-align: 10%;
+
+/* 全局值 */
+vertical-align: inherit;
+vertical-align: initial;
+vertical-align: unset;
+
