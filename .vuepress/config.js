@@ -93,7 +93,9 @@ function genSidebarConfig (title) {
         '/basic/render',
         '/basic/bite',
         '/basic/mouse-event',
-        '/css/css_layer.md'
+        '/css/css_layer',
+        '/basic/HTTP'
+
       ]
     },
     {
