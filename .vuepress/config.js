@@ -49,7 +49,8 @@ function genSidebarConfig (title) {
       collapsable: false,
       children: [
         '/LeetCode/regex',
-        '/LeetCode/string'
+        '/LeetCode/string',
+        '/LeetCode/link'
       ]
     },
     {
