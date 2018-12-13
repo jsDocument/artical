@@ -45,6 +45,14 @@ function genSidebarConfig (title) {
       ]
     },
     {
+      title: 'leetcode完成的好的题目',
+      collapsable: false,
+      children: [
+        '/LeetCode/regex',
+        '/LeetCode/string'
+      ]
+    },
+    {
       title: 'ES6学习',
       children: [
         'es6/set&map',
