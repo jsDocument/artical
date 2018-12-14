@@ -2,12 +2,15 @@
 
 ## 插入排序
 
-1. 直接插入
+1. 直接插入：
+  - 前后两项相比较，找出第一个后一项比前一项小的元素并暂存---temp；
+  - 将比该项大的所有项，向后移一位；
+  - 再将该项插入。
 
 ```c++
-void insertSort(int *R, int n){
+void insertSort(int &R, int n){
   int i, j, temp;
-  for(i = 1; i<n; i++){
+  for(i = 1; i< n; i++){
     if(R[i]<R[i-1]){
       temp = R[i];
       // 将temp插入到队列的i-1之前, 即之前排好序的队列中
@@ -20,17 +23,17 @@ void insertSort(int *R, int n){
 }
 ```
 
-2. 希尔排序即『缩小增量排序』，把数组R元素分成d1(增量)个组，所有下标距离为d1的倍数的元素，即[1],[1+d1],[1+2d1]...为一组，[2],[2+d1],[2+2d1]...为一组，在各组内进行插入排序。然后再取第二个增量d2(d2<d1)，重复上述分组与排序，走到所取增量等于1；把所有元素放入到一组中进行直接插入排序。(如何选择增量值：最后增量必须为1，尽量避免增量之间互为位数)
+2. 希尔排序即『缩小增量排序』,是插入排序的升级，即取一个增量数组[5, 3, 1], 则 [0, 0+5, 0+2*5]; [1, 1+5, 1+2*5]...依次进行分组比较。但如何选择递增数组？
 
 ```c++
-void shellInsert(int *R, int d, int n){
+void shellInsert(int &R, int d, int n){
   int i, j, temp;
   for(i=d + 1; i <= n; i++){
-    // i的值 小于 i-d的值时，开始进行该组的循环比较
+    // 找到分组中后一项比前一项小的，并暂存
     if(R[i]<R[i-d]){
       temp = R[i];
       j = i - d;
-      // 一组当中第2个及其后元素的比较
+      //在分组中，从暂存项向前，比较并移动
       while(j>0 && temp<R[j]){
         R[j+d] = R[j];
         j = j-d;
@@ -40,8 +43,11 @@ void shellInsert(int *R, int d, int n){
   }
 }
 // 按增量序列d[0..t-1]对R进行希尔排序
-void shellSort(int *R, int d[], int t, int n){
-
+void shellSort(int &R, int d[], int t, int n){
+  int k;
+  for(k = 0; k< t, k++){
+    shellInsert(R, d[k], n)
+  }
 }
 ```
 
@@ -49,16 +55,35 @@ void shellSort(int *R, int d[], int t, int n){
 ## 交换排序
 
 1. 冒泡排序：依次将相邻元素进行比较和交换
-2. 双向冒泡：交替改变扫描方向
-
 ```C++
-// i的取值？
-void DbubbleSort(int *R, int n){
+void BubbleSort(int &R, int n){
+  int i, j, flag, temp;
+  for(i = 0; i< n;i++){
+    flag = 0;
+    for(j = n-1; j>i+1; j--){
+      if(R[j]<R[j-1]){
+        temp = R[j-1];
+        R[j-1] = R[j];
+        R[j] = temp;
+        flag = 1;
+      }
+    }
+    if(flag == 0 ) return;
+  }
+}
+```
+2. 双向冒泡：交替改变扫描方向
+  - noSwap 一趟扫描是否交换，第一次假设有交换
+  - j 循环的元素下标，
+  - i 交替循环的次数
+```C++
+void DbubbleSort(int &R, int n){
   int noSwap = 1, temp;
   int i = 1, j;
   while(noSwap){
     noSwap = 0;
-    for(j = n-i; j>= i; j--){  // 从后向前扫描 [n-i...i]
+    // 倒序循环比较
+    for(j = n-i; j>= i; j--){
       if(R[j]<R[j-1]){
         temp = R[j];
         R[j] = R[j-1];
@@ -66,9 +91,12 @@ void DbubbleSort(int *R, int n){
         noSwap = 1;
       }
     }
-    for(j=i+1; j< n-i; j++){ // 从前向后扫描
+    for(j=i; j< n-i; j++){ 
       if(R[j]>R[j+1]){
-
+        temp = R[j];
+        R[j] = R[j+1];
+        R[j+1] = temp;
+        noSwap = 1;
       }
     }
     i = i+1;
@@ -81,27 +109,34 @@ void DbubbleSort(int *R, int n){
 - 基准
 
 ```C++
-void Partition(int *R, int low, int high){
+void Partition(int &R, int low, int high){
   int i,j;
   i = low;
   j = high;
+  // 取低位作为基准值
   temp = R[i];
-  while(i<j){
+  // 判断条件；低位下标 小于 高位下标
+  while(i < j){
+    // 高位大于基准值，将高位下标向前移动
     while(temp <= R[j]){
       j--;
     }
-    if(i<j){
+    // 否则将高位的值，更新低位循环到的位置，并将低位下标向后移动
+    if(i < j){
       R[i] = R[j];
       i++;
     }
+    // 基准值大于低位元素的值，将低位下标向后移动
     while(temp>=R[i]){
       i++;
     }
-    if(i<j){
+    // 否则将低位的值，更新高位循环到的位置，并将高位下标向前移动
+    if(i < j){
       R[j] = R[i];
       j--;
     }
   }
+  // 此时，高低位下标相遇，将基准值更新到该下标，并返回该下标
   R[i] = temp;
   return i;
 }
@@ -119,9 +154,27 @@ void quickSort(int *R, int low, int high){
 
 ## 选择排序
 
-1. 直接选择：每次从待排序的无序区中选择最小/大的，与R[0],R[1]依次交换。
+1. 直接选择：直接从待排序区找到最小值，放入已排序区中。
+```C++
+void selectSort(int &R, int n){
+  int i, j, k, temp;
+  for(i = 0; i < n-1; i++){
+    k = i;
+    for(j = i+1; j < n; j++){
+      if(R[j]<R[k]){
+        k = j;
+      }
+    }
+    if(k != i){
+      temp = R[i];
+      R[i] = R[k];
+      R[k] = temp;
+    }
+  }
+}
+```
 
-2. 堆排序：如何建堆是关键，父节点R[i/2]，左子节点[2i]，右子节点[2i+1]，找出子节点中较大的那个和父节点比较，如果大于父节点则进行交换，再继续将该子节点作为父节点，与其子节点再进行比较。
+2. 堆排序：如何建堆是关键，父节点R[i/2]，左子节点[2i]，右子节点[2i+1]，找出子节点中较大的那个和父节点比较，如果大于父节点则进行交换，再继续将该子节点作为父节点，与该父节点的其子节点再进行比较。
 
 ```C++
 /**
@@ -130,24 +183,29 @@ void quickSort(int *R, int low, int high){
 * n  列表长度
 *** 下标为0不可用
 **/
-void shift(int *R, int i, int n){
+void shift(int &R, int i, int n){
   int j;
-  int temp = R[i];
-  j = i*2;
+  int temp = R[i];  // 取父节点
+  j = i*2;  // 左子节点
+  // 
   while(j<=n){
-    if(j<h && R[j]<R[j+1]){
-      j++;  // 右子节点大，则取右子节点与父节点进行比较
+    // 右子节点大于左子节点，更新j指向右子节点
+    if(j < n && R[j]<R[j+1]){
+      j++;
     }
+    // 父节点大于子节点，推出循环
     if(temp>=R[j]){
       break;
     }
+    // 将子节点值更新到父节点位置
     R[i] = R[j];
-    i = j;  // 选取子节点作为父节点进行再与其子节点进行比较
+    // 将父子节点向后移动
+    i = j;  
     j = 2*i;
   }
   R[i] = temp;
 }
-void heapSort(int *R, int n){
+void heapSort(int &R, int n){
   int i, temp;
   //  建大根堆
   for(i = n/2; i>0; i--){
@@ -158,8 +216,8 @@ void heapSort(int *R, int n){
     //  交换第一位与最后一位
     temp = R[1];
     R[1] = R[i];
-    R[i] = temp;   // 将排序好的放到最后，有序区
-    shift(R, 1, i-1);  // 不包含排好序的，堆排序；每次将建好堆的根节点放入到有序区
+    R[i] = temp;   
+    shift(R, 1, i-1);  // 再对无序区建大根堆
   }
 }
 
