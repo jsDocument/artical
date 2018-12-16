@@ -115,8 +115,8 @@ function genSidebarConfig (title) {
       children: [
         '/arithmetic/reg_match',
         '/arithmetic/search_str',
-        '/算法/callStack',
-        '/算法/sort'
+        '/arithmetic/callStack',
+        '/arithmetic/sort'
       ]
     }
   ]
