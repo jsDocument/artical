@@ -59,6 +59,7 @@ function genSidebarConfig (title) {
         'es6/set&map',
         'es6/generator',
         'es6/promise',
+        'es6/async'
       ]
     },
     {
@@ -103,7 +104,8 @@ function genSidebarConfig (title) {
         '/basic/bite',
         '/basic/mouse-event',
         '/css/css_layer',
-        '/basic/HTTP'
+        '/basic/HTTP',
+        '/basic/type-transfer'
 
       ]
     },
