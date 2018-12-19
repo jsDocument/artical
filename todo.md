@@ -55,3 +55,12 @@
 2. 状态改变，再调用实例then方法，根据状态调用调用`then`的回调函数。[如果Promise本身不存在异步，但then还是异步执行是如何实现的？]
 
 
+1. javascript的原型与原型链
+2. 几种类型的值？栈， 堆
+3. 3位添加逗号：/(\d)(?=(\d{3})+\.)/g
+4. javascript继承的实现
+5. 作用域链
+6. serviceWorker, webWorker, PWA
+7. this： 指向函数的直接调用者\|
+8. eval, new Function(), with
+8. 事件的捕获与冒泡
