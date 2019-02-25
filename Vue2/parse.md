@@ -119,18 +119,59 @@
   6. 如果非单标签， currentParent = element, stack.push(element); 否则 closeElement(element)
 - end
   1. 取element = stack最后一个元素，lastNode = element最一个子元素
-  2. 为空的文本元素 且 !inPre, 则删除该元素
-  3. 减少stack的长度，并更新currentParent = stack最后一个元素
-  4. closeElement(element)
-- chars(text)
-  1. 检查textarea 的 placeholder === text, return;
+  2. 为空的文本元素 且 !inPre, 则删除该元素；即尾空格
+  3. 减少stack的长度，并更新currentParent = stack最后一个元素；即退栈
+  4. closeElement(element) 关闭元素
+- chars(text) 保存文本节点，如果有表达式，则对其进行结构化
+  1. 检查IE的 textarea 的 placeholder === text bug, return;
   2. text解析结果，更新到currentParent.children[{type: 2, expression: res.expression, tokens: res.tokens, text}]
   3. 纯文本节点：currentParent.children[{type: 3, text}]
-- comment(text)
+- comment(text) 保存注释
   1. 更新currentParent.children[{type: 3, text, isComment: true}]
 - closeElement(element)
   1. 更新inVpre
   2. 更新inPre
   3. 执行postTransforms[i](element, options)
 
+## module中所做的处理
+- preTransformNode(el, options)----module: el为input的情况
+  1. el.attrsMap['v-model'] 必须存在
+  2. el有绑定type属性，获取其typeBinding
+  3. if条件-->ifCondition，else-if条件-->elseIfCondition，是否有else属性-->hasElse
+  4. 创建el的副本branch0
+    - 处理For-->processFor(branch0)
+    - 添加属性-->addRawAttr(branch0, 'type', 'checkbox')
+    - 处理元素-->processElement(branch0, options)
+    - if处理
+  5. 创建el副本branch1
+    - 获取然后移除branch1的v-for属性 --> getAndRemoveAttr(branch1, 'v-for', true)
+    - 添加type属性 --> addRawAttr(branch1, 'type', 'radio')
+    - 处理元素 --> processElement(branch1, options)
+    - 添加if条件
+  6. 创建el副本branch2
+    - 获取然后移除branch2的v-for属性 --> getAndRemoveAttr(branch2, 'v-for', true)
+    - 添加type属性 --> addRawAttr(branch2, ':type', typeBinding)
+    - 处理元素 --> processElement(branch2, options)
+    - 添加if条件
+  7. 如果hasElse--> branch0.else = true; 否则有else-if属性，则branch0.elseif = elseIfCondition
+  8. 返回 branch0
 
+## 涉及的公共方法
+- processFor(el)
+  1. 获取并移除el的for属性--->exp
+  2. 解析表达式--->res = parseFor(exp)
+  3. 将解析结果更新到el
+- parseFor(exp)
+  - /([^]*?)\s+(?:in|of)\s+[^]*/--->([^]*?) 来获取变量，inMatch值，如['key in obj', 'key', 'obj']
+  - res.for = match[2]
+  - alias = 去掉match[1]的前后括号  /^\(|\)$/g
+  - 获取match[1]中,号后最后一项 或 两项的变量 /,([^,\}\]]*)(?:,(^,\}\]*))?$/--->([^,\}\]]*) 来获取变量
+  - res.alias为第一个变量，res.iteator1为后面的变量，如果存在第三个变量则更新到 res.iterator2
+  - 返回res
+- processIf(el)
+
+
+
+路径path可能出现的符号
+inVpre
+inPre
