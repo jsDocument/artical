@@ -4,7 +4,7 @@
 
 ## 异步任务队列
 
-1. macro-task（task）包括：，setTimeout/setInterval，setImmediate，I/O操作，UI rendering   遇到调用则分发出去一个任务
+1. macro-task（task）包括：，setTimeout/setInterval，setImmediate，requestAnimationFrame，I/O操作，UI rendering   遇到调用则分发出去一个任务
 2. micro-task（job）包括：process.nextTick，Promise，Object.observe(已废弃)，MutationObserver(html5新特性)  遇到调用则分发出去一个任务
 3. 调用栈：全局—>job—>循环task(借助函数栈来完成，回到主线程)，如果task里再分发job，则不再执行其他task，而是执行job。
 4. 执行顺序：全局任务、微任务、宏任务，每次任务执行后，都会有一个UI render，宏任务执行一个任务间隙，如果发现有微任务，先执行微任务，执行完微任务再执行宏任务。
@@ -15,7 +15,7 @@
 
 ## MutationObserver
 
-- MutationObserver的监听参数{ childList, attributes, characterData, subtree, attributeOldValue, characterOldValue,  attributeFilter}
+- MutationObserver的监听参数{ childList, attributes, characterData, subtree, attributeOldValue, characterOldValue,  attributeFilter}，方法：observe(node, options), disconnect(), takeRecords()
 - Vue中使用了：
   1. macroTimerFunc-->setImmediate，MessageChannel，setTimeout
   2. microTimerFunc-->Promise，
