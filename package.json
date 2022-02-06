@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/jsDocument/artical#readme",
   "devDependencies": {
-    "gh-pages": "^1.1.0",
-    "vuepress": "^0.7.0"
+    "gh-pages": "^1.1.0"
   }
 }

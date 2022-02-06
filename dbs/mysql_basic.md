@@ -12,6 +12,58 @@ show variables
 select database() 当前数据库
 select now(), user(), version() 当前时间、用户、版本
 
+怎么样保存上一句查找结果？
+
+## 用户变量----作用域为整个会话 或 在过程中为局部变量赋值
+
+set @varName = expr, ...    不加前缀，默认为会话变量
+select @varName:=(select) 或 set @varName=(select)
+
+show session variables 显示会话变量
+show global variables 显示全局变量
+
+set session varName=value 或 set @@session.varName=value
+
+select @@session/global.varName 查询值
+
+: @@session 或以用 @@local代替
+
+## 存储过程变量----会默认初始化为null
+
+declare varName type default 0
+
+## 拾贝
+
+1. do sleep(5)
+
+## select [all | distinct] select表达式 from, where, group by, having, order by, limit
+
+## select 表达式
+1. *
+2. 计算公式、函数调用、表达式，聚合函数：count, sum, avg, max, min（在select 的返回字段中）
+3. field 或用 as 使用别名
+4. ifnull(exp1, exp2), if(expr, exp1, exp2), coalesce()
+
+## where 语句可用的关键表达式 与 函数(子句)，字段必须是数据表存在的，不可以是别名，不可以聚合函数
+1. in / not in()
+2. (not) like "%_"
+3. is null
+4. is not true / false / unknown
+5. (not) between and
+6. and, or, xor
+7. =, <=>, <>, !=, <=, <, >=, >, !, &&, ||
+8. 可以用子句，子句返回聚合的数据，然后再筛选
+
+## having子句，结果再次筛选，字段必须是筛选出来的，可以是别名
+
+## 与case语句一起
+
+select case v when expr then exp1 else exp2 end;
+
+## 补充限定
+
+1. order by field desc / asc
+
 ## 类型
 
 1. 整形
@@ -545,3 +597,13 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 2. 排他锁(写锁)：任何时间只能有一个用户写入资源，进行写锁时会阻塞其他读或写锁操作。
 3. 锁的力度娘----表锁(开销最小)，行锁(开销最大，并行性最大)，开销与使用锁的个数有关。
 4. 存储引擎：default-storage-engine = innoDB 或 create table table_name() engine = innoDB; 或 alter table tbl_name engine = innoDB;
+
+## 题
+
+- 编写一个 SQL 查询，获取 Employee 表中第二高的薪水（Salary），返回字段名为SecondHighestSalary，为空时返回null (176) {"headers": {"Employee": ["Id", "Salary"]}, "rows": {"Employee": [[1, 100]]}}
+  - select (select distinct (Salary) from Employee order by Salary Desc limit 1,1) as SecondHighestSalary
+- 某网站包含两个表，Customers 表和 Orders 表。编写一个 SQL 查询，找出所有从不订购任何东西的客户。(183);
+  - select Name as Customers from Customers  where Id not in (select CustomerId  from Orders)
+  - select Name from Customers c left join Orders o on c.Id = o.CustomerId where o.Id is NULL
+
+

@@ -145,7 +145,7 @@ var numUniqueEmails = function(emails) {
     emails.forEach((item,i)=>{
         emails[i] = item.replace(reg, function(match, index, all){
             temp = all.substr(index, match.length);
-            return match.replace(/\./g, '') + temp;
+            return match.replace(/\./g, '');
         }).replace(reg1, '');
     });
     emails = [...new Set(emails)]
