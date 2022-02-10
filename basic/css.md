@@ -1,6 +1,6 @@
 ## BFC 块级格式化上下文
 
-BFC 特性下的元素和容器外部元素完全隔离，子元素的布局不会影响外部元素，反之亦然。
+BFC 特性下的元素和容器外部元素完全隔离，子元素的布局不会影响外部元素，反之亦然。用于实现多栏布局
 
 - css2.1引入的块渲染规则
 - BFC 的块不会和浮动块重叠
@@ -15,6 +15,13 @@ BFC 特性下的元素和容器外部元素完全隔离，子元素的布局不�
 - 应用场景
   - 清除浮动
   - 自适应布局
+
+另：
+
+- IFC 内联格式上下文：line box(线框)高度由行内元素的视觉高度计算而来(不受垂直方向的 padding、margin影响)，行内 box 左右紧贴，IFC 和 line box(线框) 之间
+- GFC 网格布局格式化上下文：元素将获得一个独立的渲染区域，容器、行、列、项
+- FFC 自适应格式上下文：会生成自适应容器
+
 
 ## 水平垂直居中
 
@@ -32,3 +39,15 @@ BFC 特性下的元素和容器外部元素完全隔离，子元素的布局不�
 ## 渲染树、DOM结构
 
 ## 行高、字体大小、vertical-align的关系
+
+
+## 多行溢出处理
+
+- text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /*! autoprefixer:off /
+  -webkit-box-orient: vertical; /
+  autoprefixer:on */
+- content: "..." 再使用绝对定位

@@ -1,8 +1,42 @@
+## HTTP 请求过程
+
+- 这个请求指的是 http 请求，这样就会出现一个问题，基于http请求原理，当一个请求从客户端发出去之后，服务器端收到请求后，一个请求过程就结束了，这时就算是客户端abort这个请求，服务器端仍会做出完整的响应，只是这个响应客户端不会接收。所以实质上，后端还是处理了请求，但是前端不对该方法进行处理。
+
 ## 缓存
 
-- cache-control: max-age, public, private, no-cache, no-store
-- expries
-- last-modify
+1. 缓存是否过期：不发请求，状态码为 200
+2. 文件是否有改动：改动 200，无改动 304
+
+- 分类：
+  - 按缓存位置：service worker, memory cache, disk cache(HTTP cache), 网络请求
+    - memory cache: 关闭 Tab 则缓存清除, preloader请求的资源会被放入 memory cache 中; preload 显式的预加载资源也会被放入 memory cache 中
+    - memory cache 可以保证相同的资源地址多次请求，只请求最多一次
+    - disk cache: 持久缓存，会严格根据 HTTP 头信息中的各类字段判定资源状态，是否是可用缓存，是否过时，命中从磁盘缓存读取资源
+  - 按失效策略：属于 disk cache；cache-control, ETag
+- cache-control: max-age, public, private代理服务器不能缓存, no-cache 客户端缓存了内容，是否使用内容由后续的对比决定, no-store
+- max-age:0, must-revalidate 和 no-cache 大致上是一致的
+- 强制缓存：直接减少请求数，提升最大的缓存策略；字段 Cache-control和 Expirs
+  - Expirs, HTTP1.0字段，缓存到期时间(绝对时间)，用户在客户端本地的时间进行修改，会造成浏览器缓存失效，时差和误差也会导致缓存失效；写法也复杂
+  - Cache-control，max-age 最大缓存时间(相对时间)，must-revalidate 超过时间，浏览器必须向服务器发送请求，验证资源是否还有效
+- 协商缓存：
+  - 流程：浏览器请求缓存数据库，返回一个`缓存标识`；之后浏览器用这个标识和服务器通信，如果缓存未失效，返回 304表示继续使用，客户端继续使用缓存（使用什么缓存？），如果失效，则返回新数据和规则，浏览器响应后再把规则写入缓存数据库。
+  - 强制缓存失效(超出规定时间)时，需要使用对比缓存，由服务器决定是否使用缓存内容，协商缓存和没有缓存在请求数上是一样的，但仅返回状态码304，在响应体积上优化了
+  - last-modifed: 服务器通过改自动告知客户端，资源最后一次被修改的时间，浏览器将这个值和内容一起记录在缓存数据库中，下次请求相同资源时，将 If-Modified-Since: last-modified的值写入到请求头，和服务器中文件的最后修改时间进行对比。(只能精确到秒，不适合短时间内频繁改动的资源，也可能出现资源内容没有改变，而 Last-Modified 改变的情况)
+  - If-Modified-Since 缓存校验字段，值为资源最后一次修改的时间
+  - ETag：唯一标识请求资源的字符串(hash)，更加 ETag 的值缓存数据
+  - If-Match：缓存校验字段，值为唯一标识请求资源的字符串，即 ETag 的值；If-None-Match
+
+总结：
+---------------------------
+1. 调用 Service Worker 的 fetch 事件响应
+2. 查看 memory cache
+3. 查看 disk cache。这里又细分：
+    1. 如果有强制缓存且未失效，则使用强制缓存，不请求服务器。这时的状态码全部是 200
+    2. 如果有强制缓存但已失效，使用对比缓存，比较后确定 304 还是 200
+4. 发送网络请求，等待网络响应
+5. 把响应内容存入 disk cache (如果 HTTP 头信息配置可以存的话)
+6. 把响应内容 的引用 存入 memory cache (无视 HTTP 头信息的配置)
+7. 把响应内容存入 Service Worker 的 Cache Storage (如果 Service Worker 的脚本调用了 cache.put())
 
 ## 跨域解决方案
 
