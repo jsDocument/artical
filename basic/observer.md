@@ -17,7 +17,7 @@ observer.disconnect();
       1. defer：在后台加载脚本，文档解析过程不会中断，解析完成defer 脚本才会去执行，但脚本需要等待 CSSOM 构建完成，defer 脚本的执行顺序和定义是的顺序有关，defer 脚本执行完成，DOMContentLoaded事件触发
       2. async：在后台加载脚本，文档解析过程不会中断，脚本加载完成后，文档停止解析，脚本执行，执行结束后接着解析文档，HTML 解析完成，DOMContentLoaded 触发，不需要等待 async 脚本执行、样式表加载。
 - getBoundingClentRect：返回元素大小与相对于视口的位置，用于实现懒加载和无限滚动
-- IntersectionObserver：某个元素与视口的交叉状态，用于实现懒加载和无限滚动
+- `IntersectionObserver`：某个元素与视口的交叉状态，用于实现懒加载和无限滚动
   - option 包含：threshold 和 root，以下是option选项和IntersectionObserverEntry 的属性：
   - threshold：决定了什么时候触发回调，是一个数组[0, 0.25, 0.5, 0.75, 1]即交叉比例，目标元素分别在以上的比例时触发回调
   - root：目标元素所在的容器节点 DOM

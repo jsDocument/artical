@@ -1,118 +1,84 @@
-## File独立文件，提供只读信息(名称、大小、mimetype和对文件句柄的引用)
-1. dom.files[0] 来获取File
-
-## FileList  File对象的类数组序列
-
-## Blob  可将文件分割为字节范围
++ Blob 二进制类型的大对象，size, type，可将文件分割为字节范围
++ File 基于 Blob，来自
+  + <input/> 上返回的 FileList 对象， dom.files[0] 来获取File(名称、大小、mimetype和对文件句柄的引用)
+  + 拖放操作产生的 DataTransfer 对象
+  + FileReader, URL.createObjectURL(), XMLHttpRequest.send()都可以处理以上两种类型数据，Blob.slice
+  + FileReader 负责二进制数据读入内存，异步方式读取，读取客户端文件，读取完毕不会载入到缓存
+    + readAsDataUrl----base64编码串
+    + readAsArrayBuffer
+    + readAsBinaryString
++ 大文件并发上传
+  + 获取上传文件、生成 MD5 值
++ 大文件并发下载
++ base64 由字符、数字、+、/组成；URL Base64 将 `+` 替换为`_`，`/`替换为`-`
 
 ## FileReader 读取File或Blob
+
 1. reader = new FileReader(); reader.readAsDataURL(file) 读取文件
 2. reader.onload = function(e){} 渲染文件
+3. 方法
+   + FileReader(Blob, File)
+   + FileReader.readAsBinaryString(Blob | File)   结果为二进制字符串
+   + FileReader.readAsText(Blob | File)  文本字符串
+   + FileReader.readAsDataURL(Blob | File)   基于base64编码的data-uri对象
+   + FileReader.readAsArrayBuffer(Blob | File)  ArrayBuffer对象
 
-1. 方法
-  - FileReader(Blob, File)
-  - FileReader.readAsBinaryString(Blob | File)   结果为二进制字符串
-  - FileReader.readAsText(Blob | File)  文本字符串
-  - FileReader.readAsDataURL(Blob | File)   基于base64编码的data-uri对象
-  - FileReader.readAsArrayBuffer(Blob | File)  ArrayBuffer对象
-2. 事件回调
-  - onabort
-  - onerror
-  - onload
-  - onloadend
-  - onloadstart
-  - onprogress
-3. reader属性
-- result
-- refs
-- readystate
+4. 事件回调
+   + onabort
+   + onerror
+   + onload
+   + onloadend
+   + onloadstart
+   + onprogress
+
+5. reader属性
+   + result
+   + refs
+   + readystate
 
 ## URL scheme
 
 
 
 ## 上传文件
+
 1. form_data = new FormData();
 2. form_data.append('key', file)
 
-
-- new Blob(实际数据的数组, {type: MIME})
-- blob.slice(startByte, endByte)
++ new Blob(实际数据的数组, {type: MIME})
++ blob.slice(startByte, endByte)
 
 ## file DOM
 
-- value-->fakeURL/filename
-- files-->FileList
-- lastModified
-- name
-- lastModifiedDate
-- webkitRelativePath
-- size
-
-
-## FileReader  负责二进制数据读入内存，异步方式读取，读取客户端文件，读取完毕不会载入到缓存
-
-
++ value-->fakeURL/filename
++ files-->FileList
++ lastModified
++ name
++ lastModifiedDate
++ webkitRelativePath
++ size
 
 ## URL  对二进制数据生成URL
 
-- URL.createObjectURL(blob)
-- URL.revokeObjectURL(img.src)  清除释放
++ URL.createObjectURL(blob)
++ URL.revokeObjectURL(img.src)  清除释放
 
 
-## FormData();
++ FormData()
+  + form  enctype="multipart/form-data"  把文件传到本机的temp目录
+  + form + iframe 实现异步上传，将form的target指向iframe，选择完文件，提交子页面的form，这时iframe跳转，父页面没有刷新
+  + FormData + xhr.send()
+  + .append(‘key’, params[key])  Blob或String
+  + .append(fileName, fileObj)
++ node 端处理
+  + co-busbody  解析multipart请求体
+  + koa-cors
+  + koa-multer
++ 拖拽 drop, dragover, drag leave----event.dataTransfer.files
 
-form  enctype="multipart/form-data"  把文件传到本机的temp目录
------------
-co-busbody  解析multipart请求体
-koa-cors
-koa-multer
-
-----------
-form + iframe 实现异步上传
-将form的target指向iframe，选择完文件，提交子页面的form，这时iframe跳转，父页面没有刷新
-
----------
-FormData + xhr.send()
-.append(‘key’, params[key])  Blob或String
-
-.append(fileName, fileObj)
----------
-drop, dragover, drag leave
-event.dataTransfer.files
-
----------
-进度
-xhr.onreadystatechange
-xhr.readyState = 4  loaded
-
-xhr.upload.onprogress-->e
-e.lengthComputable,  e.loaded, e.total
-------------
-file切割：
-File.prototype.mozSlice
-webkitSlice
-slice(file, start, end)
-
-FileReader---load事件  progress
-result 预览地址
-readAsDataUrl----base64编码串
-readAsArrayBuffer
-readAsBinaryString
-
------------
-************
-XMLHttpRequest  2.0新增的传送数据类型：
-DOMString:  UTF-16, 即普通字符串
-Document：类似XML
-FormData(FormElement)：send方法提交，可以上传二进制文件，类似于serialize(); 键值对？
-Blob：(二进制大文件)只读原始数据的类文件对象，有slice方法切出另一个Blob，canvas对象的toBlob方法，与window.URL；可以append ArrayBuffer数据
-new Blob([ , ], {type: })
-
-File：基于Blob
 ArrayBuffer：二进制数据的原始缓冲区？作为数据源提前pgtygc内存中，不可改变的二进制数据，本身不可读写；-----类型化数组或DataView来解释原始缓冲区。
 
-类型化数组：get-    set-
+类型化数组：get+    set-
 Int8Array, Uint8Array, Int16Array, Uint16Array, Int16Array, Uint16Array, Float32Array, Float64Array
 
 (new Uint8Array([1, 2, 3])).buffer
@@ -127,16 +93,10 @@ new DataView(buffer, offset, length)
 
 对WebGL  Canvas
 ----------
+
 Uint8Array
 window.atob
 Blob
-
-
-
-
-类型化数组----与显卡之间的大量、实时数据交换！
-针对内存进行操作。
-
 
 bf.byteLength  占据内存长度
 byteOffset   从底层ArrayBuffer对象的哪个字节开始
@@ -147,7 +107,7 @@ bf.slice(0, 10)  拷贝生成一个新的ArrayBuffer
 
 
 
-类型化数组：get-    set-
+类型化数组：get+    set-
 Int8Array  1字节
 Uint8Array  1字节
 Int16Array  2字节
@@ -233,6 +193,7 @@ img：draggable属性为true  事件：ondragstart
 ondrag处理ev.dataTransfer.setData(“Text”, ev.target.id)
 
 例子：
+
 ```javascript
 var uploadButton = document.getElementById('uploadFile');
     uploadButton.onchange = function(){
@@ -302,3 +263,110 @@ var uploadButton = document.getElementById('uploadFile');
 
 </body>
 </html>
+
+
+```javascript
+// 上传
+// MD5用的 SparkMD5
+function calcFileMD5(file) {
+  return new Promise((resolve, reject) => {
+    let chunkSize = 2097152, // 2M
+      chunks = Math.ceil(file.size / chunkSize),
+      currentChunk = 0,
+      spark = new SparkMD5.ArrayBuffer(),
+      fileReader = new FileReader();
+
+      fileReader.onload = (e) => {
+        spark.append(e.target.result);
+        currentChunk++;
+        if (currentChunk < chunks) {
+          loadNext();
+        } else {
+          resolve(spark.end());
+        }
+      };
+
+      fileReader.onerror = (e) => {
+        reject(fileReader.error);
+        reader.abort();
+      };
+
+      function loadNext() {
+        let start = currentChunk * chunkSize,
+          end = start + chunkSize >= file.size ? file.size : start + chunkSize;
+        fileReader.readAsArrayBuffer(file.slice(start, end));
+      }
+      loadNext();
+  });
+}
+// 并发控制？
+async function asyncPool(poolLimit, array, iteratorFn) {
+  const ret = []; // 存储所有的异步任务
+  const executing = []; // 存储正在执行的异步任务
+  for (const item of array) {
+    // 调用iteratorFn函数创建异步任务
+    const p = Promise.resolve().then(() => iteratorFn(item, array));
+    ret.push(p); // 保存新的异步任务
+
+    // 当poolLimit值小于或等于总任务个数时，进行并发控制
+    if (poolLimit <= array.length) {
+      // 当任务完成后，从正在执行的任务数组中移除已完成的任务
+      const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+      executing.push(e); // 保存正在执行的异步任务
+      if (executing.length >= poolLimit) {
+        await Promise.race(executing); // 等待较快的任务执行完成
+      }
+    }
+  }
+  return Promise.all(ret);
+}
+// 检查文件是否已经上传过了
+function checkFileExist(url, name, md5) {
+  return request.get(url, {
+    params: {
+      name,
+      md5,
+    },
+  }).then((response) => response.data);
+}
+// 上传
+function upload({
+  url, file, fileMd5,
+  fileSize, chunkSize, chunkIds,
+  poolLimit = 1,
+}) {
+  const chunks = typeof chunkSize === "number" ? Math.ceil(fileSize / chunkSize) : 1;
+  return asyncPool(poolLimit, [...new Array(chunks).keys()], (i) => {
+    if (chunkIds.indexOf(i + "") !== -1) { // 已上传的分块直接跳过
+      return Promise.resolve();
+    }
+    let start = i * chunkSize;
+    let end = i + 1 == chunks ? fileSize : (i + 1) * chunkSize;
+    const chunk = file.slice(start, end); // 对文件进行切割
+    return uploadChunk({
+      url,
+      chunk,
+      chunkIndex: i,
+      fileMd5,
+      fileName: file.name,
+    });
+  });
+}
+// 上传操作
+function uploadChunk({ url, chunk, chunkIndex, fileMd5, fileName }) {
+  let formData = new FormData();
+  formData.set("file", chunk, fileMd5 + "-" + chunkIndex);
+  formData.set("name", fileName);
+  formData.set("timestamp", Date.now());
+  return request.post(url, formData);
+}
+// 通知服务器执行分开合并
+function concatFiles(url, name, md5) {
+  return request.get(url, {
+    params: {
+      name,
+      md5,
+    },
+  });
+}
+```

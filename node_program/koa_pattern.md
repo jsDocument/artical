@@ -1,4 +1,17 @@
-# 中间件流程控制---- 本质上是Promise.resolve()的递归
+# Koa
+
+## 分为 3 个模块
+
++ Application：Http server 封装
+  + .listen 处理请求及响应，并监听接口
+  + .use 收集中间件，并用 compose 函数串联起来
++ Context：Koa 上下文
++ Middleware：洋葱模型
++ 解析请求体：body-parser
++ 发送请求，http.get()
+
+
+## 中间件流程控制---- 本质上是Promise.resolve()的递归
 
 - 认识：await next()的时候就会暂停当前程序，进入下一个中间件，处理完之后才会仔回过头来继续处理
 
@@ -79,6 +92,7 @@ function compose (middleware) {
         return Promise.resolve(fn(context, function next () {
           return dispatch(i + 1)
         }))
+        // ********
       } catch (err) {
         return Promise.reject(err)
       }

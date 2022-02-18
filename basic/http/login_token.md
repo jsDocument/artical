@@ -1,5 +1,8 @@
 ## express-jwt 用来验证token，引用了jsonWebToken，jsonWebToken---生成token给客户端
 
++ accessToken
++ refreshToken
+
 ```javascript
 app.use(expressJWT({
   secret: '加密KEY'

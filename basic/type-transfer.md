@@ -1,8 +1,9 @@
 # javascript的隐式转换
 
-1. 原始基础类型：Undefined、 Null、 String、 Number、 Boolean、 Symbol、Object
-2. JS内置对象：Date, Array, Math, Number, Boolean, String, Array, RegExp, Function。
+1. 原始基础类型：Undefined、 Null、 String、 Number、 Boolean、 Symbol、Object、bigInt
+2. JS内置对象：Date, Array, Math, Number, Boolean, String, Array, RegExp, Function, Error。
 3. 隐式中涉及的三种转换：
+
   - 值转换为原始值 ，ToPrimitive(input, PreferredType)
     - PreferredType被标记为Number
       1. 如果输入值是原始值 ，则直接返回

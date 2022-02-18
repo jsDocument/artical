@@ -37,7 +37,7 @@
 ## dataTransfer 方法
 1. obj.addElement() 设置手动源，修改这项将会影响拖动的哪个节点和dragend事件的触发。默认目标是被拖动的节点。
 2. obj.clearData(type) 删除与给定类型关联的数据。或者元参时删除所有类型相关联的数据
-3. obj.getData(type) 获取指定类型的数据 
+3. obj.getData(type) 获取指定类型的数据
 4. obj.setData(type, data) 给定的类型设置数据
 5. obj.setDragImage(imgElement, offsetX, offsetY)
 

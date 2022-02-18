@@ -34,4 +34,4 @@
     - 更新到 currentParent.children
 
 - processElement
-  - 处理 processRef, processSlot, processComponent, processAttrs
+  - 处理 processRef, processSlot, processComponent, processAttrs----parseText

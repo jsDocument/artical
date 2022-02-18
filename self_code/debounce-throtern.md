@@ -1,7 +1,31 @@
 ## debounce: 频繁触发一个事件，只能每隔一段时间触发一次，如：滚动请求列表数据、游戏里长按鼠标，但动作是每隔一段时间执行一次
 
+```javascript
+const debounce = function(func, delay){
+  let timer = null
+  return function(...args){
+    clearTimeout(timer)
+  }
+  timer = setTimeout(()=>{
+    func.apply(this, args)
+  }, delay)
+}
+```
+
 ## throtern：频繁触发一个事件，只触发最后一次的，已最后一次为准，如：电脑息屏时间，每动一次电脑就重新计算时间、input 框变化触发事件、频繁点击按钮提交
 
+```javascript
+const throttle = function(func, delay){
+  let timer = Date.now()
+  return function(...args){
+    let lastTime = Date.now()
+    if(lastTime - startTime > delay){
+      func.apply(this, args)
+      startTime = Date.now()
+    }
+  }
+}
+```
 
 - inherit 实现继承（es5 es6）
 - 数组去重
