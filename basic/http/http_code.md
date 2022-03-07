@@ -39,18 +39,3 @@
 
 + gzip 用于 HTTP 文件传输中，比如 JS、CSS
 + Content-Encoding 指明使用 gzip 压缩
-
-
-## 跨域-----浏览器的同源策略
-
-+ jsonp---只支持 get
-+ CROS
-  + Access-Control-Allow-Origin: 指定特定域名，跨域请求头就要带 Orign，否则没有；由于 CDN 缓存响应头Access-Control-Allow-Origin: xxx 已被缓存，另一个域请求就回出问题；此时需要 Vary:Origin 缓存不同的资源
-  + Access-Control-Allow-Methods
-  + Access-Control-Allow-Headers
-  + Access-Control-Allow-Credentials
-  + Access-Control-Expose-Headers
-  + Access-Control-Max-Age
-  + withCredentials
-+ Options 请求：不是简单请求，就回发送 OPTIONS 请求，项目中常见的 `Content-Type: application/json` 及 Authorization: <token> 为典型的非简单请求，在发送请求时往往会带上 Options
-

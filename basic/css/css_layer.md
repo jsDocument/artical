@@ -4,7 +4,7 @@
 
 + JavaScript：JavaScript 实现动画效果，DOM 元素操作等。
 + Style（计算样式）：确定每个 DOM 元素应该应用什么 CSS 规则。
-+ Layout（布局）：计算每个 DOM 元素在最终屏幕上显示的大小和位置。由于 web 页面的元素布局是相对的，所以其中任意一个元素的位置发生变化，都会联动的引起其他元素发生变化，这个过程叫 reflow。
++ Layout（布局）：计算每个 DOM 元素在最终屏幕上显示的大小和位置。由于 web 页面的元素布局是相对的，所以其中任意一个元素的位置发生变化，都会联动的引起其他元素发生变化，这个过程叫 reflow。元素的规模尺寸，布局，隐藏
 + Paint（绘制）：在多个层上绘制 DOM 元素的的文字、颜色、图像、边框和阴影等。
 + Composite（渲染层合并）：按照合理的顺序合并图层然后显示到屏幕上。
 
@@ -38,15 +38,16 @@ will-change: initial;
 will-change: unset;
 ```
 
-##会继承的属性: line-height
+## 会继承的属性: line-height
 
 
 css: line-height, vertical-align
+
 1. line-height的数字值与font-size有关
 2. vertical-align的百分比值 和line-height值有关
 3. inline元素的vertical-align默认值是什么？baseline，但为什么图片与其他行内元素不在同一个水平线上？因为img默认表现与inline-block表现一样,  所以表现为元素margin底边缘; baseline指的是x的低边缘
 4. 父元素的基线，中线。。。是怎么决定的？每个字体在定义的时候, 就有基线？
-5. line元素的高度是由line-height决定的, 
+5. line元素的高度是由line-height决定的,
 6. BFC, IFC
 
 每个字体都会绘出自己的容器em-square

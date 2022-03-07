@@ -59,3 +59,28 @@ window.fetch(url)
 })
 ```
 
+## 跨域的的方式
+
++ postMessage
+  + worker = new Worker(子线程jsPath) 主线程
+  + worker.postMessage()
+  + worker.onMessage
+  + 子线程：onmessage = ()=>{ postMessage()}
++ Nginx 代理
++ webSocket---connect, message, disconnect
++ jsonp
++ CROS
+  + Access-Control-Allow-Origin: 指定特定域名，跨域请求头就要带 Orign，否则没有；由于 CDN 缓存响应头Access-Control-Allow-Origin: xxx 已被缓存，另一个域请求就回出问题；此时需要 Vary:Origin 缓存不同的资源
+  + Access-Control-Allow-Methods
+  + Access-Control-Allow-Headers
+  + Access-Control-Allow-Credentials
+  + Access-Control-Expose-Headers
+  + Access-Control-Max-Age
+  + withCredentials
++ Options 请求：不是简单请求，就回发送 OPTIONS 请求，项目中常见的 `Content-Type: application/json` 及 Authorization: <token> 为典型的非简单请求，在发送请求时往往会带上 Options
+
+
+proxy中间件
+
+1. 正向：间接访问服务器，`隐匿了客户端信息`；如访问google, 做缓存？对客户端访问授权，记录用户访问记录
+2. 反向：代理的是服务端，集群分布式部署的情况下，反向代理隐藏了服务器信息；如 内网安全，负载均衡

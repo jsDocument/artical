@@ -87,7 +87,7 @@ class Promise {
         if(this.status === FULFILLED){
           fulfilledMicrotask();
         }else if(this.status === REJECTED){
-            rejectedMicrotask();
+          rejectedMicrotask();
         // 收集依赖
         }else if(this.status === PENDING){
           // 缓存状态变换后的回调
@@ -233,3 +233,4 @@ b.onclick  = function(){
 - Promise.resolve('thenable')不是对象，就返回新的 Promise 对象，状态为 resolved.
 - Promise.resolve()不带参数，直接返回 resolved 的 Promise 对象
 
+实现Promise.finally

@@ -1,8 +1,9 @@
 + ES7 实现
 
 ```javascript
-// array 任务数组
-// iteratorFn 迭代函数，实现对每个项进行处理，返回一个 Promise 对象或异步函数
+// ret 所有异步任务： 循环把任务添加到 then 微任务队列，更新到 ret
+// 判断限制，e = p.then(executing 取出执行？) + Promise.race
+// Promise.resolve().then 两次？一次执行、一次移除 + await Promise.race
 async function asyncPool(poolLimit, array, iteratorFn) {
   const ret = []; // 存储所有的异步任务
   const executing = []; // 存储正在执行的异步任务
@@ -51,13 +52,12 @@ function asyncPool(poolLimit, array, iteratorFn) {
         r = Promise.race(executing);
       }
     }
-
     // 正在执行任务列表 中较快的任务执行完成之后，才会从array数组中获取新的待办任务
     return r.then(() => enqueue());
   };
   return enqueue().then(() => Promise.all(ret));
 }
-
+// 两层 Promise，内层执行，外层负责 resolve 返回结果
 Promise.all = function (iterators) {
   return new Promise((resolve, reject) => {
     if (!iterators || iterators.length === 0) {
@@ -84,7 +84,7 @@ Promise.all = function (iterators) {
     }
   });
 };
-
+// 两层 Promise，内层负责 resolve 执行，
 Promise.race = function (iterators) {
   return new Promise((resolve, reject) => {
     for (const iter of iterators) {
