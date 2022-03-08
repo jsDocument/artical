@@ -10,7 +10,7 @@
     + 合理的代码分包---split-Chunks, external, dll
     + 请求的 gzip压缩，br 压缩
     + 图片格式优化：webp, svg, base64
-    + 图片裁剪+++picture media
+    + 图片裁剪---picture media
   + 加载的合理规划：
     + 路由懒加载
     + 懒加载：图片懒加载
@@ -20,7 +20,8 @@
     + DNS 预解析
     + HTTP2 收敛域名
     + HTTP1.1 keep+alive 使用资源域名
-    + 预加载preLoad、预解析preRender、prefetch
+    + 预加载 preload、预解析 prerender、prefetch
+      + 详细参见下文 [关于 link 类型](#关于-link-类型)
     + 提高服务器带宽
 + 感官优化
   + 骨架屏
@@ -34,7 +35,46 @@
   + 接口优化
   + 提升容器的启动速度
     + 离线包方案
++ 接口方面优化
 + 渲染速度---ssr
+
+## 关于 link 类型
+
++ preconnect  向浏览器提供提示，建议浏览器提前打开与链接网站的连接
++ dns-prefetch  提示浏览器该资源需要在用户点击链接之前进行 DNS 查询和协议握手。
++ prefetch    建议浏览器提前获取链接的资源，因为它很可能会被用户请求
++ preload     告诉浏览器下载资源，因为在当前导航期间稍后将需要该资源
++ prerender   建议浏览器事先获取链接的资源，并建议将预取的内容显示在屏幕外
+
+详细参见MDN https://developer.mozilla.org/zh-CN/docs/Web/HTML/Link_types
+
+预解析预下载，都是告诉浏览器提前做这个事儿，具体是否使用，还是看是否有引用的。示例如下
+
+```html
+<head>
+  <meta charset="utf-8">
+  <!-- preconnect 提示最好仅用于最关键的连接 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com/" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com/" >
+  <title>JS and CSS preload example</title>
+
+  <!-- preload 仅仅是告诉浏览器要下载，具体使用哪些还是要自己写引用的 -->
+  <link rel="preload" href="style.css" as="style">
+  <link rel="preload" href="main.js" as="script" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="prerender" href="https://example.com/content/to/prerender">
+  <link rel="prefetch" href="nextpage.js" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1>bouncing balls</h1>
+  <canvas></canvas>
+
+  <script src="main.js" defer></script>
+</body>
+```
 
 优化点细节讲解：
 
@@ -71,10 +111,10 @@
 + TCP 链接耗时 connectStart, ~End
 + request 请求耗时 responseStart, ~End
 + 解析 DOM 树耗时 domComplete, domInteractive
-+ `白屏时间` (domInteractive || domLoading), fetchStart
++ `白屏时间` navigationStart - domInteractive
 + DOM Ready 时间 domContentLoadedEventEnd, fetchStart
 
-+ navigationStart 加载页面的其实时间
++ navigationStart 加载页面的起始时间
 + fetchStart 开始查询缓存或开始获取资源的时间
 + secureConnectionStart ssl 握手时间
 + domLoading 还未开始解析(current document readiness 设置为 loading)
@@ -145,34 +185,25 @@
 + onerror：运行时错误
 + error：监听资源类错误
 
+CI/CD 产生的发展历程
 
++ 最开始：资源直接 ftp 上传服务器---这种方式不安全
++ SSH 脚本部署
++ 构建服务器(脚本的一致性)---->服务器
++ docker（多构建）+ 管理 k8s + 自动构建发布平台 + 检查(持续构建、持续交付)
 
-+ 组件封装的原则
-  + 单一职责：负责单一的页面渲染
-  + 通用性
-  + 可扩展性
-  + 高性能，低耦合的特性
-  + 良好的封装性
-  + 可组合
-  + 可测试
+本地代码检查
 
-
-+ CI/CD 产生的发展历程
-  + 资源直接 ftp 上传服务器---不安全
-  + SSH 脚本部署
-  + 构建服务器(脚本的一致性)---->服务器
-  + docker（多构建）+ 管理 k8s + 自动构建发布平台 + 检查(持续构建、持续交付)
-
-+ 本地代码检查
-  + eslint编辑时检查 或 prettier
-  + pre-commit时检查通过才可提交-----huskey, lint-stage
-  + git hooks 常用的: precommit, prepush，
-  + husky原理
-    + 在~/.git/hooks目录，是一些可执行文件
-    + 可以自定义脚本的位置，git config 'core.hooksPath' .husky
-    + 在~/.husky 目录下手动创建 hook 脚本
-  + gitHooks配置，yorkie fork 的 husky
-  + lint-staged 变动部分检查，对暂存文件列表运行脚本
++ eslint编辑时检查 或 prettier
++ pre-commit时检查通过才可提交-----huskey, lint-stage
++ git hooks 常用的: precommit, prepush，
++ eslint-loader 构建部署检查
++ husky原理
+  + 在~/.git/hooks目录，是一些可执行文件
+  + 可以自定义脚本的位置，git config 'core.hooksPath' .husky
+  + 在~/.husky 目录下手动创建 hook 脚本
++ gitHooks配置，yorkie fork 的 husky
++ lint-staged 变动部分检查，对暂存文件列表运行脚本
 
 
 + CI 持续集成
@@ -184,5 +215,9 @@
 + CD 持续部署----免费 CICD 服务github actions
   + jenkens----发布流程
   + docker----容器，镜像-----Dockerfile
-  + walle----可视化发布平台
+  + wayne----可视化发布平台
   + k8s----管理 docker 容器
+
++ 提交时代码检查
++ 分支合并自动构建(dev)
+

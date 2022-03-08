@@ -1,4 +1,4 @@
-## debounce: 频繁触发一个事件，只能每隔一段时间触发一次，如：滚动请求列表数据、游戏里长按鼠标，但动作是每隔一段时间执行一次
+## debounce: 频繁触发一个事件，只能每隔一段时间触发一次；你尽管触发事件，但是我一定在事件触发 n 秒后才执行，如果你在一个事件触发的 n 秒内又触发了这个事件，那我就以新的事件的时间为准，n 秒后才执行
 
 ```javascript
 const debounce = function(func, delay){
@@ -24,6 +24,23 @@ const throttle = function(func, delay){
       startTime = Date.now()
     }
   }
+}
+// 持续触发事件，每隔一段时间，只执行一次事件
+function throttle(func, wait) {
+    var context, args;
+    var previous = 0;
+
+    return function() {
+        var now = +new Date();
+        context = this;
+        args = arguments;
+        // 时间标识 - 当前时间，也可以用 setTimeout 实现，判断 !timer 加入宏任务，回调里回收 timer
+        if (now - previous > wait) {
+            func.apply(context, args);
+            // 更新时间标识
+            previous = now;
+        }
+    }
 }
 ```
 
