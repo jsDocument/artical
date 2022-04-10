@@ -1,4 +1,4 @@
-+ Cookie, redis, JWT 解决 HTTP 的无状态？
++ Cookie, redis, JWT 解决 HTTP 的无状态
   + Session Cookie会话期---不含到期日期，存于内存
   + Persistent Cookie持久性----含到期日期，存于磁盘
   + 用于---会话状态管理、自定义设置、浏览器行为跟踪

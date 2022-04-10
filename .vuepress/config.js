@@ -1,3 +1,5 @@
+const LeetCode = require('./path/LeetCode');
+const http = require('./path/basic_http');
 module.exports = {
   dest: 'dist',
   title: '技术文档',
@@ -13,7 +15,10 @@ module.exports = {
   // base: '/',
   themeConfig: {
     sidebarDepth: 0,
-    sidebar: genSidebarConfig('技术文档'),
+    sidebar: 'auto',
+    searchMaxSuggestions: 10,
+    search: true
+    // genSidebarConfig('技术文档'),
     // nav: [
     //   {text: 'Home', link: '/'}
     // ]
@@ -45,12 +50,40 @@ function genSidebarConfig (title) {
       ]
     },
     {
-      title: 'leetcode完成的好的题目',
-      collapsable: false,
+      title: '算法',
+      collapsable: true,
       children: [
-        '/LeetCode/regex',
-        '/LeetCode/string',
-        '/LeetCode/link'
+        'LeetCode/offer_linkNode',
+        'LeetCode/simple_listNode',
+        'LeetCode/middle_listNode',
+        'LeetCode/offer_array',
+        'LeetCode/array_string',
+        'LeetCode/array_rank',
+        'LeetCode/offer_string',
+        'LeetCode/array_plus',
+        'LeetCode/string_simple',
+        'LeetCode/string_middle',
+        'LeetCode/string_hard',
+        'LeetCode/common_sort_c++',
+        'LeetCode/common_sort_js',
+        'LeetCode/callStack',
+        'LeetCode/string_search_str'
+      ]
+    },
+    {
+      title: '网络',
+      collapsable: true,
+      children: [
+        'basic/http/cache_question',
+        'basic/http/enter_url',
+        'basic/http/http_ajax',
+        'basic/http/http_code',
+        'basic/http/http_field&cache',
+        'basic/http/http_login_status',
+        'basic/http/http_login_status',
+        'basic/http/security',
+        'basic/http/SSO',
+        'basic/http/axios'
       ]
     },
     {
@@ -66,7 +99,7 @@ function genSidebarConfig (title) {
       title: 'Vue源码学习',
       collapsable: false,
       children: [
-        '/vue_resource/structure.md',
+        '/vue_resource/structure',
         '/vue_resource/start',
         '/vue_resource/options',
         '/vue_resource/init_data',
@@ -86,38 +119,5 @@ function genSidebarConfig (title) {
         '/vue_resource/parse'
       ]
     },
-    {
-      title: '前端常见问题',
-      children: [
-        '/javascript_question/regexp',
-        '/javascript_question/http',
-        '/javascript_question/event',
-        '/javascript_question/others',
-        '/javascript_question/promise',
-        '/javascript_question/async&await',
-      ]
-    },
-    {
-      title: '前端基础',
-      children: [
-        '/basic/render',
-        '/basic/bite',
-        '/basic/mouse-event',
-        '/css/css_layer',
-        '/basic/HTTP',
-        '/basic/type-transfer'
-
-      ]
-    },
-    {
-      title: '算法',
-      collapsable: false,
-      children: [
-        '/arithmetic/reg_match',
-        '/arithmetic/search_str',
-        '/arithmetic/callStack',
-        '/arithmetic/sort'
-      ]
-    }
   ]
 }

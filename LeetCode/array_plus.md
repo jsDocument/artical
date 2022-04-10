@@ -1,3 +1,30 @@
+[最大子数组和](https://leetcode-cn.com/problems/maximum-subarray/)
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxValue = function(a, b){
+    return Math.max(a,b);
+}
+var maxSubArray = function(nums) {
+    let preSum = sum = nums[0];
+    if(nums.length===1){
+        return sum;
+    }
+    for(let i=1,len=nums.length; i<len; i++){
+        preSum = maxValue(preSum+nums[i], nums[i]);
+        if(preSum >= sum){
+            sum = preSum;
+        }
+    }
+    return sum;
+};
+
+
+```
+
 [两数之和](https://leetcode-cn.com/problems/two-sum/)
 
 实现思路：使用 map实现
