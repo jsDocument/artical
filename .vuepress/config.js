@@ -17,7 +17,10 @@ module.exports = {
     searchMaxSuggestions: 10,
     search: true,
     nav: [
-      {text: '概述', link: '/'},
+      {text: 'jvascript 基础系列', items: [
+        {text: '前端基础知识', link: '/basic/base/base'},
+        {text: '数据类型隐式转换规律', link: '/basic/base/base'}
+      ]},
       {text: 'leetCode系列', items: [
         {text: '剑指 Offer 06 18 22 25 II27', link: '/LeetCode/offer_listNode'},
         {text: '链表 141 160 203 206 234 237 876', link: '/LeetCode/simple_listNode'},
@@ -52,7 +55,12 @@ module.exports = {
         {text: '前端 promise 篇', link: '/basic/javascript/promise/readme'},
         {text: '前端 webpack 篇', link: '/basic/javascript/webpack/readme'}
       ]},
-      {text: 'es6 系列', link: '//es6/SUMMARY'},
+      {text: 'es6 系列', items:[
+        {text: 'set&map', link: '/es6/set&map'},
+        {text: 'generator', link: '/es6/generator'},
+        {text: 'promise', link: '/es6/promise'},
+        {text: 'async', link: '/es6/async',}
+      ]},
       {text: 'node 基础系列', items: [
         {text: 'readline', link: '/node_program/node_basic/readline'},
         {text: '进程相关', link: '/node_program/node_basic/child_process'},
