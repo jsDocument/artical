@@ -52,8 +52,8 @@ module.exports = {
       ]},
       {text: 'javascript 专题系列', items:[
         {text: '正则篇', link: '/basic/javascript/regexp/readme'},
-        {text: '前端 promise 篇', link: '/basic/javascript/promise/readme'},
-        {text: '前端 webpack 篇', link: '/basic/javascript/webpack/readme'}
+        {text: '前端 promise 篇', link: '/basic/javascript/promise/SUMMARY'},
+        {text: '前端 webpack 篇', link: '/basic/javascript/webpack/SUMMARY'}
       ]},
       {text: 'es6 系列', items:[
         {text: 'set&map', link: '/es6/set&map'},
