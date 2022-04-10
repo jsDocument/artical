@@ -1,3 +1,5 @@
+# 剑指数组系列
+
 [股票的最大利润](https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/solution/)
 
 解题思路：当前价格减轻最低点的价格与之前的利润比，取最大的；故需要更新记录最低点 和 最大利润
