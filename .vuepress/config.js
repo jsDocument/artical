@@ -13,13 +13,22 @@ module.exports = {
   // base: '/',
   themeConfig: {
     sidebarDepth: 0,
+    nextLinks: true,
+    prevLinks: true,
+    lastUpdated: true,
     sidebar: genSidebarConfig('技术文档'),
     searchMaxSuggestions: 10,
     search: true,
     nav: [
       {text: 'jvascript 基础系列', items: [
-        {text: '前端基础知识', link: '/basic/base/base'},
-        {text: '数据类型隐式转换规律', link: '/basic/base/base'}
+        {text: '常被问到的几个前端基础知识', link: '/basic/base/base'},
+        {text: '浏览器基础知识', link: '/basic/base/browser'},
+        {text: '你该知道的类型基础与对象知识', link: '/basic/base/data-type'},
+        {text: '数据类型隐式转换规律', link: '/basic/base/type-transfer'},
+        {text: '作用域、闭包、作用域提升、执行上下文、垃圾回收', link: '/basic/base/zone'},
+        {text: 'winter重学前端部分总结', link: '/basic/base/winter'},
+        {text: '鼠标事件基础', link: '/basic/base/mouse-event'},
+        {text: '模块简介', link: '/basic/base/module'}
       ]},
       {text: 'leetCode系列', items: [
         {text: '剑指 Offer 06 18 22 25 II27', link: '/LeetCode/offer_listNode'},
@@ -53,13 +62,17 @@ module.exports = {
       {text: 'javascript 专题系列', items:[
         {text: '正则篇', link: '/basic/javascript/regexp/readme'},
         {text: '前端 promise 篇', link: '/basic/javascript/promise/SUMMARY'},
-        {text: '前端 webpack 篇', link: '/basic/javascript/webpack/SUMMARY'}
+        {text: '前端性能优化', link: '/basic/javascript/promotion/base'}
       ]},
       {text: 'es6 系列', items:[
         {text: 'set&map', link: '/es6/set&map'},
         {text: 'generator', link: '/es6/generator'},
         {text: 'promise', link: '/es6/promise'},
         {text: 'async', link: '/es6/async',}
+      ]},
+      {text: '工具系列', items: [
+        {text: 'webpack 篇', link: '/tools/webpack/SUMMARY'},
+        {text: 'git 篇', link: '/tools/git/config'}
       ]},
       {text: 'node 基础系列', items: [
         {text: 'readline', link: '/node_program/node_basic/readline'},

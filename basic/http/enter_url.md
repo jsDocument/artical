@@ -1,3 +1,23 @@
+1. 从浏览器地址栏输入url到请求返回发生了什么？url 解析，dns 系统查询 IP
+2. url为啥要解析，dns查询规则是什么？
+3. url编码的规则是什么呢？utf-8，中文的话用gb2312编码吗，还有就是万一浏览器不是你说的这样统一用utf-8，你怎么保证都是utf-8的编码?
+4. encodeURIComponent比encodeURI有什么区别?
+5. dns 系统如何查询 IP？host-->本地 dns 解析器缓存-->本地 dns 服务器缓存
+6. html如何做dns优化
+7. 建立 TCP 链接，三次握手
+8. 从网卡把数据包传输出去到服务器发生了什么，提示我OSI参考模型
+9. 浏览器缓存
+10. from disk cache和from memory cache
+11. 什么是启发式缓存吗，在什么条件下触发？
+12. 解析 html
+13. 页面渲染优化
+
+```html
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="dns-prefetch" href="http://bdimg.share.baidu.com" />
+```
+
+
 + 性能指标: Lighthouse获取指标值
   + First Paint 首次绘制（FP）记录页面第一次绘制像素的时间
   + First contentful paint 首次内容绘制 (FCP)记录页面首次绘制文本、图片、非空白 Canvas 或 SVG 的时间

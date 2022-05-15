@@ -1,3 +1,5 @@
+#### Blob 与 File
+
 + Blob 二进制类型的大对象，size, type，可将文件分割为字节范围
 + File 基于 Blob，来自
   + <input/> 上返回的 FileList 对象， dom.files[0] 来获取File(名称、大小、mimetype和对文件句柄的引用)

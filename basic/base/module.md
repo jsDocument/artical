@@ -1,7 +1,7 @@
-## 模块
+### 模块简介
 
-+ amd---require.js
-+ cmd---sea.js
++ amd---典型代表require.js
++ cmd---典型代表sea.js
 + umd----兼容 cjs 与 amd 的模块
 + cjs--commonjs----nodejs----转换：skypack、 snowpack、vite
   + 值拷贝

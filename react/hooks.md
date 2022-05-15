@@ -1,3 +1,26 @@
+1. react hook引入是为了解决状态共享的问题
+   1. 状态逻辑复用，并将 UI 于状态分离，function state 保存的是快照，class state保存的是值，引用类型的情况下，class state 不需要传入新的引用，而 function state 必须保证是个新的引用？
+   2. 快照（闭包） vs 最新值（引用）？快照每次更新都是重新执行当前函数，每次都是重新获取初始值再更新----用useRef 来解决，在渲染周期内永远不会变，因此可以用来引用某些数据，修改 ref.current 不会引发组件重新渲染。
+   3. 异步更新机制 与 事件
+
+2. useRef vs createRef：
+   1. 两者都是获取 ref 的方式，都有一个 current 属性。
+   2. useRef 只能用于函数组件，createRef 可以用在类组件中。
+   3. useRef 在每次重新渲染后都保持不变，而 createRef 每次都会发生变化。
+3. 生命周期
+   1. 可以一定程度上用 useEffect 充当，componentDidMount、componentDidUpdate、componentWillUnmount
+   2. 执行时机----如果不传依赖数组，那么回调函数会在每一次渲染结束后（componentDidMount 和 componentDidUpdate）执行。如果依赖数组不为空数组，那么回调函数会在依赖值每次更新渲染结束后（componentDidUpdate）执行，这个依赖值一般是 state 或者 props。
+   3. useLayoutEffect：useLayoutEffect 会block 浏览器渲染，是在 DOM 更新完成后，浏览器绘制之前执行。
+4. 箭头函数有个问题，那就是在每一次组件重新渲染的时候都会生成一个重复的匿名箭头函数，导致传给组件的参数发生了变化，对性能造成一定的损耗。
+5. 并发渲染，react 大量计算与渲染阻塞了主线程，用另一个线程来完成？webworker?
+   1. useDeferredValue---在整个渲染过程中确定工作的优先级，标记哪些具体的状态拥有更低的优先级
+   2. startTransition 可以明确的告诉 React 哪些更新具有更低的优先级
+   3. <Suspense/> 是一个 React 组件，fallback
+
+
+
+
+
 + 为什么是函数式组件?
   + 简化了逻辑的复用<----->高阶组件，需要用到复杂的设计模式，(为了传递一个公共的外部状态，定义一个没有 UI 的外层组件)
   + 有助于关注分离：把相关的业务逻辑代码尽可能的聚合在一起，类组件都是分散在各个生命周期里面

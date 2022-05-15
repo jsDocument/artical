@@ -1,4 +1,4 @@
-# javascript的隐式转换
+#### javascript的隐式类型转换
 
 1. 原始基础类型：Undefined、 Null、 String、 Number、 Boolean、 Symbol、Object、bigInt
 2. JS内置对象：Date, Array, Math, Number, Boolean, String, Array, RegExp, Function, Error。
