@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>- 借助于抽象语法树 AST，从字符串中提取出元素的标签、属性、变量插值等有效信息。 | 技术文档</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    <link rel="preload" href="/assets/css/0.styles.a2343c0b.css" as="style"><link rel="preload" href="/assets/js/app.e4bbb587.js" as="script"><link rel="preload" href="/assets/js/2.11bbd501.js" as="script"><link rel="preload" href="/assets/js/180.ae41c620.js" as="script"><link rel="prefetch" href="/assets/js/10.a996dcf8.js"><link rel="prefetch" href="/assets/js/100.db5c8ecb.js"><link rel="prefetch" href="/assets/js/101.9f1a6eb8.js"><link rel="prefetch" href="/assets/js/102.f481d687.js"><link rel="prefetch" href="/assets/js/103.37ca45dc.js"><link rel="prefetch" href="/assets/js/104.2aa6ff40.js"><link rel="prefetch" href="/assets/js/105.9b543023.js"><link rel="prefetch" href="/assets/js/106.e11fc498.js"><link rel="prefetch" href="/assets/js/107.3fe037e4.js"><link rel="prefetch" href="/assets/js/108.2a91375c.js"><link rel="prefetch" href="/assets/js/109.69c180ee.js"><link rel="prefetch" href="/assets/js/11.347823c5.js"><link rel="prefetch" href="/assets/js/110.08624475.js"><link rel="prefetch" href="/assets/js/111.a82e51b1.js"><link rel="prefetch" href="/assets/js/112.7891ca37.js"><link rel="prefetch" href="/assets/js/113.b61855e3.js"><link rel="prefetch" href="/assets/js/114.67085fc4.js"><link rel="prefetch" href="/assets/js/115.77568a61.js"><link rel="prefetch" href="/assets/js/116.5173376d.js"><link rel="prefetch" href="/assets/js/117.2226f1f4.js"><link rel="prefetch" href="/assets/js/118.b11458b6.js"><link rel="prefetch" href="/assets/js/119.63e3e256.js"><link rel="prefetch" href="/assets/js/12.2e50785d.js"><link rel="prefetch" href="/assets/js/120.17586a5e.js"><link rel="prefetch" href="/assets/js/121.9cf0da91.js"><link rel="prefetch" href="/assets/js/122.950c0651.js"><link rel="prefetch" href="/assets/js/123.bb9da084.js"><link rel="prefetch" href="/assets/js/124.2fd5eb85.js"><link rel="prefetch" href="/assets/js/125.6fdd7c5f.js"><link rel="prefetch" href="/assets/js/126.401c71d4.js"><link rel="prefetch" href="/assets/js/127.d7009df1.js"><link rel="prefetch" href="/assets/js/128.701e3d02.js"><link rel="prefetch" href="/assets/js/129.aa45bbf7.js"><link rel="prefetch" href="/assets/js/13.9a041ac9.js"><link rel="prefetch" href="/assets/js/130.d177ab0f.js"><link rel="prefetch" href="/assets/js/131.cc8173ca.js"><link rel="prefetch" href="/assets/js/132.65e55181.js"><link rel="prefetch" href="/assets/js/133.b15bd606.js"><link rel="prefetch" href="/assets/js/134.87d77bf8.js"><link rel="prefetch" href="/assets/js/135.5e974c10.js"><link rel="prefetch" href="/assets/js/136.1380d17f.js"><link rel="prefetch" href="/assets/js/137.2b151d82.js"><link rel="prefetch" href="/assets/js/138.4de323af.js"><link rel="prefetch" href="/assets/js/139.157c44f7.js"><link rel="prefetch" href="/assets/js/14.dee17a21.js"><link rel="prefetch" href="/assets/js/140.a19e9163.js"><link rel="prefetch" href="/assets/js/141.788bd6a9.js"><link rel="prefetch" href="/assets/js/142.cd509527.js"><link rel="prefetch" href="/assets/js/143.61e035a1.js"><link rel="prefetch" href="/assets/js/144.da142b07.js"><link rel="prefetch" href="/assets/js/145.812b831e.js"><link rel="prefetch" href="/assets/js/146.a50d6dec.js"><link rel="prefetch" href="/assets/js/147.dd7d4fe1.js"><link rel="prefetch" href="/assets/js/148.11281a23.js"><link rel="prefetch" href="/assets/js/149.bc4ce0e2.js"><link rel="prefetch" href="/assets/js/15.66aa3b3c.js"><link rel="prefetch" href="/assets/js/150.b590b3d2.js"><link rel="prefetch" href="/assets/js/151.e235b46e.js"><link rel="prefetch" href="/assets/js/152.df44f728.js"><link rel="prefetch" href="/assets/js/153.b54e3bd7.js"><link rel="prefetch" href="/assets/js/154.72075ddd.js"><link rel="prefetch" href="/assets/js/155.633511ee.js"><link rel="prefetch" href="/assets/js/156.f0335e44.js"><link rel="prefetch" href="/assets/js/157.4e912fa1.js"><link rel="prefetch" href="/assets/js/158.839771b4.js"><link rel="prefetch" href="/assets/js/159.07a46acc.js"><link rel="prefetch" href="/assets/js/16.d29c9ca6.js"><link rel="prefetch" href="/assets/js/160.4607e14c.js"><link rel="prefetch" href="/assets/js/161.b44a3af5.js"><link rel="prefetch" href="/assets/js/162.08920ee1.js"><link rel="prefetch" href="/assets/js/163.8b80be6d.js"><link rel="prefetch" href="/assets/js/164.4c58487b.js"><link rel="prefetch" href="/assets/js/165.2cadc4b5.js"><link rel="prefetch" href="/assets/js/166.c3b14288.js"><link rel="prefetch" href="/assets/js/167.e8afd9e3.js"><link rel="prefetch" href="/assets/js/168.2512a558.js"><link rel="prefetch" href="/assets/js/169.7dd46e04.js"><link rel="prefetch" href="/assets/js/17.059cede1.js"><link rel="prefetch" href="/assets/js/170.74feca57.js"><link rel="prefetch" href="/assets/js/171.278e8566.js"><link rel="prefetch" href="/assets/js/172.bc2ee49c.js"><link rel="prefetch" href="/assets/js/173.62583e2c.js"><link rel="prefetch" href="/assets/js/174.e4e9e560.js"><link rel="prefetch" href="/assets/js/175.70823c68.js"><link rel="prefetch" href="/assets/js/176.a9a7a5c0.js"><link rel="prefetch" href="/assets/js/177.16ccfed6.js"><link rel="prefetch" href="/assets/js/178.c3a40495.js"><link rel="prefetch" href="/assets/js/179.80a3808a.js"><link rel="prefetch" href="/assets/js/18.059c376d.js"><link rel="prefetch" href="/assets/js/181.1b814248.js"><link rel="prefetch" href="/assets/js/182.8e7a6ed5.js"><link rel="prefetch" href="/assets/js/183.6d3abb89.js"><link rel="prefetch" href="/assets/js/184.e88d07f7.js"><link rel="prefetch" href="/assets/js/185.6614b991.js"><link rel="prefetch" href="/assets/js/186.50ecdc6b.js"><link rel="prefetch" href="/assets/js/187.90f08b6a.js"><link rel="prefetch" href="/assets/js/188.80e35596.js"><link rel="prefetch" href="/assets/js/189.743b439a.js"><link rel="prefetch" href="/assets/js/19.b2075598.js"><link rel="prefetch" href="/assets/js/190.03a4c2df.js"><link rel="prefetch" href="/assets/js/191.3aaa3973.js"><link rel="prefetch" href="/assets/js/192.ac0dc3e6.js"><link rel="prefetch" href="/assets/js/193.1805b441.js"><link rel="prefetch" href="/assets/js/194.89487159.js"><link rel="prefetch" href="/assets/js/195.c8e45593.js"><link rel="prefetch" href="/assets/js/196.c8726406.js"><link rel="prefetch" href="/assets/js/197.a59ca2cf.js"><link rel="prefetch" href="/assets/js/198.dd079371.js"><link rel="prefetch" href="/assets/js/199.bfb90d8f.js"><link rel="prefetch" href="/assets/js/20.2e74b6c9.js"><link rel="prefetch" href="/assets/js/200.c6004045.js"><link rel="prefetch" href="/assets/js/201.6b30f8a7.js"><link rel="prefetch" href="/assets/js/202.2563ccab.js"><link rel="prefetch" href="/assets/js/203.20a8e2a9.js"><link rel="prefetch" href="/assets/js/204.81c5c36c.js"><link rel="prefetch" href="/assets/js/205.86114cce.js"><link rel="prefetch" href="/assets/js/206.ddee749f.js"><link rel="prefetch" href="/assets/js/207.8fdc7d17.js"><link rel="prefetch" href="/assets/js/208.36b14e7c.js"><link rel="prefetch" href="/assets/js/209.faff7c3c.js"><link rel="prefetch" href="/assets/js/21.4638ca31.js"><link rel="prefetch" href="/assets/js/210.489d2d8f.js"><link rel="prefetch" href="/assets/js/211.ca0f76c4.js"><link rel="prefetch" href="/assets/js/212.fa0fadec.js"><link rel="prefetch" href="/assets/js/213.08e52b73.js"><link rel="prefetch" href="/assets/js/214.655f001a.js"><link rel="prefetch" href="/assets/js/22.13ed1350.js"><link rel="prefetch" href="/assets/js/23.300360ff.js"><link rel="prefetch" href="/assets/js/24.487b9317.js"><link rel="prefetch" href="/assets/js/25.44b721b1.js"><link rel="prefetch" href="/assets/js/26.3c805424.js"><link rel="prefetch" href="/assets/js/27.b69ff703.js"><link rel="prefetch" href="/assets/js/28.0b8eee05.js"><link rel="prefetch" href="/assets/js/29.8c7c9542.js"><link rel="prefetch" href="/assets/js/3.d5012eb5.js"><link rel="prefetch" href="/assets/js/30.f4eb0118.js"><link rel="prefetch" href="/assets/js/31.67f82acc.js"><link rel="prefetch" href="/assets/js/32.4dc7b198.js"><link rel="prefetch" href="/assets/js/33.c01621db.js"><link rel="prefetch" href="/assets/js/34.aba660bc.js"><link rel="prefetch" href="/assets/js/35.10f749b2.js"><link rel="prefetch" href="/assets/js/36.de4e9a68.js"><link rel="prefetch" href="/assets/js/37.5837eab0.js"><link rel="prefetch" href="/assets/js/38.7fbe1295.js"><link rel="prefetch" href="/assets/js/39.04a7fd70.js"><link rel="prefetch" href="/assets/js/4.7a44cdf3.js"><link rel="prefetch" href="/assets/js/40.9bef1e37.js"><link rel="prefetch" href="/assets/js/41.549daf0e.js"><link rel="prefetch" href="/assets/js/42.d99b3ac0.js"><link rel="prefetch" href="/assets/js/43.b7c740ae.js"><link rel="prefetch" href="/assets/js/44.46d8242d.js"><link rel="prefetch" href="/assets/js/45.cb02b765.js"><link rel="prefetch" href="/assets/js/46.a9aa0001.js"><link rel="prefetch" href="/assets/js/47.f1ab93ca.js"><link rel="prefetch" href="/assets/js/48.3e5e328d.js"><link rel="prefetch" href="/assets/js/49.08538a34.js"><link rel="prefetch" href="/assets/js/5.5fce802e.js"><link rel="prefetch" href="/assets/js/50.0629ccc6.js"><link rel="prefetch" href="/assets/js/51.0c5ca518.js"><link rel="prefetch" href="/assets/js/52.e1f79627.js"><link rel="prefetch" href="/assets/js/53.e1682e98.js"><link rel="prefetch" href="/assets/js/54.17ba926b.js"><link rel="prefetch" href="/assets/js/55.3b89a597.js"><link rel="prefetch" href="/assets/js/56.fe0bb1f3.js"><link rel="prefetch" href="/assets/js/57.778bd996.js"><link rel="prefetch" href="/assets/js/58.bd58a2a7.js"><link rel="prefetch" href="/assets/js/59.e2cc9d87.js"><link rel="prefetch" href="/assets/js/6.9024be81.js"><link rel="prefetch" href="/assets/js/60.b3d47559.js"><link rel="prefetch" href="/assets/js/61.289b0465.js"><link rel="prefetch" href="/assets/js/62.b4758c5d.js"><link rel="prefetch" href="/assets/js/63.f9fb4433.js"><link rel="prefetch" href="/assets/js/64.0bdc7b11.js"><link rel="prefetch" href="/assets/js/65.31ded4ac.js"><link rel="prefetch" href="/assets/js/66.8cc3e485.js"><link rel="prefetch" href="/assets/js/67.1122bc19.js"><link rel="prefetch" href="/assets/js/68.55ae3358.js"><link rel="prefetch" href="/assets/js/69.86a3f1f4.js"><link rel="prefetch" href="/assets/js/7.0fb59f90.js"><link rel="prefetch" href="/assets/js/70.8a8c489d.js"><link rel="prefetch" href="/assets/js/71.732a8fe6.js"><link rel="prefetch" href="/assets/js/72.0c8cbbfa.js"><link rel="prefetch" href="/assets/js/73.00f4077f.js"><link rel="prefetch" href="/assets/js/74.4c13a237.js"><link rel="prefetch" href="/assets/js/75.f511be41.js"><link rel="prefetch" href="/assets/js/76.38c921c9.js"><link rel="prefetch" href="/assets/js/77.19dac482.js"><link rel="prefetch" href="/assets/js/78.95ba02fc.js"><link rel="prefetch" href="/assets/js/79.b3a91816.js"><link rel="prefetch" href="/assets/js/8.f38eed74.js"><link rel="prefetch" href="/assets/js/80.690156cb.js"><link rel="prefetch" href="/assets/js/81.65a817dc.js"><link rel="prefetch" href="/assets/js/82.24afde40.js"><link rel="prefetch" href="/assets/js/83.71ec5077.js"><link rel="prefetch" href="/assets/js/84.75936ee6.js"><link rel="prefetch" href="/assets/js/85.5698db9b.js"><link rel="prefetch" href="/assets/js/86.43edb8d0.js"><link rel="prefetch" href="/assets/js/87.3453e620.js"><link rel="prefetch" href="/assets/js/88.cd4c9b7b.js"><link rel="prefetch" href="/assets/js/89.0b94d54c.js"><link rel="prefetch" href="/assets/js/9.bb0462f3.js"><link rel="prefetch" href="/assets/js/90.76dedf4b.js"><link rel="prefetch" href="/assets/js/91.d86fb7e3.js"><link rel="prefetch" href="/assets/js/92.906b02f8.js"><link rel="prefetch" href="/assets/js/93.96d60414.js"><link rel="prefetch" href="/assets/js/94.f9a281aa.js"><link rel="prefetch" href="/assets/js/95.7842cb54.js"><link rel="prefetch" href="/assets/js/96.8b270b27.js"><link rel="prefetch" href="/assets/js/97.0a55226e.js"><link rel="prefetch" href="/assets/js/98.4a56440e.js"><link rel="prefetch" href="/assets/js/99.f145b8a9.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a2343c0b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">技术文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="jvascript 基础系列" class="dropdown-title"><span class="title">jvascript 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="jvascript 基础系列" class="mobile-dropdown-title"><span class="title">jvascript 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/base/base.html" class="nav-link">
+  常被问到的几个前端基础知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/browser.html" class="nav-link">
+  浏览器基础知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/data-type.html" class="nav-link">
+  你该知道的类型基础与对象知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/type-transfer.html" class="nav-link">
+  数据类型隐式转换规律
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/zone.html" class="nav-link">
+  作用域、闭包、作用域提升、执行上下文、垃圾回收
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/winter.html" class="nav-link">
+  winter重学前端部分总结
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/mouse-event.html" class="nav-link">
+  鼠标事件基础
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/module.html" class="nav-link">
+  模块简介
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="leetCode系列" class="dropdown-title"><span class="title">leetCode系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="leetCode系列" class="mobile-dropdown-title"><span class="title">leetCode系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/LeetCode/offer_listNode.html" class="nav-link">
+  剑指 Offer 06 18 22 25 II27
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/simple_listNode.html" class="nav-link">
+  链表 141 160 203 206 234 237 876
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/middle_listNode.html" class="nav-link">
+  链表 2 19 24 61 109 142 328 707
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/offer_array.html" class="nav-link">
+  剑指 Offer 03 04 12
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_string.html" class="nav-link">
+  数组 722 929
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/offer_string.html" class="nav-link">
+  剑指 Offer 53 58
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_plus.html" class="nav-link">
+  找数组之和系列
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_simple.html" class="nav-link">
+  字符串初级 13 14 20 58 67 819
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_middle.html" class="nav-link">
+  字符串中级 3 6 8 71 151
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_hard.html" class="nav-link">
+  字符串高级 10 44 65 1106
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/common_sort_c++.html" class="nav-link">
+  常用排序C++
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/common_sort_js.html" class="nav-link">
+  常用排序JS
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/callStack.html" class="nav-link">
+  尾调用优化讲解
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_search_str.html" class="nav-link">
+  子串搜索系列
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/tree.html" class="nav-link">
+  二叉树基础题
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_trangle.html" class="nav-link">
+  杨辉三角
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_rotate.html" class="nav-link">
+  数组回溯1
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_shudu.html" class="nav-link">
+  数组回溯2
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_dt.html" class="nav-link">
+  动态规划之 01背包问题
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="http 基础系列" class="dropdown-title"><span class="title">http 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="http 基础系列" class="mobile-dropdown-title"><span class="title">http 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/http/cache_question.html" class="nav-link">
+  cache 问题
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/enter_url.html" class="nav-link">
+  输入 URL 后发生了什么
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_ajax.html" class="nav-link">
+  ajax 请求与跨域相关知识点
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_code.html" class="nav-link">
+  http 常用状态码
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_field&amp;cache.html" class="nav-link">
+  http header 字段与缓存知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_login_status.html" class="nav-link">
+  HTTP 的无状态解决方案
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_login_status.html" class="nav-link">
+  HTTP 请求过程及分类
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/security.html" class="nav-link">
+  前端安全
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/SSO.html" class="nav-link">
+  单点登录
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/axios.html" class="nav-link">
+  axios相关知识
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="javascript 专题系列" class="dropdown-title"><span class="title">javascript 专题系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="javascript 专题系列" class="mobile-dropdown-title"><span class="title">javascript 专题系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/javascript/regexp/readme.html" class="nav-link">
+  正则篇
+</a></li><li class="dropdown-item"><!----> <a href="/basic/javascript/promise/SUMMARY.html" class="nav-link">
+  前端 promise 篇
+</a></li><li class="dropdown-item"><!----> <a href="/basic/javascript/promotion/base.html" class="nav-link">
+  前端性能优化
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="es6 系列" class="dropdown-title"><span class="title">es6 系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="es6 系列" class="mobile-dropdown-title"><span class="title">es6 系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/es6/set&amp;map.html" class="nav-link">
+  set&amp;map
+</a></li><li class="dropdown-item"><!----> <a href="/es6/generator.html" class="nav-link">
+  generator
+</a></li><li class="dropdown-item"><!----> <a href="/es6/promise.html" class="nav-link">
+  promise
+</a></li><li class="dropdown-item"><!----> <a href="/es6/async.html" class="nav-link">
+  async
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工具系列" class="dropdown-title"><span class="title">工具系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="工具系列" class="mobile-dropdown-title"><span class="title">工具系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tools/webpack/SUMMARY.html" class="nav-link">
+  webpack 篇
+</a></li><li class="dropdown-item"><!----> <a href="/tools/git/config.html" class="nav-link">
+  git 篇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="node 基础系列" class="dropdown-title"><span class="title">node 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="node 基础系列" class="mobile-dropdown-title"><span class="title">node 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/node_program/node_basic/readline.html" class="nav-link">
+  readline
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/child_process.html" class="nav-link">
+  进程相关
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/event.html" class="nav-link">
+  事件
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/stream.html" class="nav-link">
+  流
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/net.html" class="nav-link">
+  net
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/udp.html" class="nav-link">
+  udp
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/http.html" class="nav-link">
+  http
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="jvascript 基础系列" class="dropdown-title"><span class="title">jvascript 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="jvascript 基础系列" class="mobile-dropdown-title"><span class="title">jvascript 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/base/base.html" class="nav-link">
+  常被问到的几个前端基础知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/browser.html" class="nav-link">
+  浏览器基础知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/data-type.html" class="nav-link">
+  你该知道的类型基础与对象知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/type-transfer.html" class="nav-link">
+  数据类型隐式转换规律
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/zone.html" class="nav-link">
+  作用域、闭包、作用域提升、执行上下文、垃圾回收
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/winter.html" class="nav-link">
+  winter重学前端部分总结
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/mouse-event.html" class="nav-link">
+  鼠标事件基础
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/module.html" class="nav-link">
+  模块简介
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="leetCode系列" class="dropdown-title"><span class="title">leetCode系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="leetCode系列" class="mobile-dropdown-title"><span class="title">leetCode系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/LeetCode/offer_listNode.html" class="nav-link">
+  剑指 Offer 06 18 22 25 II27
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/simple_listNode.html" class="nav-link">
+  链表 141 160 203 206 234 237 876
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/middle_listNode.html" class="nav-link">
+  链表 2 19 24 61 109 142 328 707
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/offer_array.html" class="nav-link">
+  剑指 Offer 03 04 12
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_string.html" class="nav-link">
+  数组 722 929
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/offer_string.html" class="nav-link">
+  剑指 Offer 53 58
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_plus.html" class="nav-link">
+  找数组之和系列
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_simple.html" class="nav-link">
+  字符串初级 13 14 20 58 67 819
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_middle.html" class="nav-link">
+  字符串中级 3 6 8 71 151
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_hard.html" class="nav-link">
+  字符串高级 10 44 65 1106
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/common_sort_c++.html" class="nav-link">
+  常用排序C++
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/common_sort_js.html" class="nav-link">
+  常用排序JS
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/callStack.html" class="nav-link">
+  尾调用优化讲解
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_search_str.html" class="nav-link">
+  子串搜索系列
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/tree.html" class="nav-link">
+  二叉树基础题
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_trangle.html" class="nav-link">
+  杨辉三角
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_rotate.html" class="nav-link">
+  数组回溯1
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_shudu.html" class="nav-link">
+  数组回溯2
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_dt.html" class="nav-link">
+  动态规划之 01背包问题
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="http 基础系列" class="dropdown-title"><span class="title">http 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="http 基础系列" class="mobile-dropdown-title"><span class="title">http 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/http/cache_question.html" class="nav-link">
+  cache 问题
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/enter_url.html" class="nav-link">
+  输入 URL 后发生了什么
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_ajax.html" class="nav-link">
+  ajax 请求与跨域相关知识点
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_code.html" class="nav-link">
+  http 常用状态码
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_field&amp;cache.html" class="nav-link">
+  http header 字段与缓存知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_login_status.html" class="nav-link">
+  HTTP 的无状态解决方案
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_login_status.html" class="nav-link">
+  HTTP 请求过程及分类
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/security.html" class="nav-link">
+  前端安全
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/SSO.html" class="nav-link">
+  单点登录
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/axios.html" class="nav-link">
+  axios相关知识
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="javascript 专题系列" class="dropdown-title"><span class="title">javascript 专题系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="javascript 专题系列" class="mobile-dropdown-title"><span class="title">javascript 专题系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/javascript/regexp/readme.html" class="nav-link">
+  正则篇
+</a></li><li class="dropdown-item"><!----> <a href="/basic/javascript/promise/SUMMARY.html" class="nav-link">
+  前端 promise 篇
+</a></li><li class="dropdown-item"><!----> <a href="/basic/javascript/promotion/base.html" class="nav-link">
+  前端性能优化
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="es6 系列" class="dropdown-title"><span class="title">es6 系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="es6 系列" class="mobile-dropdown-title"><span class="title">es6 系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/es6/set&amp;map.html" class="nav-link">
+  set&amp;map
+</a></li><li class="dropdown-item"><!----> <a href="/es6/generator.html" class="nav-link">
+  generator
+</a></li><li class="dropdown-item"><!----> <a href="/es6/promise.html" class="nav-link">
+  promise
+</a></li><li class="dropdown-item"><!----> <a href="/es6/async.html" class="nav-link">
+  async
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工具系列" class="dropdown-title"><span class="title">工具系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="工具系列" class="mobile-dropdown-title"><span class="title">工具系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tools/webpack/SUMMARY.html" class="nav-link">
+  webpack 篇
+</a></li><li class="dropdown-item"><!----> <a href="/tools/git/config.html" class="nav-link">
+  git 篇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="node 基础系列" class="dropdown-title"><span class="title">node 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="node 基础系列" class="mobile-dropdown-title"><span class="title">node 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/node_program/node_basic/readline.html" class="nav-link">
+  readline
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/child_process.html" class="nav-link">
+  进程相关
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/event.html" class="nav-link">
+  事件
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/stream.html" class="nav-link">
+  流
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/net.html" class="nav-link">
+  net
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/udp.html" class="nav-link">
+  udp
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/http.html" class="nav-link">
+  http
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Vue 系列</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue_resource/structure.html" class="sidebar-link">vue目录结构导读</a></li><li><a href="/vue_resource/start.html" class="sidebar-link">Vue之旅开始</a></li><li><a href="/vue_resource/options.html" class="sidebar-link">mergeOption的初始化与合并规则</a></li><li><a href="/vue_resource/init_data.html" class="sidebar-link">init_data</a></li><li><a href="/vue_resource/events.html" class="sidebar-link">内部事件初始始化与事件的实现</a></li><li><a href="/vue_resource/compile_el.html" class="sidebar-link">编译的整个过程与相关方法讲解</a></li><li><a href="/vue_resource/_compile_root.html" class="sidebar-link">编译其他节点</a></li><li><a href="/vue_resource/_compile_rest.html" class="sidebar-link">编译根节点</a></li><li><a href="/vue_resource/directive_base.html" class="sidebar-link">指令的创建与生成及更新</a></li><li><a href="/vue_resource/watch_observer.html" class="sidebar-link">watch</a></li><li><a href="/vue_resource/batcher.html" class="sidebar-link">管理watcher队列</a></li><li><a href="/vue_resource/calculate.html" class="sidebar-link">表达式的运算与执行过滤</a></li><li><a href="/vue_resource/hook.html" class="sidebar-link">钩子函数的初始化与实现</a></li><li><a href="/vue_resource/transition.html" class="sidebar-link">transition实现讲解</a></li><li><a href="/vue_resource/dom.html" class="sidebar-link">DOM操作的几个方法实现</a></li><li><a href="/vue_resource/fragmentFactory.html" class="sidebar-link">工厂</a></li><li><a href="/vue_resource/directive_every.html" class="sidebar-link">内部几个指令的实现讲解</a></li><li><a href="/vue_resource/parse.html" class="sidebar-link">表达式解析的相关实现</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>React 系列</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/react/structure.html" class="sidebar-link">目录结构</a></li><li><a href="/react/event.html" class="sidebar-link">react 事件的相关功能实现</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id=""></h1> <ul><li>借助于抽象语法树 AST，从字符串中提取出元素的标签、属性、变量插值等有效信息。</li> <li>解析成 AST 后，可以对其进行各种操作处理了，处理后的 AST用来生成 render 函数</li> <li>流程：
+<ul><li>模板解析：将模板用正则解析成 AST----parser</li> <li>优化阶段：遍历 AST，找出静态节点，并打上标记-----optimizer</li> <li>代码生成阶段：将 AST 转换成渲染函数------codegen</li></ul></li></ul> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">const</span> createCompiler <span class="token operator">=</span> <span class="token function">createCompilerCreator</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">baseCompile</span> <span class="token punctuation">(</span>
+  <span class="token parameter"><span class="token literal-property property">template</span><span class="token operator">:</span> string<span class="token punctuation">,</span>
+  <span class="token literal-property property">options</span><span class="token operator">:</span> CompilerOptions</span>
+<span class="token punctuation">)</span><span class="token operator">:</span> CompiledResult <span class="token punctuation">{</span>
+  <span class="token comment">// 模板解析阶段：用正则等方式解析 template 模板中的指令、class、style等数据，形成AST</span>
+  <span class="token keyword">const</span> ast <span class="token operator">=</span> <span class="token function">parse</span><span class="token punctuation">(</span>template<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>optimize <span class="token operator">!==</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 优化阶段：遍历AST，找出其中的静态节点，并打上标记；</span>
+    <span class="token function">optimize</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 代码生成阶段：将AST转换成渲染函数；</span>
+  <span class="token keyword">const</span> code <span class="token operator">=</span> <span class="token function">generate</span><span class="token punctuation">(</span>ast<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    ast<span class="token punctuation">,</span>
+    <span class="token literal-property property">render</span><span class="token operator">:</span> code<span class="token punctuation">.</span>render<span class="token punctuation">,</span>
+    <span class="token literal-property property">staticRenderFns</span><span class="token operator">:</span> code<span class="token punctuation">.</span>staticRenderFns <span class="token comment">// 静态渲染函数</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="模板解析">模板解析</h2> <ol><li>parse(template, options)
+<ol><li>parseHTMl(template, {})，其中的 4 个钩子函数把提取出的内容生成对应成 AST
+<ol><li>parseText(text/value, delimiters)</li> <li>parseFilters(value)</li></ol></li></ol></li></ol> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">parse</span><span class="token punctuation">(</span><span class="token parameter">template<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">parseHTML</span><span class="token punctuation">(</span>template<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    warn<span class="token punctuation">,</span>
+    <span class="token literal-property property">expectHTML</span><span class="token operator">:</span> options<span class="token punctuation">.</span>expectHTML<span class="token punctuation">,</span>
+    <span class="token literal-property property">isUnaryTag</span><span class="token operator">:</span> options<span class="token punctuation">.</span>isUnaryTag<span class="token punctuation">,</span>
+    <span class="token literal-property property">canBeLeftOpenTag</span><span class="token operator">:</span> options<span class="token punctuation">.</span>canBeLeftOpenTag<span class="token punctuation">,</span>
+    <span class="token literal-property property">shouldDecodeNewlines</span><span class="token operator">:</span> options<span class="token punctuation">.</span>shouldDecodeNewlines<span class="token punctuation">,</span>
+    <span class="token literal-property property">shouldDecodeNewlinesForHref</span><span class="token operator">:</span> options<span class="token punctuation">.</span>shouldDecodeNewlinesForHref<span class="token punctuation">,</span>
+    <span class="token literal-property property">shouldKeepComment</span><span class="token operator">:</span> options<span class="token punctuation">.</span>comments<span class="token punctuation">,</span>
+    <span class="token literal-property property">outputSourceRange</span><span class="token operator">:</span> options<span class="token punctuation">.</span>outputSourceRange<span class="token punctuation">,</span>
+    <span class="token function">start</span> <span class="token punctuation">(</span><span class="token parameter">tag<span class="token punctuation">,</span> attrs<span class="token punctuation">,</span> unary<span class="token punctuation">,</span> start</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token function">end</span> <span class="token punctuation">(</span><span class="token parameter">tag<span class="token punctuation">,</span> start<span class="token punctuation">,</span> end</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token function">chars</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">text</span><span class="token operator">:</span> string<span class="token punctuation">,</span> <span class="token literal-property property">start</span><span class="token operator">:</span> number<span class="token punctuation">,</span> <span class="token literal-property property">end</span><span class="token operator">:</span> number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token function">comment</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">text</span><span class="token operator">:</span> string<span class="token punctuation">,</span> start<span class="token punctuation">,</span> end</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> root
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> unicodeLetters <span class="token operator">=</span> <span class="token string">'a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD'</span>
+
+<span class="token comment">// 命名规则</span>
+<span class="token keyword">const</span> ncname <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[a-zA-Z_][\\-\\.0-9_a-zA-Z</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>unicodeLetters<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">]*</span><span class="token template-punctuation string">`</span></span>
+<span class="token keyword">const</span> qnameCapture <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">((?:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>ncname<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">\\:)?</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>ncname<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">)</span><span class="token template-punctuation string">`</span></span>
+<span class="token keyword">const</span> doctype <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^&lt;!DOCTYPE [^&gt;]+&gt;</span><span class="token regex-delimiter">/</span><span class="token regex-flags">i</span></span>
+<span class="token comment">// #7298: escape - to avoid being pased as HTML comment when inlined in page</span>
+<span class="token keyword">const</span> comment <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^&lt;!\--</span><span class="token regex-delimiter">/</span></span>
+<span class="token keyword">const</span> conditionalComment <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^&lt;!\[</span><span class="token regex-delimiter">/</span></span>
+<span class="token keyword">const</span> reCache <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">const</span> decodingMap <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string-property property">'&amp;lt;'</span><span class="token operator">:</span> <span class="token string">'&lt;'</span><span class="token punctuation">,</span>
+  <span class="token string-property property">'&amp;gt;'</span><span class="token operator">:</span> <span class="token string">'&gt;'</span><span class="token punctuation">,</span>
+  <span class="token string-property property">'&amp;quot;'</span><span class="token operator">:</span> <span class="token string">'&quot;'</span><span class="token punctuation">,</span>
+  <span class="token string-property property">'&amp;amp;'</span><span class="token operator">:</span> <span class="token string">'&amp;'</span><span class="token punctuation">,</span>
+  <span class="token string-property property">'&amp;#10;'</span><span class="token operator">:</span> <span class="token string">'\n'</span><span class="token punctuation">,</span>
+  <span class="token string-property property">'&amp;#9;'</span><span class="token operator">:</span> <span class="token string">'\t'</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">const</span> encodedAttr <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">&amp;(?:lt|gt|quot|amp);</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span>
+<span class="token keyword">const</span> encodedAttrWithNewLines <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">&amp;(?:lt|gt|quot|amp|#10|#9);</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> isPlainTextElement <span class="token operator">=</span> <span class="token function">makeMap</span><span class="token punctuation">(</span><span class="token string">'script,style,textarea'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">parseHTML</span> <span class="token punctuation">(</span><span class="token parameter">html<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> stack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment">// 维护 AST 节点层级的栈</span>
+  <span class="token keyword">const</span> expectHTML <span class="token operator">=</span> options<span class="token punctuation">.</span>expectHTML
+  <span class="token keyword">const</span> isUnaryTag <span class="token operator">=</span> options<span class="token punctuation">.</span>isUnaryTag <span class="token operator">||</span> no
+  <span class="token keyword">const</span> canBeLeftOpenTag <span class="token operator">=</span> options<span class="token punctuation">.</span>canBeLeftOpenTag <span class="token operator">||</span> no
+  <span class="token keyword">let</span> index <span class="token operator">=</span> <span class="token number">0</span> <span class="token comment">// 解析游标</span>
+  <span class="token keyword">let</span> last<span class="token punctuation">,</span> <span class="token comment">// 剩余未解析的模板字符串</span>
+    lastTag <span class="token comment">// 位于栈顶 stack 的元素</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span>html<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 剩余未处理的模板</span>
+    last <span class="token operator">=</span> html
+    <span class="token comment">// 栈顶没有元素 或 栈顶的 parse 的内容不是在纯文本标签里 (script,style,textarea)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>lastTag <span class="token operator">||</span> <span class="token operator">!</span><span class="token function">isPlainTextElement</span><span class="token punctuation">(</span>lastTag<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> textEnd <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'&lt;'</span><span class="token punctuation">)</span>
+      <span class="token comment">// '&lt;'在第一个位置，处理一下 5 类情况</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>textEnd <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 注释的情况</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>comment<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>html<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> commentEnd <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'--&gt;'</span><span class="token punctuation">)</span>
+
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>commentEnd <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 如果需要保留注释，则把注释截取出来传给options.comment，创建注释类型的AST节点</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>shouldKeepComment<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              options<span class="token punctuation">.</span><span class="token function">comment</span><span class="token punctuation">(</span>html<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> commentEnd<span class="token punctuation">)</span><span class="token punctuation">,</span> index<span class="token punctuation">,</span> index <span class="token operator">+</span> commentEnd <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment">// 若不保留注释，则将游标移动到'--&gt;'之后，继续向后解析</span>
+            <span class="token function">advance</span><span class="token punctuation">(</span>commentEnd <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">)</span>
+            <span class="token keyword">continue</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// 条件注释</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>conditionalComment<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>html<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> conditionalEnd <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">']&gt;'</span><span class="token punctuation">)</span>
+
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>conditionalEnd <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">advance</span><span class="token punctuation">(</span>conditionalEnd <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span>
+            <span class="token keyword">continue</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// Doctype:</span>
+        <span class="token keyword">const</span> doctypeMatch <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>doctype<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>doctypeMatch<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">advance</span><span class="token punctuation">(</span>doctypeMatch<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+          <span class="token keyword">continue</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// 标签结束:</span>
+        <span class="token keyword">const</span> endTagMatch <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>endTag<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>endTagMatch<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> curIndex <span class="token operator">=</span> index
+          <span class="token function">advance</span><span class="token punctuation">(</span>endTagMatch<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+          <span class="token function">parseEndTag</span><span class="token punctuation">(</span>endTagMatch<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> curIndex<span class="token punctuation">,</span> index<span class="token punctuation">)</span>
+          <span class="token keyword">continue</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// 标签开始:</span>
+        <span class="token comment">// 忽略第一个空行</span>
+        <span class="token keyword">const</span> isIgnoreNewlineTag <span class="token operator">=</span> <span class="token function">makeMap</span><span class="token punctuation">(</span><span class="token string">'pre,textarea'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">shouldIgnoreFirstNewline</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">tag<span class="token punctuation">,</span> html</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> tag <span class="token operator">&amp;&amp;</span> <span class="token function">isIgnoreNewlineTag</span><span class="token punctuation">(</span>tag<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> html<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'\n'</span>
+        <span class="token keyword">const</span> startTagMatch <span class="token operator">=</span> <span class="token function">parseStartTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>startTagMatch<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">handleStartTag</span><span class="token punctuation">(</span>startTagMatch<span class="token punctuation">)</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">shouldIgnoreFirstNewline</span><span class="token punctuation">(</span>startTagMatch<span class="token punctuation">.</span>tagName<span class="token punctuation">,</span> html<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">advance</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">continue</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">let</span> text<span class="token punctuation">,</span> rest<span class="token punctuation">,</span> next
+      <span class="token comment">// '&lt;'不在第一个位置，文本开头</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>textEnd <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// '&lt;'以后的内容赋值到 rest，前面的纯文本无需处理</span>
+        rest <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>textEnd<span class="token punctuation">)</span>
+        <span class="token comment">// '&lt;'之后的内容去匹配 endTag, startTagOpen, comment, conditionalComment，没有匹配上，把'&lt;'当做普通的文本内容</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>
+          <span class="token operator">!</span>endTag<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>rest<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+          <span class="token operator">!</span>startTagOpen<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>rest<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+          <span class="token operator">!</span>comment<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>rest<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+          <span class="token operator">!</span>conditionalComment<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>rest<span class="token punctuation">)</span>
+        <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// &lt; in plain text, be forgiving and treat it as text</span>
+          <span class="token comment">// 匹配下一个'&lt;'，没有则结束循环</span>
+          next <span class="token operator">=</span> rest<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'&lt;'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>next <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">break</span>
+          <span class="token comment">// 匹配下一个'&lt;'，有则更新 textEnd 位置与 rest 的内容，继续循环</span>
+          textEnd <span class="token operator">+=</span> next
+          rest <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>textEnd<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 截取出纯文本的内容</span>
+        text <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> textEnd<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// 整个模板字符串都是纯文本</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>textEnd <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        text <span class="token operator">=</span> html
+      <span class="token punctuation">}</span>
+      <span class="token comment">// 更新 html 与 index</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">advance</span><span class="token punctuation">(</span>text<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// 把截取处理的 text 转化成 textAST</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>chars <span class="token operator">&amp;&amp;</span> text<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        options<span class="token punctuation">.</span><span class="token function">chars</span><span class="token punctuation">(</span>text<span class="token punctuation">,</span> index <span class="token operator">-</span> text<span class="token punctuation">.</span>length<span class="token punctuation">,</span> index<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> endTagLength <span class="token operator">=</span> <span class="token number">0</span>
+      <span class="token keyword">const</span> stackedTag <span class="token operator">=</span> lastTag<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token keyword">const</span> reStackedTag <span class="token operator">=</span> reCache<span class="token punctuation">[</span>stackedTag<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">(</span>reCache<span class="token punctuation">[</span>stackedTag<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span><span class="token string">'([\\s\\S]*?)(&lt;/'</span> <span class="token operator">+</span> stackedTag <span class="token operator">+</span> <span class="token string">'[^&gt;]*&gt;)'</span><span class="token punctuation">,</span> <span class="token string">'i'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token comment">// 对模板的里栈顶标签对应的结束标签</span>
+      <span class="token keyword">const</span> rest <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>reStackedTag<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">all<span class="token punctuation">,</span> text<span class="token punctuation">,</span> endTag</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        endTagLength <span class="token operator">=</span> endTag<span class="token punctuation">.</span>length
+        <span class="token comment">// parse 的内容不是在纯文本标签里 (script,style,textarea)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">isPlainTextElement</span><span class="token punctuation">(</span>stackedTag<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> stackedTag <span class="token operator">!==</span> <span class="token string">'noscript'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 把注释的文本内容取出</span>
+          text <span class="token operator">=</span> text
+            <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">&lt;!\--([\s\S]*?)--&gt;</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'$1'</span><span class="token punctuation">)</span> <span class="token comment">// #7298</span>
+            <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">&lt;!\[CDATA\[([\s\S]*?)]]&gt;</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'$1'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 跳过 pre, textarea 的空行</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">shouldIgnoreFirstNewline</span><span class="token punctuation">(</span>stackedTag<span class="token punctuation">,</span> text<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          text <span class="token operator">=</span> text<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>chars<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          options<span class="token punctuation">.</span><span class="token function">chars</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">''</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      index <span class="token operator">+=</span> html<span class="token punctuation">.</span>length <span class="token operator">-</span> rest<span class="token punctuation">.</span>length
+      html <span class="token operator">=</span> rest
+      <span class="token function">parseEndTag</span><span class="token punctuation">(</span>stackedTag<span class="token punctuation">,</span> index <span class="token operator">-</span> endTagLength<span class="token punctuation">,</span> index<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 整个模板作为文本对待</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>html <span class="token operator">===</span> last<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      options<span class="token punctuation">.</span>chars <span class="token operator">&amp;&amp;</span> options<span class="token punctuation">.</span><span class="token function">chars</span><span class="token punctuation">(</span>html<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>stack<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> options<span class="token punctuation">.</span>warn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        options<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Mal-formatted tag at end of template: &quot;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>html<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&quot;</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">start</span><span class="token operator">:</span> index <span class="token operator">+</span> html<span class="token punctuation">.</span>length <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">break</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// Clean up any remaining tags</span>
+  <span class="token comment">// html字符串中的标签格式有误时会跳出while循环，此时就会执行这行代码，这行代码是调用parseEndTag函数并不传递任何参数，前面我们说过如果parseEndTag函数不传递任何参数是用于处理栈中剩余未处理的标签。这是因为如果不传递任何函数，此时parseEndTag函数里的pos就为0，那么pos&gt;=0就会恒成立，那么就会逐个警告缺少闭合标签，并调用 options.end将其闭合。</span>
+  <span class="token function">parseEndTag</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">function</span> <span class="token function">advance</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    index <span class="token operator">+=</span> n
+    html <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// 1. 起始位置可能有空格</span>
+  <span class="token comment">// 2. (非空格、引号、尖括号、反斜线、等号)-----属性名</span>
+  <span class="token comment">// 3. (等号)与前后空格</span>
+  <span class="token comment">// 4. 双引号(非引号)&quot;+ 或 单引号(非d单引号)'+ 或 (非空格、引号、尖括号、等号)+</span>
+  <span class="token comment">// (?:&quot;([^&quot;]*)&quot;+|'([^']*)'+|([^\s&quot;'=&lt;&gt;`]+))</span>
+  <span class="token keyword">const</span> attribute <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\s*([^\s&quot;'&lt;&gt;\/=]+)(?:\s*(=)\s*(?:&quot;([^&quot;]*)&quot;+|'([^']*)'+|([^\s&quot;'=&lt;&gt;`]+)))?</span><span class="token regex-delimiter">/</span></span>
+  <span class="token keyword">const</span> startTagOpen <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">^&lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>qnameCapture<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> startTagClose <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\s*(\/?)&gt;</span><span class="token regex-delimiter">/</span></span>
+
+  <span class="token keyword">function</span> <span class="token function">parseStartTag</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> start <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>startTagOpen<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> match <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">tagName</span><span class="token operator">:</span> start<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">attrs</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">start</span><span class="token operator">:</span> index
+      <span class="token punctuation">}</span>
+      <span class="token function">advance</span><span class="token punctuation">(</span>start<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+      <span class="token keyword">let</span> end<span class="token punctuation">,</span> attr
+      <span class="token comment">// 解析标签开始{tagName, attrs: [{start, end, ['xx=yy',xx,=,&quot;yy&quot;]}], start}</span>
+      <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>end <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>startTagClose<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>attr <span class="token operator">=</span> html<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>attribute<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        attr<span class="token punctuation">.</span>start <span class="token operator">=</span> index
+        <span class="token function">advance</span><span class="token punctuation">(</span>attr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+        attr<span class="token punctuation">.</span>end <span class="token operator">=</span> index
+        match<span class="token punctuation">.</span>attrs<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>attr<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 是否是自闭合标签</span>
+        match<span class="token punctuation">.</span>unarySlash <span class="token operator">=</span> end<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token function">advance</span><span class="token punctuation">(</span>end<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+        match<span class="token punctuation">.</span>end <span class="token operator">=</span> index
+        <span class="token keyword">return</span> match
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">function</span> <span class="token function">handleStartTag</span> <span class="token punctuation">(</span><span class="token parameter">match</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> tagName <span class="token operator">=</span> match<span class="token punctuation">.</span>tagName
+    <span class="token keyword">const</span> unarySlash <span class="token operator">=</span> match<span class="token punctuation">.</span>unarySlash
+    <span class="token comment">// TODO</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>expectHTML<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>lastTag <span class="token operator">===</span> <span class="token string">'p'</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isNonPhrasingTag</span><span class="token punctuation">(</span>tagName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">parseEndTag</span><span class="token punctuation">(</span>lastTag<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">canBeLeftOpenTag</span><span class="token punctuation">(</span>tagName<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> lastTag <span class="token operator">===</span> tagName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">parseEndTag</span><span class="token punctuation">(</span>tagName<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> unary <span class="token operator">=</span> <span class="token function">isUnaryTag</span><span class="token punctuation">(</span>tagName<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span><span class="token operator">!</span>unarySlash
+
+    <span class="token keyword">const</span> l <span class="token operator">=</span> match<span class="token punctuation">.</span>attrs<span class="token punctuation">.</span>length
+    <span class="token keyword">const</span> attrs <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> args <span class="token operator">=</span> match<span class="token punctuation">.</span>attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+      <span class="token comment">// 属性值做兼容处理</span>
+      <span class="token keyword">const</span> value <span class="token operator">=</span> args<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">||</span> args<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">''</span>
+      <span class="token comment">// 需要对 a 标签的 href 制表符或换行符做兼容处理</span>
+      <span class="token keyword">const</span> shouldDecodeNewlines <span class="token operator">=</span> tagName <span class="token operator">===</span> <span class="token string">'a'</span> <span class="token operator">&amp;&amp;</span> args<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'href'</span>
+        <span class="token operator">?</span> options<span class="token punctuation">.</span>shouldDecodeNewlinesForHref
+        <span class="token operator">:</span> options<span class="token punctuation">.</span>shouldDecodeNewlines
+      <span class="token comment">// 将处理结果存入与 match.attrs 长度一致的数组里</span>
+      attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">name</span><span class="token operator">:</span> args<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">value</span><span class="token operator">:</span> <span class="token function">decodeAttr</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> shouldDecodeNewlines<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span> options<span class="token punctuation">.</span>outputSourceRange<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>start <span class="token operator">=</span> args<span class="token punctuation">.</span>start <span class="token operator">+</span> args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\s*</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span>length
+        attrs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>end <span class="token operator">=</span> args<span class="token punctuation">.</span>end
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 非自闭合标签，就推入栈中</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>unary<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">tag</span><span class="token operator">:</span> tagName<span class="token punctuation">,</span> <span class="token literal-property property">lowerCasedTag</span><span class="token operator">:</span> tagName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token literal-property property">attrs</span><span class="token operator">:</span> attrs<span class="token punctuation">,</span> <span class="token literal-property property">start</span><span class="token operator">:</span> match<span class="token punctuation">.</span>start<span class="token punctuation">,</span> <span class="token literal-property property">end</span><span class="token operator">:</span> match<span class="token punctuation">.</span>end <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      lastTag <span class="token operator">=</span> tagName
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 自闭合标签，调用 start 钩子来创建 AST节点</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      options<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> attrs<span class="token punctuation">,</span> unary<span class="token punctuation">,</span> match<span class="token punctuation">.</span>start<span class="token punctuation">,</span> match<span class="token punctuation">.</span>end<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">const</span> endTag <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">^&lt;\\/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>qnameCapture<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">[^&gt;]*&gt;</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+  <span class="token keyword">function</span> <span class="token function">parseEndTag</span> <span class="token punctuation">(</span><span class="token parameter">tagName<span class="token punctuation">,</span> start<span class="token punctuation">,</span> end</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> pos<span class="token punctuation">,</span> lowerCasedTagName
+    <span class="token comment">// 做剩余标签清理时，使用当前 index</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> start <span class="token operator">=</span> index
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>end <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> end <span class="token operator">=</span> index
+
+    <span class="token comment">// 从栈顶位置从后向前遍历栈，寻找 tagName 所在位置 pos</span>
+    <span class="token comment">// TODO</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>tagName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      lowerCasedTagName <span class="token operator">=</span> tagName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span>pos <span class="token operator">=</span> stack<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> pos <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">;</span> pos<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">[</span>pos<span class="token punctuation">]</span><span class="token punctuation">.</span>lowerCasedTag <span class="token operator">===</span> lowerCasedTagName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">break</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token comment">// If no tag name is provided, clean shop</span>
+      pos <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// TODO</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>pos <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// Close all the open elements, up the stack</span>
+      <span class="token comment">// 从栈顶位置向前遍历，如果stack 中发现存在索引大于 pos 的元素，该元素一定是确实闭合标签</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> stack<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> pos<span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NODE_ENV</span> <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">&amp;&amp;</span>
+          <span class="token punctuation">(</span>i <span class="token operator">&gt;</span> pos <span class="token operator">||</span> <span class="token operator">!</span>tagName<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+          options<span class="token punctuation">.</span>warn
+        <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment">// 因为在正常情况下，stack栈的栈顶元素应该和当前的结束标签tagName 匹配，也就是说正常的pos应该是栈顶位置，后面不应该再有元素，如果后面还有元素，那么后面的元素就都缺少闭合标签</span>
+          options<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span>
+            <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">tag &lt;</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>stack<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>tag<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&gt; has no matching end tag.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+            <span class="token punctuation">{</span> <span class="token literal-property property">start</span><span class="token operator">:</span> stack<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>start <span class="token punctuation">}</span>
+          <span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 还会调用 options.end(stack[i].tag, start, end)立即将其闭合，这是为了保证解析结果的正确性。</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          options<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>stack<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>tag<span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// Remove the open elements from the stack</span>
+      <span class="token comment">// 最后把pos位置以后的元素都从stack栈中弹出，以及把lastTag更新为栈顶元素</span>
+      stack<span class="token punctuation">.</span>length <span class="token operator">=</span> pos
+      lastTag <span class="token operator">=</span> pos <span class="token operator">&amp;&amp;</span> stack<span class="token punctuation">[</span>pos <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>tag
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>lowerCasedTagName <span class="token operator">===</span> <span class="token string">'br'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 创建&lt;br&gt;AST节点</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        options<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>lowerCasedTagName <span class="token operator">===</span> <span class="token string">'p'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 对于&lt;/p&gt;浏览器则自动将其补全为&lt;p&gt;&lt;/p&gt;，所以Vue为了与浏览器对这两个标签的行为保持一致，故对这两个便签单独判断处理</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        options<span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        options<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span>tagName<span class="token punctuation">,</span> start<span class="token punctuation">,</span> end<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h2 id="涉及到的函数">涉及到的函数</h2> <ul><li>根据正则匹配内容的结束位置，更新模板匹配的位置 index 与 剩余未匹配的模板 html----advance(n)游标
+<ul><li>注释，是否更新到 AST</li> <li>条件注释，不需要钩子函数创建 AST，直接截掉即可</li> <li>DOCTYPE，与条件解析</li></ul></li></ul> <h2 id="大致流程">大致流程</h2> <ol><li>按模板从前往后分析
+<ol><li>遇到非自闭合标签，入栈</li> <li>遇到自闭合标签，直接转场 AST</li> <li>注释节点，如果需要保留，创建 commentAST，条件注释节点不处理</li> <li>遇到文本转成 TextAST</li></ol></li> <li>代码分支逻辑：
+<ol><li>还没有栈顶标签，或栈顶标签不是 TextArea, style, script
+<ol><li><code>&lt;</code>在开始位置
+<ol><li>是注释，执行 comment 钩子，根据条件创建注释 AST，且根据注释结束位置，移动游标</li> <li>条件注释，同上</li> <li>Doctype 同上</li> <li>标签结束，移动游标，解析结束标签<code>parseEndTag</code></li> <li>标签开始，先parseStartTag，再处理开始标签<code>handleStartTag</code>，移动游标</li></ol></li> <li><code>&lt;</code> 不在开始位置，忽略<code>&lt;</code>前面的文本，直接更新 rest
+<ol><li>判断<code>&lt;</code>之后不是endTag、startTagOpen、comment、conditionalComment，把<code>&lt;</code>当普通文本处理，继续寻找下一个'&lt;',没有就结束循环</li> <li>整个没有'&lt;'，整个都是普通文本</li> <li>更新游标位置，执行 chars 钩子</li></ol></li></ol></li> <li>处理没有闭合的标签，根据栈顶标签，创建对应的正则，
+<ol><li>匹配出标签结束之前的文本
+<ol><li>注释&lt;!--([\s\S]<em>?)--&gt;/g, &lt;![CDATA[([\s\S]</em>?)]]&gt;/g，只留中间的文本内容</li> <li>去掉 pre, textarea 里面的第一个\n</li> <li>执行 chars 钩子，并返回 ‘’</li></ol></li> <li>更新游标、剩余模板并解析结束标签</li> <li>整个模板是文本，执行 chars 钩子</li></ol></li> <li>处理仍然未被处理的结束标签</li></ol></li> <li>解析结束标签parseEndTag，分为 3 种情况
+<ol><li>有 tagName，找到 tagName 在stack栈里的位置 pos
+<ol><li>在 stack 里面找，pos 之后是否存在该 tagName，存在证明没有闭合，警告，执行 end 钩子</li></ol></li> <li>有 tagName，更新 pos = 0，做清理用</li> <li>如果是 br ，执行 start 钩子----createASTElement</li> <li>如果是 p，执行 start 钩子----createASTElement，执行 end 钩子</li></ol></li> <li>解析标签开始 parseStartTag，把数据更新到对象 match 上
+<ol><li>正则<code>startTagOpen</code>匹配出 tag 的开始位置与tagName, 移动游标</li> <li>循环匹配非<code>startTagClose</code> 并匹配出attribute，更新 attr.start，移动游标再更新 attr.end，更新到队列中</li> <li>startTagClose匹配成功，即自闭合标签，执行 end 钩子，更新游标，更新并返回 match</li></ol></li> <li>处理开始标签 handleStartTag
+<ol><li>解析属性，解析成 {attr:[name, value]}</li> <li>不是自闭合标签，入栈</li> <li>是自闭合标签，执行 start钩子，创建节点 AST</li></ol></li></ol></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">2/12/2022, 12:49:11 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.e4bbb587.js" defer></script><script src="/assets/js/2.11bbd501.js" defer></script><script src="/assets/js/180.ae41c620.js" defer></script>
+  </body>
+</html>

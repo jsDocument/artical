@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>关于硬件加速 | 技术文档</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="偏重前端与node的技术文档">
+    
+    <link rel="preload" href="/assets/css/0.styles.a2343c0b.css" as="style"><link rel="preload" href="/assets/js/app.e4bbb587.js" as="script"><link rel="preload" href="/assets/js/2.11bbd501.js" as="script"><link rel="preload" href="/assets/js/4.7a44cdf3.js" as="script"><link rel="prefetch" href="/assets/js/10.a996dcf8.js"><link rel="prefetch" href="/assets/js/100.db5c8ecb.js"><link rel="prefetch" href="/assets/js/101.9f1a6eb8.js"><link rel="prefetch" href="/assets/js/102.f481d687.js"><link rel="prefetch" href="/assets/js/103.37ca45dc.js"><link rel="prefetch" href="/assets/js/104.2aa6ff40.js"><link rel="prefetch" href="/assets/js/105.9b543023.js"><link rel="prefetch" href="/assets/js/106.e11fc498.js"><link rel="prefetch" href="/assets/js/107.3fe037e4.js"><link rel="prefetch" href="/assets/js/108.2a91375c.js"><link rel="prefetch" href="/assets/js/109.69c180ee.js"><link rel="prefetch" href="/assets/js/11.347823c5.js"><link rel="prefetch" href="/assets/js/110.08624475.js"><link rel="prefetch" href="/assets/js/111.a82e51b1.js"><link rel="prefetch" href="/assets/js/112.7891ca37.js"><link rel="prefetch" href="/assets/js/113.b61855e3.js"><link rel="prefetch" href="/assets/js/114.67085fc4.js"><link rel="prefetch" href="/assets/js/115.77568a61.js"><link rel="prefetch" href="/assets/js/116.5173376d.js"><link rel="prefetch" href="/assets/js/117.2226f1f4.js"><link rel="prefetch" href="/assets/js/118.b11458b6.js"><link rel="prefetch" href="/assets/js/119.63e3e256.js"><link rel="prefetch" href="/assets/js/12.2e50785d.js"><link rel="prefetch" href="/assets/js/120.17586a5e.js"><link rel="prefetch" href="/assets/js/121.9cf0da91.js"><link rel="prefetch" href="/assets/js/122.950c0651.js"><link rel="prefetch" href="/assets/js/123.bb9da084.js"><link rel="prefetch" href="/assets/js/124.2fd5eb85.js"><link rel="prefetch" href="/assets/js/125.6fdd7c5f.js"><link rel="prefetch" href="/assets/js/126.401c71d4.js"><link rel="prefetch" href="/assets/js/127.d7009df1.js"><link rel="prefetch" href="/assets/js/128.701e3d02.js"><link rel="prefetch" href="/assets/js/129.aa45bbf7.js"><link rel="prefetch" href="/assets/js/13.9a041ac9.js"><link rel="prefetch" href="/assets/js/130.d177ab0f.js"><link rel="prefetch" href="/assets/js/131.cc8173ca.js"><link rel="prefetch" href="/assets/js/132.65e55181.js"><link rel="prefetch" href="/assets/js/133.b15bd606.js"><link rel="prefetch" href="/assets/js/134.87d77bf8.js"><link rel="prefetch" href="/assets/js/135.5e974c10.js"><link rel="prefetch" href="/assets/js/136.1380d17f.js"><link rel="prefetch" href="/assets/js/137.2b151d82.js"><link rel="prefetch" href="/assets/js/138.4de323af.js"><link rel="prefetch" href="/assets/js/139.157c44f7.js"><link rel="prefetch" href="/assets/js/14.dee17a21.js"><link rel="prefetch" href="/assets/js/140.a19e9163.js"><link rel="prefetch" href="/assets/js/141.788bd6a9.js"><link rel="prefetch" href="/assets/js/142.cd509527.js"><link rel="prefetch" href="/assets/js/143.61e035a1.js"><link rel="prefetch" href="/assets/js/144.da142b07.js"><link rel="prefetch" href="/assets/js/145.812b831e.js"><link rel="prefetch" href="/assets/js/146.a50d6dec.js"><link rel="prefetch" href="/assets/js/147.dd7d4fe1.js"><link rel="prefetch" href="/assets/js/148.11281a23.js"><link rel="prefetch" href="/assets/js/149.bc4ce0e2.js"><link rel="prefetch" href="/assets/js/15.66aa3b3c.js"><link rel="prefetch" href="/assets/js/150.b590b3d2.js"><link rel="prefetch" href="/assets/js/151.e235b46e.js"><link rel="prefetch" href="/assets/js/152.df44f728.js"><link rel="prefetch" href="/assets/js/153.b54e3bd7.js"><link rel="prefetch" href="/assets/js/154.72075ddd.js"><link rel="prefetch" href="/assets/js/155.633511ee.js"><link rel="prefetch" href="/assets/js/156.f0335e44.js"><link rel="prefetch" href="/assets/js/157.4e912fa1.js"><link rel="prefetch" href="/assets/js/158.839771b4.js"><link rel="prefetch" href="/assets/js/159.07a46acc.js"><link rel="prefetch" href="/assets/js/16.d29c9ca6.js"><link rel="prefetch" href="/assets/js/160.4607e14c.js"><link rel="prefetch" href="/assets/js/161.b44a3af5.js"><link rel="prefetch" href="/assets/js/162.08920ee1.js"><link rel="prefetch" href="/assets/js/163.8b80be6d.js"><link rel="prefetch" href="/assets/js/164.4c58487b.js"><link rel="prefetch" href="/assets/js/165.2cadc4b5.js"><link rel="prefetch" href="/assets/js/166.c3b14288.js"><link rel="prefetch" href="/assets/js/167.e8afd9e3.js"><link rel="prefetch" href="/assets/js/168.2512a558.js"><link rel="prefetch" href="/assets/js/169.7dd46e04.js"><link rel="prefetch" href="/assets/js/17.059cede1.js"><link rel="prefetch" href="/assets/js/170.74feca57.js"><link rel="prefetch" href="/assets/js/171.278e8566.js"><link rel="prefetch" href="/assets/js/172.bc2ee49c.js"><link rel="prefetch" href="/assets/js/173.62583e2c.js"><link rel="prefetch" href="/assets/js/174.e4e9e560.js"><link rel="prefetch" href="/assets/js/175.70823c68.js"><link rel="prefetch" href="/assets/js/176.a9a7a5c0.js"><link rel="prefetch" href="/assets/js/177.16ccfed6.js"><link rel="prefetch" href="/assets/js/178.c3a40495.js"><link rel="prefetch" href="/assets/js/179.80a3808a.js"><link rel="prefetch" href="/assets/js/18.059c376d.js"><link rel="prefetch" href="/assets/js/180.ae41c620.js"><link rel="prefetch" href="/assets/js/181.1b814248.js"><link rel="prefetch" href="/assets/js/182.8e7a6ed5.js"><link rel="prefetch" href="/assets/js/183.6d3abb89.js"><link rel="prefetch" href="/assets/js/184.e88d07f7.js"><link rel="prefetch" href="/assets/js/185.6614b991.js"><link rel="prefetch" href="/assets/js/186.50ecdc6b.js"><link rel="prefetch" href="/assets/js/187.90f08b6a.js"><link rel="prefetch" href="/assets/js/188.80e35596.js"><link rel="prefetch" href="/assets/js/189.743b439a.js"><link rel="prefetch" href="/assets/js/19.b2075598.js"><link rel="prefetch" href="/assets/js/190.03a4c2df.js"><link rel="prefetch" href="/assets/js/191.3aaa3973.js"><link rel="prefetch" href="/assets/js/192.ac0dc3e6.js"><link rel="prefetch" href="/assets/js/193.1805b441.js"><link rel="prefetch" href="/assets/js/194.89487159.js"><link rel="prefetch" href="/assets/js/195.c8e45593.js"><link rel="prefetch" href="/assets/js/196.c8726406.js"><link rel="prefetch" href="/assets/js/197.a59ca2cf.js"><link rel="prefetch" href="/assets/js/198.dd079371.js"><link rel="prefetch" href="/assets/js/199.bfb90d8f.js"><link rel="prefetch" href="/assets/js/20.2e74b6c9.js"><link rel="prefetch" href="/assets/js/200.c6004045.js"><link rel="prefetch" href="/assets/js/201.6b30f8a7.js"><link rel="prefetch" href="/assets/js/202.2563ccab.js"><link rel="prefetch" href="/assets/js/203.20a8e2a9.js"><link rel="prefetch" href="/assets/js/204.81c5c36c.js"><link rel="prefetch" href="/assets/js/205.86114cce.js"><link rel="prefetch" href="/assets/js/206.ddee749f.js"><link rel="prefetch" href="/assets/js/207.8fdc7d17.js"><link rel="prefetch" href="/assets/js/208.36b14e7c.js"><link rel="prefetch" href="/assets/js/209.faff7c3c.js"><link rel="prefetch" href="/assets/js/21.4638ca31.js"><link rel="prefetch" href="/assets/js/210.489d2d8f.js"><link rel="prefetch" href="/assets/js/211.ca0f76c4.js"><link rel="prefetch" href="/assets/js/212.fa0fadec.js"><link rel="prefetch" href="/assets/js/213.08e52b73.js"><link rel="prefetch" href="/assets/js/214.655f001a.js"><link rel="prefetch" href="/assets/js/22.13ed1350.js"><link rel="prefetch" href="/assets/js/23.300360ff.js"><link rel="prefetch" href="/assets/js/24.487b9317.js"><link rel="prefetch" href="/assets/js/25.44b721b1.js"><link rel="prefetch" href="/assets/js/26.3c805424.js"><link rel="prefetch" href="/assets/js/27.b69ff703.js"><link rel="prefetch" href="/assets/js/28.0b8eee05.js"><link rel="prefetch" href="/assets/js/29.8c7c9542.js"><link rel="prefetch" href="/assets/js/3.d5012eb5.js"><link rel="prefetch" href="/assets/js/30.f4eb0118.js"><link rel="prefetch" href="/assets/js/31.67f82acc.js"><link rel="prefetch" href="/assets/js/32.4dc7b198.js"><link rel="prefetch" href="/assets/js/33.c01621db.js"><link rel="prefetch" href="/assets/js/34.aba660bc.js"><link rel="prefetch" href="/assets/js/35.10f749b2.js"><link rel="prefetch" href="/assets/js/36.de4e9a68.js"><link rel="prefetch" href="/assets/js/37.5837eab0.js"><link rel="prefetch" href="/assets/js/38.7fbe1295.js"><link rel="prefetch" href="/assets/js/39.04a7fd70.js"><link rel="prefetch" href="/assets/js/40.9bef1e37.js"><link rel="prefetch" href="/assets/js/41.549daf0e.js"><link rel="prefetch" href="/assets/js/42.d99b3ac0.js"><link rel="prefetch" href="/assets/js/43.b7c740ae.js"><link rel="prefetch" href="/assets/js/44.46d8242d.js"><link rel="prefetch" href="/assets/js/45.cb02b765.js"><link rel="prefetch" href="/assets/js/46.a9aa0001.js"><link rel="prefetch" href="/assets/js/47.f1ab93ca.js"><link rel="prefetch" href="/assets/js/48.3e5e328d.js"><link rel="prefetch" href="/assets/js/49.08538a34.js"><link rel="prefetch" href="/assets/js/5.5fce802e.js"><link rel="prefetch" href="/assets/js/50.0629ccc6.js"><link rel="prefetch" href="/assets/js/51.0c5ca518.js"><link rel="prefetch" href="/assets/js/52.e1f79627.js"><link rel="prefetch" href="/assets/js/53.e1682e98.js"><link rel="prefetch" href="/assets/js/54.17ba926b.js"><link rel="prefetch" href="/assets/js/55.3b89a597.js"><link rel="prefetch" href="/assets/js/56.fe0bb1f3.js"><link rel="prefetch" href="/assets/js/57.778bd996.js"><link rel="prefetch" href="/assets/js/58.bd58a2a7.js"><link rel="prefetch" href="/assets/js/59.e2cc9d87.js"><link rel="prefetch" href="/assets/js/6.9024be81.js"><link rel="prefetch" href="/assets/js/60.b3d47559.js"><link rel="prefetch" href="/assets/js/61.289b0465.js"><link rel="prefetch" href="/assets/js/62.b4758c5d.js"><link rel="prefetch" href="/assets/js/63.f9fb4433.js"><link rel="prefetch" href="/assets/js/64.0bdc7b11.js"><link rel="prefetch" href="/assets/js/65.31ded4ac.js"><link rel="prefetch" href="/assets/js/66.8cc3e485.js"><link rel="prefetch" href="/assets/js/67.1122bc19.js"><link rel="prefetch" href="/assets/js/68.55ae3358.js"><link rel="prefetch" href="/assets/js/69.86a3f1f4.js"><link rel="prefetch" href="/assets/js/7.0fb59f90.js"><link rel="prefetch" href="/assets/js/70.8a8c489d.js"><link rel="prefetch" href="/assets/js/71.732a8fe6.js"><link rel="prefetch" href="/assets/js/72.0c8cbbfa.js"><link rel="prefetch" href="/assets/js/73.00f4077f.js"><link rel="prefetch" href="/assets/js/74.4c13a237.js"><link rel="prefetch" href="/assets/js/75.f511be41.js"><link rel="prefetch" href="/assets/js/76.38c921c9.js"><link rel="prefetch" href="/assets/js/77.19dac482.js"><link rel="prefetch" href="/assets/js/78.95ba02fc.js"><link rel="prefetch" href="/assets/js/79.b3a91816.js"><link rel="prefetch" href="/assets/js/8.f38eed74.js"><link rel="prefetch" href="/assets/js/80.690156cb.js"><link rel="prefetch" href="/assets/js/81.65a817dc.js"><link rel="prefetch" href="/assets/js/82.24afde40.js"><link rel="prefetch" href="/assets/js/83.71ec5077.js"><link rel="prefetch" href="/assets/js/84.75936ee6.js"><link rel="prefetch" href="/assets/js/85.5698db9b.js"><link rel="prefetch" href="/assets/js/86.43edb8d0.js"><link rel="prefetch" href="/assets/js/87.3453e620.js"><link rel="prefetch" href="/assets/js/88.cd4c9b7b.js"><link rel="prefetch" href="/assets/js/89.0b94d54c.js"><link rel="prefetch" href="/assets/js/9.bb0462f3.js"><link rel="prefetch" href="/assets/js/90.76dedf4b.js"><link rel="prefetch" href="/assets/js/91.d86fb7e3.js"><link rel="prefetch" href="/assets/js/92.906b02f8.js"><link rel="prefetch" href="/assets/js/93.96d60414.js"><link rel="prefetch" href="/assets/js/94.f9a281aa.js"><link rel="prefetch" href="/assets/js/95.7842cb54.js"><link rel="prefetch" href="/assets/js/96.8b270b27.js"><link rel="prefetch" href="/assets/js/97.0a55226e.js"><link rel="prefetch" href="/assets/js/98.4a56440e.js"><link rel="prefetch" href="/assets/js/99.f145b8a9.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a2343c0b.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">技术文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="jvascript 基础系列" class="dropdown-title"><span class="title">jvascript 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="jvascript 基础系列" class="mobile-dropdown-title"><span class="title">jvascript 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/base/base.html" class="nav-link">
+  常被问到的几个前端基础知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/browser.html" class="nav-link">
+  浏览器基础知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/data-type.html" class="nav-link">
+  你该知道的类型基础与对象知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/type-transfer.html" class="nav-link">
+  数据类型隐式转换规律
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/zone.html" class="nav-link">
+  作用域、闭包、作用域提升、执行上下文、垃圾回收
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/winter.html" class="nav-link">
+  winter重学前端部分总结
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/mouse-event.html" class="nav-link">
+  鼠标事件基础
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/module.html" class="nav-link">
+  模块简介
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="leetCode系列" class="dropdown-title"><span class="title">leetCode系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="leetCode系列" class="mobile-dropdown-title"><span class="title">leetCode系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/LeetCode/offer_listNode.html" class="nav-link">
+  剑指 Offer 06 18 22 25 II27
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/simple_listNode.html" class="nav-link">
+  链表 141 160 203 206 234 237 876
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/middle_listNode.html" class="nav-link">
+  链表 2 19 24 61 109 142 328 707
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/offer_array.html" class="nav-link">
+  剑指 Offer 03 04 12
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_string.html" class="nav-link">
+  数组 722 929
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/offer_string.html" class="nav-link">
+  剑指 Offer 53 58
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_plus.html" class="nav-link">
+  找数组之和系列
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_simple.html" class="nav-link">
+  字符串初级 13 14 20 58 67 819
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_middle.html" class="nav-link">
+  字符串中级 3 6 8 71 151
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_hard.html" class="nav-link">
+  字符串高级 10 44 65 1106
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/common_sort_c++.html" class="nav-link">
+  常用排序C++
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/common_sort_js.html" class="nav-link">
+  常用排序JS
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/callStack.html" class="nav-link">
+  尾调用优化讲解
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_search_str.html" class="nav-link">
+  子串搜索系列
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/tree.html" class="nav-link">
+  二叉树基础题
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_trangle.html" class="nav-link">
+  杨辉三角
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_rotate.html" class="nav-link">
+  数组回溯1
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_shudu.html" class="nav-link">
+  数组回溯2
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_dt.html" class="nav-link">
+  动态规划之 01背包问题
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="http 基础系列" class="dropdown-title"><span class="title">http 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="http 基础系列" class="mobile-dropdown-title"><span class="title">http 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/http/cache_question.html" class="nav-link">
+  cache 问题
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/enter_url.html" class="nav-link">
+  输入 URL 后发生了什么
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_ajax.html" class="nav-link">
+  ajax 请求与跨域相关知识点
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_code.html" class="nav-link">
+  http 常用状态码
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_field&amp;cache.html" class="nav-link">
+  http header 字段与缓存知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_login_status.html" class="nav-link">
+  HTTP 的无状态解决方案
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_login_status.html" class="nav-link">
+  HTTP 请求过程及分类
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/security.html" class="nav-link">
+  前端安全
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/SSO.html" class="nav-link">
+  单点登录
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/axios.html" class="nav-link">
+  axios相关知识
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="javascript 专题系列" class="dropdown-title"><span class="title">javascript 专题系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="javascript 专题系列" class="mobile-dropdown-title"><span class="title">javascript 专题系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/javascript/regexp/readme.html" class="nav-link">
+  正则篇
+</a></li><li class="dropdown-item"><!----> <a href="/basic/javascript/promise/SUMMARY.html" class="nav-link">
+  前端 promise 篇
+</a></li><li class="dropdown-item"><!----> <a href="/basic/javascript/promotion/base.html" class="nav-link">
+  前端性能优化
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="es6 系列" class="dropdown-title"><span class="title">es6 系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="es6 系列" class="mobile-dropdown-title"><span class="title">es6 系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/es6/set&amp;map.html" class="nav-link">
+  set&amp;map
+</a></li><li class="dropdown-item"><!----> <a href="/es6/generator.html" class="nav-link">
+  generator
+</a></li><li class="dropdown-item"><!----> <a href="/es6/promise.html" class="nav-link">
+  promise
+</a></li><li class="dropdown-item"><!----> <a href="/es6/async.html" class="nav-link">
+  async
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工具系列" class="dropdown-title"><span class="title">工具系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="工具系列" class="mobile-dropdown-title"><span class="title">工具系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tools/webpack/SUMMARY.html" class="nav-link">
+  webpack 篇
+</a></li><li class="dropdown-item"><!----> <a href="/tools/git/config.html" class="nav-link">
+  git 篇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="node 基础系列" class="dropdown-title"><span class="title">node 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="node 基础系列" class="mobile-dropdown-title"><span class="title">node 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/node_program/node_basic/readline.html" class="nav-link">
+  readline
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/child_process.html" class="nav-link">
+  进程相关
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/event.html" class="nav-link">
+  事件
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/stream.html" class="nav-link">
+  流
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/net.html" class="nav-link">
+  net
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/udp.html" class="nav-link">
+  udp
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/http.html" class="nav-link">
+  http
+</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="jvascript 基础系列" class="dropdown-title"><span class="title">jvascript 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="jvascript 基础系列" class="mobile-dropdown-title"><span class="title">jvascript 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/base/base.html" class="nav-link">
+  常被问到的几个前端基础知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/browser.html" class="nav-link">
+  浏览器基础知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/data-type.html" class="nav-link">
+  你该知道的类型基础与对象知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/type-transfer.html" class="nav-link">
+  数据类型隐式转换规律
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/zone.html" class="nav-link">
+  作用域、闭包、作用域提升、执行上下文、垃圾回收
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/winter.html" class="nav-link">
+  winter重学前端部分总结
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/mouse-event.html" class="nav-link">
+  鼠标事件基础
+</a></li><li class="dropdown-item"><!----> <a href="/basic/base/module.html" class="nav-link">
+  模块简介
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="leetCode系列" class="dropdown-title"><span class="title">leetCode系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="leetCode系列" class="mobile-dropdown-title"><span class="title">leetCode系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/LeetCode/offer_listNode.html" class="nav-link">
+  剑指 Offer 06 18 22 25 II27
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/simple_listNode.html" class="nav-link">
+  链表 141 160 203 206 234 237 876
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/middle_listNode.html" class="nav-link">
+  链表 2 19 24 61 109 142 328 707
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/offer_array.html" class="nav-link">
+  剑指 Offer 03 04 12
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_string.html" class="nav-link">
+  数组 722 929
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/offer_string.html" class="nav-link">
+  剑指 Offer 53 58
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_plus.html" class="nav-link">
+  找数组之和系列
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_simple.html" class="nav-link">
+  字符串初级 13 14 20 58 67 819
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_middle.html" class="nav-link">
+  字符串中级 3 6 8 71 151
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_hard.html" class="nav-link">
+  字符串高级 10 44 65 1106
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/common_sort_c++.html" class="nav-link">
+  常用排序C++
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/common_sort_js.html" class="nav-link">
+  常用排序JS
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/callStack.html" class="nav-link">
+  尾调用优化讲解
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/string_search_str.html" class="nav-link">
+  子串搜索系列
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/tree.html" class="nav-link">
+  二叉树基础题
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_trangle.html" class="nav-link">
+  杨辉三角
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_rotate.html" class="nav-link">
+  数组回溯1
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_shudu.html" class="nav-link">
+  数组回溯2
+</a></li><li class="dropdown-item"><!----> <a href="/LeetCode/array_dt.html" class="nav-link">
+  动态规划之 01背包问题
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="http 基础系列" class="dropdown-title"><span class="title">http 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="http 基础系列" class="mobile-dropdown-title"><span class="title">http 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/http/cache_question.html" class="nav-link">
+  cache 问题
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/enter_url.html" class="nav-link">
+  输入 URL 后发生了什么
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_ajax.html" class="nav-link">
+  ajax 请求与跨域相关知识点
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_code.html" class="nav-link">
+  http 常用状态码
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_field&amp;cache.html" class="nav-link">
+  http header 字段与缓存知识
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_login_status.html" class="nav-link">
+  HTTP 的无状态解决方案
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/http_login_status.html" class="nav-link">
+  HTTP 请求过程及分类
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/security.html" class="nav-link">
+  前端安全
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/SSO.html" class="nav-link">
+  单点登录
+</a></li><li class="dropdown-item"><!----> <a href="/basic/http/axios.html" class="nav-link">
+  axios相关知识
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="javascript 专题系列" class="dropdown-title"><span class="title">javascript 专题系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="javascript 专题系列" class="mobile-dropdown-title"><span class="title">javascript 专题系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/javascript/regexp/readme.html" class="nav-link">
+  正则篇
+</a></li><li class="dropdown-item"><!----> <a href="/basic/javascript/promise/SUMMARY.html" class="nav-link">
+  前端 promise 篇
+</a></li><li class="dropdown-item"><!----> <a href="/basic/javascript/promotion/base.html" class="nav-link">
+  前端性能优化
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="es6 系列" class="dropdown-title"><span class="title">es6 系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="es6 系列" class="mobile-dropdown-title"><span class="title">es6 系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/es6/set&amp;map.html" class="nav-link">
+  set&amp;map
+</a></li><li class="dropdown-item"><!----> <a href="/es6/generator.html" class="nav-link">
+  generator
+</a></li><li class="dropdown-item"><!----> <a href="/es6/promise.html" class="nav-link">
+  promise
+</a></li><li class="dropdown-item"><!----> <a href="/es6/async.html" class="nav-link">
+  async
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工具系列" class="dropdown-title"><span class="title">工具系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="工具系列" class="mobile-dropdown-title"><span class="title">工具系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tools/webpack/SUMMARY.html" class="nav-link">
+  webpack 篇
+</a></li><li class="dropdown-item"><!----> <a href="/tools/git/config.html" class="nav-link">
+  git 篇
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="node 基础系列" class="dropdown-title"><span class="title">node 基础系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="node 基础系列" class="mobile-dropdown-title"><span class="title">node 基础系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/node_program/node_basic/readline.html" class="nav-link">
+  readline
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/child_process.html" class="nav-link">
+  进程相关
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/event.html" class="nav-link">
+  事件
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/stream.html" class="nav-link">
+  流
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/net.html" class="nav-link">
+  net
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/udp.html" class="nav-link">
+  udp
+</a></li><li class="dropdown-item"><!----> <a href="/node_program/node_basic/http.html" class="nav-link">
+  http
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Vue 系列</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue_resource/structure.html" class="sidebar-link">vue目录结构导读</a></li><li><a href="/vue_resource/start.html" class="sidebar-link">Vue之旅开始</a></li><li><a href="/vue_resource/options.html" class="sidebar-link">mergeOption的初始化与合并规则</a></li><li><a href="/vue_resource/init_data.html" class="sidebar-link">init_data</a></li><li><a href="/vue_resource/events.html" class="sidebar-link">内部事件初始始化与事件的实现</a></li><li><a href="/vue_resource/compile_el.html" class="sidebar-link">编译的整个过程与相关方法讲解</a></li><li><a href="/vue_resource/_compile_root.html" class="sidebar-link">编译其他节点</a></li><li><a href="/vue_resource/_compile_rest.html" class="sidebar-link">编译根节点</a></li><li><a href="/vue_resource/directive_base.html" class="sidebar-link">指令的创建与生成及更新</a></li><li><a href="/vue_resource/watch_observer.html" class="sidebar-link">watch</a></li><li><a href="/vue_resource/batcher.html" class="sidebar-link">管理watcher队列</a></li><li><a href="/vue_resource/calculate.html" class="sidebar-link">表达式的运算与执行过滤</a></li><li><a href="/vue_resource/hook.html" class="sidebar-link">钩子函数的初始化与实现</a></li><li><a href="/vue_resource/transition.html" class="sidebar-link">transition实现讲解</a></li><li><a href="/vue_resource/dom.html" class="sidebar-link">DOM操作的几个方法实现</a></li><li><a href="/vue_resource/fragmentFactory.html" class="sidebar-link">工厂</a></li><li><a href="/vue_resource/directive_every.html" class="sidebar-link">内部几个指令的实现讲解</a></li><li><a href="/vue_resource/parse.html" class="sidebar-link">表达式解析的相关实现</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>React 系列</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/react/structure.html" class="sidebar-link">目录结构</a></li><li><a href="/react/event.html" class="sidebar-link">react 事件的相关功能实现</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="关于硬件加速">关于硬件加速</h1> <h2 id="各个角色在渲染过程中的作用">各个角色在渲染过程中的作用</h2> <ul><li>JavaScript：JavaScript 实现动画效果，DOM 元素操作等。</li> <li>Style（计算样式）：确定每个 DOM 元素应该应用什么 CSS 规则。</li> <li>Layout（布局）：计算每个 DOM 元素在最终屏幕上显示的大小和位置。由于 web 页面的元素布局是相对的，所以其中任意一个元素的位置发生变化，都会联动的引起其他元素发生变化，这个过程叫 reflow。元素的规模尺寸，布局，隐藏</li> <li>Paint（绘制）：在多个层上绘制 DOM 元素的的文字、颜色、图像、边框和阴影等。</li> <li>Composite（渲染层合并）：按照合理的顺序合并图层然后显示到屏幕上。</li></ul> <blockquote><p>硬件渲染 WebKit 会依据指定条件决定将那些 RenderLayer 对象组合在一起形成一个新层并缓存在 GPU，这些新层我们统称为合成层（Compositing Layer）。
+这些合成层提升成独立的层，被独立出来之后，便不会再影响其他 dom 的布局。
+如果发生 偏移、透明度等等变换 GPU 要做的只是把更新的合成层进行相应的变换并送入 Compositor 重新合成即可，利用这个优点我们可以把页面中一些布局经常变换的 dom 提升到独立的层。
+一个页面是由多个图层最后形成一个完整的合成层才被渲染出来。</p></blockquote> <h2 id="如何触发合成层">如何触发合成层</h2> <ul><li>根节点 document</li> <li>HTML5 Video或者Canvas元素</li> <li>元素有一个 z-index 较低且包含一个复合层的兄弟元素</li> <li>3D 或透视变换(perspective，transform) CSS 属性 比如常用的 （设置translateZ()、backface-visibility为hidden）</li></ul> <blockquote><p>如果有一个元素，它的兄弟元素在复合层中渲染，而这个兄弟元素的z-index比较小，那么这个元素（不管是不是应用了硬件加速样式）也会被放到复合层中。
+使用 3D 硬件加速提升动画性能时，最好给元素增加一个 z-index 属性，人为干扰复合层的排序，可以有效减少 chrome 创建不必要的复合层，提升渲染性能，移动端优化效果尤为明显。</p></blockquote> <div class="language-css extra-class"><pre class="language-css"><code><span class="token comment">/* 关键字值 */</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> scroll-position<span class="token punctuation">;</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> contents<span class="token punctuation">;</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> transform<span class="token punctuation">;</span>        <span class="token comment">/* &lt;custom-ident&gt;示例 */</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> opacity<span class="token punctuation">;</span>          <span class="token comment">/* &lt;custom-ident&gt;示例 */</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> left<span class="token punctuation">,</span> top<span class="token punctuation">;</span>        <span class="token comment">/* 两个&lt;animateable-feature&gt;示例 */</span>
+
+<span class="token comment">/* 全局值 */</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> inherit<span class="token punctuation">;</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> initial<span class="token punctuation">;</span>
+<span class="token property">will-change</span><span class="token punctuation">:</span> unset<span class="token punctuation">;</span>
+</code></pre></div><h2 id="会继承的属性-line-height">会继承的属性: line-height</h2> <p>css: line-height, vertical-align</p> <ol><li>line-height的数字值与font-size有关</li> <li>vertical-align的百分比值 和line-height值有关</li> <li>inline元素的vertical-align默认值是什么？baseline，但为什么图片与其他行内元素不在同一个水平线上？因为img默认表现与inline-block表现一样,  所以表现为元素margin底边缘; baseline指的是x的低边缘</li> <li>父元素的基线，中线。。。是怎么决定的？每个字体在定义的时候, 就有基线？</li> <li>line元素的高度是由line-height决定的,</li> <li>BFC, IFC</li></ol> <p>每个字体都会绘出自己的容器em-square</p> <p>font-size
+1em 与 字体大小相同, em-box高度即为字体大小</p> <p><img src="/assets/img/PastedGraphic.b60d3942.png" alt="&quot;行高&quot;">
+￼
+content-area 高度是 line-height</p> <p>vertical-align: middle是与x-height的一半对齐</p> <p>font-size:0 可以让line-height变为0, 决定line-height的缝隙问题</p> <p>line-height: 默认normal(1或1.2) 无单位时相对于font-size</p> <p><img src="/assets/img/PastedGraphic_1.de2e5b21.png" alt="&quot;盒模型&quot;">
+￼
+每一行都有一个line-box, line-box的高度基本由其中最大的内联盒子决定, 但爱vertical-align的影响</p> <p>containing-box外层盒子</p> <p>struct 宽度为0的支柱, 但其有自己的line-height</p> <p><img src="/assets/img/PastedGraphic_2.10e7a6e2.png" alt="&quot;行高&quot;">
+￼
+内联元素之间本来就是有间隙的, 但底部的间隙是由于struct的行高造成的，内联元素的基线与其基线不同造成行高会撑起一部分</p> <p>vertical-align接受值：提高或降低合子的基线, 值相对于line-height计算的</p> <p>vertical-align: baseline;
+vertical-align: sub;
+vertical-align: super;
+vertical-align: text-top;
+vertical-align: text-bottom;
+vertical-align: middle;
+vertical-align: top;
+vertical-align: bottom;</p> <p>/* &lt;长度&gt; 值 */
+vertical-align: 10em;
+vertical-align: 4px;</p> <p>/* &lt;百分比&gt; 值 */
+vertical-align: 10%;</p> <p>/* 全局值 */
+vertical-align: inherit;
+vertical-align: initial;
+vertical-align: unset;</p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">3/7/2022, 6:44:21 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.e4bbb587.js" defer></script><script src="/assets/js/2.11bbd501.js" defer></script><script src="/assets/js/4.7a44cdf3.js" defer></script>
+  </body>
+</html>
