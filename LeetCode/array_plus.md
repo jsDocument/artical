@@ -1,4 +1,4 @@
-# 数组和系列
+### 数组和系列
 
 [最大子数组和](https://leetcode-cn.com/problems/maximum-subarray/)
 

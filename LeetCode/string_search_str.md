@@ -1,6 +1,6 @@
-# 正则查找子串
+### 正则查找子串
 
-## 给定一个字符串，找出不含有重复字符的最长子串的长度
+#### 给定一个字符串，找出不含有重复字符的最长子串的长度
 
 > 示例：
   给定 "abcabcbb" ，没有重复字符的最长子串是 "abc" ，那么长度就是3。
@@ -118,11 +118,11 @@ var longestPalindrome_enum = function(s) {
   return longest;
 }
 
-// 插入特殊字符#, 回文半径P(以该字符为轴心的回文串对折后的长度), 奇数的轴心为原字符休中的字符, 偶数的轴心为#；故需计算P，
+// 插入特殊字符###, 回文半径P(以该字符为轴心的回文串对折后的长度), 奇数的轴心为原字符休中的字符, 偶数的轴心为###；故需计算P，
 // 计算P就是以每个字符为轴心计算回文半径，即每个字符开始向两边搜索，右边会搜索到尚未遍历到的字符，故需记下最大能搜索到的右边界
 // 坐标与P数组值的关系？？？？
 function longestPalindrome_manmacher(s){
-    s = '^#' + s.split('').join('#')+'#$';
+    s = '^###' + s.split('').join('###')+'###$';
     let len = s.length;
     let radius = new Array(len).fill(0);
     let id=0, centerIndex=0, maxRight=0, maxLen=0;

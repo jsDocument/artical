@@ -36,7 +36,6 @@ module.exports = {
         {text: '链表 2 19 24 61 109 142 328 707', link: '/LeetCode/middle_listNode'},
         {text: '剑指 Offer 03 04 12', link: '/LeetCode/offer_array'},
         {text: '数组 722 929', link: '/LeetCode/array_string'},
-        {text: '数组 46', link: '/LeetCode/array_rank'},
         {text: '剑指 Offer 53 58', link: '/LeetCode/offer_string'},
         {text: '找数组之和系列', link: '/LeetCode/array_plus'},
         {text: '字符串初级 13 14 20 58 67 819', link: '/LeetCode/string_simple'},
@@ -45,7 +44,12 @@ module.exports = {
         {text: '常用排序C++', link: '/LeetCode/common_sort_c++'},
         {text: '常用排序JS', link: '/LeetCode/common_sort_js'},
         {text: '尾调用优化讲解', link: '/LeetCode/callStack'},
-        {text: '子串搜索系列', link: '/LeetCode/string_search_str'}
+        {text: '子串搜索系列', link: '/LeetCode/string_search_str'},
+        {text: '二叉树基础题', link: '/LeetCode/tree'},
+        {text: '杨辉三角', link: '/LeetCode/array_trangle'},
+        {text: '数组回溯1', link: '/LeetCode/array_rotate'},
+        {text: '数组回溯2', link: '/LeetCode/array_shudu'},
+        {text: '动态规划之 01背包问题', link: '/LeetCode/array_dt'},
       ]},
       {text: 'http 基础系列', items: [
         {text: 'cache 问题', link: '/basic/http/cache_question'},

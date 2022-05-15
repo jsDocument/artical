@@ -1,4 +1,4 @@
-# 中等难度字符串系列
+### 中等难度字符串系列
 
 [无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 
@@ -41,7 +41,7 @@ var lengthOfLongestSubstring = function(s) {
 var convert = function(s, numRows) {
   let tArr = [], mid = numRows - 2, step = numRows, len = s.length;
   if(numRows === 1) return s;
-  s = s.replace(/\,/g, "#");
+  s = s.replace(/\,/g, "###");
   for(let i = 0; i<numRows; i++){
     tArr[i] = [s.substr(i,1)];
   }
@@ -61,7 +61,7 @@ var convert = function(s, numRows) {
       step++;
     }
   }
-  return tArr.join("").replace(/\,/g,"").replace(/#/g, ",");
+  return tArr.join("").replace(/\,/g,"").replace(/###/g, ",");
 };
 ```
 
