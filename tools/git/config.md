@@ -48,7 +48,7 @@ git config --global cendential.helper 'cance --timeout=3600'
 1. git update-index --assume-unchanged  file
 2. git update-index --no-assume-unchanged  file
 3. git rm --cached -r -n 将文件从暂存删除
-4. git checkout <tree-ish> <files> 或 git checkout HEAD^ file 恢复到之前版本
+4. git checkout \<tree-ish> \<files> 或 git checkout HEAD^ file 恢复到之前版本
 5. git log --stat --diff-filter=D 文件在哪些被删除了
 6. git reset HEAD file 把文件还原？
 

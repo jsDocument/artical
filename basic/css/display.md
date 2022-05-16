@@ -1,6 +1,6 @@
 # grid 与 flex 布局
 
-- width: clamp(23ch, 50%, 64ch) 最小尺寸为23个字符，最大尺寸为 64个字符，实际尺寸为父容器的 50%，也可以用 font-size: clamp(<min>, <actual>, <max>)
+- width: clamp(23ch, 50%, 64ch) 最小尺寸为23个字符，最大尺寸为 64个字符，实际尺寸为父容器的 50%，也可以用 font-size: clamp(\<min>, \<actual>, \<max>)
 - 宽高比：aspect-ratio: 16 / 9;
 
 #### display: grid

@@ -57,7 +57,11 @@
 + useRef: 多次渲染之间共享数据
   + 使用 useRef 保存的数据一般是和 UI 的渲染无关的，还可以保存某个 DOM 节点的引用
 + useContext: 定义全局状态----跨层次数据传递，从某个组件为根组件的组件树上可用, 这个组件树上的组件都可以修改和访问这个 context
-  + 创建 ThemeContext, 使用<ThemeContext.Provider value={}><comp></ThemeContext.Provider>  获取useContext(ThemeContext)
+  + 创建 ThemeContext, 使用
+```html
+  <ThemeContext.Provider value={}><comp></ThemeContext.Provider>
+  <!-- 获取useContext(ThemeContext) -->
+  ```
   + 设计复杂的原因：为了能够进行数据的绑定
   + 缺点:
     + 会让调试变得困难，因为你很难跟踪某个 Context 的变化究竟是如何产生的。

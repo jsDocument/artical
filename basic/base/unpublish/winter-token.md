@@ -1,3 +1,4 @@
+```html
 + 文法：词法(词法规定了语言的最小语义单元：token, 技术上可以使用`状态机`或者`正则表达式`来进行) 和 语法
 + 分类：
   + WhiteSpace 空白字符
@@ -19,3 +20,4 @@
 + 未来的关键字：implements package protected interface private public enum
 + 12.toString() 这时候12. 会被当作省略了小数点后面部分的数字，而单独看成一个整体，所以我们要想让点单独成为一个 token，就要加入空格
 + 数字直接量、字符直接量、正则直接量
+```

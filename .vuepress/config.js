@@ -1,16 +1,44 @@
 module.exports = {
   dest: 'dist',
   title: '技术文档',
-  description: '偏重前端与node的技术文档',
+  description: '前端知识学习轨迹',
   serviceWorker: true,
   evergreen: true,
   markdown: {
-    // markdown-it-anchor 的选项
     anchor: { permalink: false },
-    // markdown-it-toc 的选项
     toc: { includeLevel: [1, 2]},
   },
-  // base: '/',
+  base: '/',
+  plugin: [
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'right',
+        defaultTitle: '',
+      },
+    ],
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'theorem',
+        before: info => `<div class="theorem"><p class="title">${info}</p>`,
+        after: '</div>',
+      },
+    ],
+
+    // 这是 VuePress 默认主题使用这个插件的方式
+    [
+      'vuepress-plugin-container',
+      {
+        type: 'tip',
+        defaultTitle: {
+          '/': 'TIP',
+          '/zh/': '提示',
+        },
+      },
+    ],
+    ['vuepress-plugin-nprogress']
+  ],
   themeConfig: {
     sidebarDepth: 0,
     nextLinks: true,
@@ -20,73 +48,16 @@ module.exports = {
     searchMaxSuggestions: 10,
     search: true,
     nav: [
-      {text: 'jvascript 基础系列', items: [
-        {text: '常被问到的几个前端基础知识', link: '/basic/base/base'},
-        {text: '浏览器基础知识', link: '/basic/base/browser'},
-        {text: '你该知道的类型基础与对象知识', link: '/basic/base/data-type'},
-        {text: '数据类型隐式转换规律', link: '/basic/base/type-transfer'},
-        {text: '作用域、闭包、作用域提升、执行上下文、垃圾回收', link: '/basic/base/zone'},
-        {text: 'winter重学前端部分总结', link: '/basic/base/winter'},
-        {text: '鼠标事件基础', link: '/basic/base/mouse-event'},
-        {text: '模块简介', link: '/basic/base/module'}
+      {text: 'jvascript 系列', items: [
+        {text: 'jvascript 基础系列', link: '/basic/base/base'},
+        {text: 'es6 系列', link: '/basic/es6/set-map'},
+        {text: 'javascript 高阶专题系列', link: '/basic/regexp'},
+        {text: 'http 系列知识', link: '/basic/http/cache-question'},
       ]},
-      {text: 'leetCode系列', items: [
-        {text: '剑指 Offer 06 18 22 25 II27', link: '/LeetCode/offer_listNode'},
-        {text: '链表 141 160 203 206 234 237 876', link: '/LeetCode/simple_listNode'},
-        {text: '链表 2 19 24 61 109 142 328 707', link: '/LeetCode/middle_listNode'},
-        {text: '剑指 Offer 03 04 12', link: '/LeetCode/offer_array'},
-        {text: '数组 722 929', link: '/LeetCode/array_string'},
-        {text: '剑指 Offer 53 58', link: '/LeetCode/offer_string'},
-        {text: '找数组之和系列', link: '/LeetCode/array_plus'},
-        {text: '字符串初级 13 14 20 58 67 819', link: '/LeetCode/string_simple'},
-        {text: '字符串中级 3 6 8 71 151', link: '/LeetCode/string_middle'},
-        {text: '字符串高级 10 44 65 1106', link: '/LeetCode/string_hard'},
-        {text: '常用排序C++', link: '/LeetCode/common_sort_c++'},
-        {text: '常用排序JS', link: '/LeetCode/common_sort_js'},
-        {text: '尾调用优化讲解', link: '/LeetCode/callStack'},
-        {text: '子串搜索系列', link: '/LeetCode/string_search_str'},
-        {text: '二叉树基础题', link: '/LeetCode/tree'},
-        {text: '杨辉三角', link: '/LeetCode/array_trangle'},
-        {text: '数组回溯1', link: '/LeetCode/array_rotate'},
-        {text: '数组回溯2', link: '/LeetCode/array_shudu'},
-        {text: '动态规划之 01背包问题', link: '/LeetCode/array_dt'},
-      ]},
-      {text: 'http 基础系列', items: [
-        {text: 'cache 问题', link: '/basic/http/cache_question'},
-        {text: '输入 URL 后发生了什么', link: '/basic/http/enter_url'},
-        {text: 'ajax 请求与跨域相关知识点', link: '/basic/http/http_ajax'},
-        {text: 'http 常用状态码', link: '/basic/http/http_code'},
-        {text: 'http header 字段与缓存知识', link: '/basic/http/http_field&cache'},
-        {text: 'HTTP 的无状态解决方案', link: '/basic/http/http_login_status'},
-        {text: 'HTTP 请求过程及分类', link: '/basic/http/http_login_status'},
-        {text: '前端安全', link: '/basic/http/security'},
-        {text: '单点登录', link: '/basic/http/SSO'},
-        {text: 'axios相关知识', link: '/basic/http/axios'},
-      ]},
-      {text: 'javascript 专题系列', items:[
-        {text: '正则篇', link: '/basic/javascript/regexp/readme'},
-        {text: '前端 promise 篇', link: '/basic/javascript/promise/SUMMARY'},
-        {text: '前端性能优化', link: '/basic/javascript/promotion/base'}
-      ]},
-      {text: 'es6 系列', items:[
-        {text: 'set&map', link: '/es6/set&map'},
-        {text: 'generator', link: '/es6/generator'},
-        {text: 'promise', link: '/es6/promise'},
-        {text: 'async', link: '/es6/async',}
-      ]},
-      {text: '工具系列', items: [
-        {text: 'webpack 篇', link: '/tools/webpack/SUMMARY'},
-        {text: 'git 篇', link: '/tools/git/config'}
-      ]},
-      {text: 'node 基础系列', items: [
-        {text: 'readline', link: '/node_program/node_basic/readline'},
-        {text: '进程相关', link: '/node_program/node_basic/child_process'},
-        {text: '事件', link: '/node_program/node_basic/event'},
-        {text: '流', link: '/node_program/node_basic/stream'},
-        {text: 'net', link: '/node_program/node_basic/net'},
-        {text: 'udp', link: '/node_program/node_basic/udp'},
-        {text: 'http', link: '/node_program/node_basic/http'}
-      ]},
+      // {text: 'css 兼容系列', link: '/css/'},
+      {text: 'leetCode系列', link: '/LeetCode/array-dt'},
+      {text: '工具系列', link: '/tools/webpack/webpack-config'},
+      {text: 'node基础系列', link: '/node-program/node-basic/readline'}
     ]
   },
   configureWebpack: {
@@ -99,38 +70,155 @@ module.exports = {
 }
 
 function genSidebarConfig (title) {
-  return [
-    {
-      title: 'Vue 系列',
-      collapsable: false,
-      children: [
-        '/vue_resource/structure',
-        '/vue_resource/start',
-        '/vue_resource/options',
-        '/vue_resource/init_data',
-        '/vue_resource/events',
-        '/vue_resource/compile_el',
-        '/vue_resource/_compile_root',
-        '/vue_resource/_compile_rest',
-        '/vue_resource/directive_base',
-        '/vue_resource/watch_observer',
-        '/vue_resource/batcher',
-        '/vue_resource/calculate',
-        '/vue_resource/hook',
-        '/vue_resource/transition',
-        '/vue_resource/dom',
-        '/vue_resource/fragmentFactory',
-        '/vue_resource/directive_every',
-        '/vue_resource/parse'
-      ]
-    },
-    {
-      title: 'React 系列',
-      collapsable: false,
-      children: [
-        'react/structure',
-        'react/event'
-      ]
-    }
-  ]
+  return {
+    '/basic/base/base': [
+      '/basic/base/base',
+      '/basic/base/browser',
+      '/basic/base/data-type',
+      '/basic/base/type-transfer',
+      '/basic/base/zone',
+      '/basic/base/winter',
+      '/basic/base/mouse-event',
+      '/basic/base/module'
+    ],
+    '/basic/es6/set-map': [
+      '/basic/es6/set-map',
+      '/basic/es6/generator',
+      '/basic/es6/promise',
+      '/basic/es6/async',
+    ],
+    '/basic/regexp': [
+      '/basic/regexp',
+      '/basic/javascript/promise/SUMMARY',
+      '/basic/promotion-user-sensitive'
+    ],
+    '/basic/http/cache-question': [
+      '/basic/http/cache-question',
+      '/basic/http/enter-url',
+      '/basic/http/http-ajax',
+      '/basic/http/http-code',
+      '/basic/http/http-cache',
+      '/basic/http/http-login-status',
+      '/basic/http/security',
+      '/basic/http/SSO',
+      '/basic/http/axios',
+      '/basic/http/http2',
+    ],
+    '/LeetCode/array-dt': [
+      {
+        title: 'leetCode系列',
+        children: [
+          {
+            title: '链表系列',
+            children: [
+              '/LeetCode/offer-listNode',
+              '/LeetCode/simple-listNode',
+              '/LeetCode/middle-listNode',
+            ]
+          },
+          {
+            title: '数组系列',
+            children: [
+              '/LeetCode/offer-array',
+              '/LeetCode/array-string',
+              '/LeetCode/offer-string',
+              '/LeetCode/array-plus',
+            ]
+          },
+          {
+            title: '排序相关',
+            children: [
+              '/LeetCode/common-sort-c++',
+              '/LeetCode/common-sort-js',
+            ]
+          },
+          {
+            title: '回溯相关',
+            children: [
+              '/LeetCode/array-rotate',
+              '/LeetCode/array-shudu',
+            ]
+          },
+          {
+            title: '动态规划',
+            children: [
+              '/LeetCode/array-dt',
+            ]
+          },
+          {
+            title: '字符串系列',
+            children: [
+              '/LeetCode/string-simple',
+              '/LeetCode/string-middle',
+              '/LeetCode/string-hard',
+              '/LeetCode/string-search-str',
+            ]
+          },
+          {
+            title: '树系列',
+            children: [
+              '/LeetCode/tree',
+            ]
+          },
+          '/LeetCode/callStack',
+          '/LeetCode/array-trangle'
+        ]
+      }
+    ],
+    '/vue-resource/structure': [
+      '/vue-resource/structure',
+      '/vue-resource/start',
+      'vue-resource/options',
+      'vue-resource/init-data',
+      'vue-resource/events',
+      'vue-resource/compile-el',
+      'vue-resource/_compile-root',
+      'vue-resource/_compile-rest',
+      'vue-resource/directive-base',
+      'vue-resource/watch-observer',
+      'vue-resource/batcher',
+      'vue-resource/calculate',
+      'vue-resource/hook',
+      'vue-resource/transition',
+      'vue-resource/dom',
+      'vue-resource/fragmentFactory',
+      'vue-resource/directive-every',
+      '/parse'
+    ],
+    '/react/structure': [
+      'structure',
+      'event'
+    ],
+    '/tools/webpack/webpack-config': [
+      {
+        title: 'webpack 篇',
+        children: [
+          '/tools/webpack/webpack-config',
+          '/tools/webpack/webpack-step',
+          '/tools/webpack/webpack-hot',
+          '/tools/webpack/optimize',
+          '/tools/webpack/SUMMARY'
+        ]
+      },
+      {
+        title: 'git 篇',
+        children: [
+          '/tools/git/config',
+          '/tools/git/staging',
+          '/tools/git/branch-tag',
+          '/tools/git/stash',
+          '/tools/git/push'
+        ]
+      }
+    ],
+    '/node-program/node-basic/readline': [
+      '/node-program/node-basic/readline',
+      '/node-program/node-basic/child-process',
+      '/node-program/node-basic/event',
+      '/node-program/node-basic/stream',
+      '/node-program/node-basic/net',
+      '/node-program/node-basic/udp',
+      '/node-program/node-basic/http'
+    ]
+  }
 }

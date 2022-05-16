@@ -11,7 +11,7 @@ Web 向 Native 发消息：某段 JS 代码的执行端上是可感知的，方�
 + 通过何种方式发出请求？
 + 拦截式：
   + a 、iframe.src、location.href、ajax 等，但 a 需要用户手动触发，location.href 可能会导致页面跳转，安卓端拦截 ajax 的能力有所欠缺，因此绝大多数拦截式实现方案均采用iframe 来发送请求。
-  + JSB 的请求格式：<scheme>://<host>:<port><path>
+  + JSB 的请求格式：\<scheme>:\/\/\<host>:\<port>\<path>
   + 如何回调？在请求的 URL 上拼接回调方法的事件名，将该事件挂载在全局 window 上，由于 Native 端可以轻松执行 JS 代码，因此在完成端逻辑后直接执行该事件名对应的回调方法即可
   + 缺点：
     + 连续发送时可能会造成消息丢失（可以使用消息队列解决该问题）
