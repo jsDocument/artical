@@ -1,4 +1,4 @@
-## Symbol 和 Iterator 及 Generator
+# Symbol 和 Iterator 及 Generator
 
 在学习Generator与async函数之前，我们先来学一下相关的基础知识。
 
@@ -73,7 +73,7 @@ Generator.prototype[Symbol.toStringTag]：'Generator'
 GeneratorFunction.prototype[Symbol.toStringTag]：'GeneratorFunction'
 
 
-## Iterator
+#### Iterator
 
 - javascript原来表示集合的方式有 `Array`, `Object`, `Map`, `Set`；用户可以组合使用他们，这就需要一种统一的接口机制，来处理不同的数据结构。
 - 遍历器是一种机制，是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据只要布置Iterator接口，都可以完成遍历操作。
@@ -127,7 +127,7 @@ let obj = {
 
 
 
-## Generator
+#### Generator
 
 - 基础理论
 

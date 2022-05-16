@@ -1,4 +1,4 @@
-#### 数据类型隐式转换规律
+# 数据类型隐式转换规律
 
 1. 原始基础类型：Undefined、 Null、 String、 Number、 Boolean、 Symbol、Object、bigInt
 2. JS内置对象：Date, Array, Math, Number, Boolean, String, Array, RegExp, Function, Error。
