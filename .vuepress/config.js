@@ -8,21 +8,6 @@ module.exports = {
   },
   base: '/',
   plugins: [
-    ['@vuepress/back-to-top', true],
-    [
-      '@vuepress/pwa',
-      {
-        serviceWorker: true,
-        updatePopup: true
-      }
-    ],
-    ['@vuepress/medium-zoom', true],
-    [
-      '@vuepress/google-analytics',
-      {
-        ga: 'UA-128189152-1'
-      }
-    ],
     [
       'vuepress-plugin-container',
       {
@@ -120,7 +105,7 @@ function genSidebarConfig (title) {
       '/basic/http/enter-url',
       '/basic/http/http-ajax',
       '/basic/http/http-code',
-      // '/basic/http/http-cached',
+      '/basic/http/HTTP-cached',
       '/basic/http/http-login-status',
       '/basic/http/security',
       '/basic/http/SSO',
@@ -148,7 +133,7 @@ function genSidebarConfig (title) {
       {
         title: '排序相关',
         children: [
-          '/LeetCode/common-sort-c++',
+          '/LeetCode/common-sort',
           '/LeetCode/common-sort-js',
         ]
       },
@@ -223,7 +208,7 @@ function genSidebarConfig (title) {
     ],
     '/node-program/': [
       '/node-program/node-basic/readline',
-      // '/node-program/node-basic/child-process',
+      '/node-program/node-basic/child-process',
       '/node-program/node-basic/event',
       '/node-program/node-basic/stream',
       '/node-program/node-basic/net',

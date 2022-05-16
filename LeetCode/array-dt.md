@@ -1,4 +1,4 @@
-## 动态规划之 01背包问题
+### 动态规划之 01背包问题
 
 转换为「0 - 1」背包问题
 
@@ -17,6 +17,7 @@
 3. 初始化数组：先初始化第一行和第一列，其他位置的初始值不做限制，都是需要推导而来，所以初始值不重要
 4. 遍历顺序：物品，背包容量
 5. 打印 dp 数组
+
 
 [416. 分割等和子集](https://leetcode-cn.com/problems/partition-equal-subset-sum/)
 
@@ -60,12 +61,6 @@ var canPartition = function (nums) {
 };
 ```
 
-[474. 一和零]()
-
-```js
-// 递归化搜索
-```
-
 [698. 划分为k个相等的子集](https://leetcode-cn.com/problems/partition-to-k-equal-sum-subsets/)
 
 ```js
@@ -88,9 +83,3 @@ var canPartitionKSubsets = function(nums, k) {
     return dp[target] === target;
 };
 ```
-
-「0-1背包」，n 种物品，每种物品只有一个，每个物品都有其重量和价值
-「完全背包」，n 种物品，每种物品有无限个
-「多重背包」，n 种物品，每种物品个数各不相同
-「分组背包」
-「混合背包」
