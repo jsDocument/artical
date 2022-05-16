@@ -1,4 +1,4 @@
-### 数组与正则[722 929]
+## 数组与正则[722 929]
 
 [删除注释](https://leetcode-cn.com/problems/remove-comments/)
 

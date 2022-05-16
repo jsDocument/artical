@@ -1,3 +1,5 @@
+## 批量上传
+
 ```javascript
 function calcFileMD5(file) {
   return new Promise((resolve, reject) => {

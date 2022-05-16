@@ -1,33 +1,33 @@
 # promise
 
-### 1.常见的几种异步编程方案
+## 1.常见的几种异步编程方案
 
 - 回调函数----如$.ajax(url, (data)=>{})
 - 事件监听
 - 发布/订阅
 - Promise对象
 
-### 2. promise的构造函数
+## 2. promise的构造函数
 
 - Promise是一个构造函数
 - 接收一个excutor函数作为参数，excutor有两个函数作为参数--resolve,reject
 - 返回一个promise对象
 
-### 3. Promise的实例方法
+## 3. Promise的实例方法
 
 promise 的三种状态：`pending` 初始化状态,`fulfilled` 成功, `rejected`失败
 
 - then(onFulfilled, onRejected), 每次都返回一个新的Promise对象；可以被一个promise对象调用多次。
 - catch(onRejected) 捕获该方法之前的then方法中发送的异常
 
-### 4. Promise的静态方法
+## 4. Promise的静态方法
 
 - resolve
 - reject
 - all
 - race
 
-### 5. Promise的实现
+## 5. Promise的实现
 - 内部变量：state 当前promise状态； value `fufilled`时的值； queue内部的回调队列
 ```javascript
 let promise = new Promise((resolve, reject)=>{

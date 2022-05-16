@@ -1,4 +1,6 @@
-### ajax 请求与跨域相关知识点 与 ajax, fetch, axios 「关注分离」
+### ajax 请求与跨域相关知识点
+
+#### ajax, fetch, axios 「关注分离」
 
 + ActiveXObject('Microsoft.XMLHTTP')
 + XMLHTTPRequest

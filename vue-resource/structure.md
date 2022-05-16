@@ -1,6 +1,12 @@
 #### vue目录结构导读
 
-* compiler 编译部分实现
+![流程 text](./vue.png "title")
+
+* start---(_init)
+* 初始化续---(initProxy, initLifecycle, initEvents, initRender, initInjections, initState, initProvide)
+* observer 数据监听, dep 管理订阅者, array 提供数组更新的方法, index-Observer类与方法,  watcher.js  订阅者
+* watcher表达式 ---- parsers  解析
+* 挂载之compiler 编译部分实现
 * directives 内部实现的指令
 * filters  过滤器
 * fragment 每个指令里单独编译时使用一个工厂进行编译时用到
@@ -16,19 +22,11 @@
     * state 初始化数据、props、computed、method等相关
     * misc 执行filters
   * Vue.js 初始化Vue构造函数与其内部方法及API, 调用Vue构造函数即其\_init
-* observer 监听
-  * dep 管理订阅者
-  * array 提供一些公共方法
-  * index Observer类与方法
-* parsers  解析
 * transition  Transition的实现, 提供给transition指令
 * util  公共方法
 * batcher.js  watcher 更新队列
 * cache.js  缓存
 * config.js  配置
 * directive.js  指令
-* watcher.js  订阅者
-* index.js 这是我开始学习的起始位置, 导出Vue构造方法, 开发环境触发init事件。
 
 
-![流程 text](./vue.png "title")

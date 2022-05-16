@@ -323,7 +323,7 @@ export function parse (
       if (ns) {
         element.ns = ns
       }
- 
+
       // 是style或script 且不是服务端渲染[_isServer]
       if (isForbiddenTag(element) && !isServerRendering()) {
         element.forbidden = true
@@ -432,7 +432,7 @@ export function parse (
     },
 
     end () {
-      // remove trailing whitespace 
+      // remove trailing whitespace
       // 处理stack中最后一个元素的最后一个子元素，如果是空白文本则删除该子元素，并取出该元素，结束该元素
       const element = stack[stack.length - 1]
       const lastNode = element.children[element.children.length - 1]
@@ -1033,7 +1033,7 @@ export function parseHTML (html, options) {
           let endTagLength = 0
           const stackedTag = lastTag.toLowerCase()
           const reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'))
-          // 
+          //
           const rest = html.replace(reStackedTag, function (all, text, endTag) {
             endTagLength = endTag.length
 
@@ -1249,7 +1249,7 @@ const shouldIgnoreFirstNewline = (tag, html) => tag && isIgnoreNewlineTag(tag) &
         - 如果options.shouldKeepComment, 更新注释内容到options.comment中
         - 更新位置，注释结束符的index+3
 
-    2. 条件注释 
+    2. 条件注释
         - 有条件结束符的结束，更新位置，注释结束符的index+2
 
     ```javascript
@@ -1280,9 +1280,9 @@ const shouldIgnoreFirstNewline = (tag, html) => tag && isIgnoreNewlineTag(tag) &
 
 
 - advance(n) 更新下次开始位置及html的内容
-- parseStartTag() 
+- parseStartTag()
 - handleStartTag()
-- parseEndTag(tagName, start, end) 
+- parseEndTag(tagName, start, end)
     - 查找stack中是否有该tagName
     - 没有该tagName, 进行options.end()处理，更新stack的长度与lastTag
     - 如果是br标签，则进行options.start();

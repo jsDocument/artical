@@ -1,4 +1,4 @@
-### Promise
+## Promise
 
 是一种容器，里面保存着未来才会结束的事件的结束；也可以说Promise是一个对象，可以获取异步操作的消息。
 
@@ -26,7 +26,7 @@ const p = new Promise(function(resolve, reject){
 1. 开发中我们希望同步函数，同步执行，异步操作再用Promise来处理，但又不想去区分。而Promise会将所有操作变为异步，此时可以用async函数来处理。
 
 
-### promise的相关题目
+## promise的相关题目
 
 ```js
 const promise = new Promise((resolve, reject) => {

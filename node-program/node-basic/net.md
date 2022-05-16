@@ -107,7 +107,7 @@ runTest(exceptedId, done){
 }
 ```
 
-### Tcp聊天工作室
+## Tcp聊天工作室
 
 ```js
 var net = require('net')
@@ -129,17 +129,17 @@ server.listen(8000, ()=>{
 })
 ```
 
-### socket
+## socket
 
 + 一个端口加上一个地址构成一个 socket
 + 同时使用 TCP 与 UDP 的有 DNS 协议
 
-### HTTP
+## HTTP
 
 + 基于net, stream, buffer, event模块作为底层
 + 使用时还会用到crypto, tls(OpenSSL公钥加密)支持加密
 
-### 线程封装实现异步
+## 线程封装实现异步
 
 + 非阻塞I/O, 线程池, 异步APIs
 + 文件操作底层实现不是异步, 而是线程池

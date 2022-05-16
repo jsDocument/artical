@@ -396,5 +396,5 @@ i.throw(new Error('出错了！'));  // 会附带执行一次next方法
   1. 返回给定的值, 并终结Generator函数, 即{value: 指定的值, done: true}, 无指定值时为undefined
   2. Generator与try...finally代码块结合时, return 方法会推迟到finally代码块执行完再执行
 
-### 疑问
+## 疑问
 1. done状态表示已结束, 再调用next(param), 返回的value是什么? done状态会因为这个改变吗？

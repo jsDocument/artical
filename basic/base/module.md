@@ -1,4 +1,4 @@
-### 模块简介
+## 模块简介
 
 + amd---典型代表require.js
 + cmd---典型代表sea.js

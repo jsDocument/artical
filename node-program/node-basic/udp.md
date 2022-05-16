@@ -1,13 +1,13 @@
 # UDP
 
-### dgram 创建数据报sockets, 通过一个流发磅数据报到UDP服务器
+## dgram 创建数据报sockets, 通过一个流发磅数据报到UDP服务器
 
 + Socket类
     1. 事件 close, error, listening, message
     2. 方法: close(), bind()绑定端口, address(), send(msg), ref(), unref()
 + createSocket(options/type[,cb])
 
-### 创建服务端
+## 创建服务端
 
 ```js
 var dgram = require('dgram')
@@ -25,7 +25,7 @@ server.on('listening',()=>{
 server.bind(41234)
 ```
 
-### 客户端
+## 客户端
 
 ```js
 // 创建客户端与创建服务端相同

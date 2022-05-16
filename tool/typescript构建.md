@@ -1,7 +1,7 @@
 # 项目构建
 
 类型检查
-1. 基本类型和引用类型(boolean, string, number, null, undefined, void没有返回值, number[], any, never没有值的类型 元组 枚举) 
+1. 基本类型和引用类型(boolean, string, number, null, undefined, void没有返回值, number[], any, never没有值的类型 元组 枚举)
 2. class中protected, private, public
 3. 联合类型 type | type
 4. 对象类型 interface P{name: String, age?: Number, [sex: Boolean]: any, readonly id: number, [index: number]: number}【可选，任意属性即key不定】 即P类型的接口；使用let s: P={name: 'aa', age: 24}，使用时属性需按照声明顺序

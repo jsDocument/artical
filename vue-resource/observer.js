@@ -1,41 +1,3 @@
-# 变化侦测：追踪状态
-
-数据驱动视图
-
-1. Object.definedProperty 劫持读写对象属性
-2. 依赖收集：getter中收集依赖，setter中通知依赖更新
-3. 依赖收集，收集到依赖管理器Dep
-   - subs数组，存放依赖，添加addSub、删除removeSub、 getter-->depend添加一个依赖、notify 通知依赖更新
-   - depend添加的是Dep.target，watcher实例
-   - 数组
-4. 依赖是谁：谁用到了数据----watcher，所以通知依赖更新，通知的是 watcher 实例，由 watcher 实例通知真正的视图
-   - 构造函数
-     - vm
-     - cb
-     - getter---根据路径分析，path.split('.')，再循环取值
-     - value---this.get()
-   - this.get(): 获取时更新 Dep.target, value = this.getter(vm, vm)触发依赖收集, 再释放 Dep.target, 并返回 value
-   - update(): 更新 实例value并执行实例 cb
-
-总结：
-
-1. Watcher 把自己设置到全局唯一的指定位置
-2. 再读取数据，触发这个数据的 getter
-3. getter 在全局唯一的位置获得正在读取数据的 Watcher实例，并把 Watcher 实例收集到 Dep，收集好后，当数据发生变化，会向Dep 中的每个 Watcher 发送通知更新
-
-存在的问题与解决办法
-
-1. 对对象已有的属性提供了检测，对后增加和删除的无法观测到，所以提供了 Vue.set 和 Vue.delete
-
-大致流程：
-
-1. Data通过observer转换成了getter/setter的形式来追踪变化。
-2. 当外界通过Watcher读取数据时，会触发getter从而将Watcher添加到依赖中。
-3. 当数据发生了变化时，会触发setter，从而向Dep中的依赖（即Watcher）发送通知。
-4. Watcher接收到通知后，会向外界发送通知，变化通知到外界后可能会触发视图更新，也有可能触发用户的某个回调函数等。
-
-```javascript
-// Observer
 export class Observer {
   constructor (value) {
     this.value = value
@@ -137,7 +99,9 @@ function defineReactive (obj,key,val) {
     }
   })
 }
-// Dep
+
+// 简化版 Dep
+
 export default class Dep {
   constructor () {
     this.subs = []
@@ -176,7 +140,8 @@ export function remove (arr, item) {
     }
   }
 }
-// Watcher
+
+// 简化版Watcher
 export default class Watcher {
   constructor (vm,expOrFn,cb) {
     this.vm = vm;
@@ -197,26 +162,3 @@ export default class Watcher {
     this.cb.call(this.vm, this.value, oldValue)
   }
 }
-
-/**
- * Parse simple path.
- * 把一个形如'data.a.b.c'的字符串路径所表示的值，从真实的data对象中取出来
- * 例如：
- * data = {a:{b:{c:2}}}
- * parsePath('a.b.c')(data)  // 2
- */
-const bailRE = /[^\w.$]/
-export function parsePath (path) {
-  if (bailRE.test(path)) {
-    return
-  }
-  const segments = path.split('.')
-  return function (obj) {
-    for (let i = 0; i < segments.length; i++) {
-      if (!obj) return
-      obj = obj[segments[i]]
-    }
-    return obj
-  }
-}
-```

@@ -34,7 +34,7 @@ func.prototype.apply = function(compiler, callback){
 
         })
         compilation.plugin("optimize-chunk-assets", (chunks, callback)=>{
-            
+
         })
     })
 }

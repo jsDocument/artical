@@ -1,19 +1,22 @@
-# 子进程
+### 子进程
 
-## 创建子进程
+#### 创建子进程
+
 1. child_process.exec(command[,options][, callback])
 2. child_process.execFile(file[, args][, options][, callback])
-1. child_process.spawn(command[, args][, callback])
-3. child_process.fork(modulePath[, args][,options][, callback])
+3. child_process.spawn(command[, args][, callback])
+4. child_process.fork(modulePath[, args][,options][, callback])
 
 
-### child_process允许异步执行外部应用程序, 并得到结果。
+#### child_process允许异步执行外部应用程序, 并得到结果
 
 + execFile 把输出结果「存入缓存」, 执行时不需要通过命令解析器
+
 1. cp.execFile('commandName',[param],(err, stdout, stderr)=>{})
 2. __查找命令路径要找的到, 要有执行权限, 是否能在该平台执行__
 
 + spawn 通过「流输出」, 执行时不需要通过命令解析器
+
 1. one = cp.spawn('commandName', [param])
 2. one.on('error', cb) one.stdout.pipe(process.stdout)
 3. one.stderr.pipe(process.stderr)
@@ -26,10 +29,12 @@
 10. 父进程会有一个对子进程的内部引用, 子进程没有终结, 引用没有被移除, 父进程就不会终结; child.unref()告诉Node不要将子进程的引用进行计数。
 
 + exec 方便、跨平台, 在命令解析器中执行命令
+
 1. cp.exec('cat file | sort | uniq', (err, stdout, stderr)=>{})
 2. `是因为用了命令解析器才不安全？代码注入？`
 
 + 独立可执行的Node程序脚本, myapp param param1, 将其包装成一个跨平台的可执行文件
+
 1. windows上, 需要制作一个批处理文件来调用Node程序 hello.bat
 2. @echo off 不要将正在执行的命令在显示屏上显示出来
 3. node "hello.js" %* 需要接收的参数
@@ -38,6 +43,7 @@
 6. unix 平台, hello.js头部添加  #!/usr/bin/env node, 再为文件添加执行权限  chmod +x hello.js;
 
 + web worker 使任务脱离了主线程, 通过一种内置父进程与子进程间流通信来处理问题---fork大批量的任务压力分解到一个独立的进程中, 事件轮询仍然能保持顺畅
+
 1. 操作一个独立的node进程, I/O共享
 2. 在父进程和子进程和子进程中间创建一个IPC通信通道，独立的模块中运行一个Node模块
 3. 共享文件描述器？

@@ -1,4 +1,4 @@
-### Set & Map
+## Set & Map
 
 #### Set
 
@@ -47,7 +47,7 @@ var numUniqueEmails = function(emails) {
 
 Array.from(new Set(array)) 可以将Set结构转为数组
 
-### Set的遍历操作，提供了4个实例方法
+## Set的遍历操作，提供了4个实例方法
 
 - keys()：返回键名的遍历器
 - values()：返回键值的遍历器
@@ -58,7 +58,7 @@ Array.from(new Set(array)) 可以将Set结构转为数组
     Set结构默认可遍历，它的默认遍历器生成函数是values方法；意味着可以直接用for...of遍历Set；扩展运算符(...)内部使用for...of
     而且数组的map和filter也间接使用了Set。
 
-### WeakSet
+## WeakSet
 
 与Set类似，也是不重复值的集合，但WeakSet的成员只能是对象，不能是其他类型的值；WeakSet中的对象都弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中。
 
@@ -67,7 +67,7 @@ Array.from(new Set(array)) 可以将Set结构转为数组
 由于上面这个特点，WeakSet 的成员是不适合引用的，因为它会随时消失。另外，由于 WeakSet 内部有多少个成员，取决于垃圾回收机制有没有运行，运行前后很可能成员个数是不一样的，而垃圾回收机制何时运行是不可预测的，因此 ES6 规定 WeakSet 不可遍历。
 
 
-### Map
+## Map
 
 ::: tip
 JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。这给它的使用带来了很大的限制。
@@ -116,7 +116,7 @@ map.get(['a']) // undefined
 只有对同一个对象的引用 ，Map结构才将其视为同一个键。上面看似同一个键，但其实是两个值，内存地址是不一样的，所以无法读取该键。
 
 
-### WeakMap
+## WeakMap
 
 只接受对象作为键名(null除外)，用于生成键值对的集合。其特点与WeakSet一样。
 

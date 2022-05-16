@@ -1,6 +1,6 @@
 ## 简说Vue的执行过程
 
-### 编译中Node节点的处理
+## 编译中Node节点的处理
 
 VNODE所包含的信息：
 ```javascript
@@ -66,10 +66,10 @@ Ref指令：根据vnode.data.ref获取key；vnode.context指向vm，获取其$re
 
 - init: vnodecomponentInstance，A: prepatch(vnode, vnode) B: child = vnode.componentInstance = createComponentInstanceForVnode( vnode, activeInstance), child.$mount(hydrating ? vnode.elm : undefined, hydrating)
 
-### 编译过程
+## 编译过程
 1. Vue更新是为了生成render函数，然后生成虚拟dom，映射到页面上。
 
-### 数据处理
+## 数据处理
 1. Observer 为每个属性添加getter与setter；getter中把watcher添加到dep， 作数据收集；Setter中触发watcher的更新
 2. watcher更新：fn为获取数据渲染模板，执行一遍历update为了在渲染过程中调用对象的getter建立两者之间的关系
 3. Dep存一个Watcher数组subs；setter时会触发watcher的更新；

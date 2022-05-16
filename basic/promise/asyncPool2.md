@@ -1,3 +1,5 @@
+## 并发请求实现
+
 ```javascript
 // 1. 保存结果 + promise 执行器循环 添加任务, 加入任务的 count 个数
 // 2. 任务：current, fetch，then 和 resolve 时添加任务执行

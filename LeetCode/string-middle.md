@@ -1,4 +1,4 @@
-### 中等难度字符串系列[3 6 8 71 151]
+## 中等难度字符串系列[3 6 8 71 151]
 
 [无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 

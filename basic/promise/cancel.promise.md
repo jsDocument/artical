@@ -1,5 +1,4 @@
-
-+ 失败重试
+## 失败重试
 
 ```javascript
 Promise.retry = function (promiseFn, times = 3) {

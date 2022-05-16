@@ -58,7 +58,7 @@
 
 ## 其他配置
 - url
-- args 
+- args
 - outDir 编译后代码生成的目录
 
 ## 多个json任务配合

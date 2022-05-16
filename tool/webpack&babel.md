@@ -1,4 +1,4 @@
-### webpack执行过程
+## webpack执行过程
 1. 执行./node_models/.bin/webpack下的shell脚本, 合并执行脚本参数与配置参数
 2. optimist分析参数并以键值对的形式把参数保存在optimist.argv中
 3. 将各个配置拷贝到options对象中, 根据optiimist.argv配置加载相应的插件
@@ -13,23 +13,23 @@
 5. compiler.run会触发compile, 构建出Compilation对象, 该对象负责组织整个打包过程, 包含每个构建环节及输出环节所对应的方法
 
 
-### babel
+## babel
 + polyfill
 + runtime
 + stage
 + preset-env
 
-### 概念
+## 概念
 + entry: 一个可执行模块 或 库的入口文件
 + chunk: 多个文件组成一个代码块
 + loader: 文件转换器
 + plugin: 在webpack构造生命周期的节点上加入扩展hook, 为webpack扩展功能
 
 
-### webpack优势与缺点
+## webpack优势与缺点
 + 适用于SPA与模块化
 
-### 编译的大致流程
+## 编译的大致流程
 + 解析webpack参数配置, 合并从shell传入及配置文件的配置, 生成最后的配置结果。
 + 注册所有配置的插件, 让插件监听webpack构建生命周期的事件节点, 以做出对应的反应。
 + 从entry开始解析文件构建AST语法树, 找出每个文件的依赖文件, 递归下去
@@ -37,11 +37,11 @@
 + 递归完成后得到每个文件的最终结果, 根据entry配置生成代码块chunk
 + 输出所有chunk到文件系统
 
-### 优化
+## 优化
 + 缓存: 代码分割
 
 
-### webpack插件
+## webpack插件
 + compiler 存放着webpack配置, 代表着从启动到关闭的生命周期
 + compilation 监听文件变化自动编译机制, 代表一次编译; 代表模块资源、编译生成的资源、变化的文件等
 + webpack会广播出许多事件, plugin可以监听这些事件, 在合适的时机通过webpack提供的API, 改变输出结果

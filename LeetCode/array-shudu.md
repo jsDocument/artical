@@ -1,4 +1,4 @@
-### 数独与回溯算法
+## 数独与回溯算法
 
 [全排列](https://leetcode-cn.com/problems/permutations/)
 

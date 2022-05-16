@@ -1,5 +1,5 @@
 
-暂存与提交
+### 暂存与提交
 
 ```javascript
 git commit --amend // 把暂存内容添加到上次的提交

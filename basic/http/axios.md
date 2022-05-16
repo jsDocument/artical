@@ -1,4 +1,4 @@
-### axios相关知识
+## axios相关知识
 
 + 浏览器创建 XMLHttpRequest
 + node http 请求

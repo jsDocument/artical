@@ -1,4 +1,4 @@
-### 常见 HTTP 的无状态解决方案
+## 常见 HTTP 的无状态解决方案
 
 + Cookie, redis, JWT 解决 HTTP 的无状态
   + Session Cookie会话期---不含到期日期，存于内存

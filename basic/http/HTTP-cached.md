@@ -1,6 +1,6 @@
 ### http header 字段与缓存知识
 
-### HTTP 请求过程
+#### HTTP 请求过程
 
 + 这个请求指的是 http 请求，当一个请求从客户端发出去之后，服务器端收到请求后，一个请求过程就结束了，这时就算是客户端abort这个请求，服务器端仍会做出完整的响应，只是这个响应客户端不会接收。所以实质上，后端还是处理了请求，但是前端不对该方法进行处理。
 + cacheables：优雅、支持不同缓存策略、没有依赖、体积小、适用xx、辅助函数来构建缓存 key
@@ -41,7 +41,7 @@ const cache = new Cacheables({
   + 文件更改时，ETag 值必须改版
   + 必须横向扩展，分布式部署时多个服务器节点上生成的 ETag 值保持一致
   + 尽量便于计算，不会特别耗 CPU
-  + Nginx 的 ETag: Last-Modified + Content-Length<mtime, ctime>
+  + Nginx 的 ETag: Last-Modified + Content-Length\<mtime, ctime\>
     1. 如果1s 内修改了文件并且保持文件大小不变，就存在问题
     2. 如果 http 响应头中 ETag 值改变了，是否意味着文件内容一定已经更改？不一定，有服务器 ETag生成算法决定
     3. Last-Modified 变了，但是 Content-Length 没变（文件内容不变），是否意味着 etag 的缓存失效？
@@ -56,8 +56,6 @@ const cache = new Cacheables({
    2. runtimeChunk
 
 总结：
-
----------------------------
 
 1. 调用 Service Worker 的 fetch 事件响应
 2. 查看 memory cache

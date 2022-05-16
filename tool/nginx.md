@@ -84,7 +84,7 @@
     L 内存锁页    Lock                有记忆体分页分配并缩在记忆体内
     s 进程的领导者（在它之下有子进程）；
     l 多进程的（使用 CLONE_THREAD, 类似 NPTL pthreads）
-    + 位于后台的进程组 
+    + 位于后台的进程组
 
 3. pkill -9 name
 4. netstat 状态信息(参数：-c(持续列出)，-t(tcp)，-u(udp)，-s(统计表)，-n(直接显示ip)，-i(网络界面))  | grep ':80'
@@ -131,7 +131,7 @@ http {
     gzip_comp_level 6;
     gzip_types text/html text/plain text/css text/javascript application/json application/javascript application/x-javascript application/xml;
     gzip_vary on;
-  
+
   # http_proxy 设置
     client_max_body_size   10m;
     client_body_buffer_size   128k;
@@ -144,11 +144,11 @@ http {
     proxy_temp_file_write_size  64k;
     proxy_temp_path   /usr/local/nginx/proxy_temp 1 2;
 
-  # 设定负载均衡后台服务器列表 
-    upstream  backend  { 
-              #ip_hash; 
-              server   192.168.10.100:8080 max_fails=2 fail_timeout=30s ;  
-              server   192.168.10.101:8080 max_fails=2 fail_timeout=30s ;  
+  # 设定负载均衡后台服务器列表
+    upstream  backend  {
+              #ip_hash;
+              server   192.168.10.100:8080 max_fails=2 fail_timeout=30s ;
+              server   192.168.10.101:8080 max_fails=2 fail_timeout=30s ;
     }
 
   # 很重要的虚拟主机配置
@@ -165,25 +165,25 @@ http {
             root   /apps/oaapp;
             index  index.jsp index.html index.htm;
 
-            proxy_pass        http://backend;  
+            proxy_pass        http://backend;
             proxy_redirect off;
             # 后端的Web服务器可以通过X-Forwarded-For获取用户真实IP
             proxy_set_header  Host  $host;
-            proxy_set_header  X-Real-IP  $remote_addr;  
+            proxy_set_header  X-Real-IP  $remote_addr;
             proxy_set_header  X-Forwarded-For  $proxy_add_x_forwarded_for;
             proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
-            
+
         }
 
         #静态文件，nginx自己处理，不去backend请求tomcat
-        location  ~* /download/ {  
-            root /apps/oa/fs;  
-            
+        location  ~* /download/ {
+            root /apps/oa/fs;
+
         }
-        location ~ .*\.(gif|jpg|jpeg|bmp|png|ico|txt|js|css)$   
-        {   
-            root /apps/oaapp;   
-            expires      7d; 
+        location ~ .*\.(gif|jpg|jpeg|bmp|png|ico|txt|js|css)$
+        {
+            root /apps/oaapp;
+            expires      7d;
         }
         location /nginx_status {
             stub_status on;
@@ -192,8 +192,8 @@ http {
             deny all;
         }
 
-        location ~ ^/(WEB-INF)/ {   
-            deny all;   
+        location ~ ^/(WEB-INF)/ {
+            deny all;
         }
         #error_page  404              /404.html;
 

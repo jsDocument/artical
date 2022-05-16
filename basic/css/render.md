@@ -73,7 +73,7 @@ prerender可以预先渲染好页面并隐藏起来，之后打开这个页面�
 ## 页面加载事件
 1. window.load 当前页面加载完成，包括资源
 2. body.load html文档加载 时触发
-3. onreadystatechange 
+3. onreadystatechange
 3. DOMContentLoaded DOM树解析好并等待js执行完成才执行
 
 

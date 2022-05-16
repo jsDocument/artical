@@ -1,13 +1,13 @@
 # Stream
 
-### 流: 用于管理和处理数据, 借助事件与非阻塞I/O库, 允许在其可用的时候动态处理, 不需要的时候释放掉。
+## 流: 用于管理和处理数据, 借助事件与非阻塞I/O库, 允许在其可用的时候动态处理, 不需要的时候释放掉。
 + 流所使用的场景: API接口, 内置fs, http, 解析器, 数据库, 网络协议
 + fs.createReadStream(file).pipe(process.stdout)
   1. 连接了源头(上游, 文件)和消耗(下游, 标准输出)
   2. 流会逐次调用fs.read, 将文件内容分批取出并传给下游
   3. 上游数据被分块地连续取走, 下游收到的是一个先后到达的数据序列
 
-### 缓冲: 流将数据存储到内部的缓冲器(buffer)中
+## 缓冲: 流将数据存储到内部的缓冲器(buffer)中
 
 1. 缓冲器通过writable.\_writableState.getBuffer()或readable.\_readableState.buffer来获取
 2. 缓冲器大小通过highWaterMark选项指定, 普通流指定的总共的字节数; 对象模式的流指定的对象的总数
@@ -15,7 +15,7 @@
 4. 如果大小达到highWaterMark指定的阈值时, 流会「暂停从底层资源读取数据」, 直到缓冲器的数据被消费
 5. 可写流通过反复调用Writable.write(chunk), 将数据放到缓冲器， 当内部大小小于highWaterMark指定的阈值时, 调用writable.write()将返回true, 否则该方法返回false
 
-### 流的可用类
+## 流的可用类
 
 + stream.Readable: I/O上获取数据, 定制类需要自己实现\_read(size)
   1. 事件:
@@ -182,12 +182,12 @@ writable.end()
 - 子进程的stdout和stderr
 - process.stdin
 
-### 错误跟踪
+## 错误跟踪
 
 + console.trace() 能够生成完整的堆栈跟踪, 会将Node核心模块event.js实现庄浪功能的地方跟踪到。
 + console.error(err.stack)
 
-### 流的使用
+## 流的使用
 
 > 压缩
 
@@ -207,13 +207,13 @@ var outFile = fs.createWriteStream('readable.unzipped');
 inGzip.pipe(gunzip).pipe(outFile);
 ```
 
-### 实现一个流类的基本步骤
+## 实现一个流类的基本步骤
 
 1. 在定义的类的构造函数中调用stream.Readable类接口
 2. 定义类的原型继承stream.Readable.prototype
 3. 定义原型的_read方法, 实现从底层读取数据到缓存队列。
 
-### 优化流的缓冲区大小
+## 优化流的缓冲区大小
 
 1. input = fs.createReadStream(file, {bufferSize： insize})
 2. output = fs.createWriteStream(file,{bufferSize: insize})
