@@ -13,9 +13,9 @@
 
 ::: tip
 常见误区：Session 不是关闭浏览器就消失了。对 Session 来说，除非程序通知服务器删除一个 Session，否则服务器会在Session失效前一直保留。大多数情况下浏览器是不会在关闭网页之前通知服务器的，所以服务器根本不知道浏览器已经关闭。之所以会有这种错觉，是大部分 session 机制都使用会话 cookie 来保存 session id，而关闭浏览器后这个 session id 就消失了，再次连接服务器时也就无法找到原来的 session。如果服务器设置的 cookie 被保存在硬盘上，或者使用某种手段改写浏览器发出的 HTTP 请求头，把原来的 session id 发送给服务器，则再次打开浏览器仍然能够打开原来的 session。
+:::
 
-
-## express-jwt 用来验证token，引用了jsonWebToken，jsonWebToken---生成token给客户端
+#### express-jwt 用来验证token，引用了jsonWebToken，jsonWebToken---生成token给客户端
 
 + accessToken
 + refreshToken

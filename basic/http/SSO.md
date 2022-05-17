@@ -23,7 +23,7 @@
 
 ::: tip
 用户访问 service 时，service 发现用户没有 ST，则要求用户去 CAS 获取 ST。
-
+:::
 
 #### 跨域 SSO（CAS）的实现过程
 

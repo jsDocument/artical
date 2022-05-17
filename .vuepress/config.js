@@ -49,10 +49,11 @@ module.exports = {
     nav: [
       {text: 'jvascript 系列', items: [
         {text: 'jvascript 基础系列', link: '/basic/base/'},
-        {text: 'es6 系列', link: '/basic/es6/'},
+        // {text: 'es6 系列', link: '/basic/es6/'},
         {text: 'javascript 高阶专题系列', link: '/basic/promise/'},
         {text: 'http 系列知识', link: '/basic/http/'},
       ]},
+      // {text: 'css 相关', link: '/basic/ css/'},
       {text: 'leetCode系列', link: '/LeetCode/'},
       {text: '工具系列', link: '/tools/'},
       {text: 'node基础系列', link: '/node-program/'},
@@ -69,7 +70,6 @@ function genSidebarConfig (title) {
       '/basic/base/browser',
       '/basic/base/data-type',
       '/basic/base/type-transfer',
-      '/basic/base/zone',
       '/basic/base/winter',
       '/basic/base/mouse-event',
       '/basic/base/module'

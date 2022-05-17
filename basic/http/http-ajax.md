@@ -85,7 +85,4 @@ window.fetch(url)
 + Options 请求：不是简单请求，就回发送 OPTIONS 请求，项目中常见的 `Content-Type: application/json` 及 Authorization: \<token\> 为典型的非简单请求，在发送请求时往往会带上 Options
 
 
-proxy中间件
 
-1. 正向：间接访问服务器，`隐匿了客户端信息`；如访问google, 做缓存？对客户端访问授权，记录用户访问记录
-2. 反向：代理的是服务端，集群分布式部署的情况下，反向代理隐藏了服务器信息；如 内网安全，负载均衡
