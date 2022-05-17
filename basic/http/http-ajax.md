@@ -72,6 +72,8 @@ window.fetch(url)
 + Nginx 代理
 + webSocket---connect, message, disconnect
 + jsonp
+  + 利用script的url跨域特性, 发一个特殊的请求, 将函数名发送给后端, 后端返回相应的函数体
+  + jsonp【只能发送get请求, 无法更好的错误处理, 处理恶意攻击】， 反向代理, 图像ping【容易被缓存, 无法接到服务端的回复】, websocket【全双工】, CORS【需要后端配合】
 + CROS
   + Access-Control-Allow-Origin: 指定特定域名，跨域请求头就要带 Orign，否则没有；由于 CDN 缓存响应头Access-Control-Allow-Origin: xxx 已被缓存，另一个域请求就回出问题；此时需要 Vary:Origin 缓存不同的资源
   + Access-Control-Allow-Methods

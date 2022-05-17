@@ -1,4 +1,3 @@
-# 事件
 
 1. mouseover与mouseenter事件的区别
   mouseover事件, 鼠标每次进入都会触发该事件, 事件进行冒泡; 而mouseenter只会触发一次, 事件不进行冒泡。
@@ -20,3 +19,39 @@
 8. css3哪些属性影响Js中的事件: pointer-events, touch-action并讲解一下
   + pointer-events: 某个特定的图形元素可以成为鼠标事件的target, 当该属性值设定为none时表示鼠标事件『穿透』该元素并且指定该元素『下面』的任何东西, 其他值时鼠标事件可以指向后代元素, 这样鼠标在捕获或冒泡阶段触发父元素的事件侦听器。
   + touch-action: 指定某个给定的区域是否允许用户操作, 以及如何响应用户的操作。
+6. undefined 与 null的区别
+    + 两个数据类型都只有一个值
+    + 都没有方法
+    + 转换为布尔值都为false
+    + null是关键字, 而undefined不是
+    + null是一个空对象, 进行数字类型转换时为0, typeof运算返回object
+    + undefined 是一个window属性, 进行数字类型转换时为NaN, typeof运算返回undefined
+
+
+11. 判断一个题目为NaN？
+    + 先判断是否为number类型 再isNaN()
+    + 利用唯一一个不等于他本身的值的特性, n !== n
+    + Object.is()
+12. 判断两个浮点数相等
+    + 计算误差范围值, Math.pow(2, -52), Es6中的Number.EPSILON
+    + 两个值相减, 误差小于这个范围
+
+> Number.MAX_VALUE, Number.MIN_VALUE 最大浮点数与最小浮点数
+
+3. 检查一个数值是否为整数
+    + Number.isInterger()
+    + 判断类型为number且对1求余等于0
+4. 当一个变量显式类型转换时, 遵循的规则是什么
+5. Number([])和Number([1,2,3])的值分别是？说明其原理
+6. parseInt()方法遵循的运算规则
+7. 对一个值进行取整的方法有多少种, 分别是？
+    + parseInt
+    + n|0, ~~n, n>>0 只能对32位的数字进行转换, 能处理的为2^(+/-)31的范围
+    + ceil, floor, round
+
+11. date接受几种形式的参数
+12. 优雅的给出今天星期几
+    + '日一二三四五六'.charAt(new Date().getDay())
+13. 将日期输出成指定格式
+14. 计算两个时间点的时间差
+15. 获取几天后的时间点对应的时间对象
