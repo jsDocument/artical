@@ -48,7 +48,7 @@
     - initRender：定义vm.『\_vnode=options.\_parentVnode, \_staticTrees, $slots, $scopedSlots, \_c, $createElement, 定义$attrs与$listeners的defineReactive』
     - callHook时，更新Dep.target了？执行回调，触发事件，再次更新Dep.target
     - 初始化inject？？
-    - 
+    -
 2. 初始化状态『』
 3. 事件方法初始化『$on, $once, $off, $emit』更新或移除vm.\_events[event] = [fn]
 4. lifecycle初始化『\_update, $forceUpdate, $destroy』
