@@ -54,11 +54,11 @@
 8. 一般如何进行分包？分包原则？
    1. 一般文件体积大小不超过 20kb，按需加载页面的 chunk，文件加载并行数一般不超过 30，初始化加载页面并发请求数个数要求为30; 依据上面的情况配置提取模块方案
    2. webpack-runtime
-   3. react-chunk
-   4.  vender
-   5.  echarts
-   6.  page
-   7.  用的的配置：
+   3. react库
+   4. vender组件
+   5. echarts
+   6. page业务代码
+   7. 用的的配置：
       1. splitChunk
       2. runtimeChunk
 
