@@ -1,15 +1,6 @@
-### Scope Hoisting----减少体积
+### webpack 的打包过程
 
-+ 如何优化？通过什么实现？
-  + 分包---条件：体积大小 20kb，按需加载 chunk---并行数 30，初始化加载页面并发请求数----30; 配置提取模块方案
-  + 压缩、缓存
-  + 裁剪、格式
-  + 预加载、按需加载
-  + prefetch: 浏览器空闲时进行资源拉取
-  + preload: 提前加载后面要用到的资源
 
-+ 提高构建速度
-  + noParse 不需要解析第三方依赖
 
 + 初始化阶段（配置文件合并、校验）
   + 初始化参数：从配置文件、配置对象和 Shell 参数中读取并与默认参数进行合并，组合成最终使用的参数。
@@ -69,7 +60,6 @@
   + 写入本地文件，用的是 webpack 函数执行时初始化的文件流工具。
   + 执行 done 钩子函数，这里会执行 compiler.run() 的回调，再执行 compiler.close()，然后执行持久化存储（前提是使用的 filesystem 缓存模式）。
 
-
 ```javascript
 import( /* webpackPrefetch: true */ './desc').then(({ default: element }) => {
     console.log(element)
@@ -79,112 +69,47 @@ import( /* webpackPrefetch: true */ './desc').then(({ default: element }) => {
   import(/* webpackPreload: true */ 'ChartingLibrary');
 ```
 
-+ 本地环境：cross-env
-  + 需要更快的构建速度
-  + 需要打印 debug 信息
-  + 需要 live reload 或 hot reload 功能
-  + 需要 sourcemap 方便定位问题
+  - JS 文件配置了 eslint、typescript、babel 等 loader，他将有可能执行五次编译，被五次解析为 AST
+    - acorn: 用以依赖分析，解析为 acorn 的 AST
+    - eslint-parser: 用以 lint，解析为 espree 的 AST
+    - typescript: 用以 ts，解析为 typescript 的 AST
+    - babel: 用以转化为低版本，解析为 @babel/parser 的 AST
+    - terser: 用以压缩混淆，解析为 acorn 的 AST
+    - thread-loader: 多进程loder，之前的 happypack
+- runtime
+  - __webpack_modules__维护所有模块数组
+    - 将入口模块解析为 AST，根据 AST 深度优先搜索所以模块，并构建出这个模块数组
+    - 每个模块都由一个包裹函数 (module, module.exports, __webpack_require__) 对模块进行包裹构成
+  - __webpack_require__(moduleId) 手动加载一个模块，对已经加载过的模块进行缓存，未加载过的模块，通过 id 定位到__webpack_modules__中的包裹函数
+  - __webpack_require__(0): 运行第一个模块，即运行入口模块
+- code spliting 如何动态加载 chunk的
+  - import() 动态加载模块
+  - __webpack_require__.e: 加载 chunk。该函数将使用 document.createElement('script') 异步加载 chunk 并封装为 Promise。
+  - self["webpackChunk"].push: JSONP cllaback，收集 modules 至 __webpack_modules__，并将 __webpack_require__.e 的 Promise 进行 resolve。
 
-+ 生产环境：
-  + 需要更小的包体积，代码压缩+tree-shaking
-  + 需要进行代码分割
-  + 需要压缩图片体积
+- polyfill: corejs
+  - 包含了所有 ES- 的 polyfill，并集成在 babel 等编译工具之中
+  - @babel/preset-env，@babel/polyfill 对高级功能支持进行配置
+  - 对polyfill的体积控制
 
-```javascript
-module: {
-  rules: [
-    // ...
-    {
-      test: /\.(jpe?g|png|gif)$/i,
-      type: 'asset',
-      generator: {
-        // 输出文件位置以及文件名
-        // [ext] 自带 "." 这个与 url-loader 配置不同
-        filename: "[name][hash:8][ext]"
-      },
-      parser: {
-        dataUrlCondition: {
-          maxSize: 50 * 1024 //超过50kb不转 base64
-        }
-      }
-    },
-    {
-      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
-      type: 'asset',
-      generator: {
-        // 输出文件位置以及文件名
-        filename: "[name][hash:8][ext]"
-      },
-      parser: {
-        dataUrlCondition: {
-          maxSize: 10 * 1024 // 超过100kb不转 base64
-        }
-      }
-    },
-    {
-        test: /\.js$/i,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: true, // 启用缓存
-              presets: [
-                '@babel/preset-env'
-              ],
-            }
-          }
-        ]
-      },
-  ]
-}
-// ./babelrc.js
-module.exports = {
-  presets: [
-    [
-      "@babel/preset-env",
-      {
-        // useBuiltIns: false 默认值，无视浏览器兼容配置，引入所有 polyfill
-        // useBuiltIns: entry 根据配置的浏览器兼容，引入浏览器不兼容的 polyfill
-        // useBuiltIns: usage 会根据配置的浏览器兼容，以及你代码中用到的 API 来进行 polyfill，实现了按需添加
-        module: false, // 开启 tree-shaking
-        useBuiltIns: "entry",
-        corejs: "3.9.1", // 是 core-js 版本号
-        targets: {
-          chrome: "58",
-          ie: "11",
-        },
-      },
-    ],
-  ],
-  plugins: [
-    ["@babel/plugin-proposal-decorators", { legacy: true }],
-    ["@babel/plugin-proposal-class-properties", { loose: true }],
-  ]
-};
 
-optimization: {
-  splitChunks: {
-    cacheGroups: //配置提取模块方案
-    chunks: 'async', // 有效值为 `all`，`async` 和 `initial`
-    minSize: 20000, // 生成 chunk 的最小体积（≈ 20kb)
-    minRemainingSize: 0, // 确保拆分后剩余的最小 chunk 体积超过限制来避免大小为零的模块
-    minChunks: 1, // 拆分前必须共享模块的最小 chunks 数。
-    maxAsyncRequests: 30, // 最大的按需(异步)加载次数
-    maxInitialRequests: 30, // 打包后的入口文件加载时，还能同时加载js文件的数量（包括入口文件）
-    enforceSizeThreshold: 50000,
-    cacheGroups: { // 配置提取模块的方案
-      defaultVendors: {
-        test: /[\/]node_modules[\/]/,
-        priority: -10,
-        reuseExistingChunk: true,
-      },
-      default: {
-        minChunks: 2,
-        priority: -20,
-        reuseExistingChunk: true,
-      },
-    },
-  },
-},
-```
+- webpack 的编译流程
+  - 初始化配置参数----结合 webpack.config.js 和默认参数，merge 出最终参数。
+  - 开始编译，初始化一个 Compiler 对象，加载所以配置的插件，执行对象的 run 方法
+  - 确定入口文件
+  - 编译模块：根据入口、配置的 Loader 对模块进行翻译，在递归对依赖的模块进行翻译
+  - 经过 Loader 的翻译，得到了每个模块的翻译结果与它们之间的依赖关系
+  - 输出资源，根据入口和模块之间的依赖关系，组装Chunk，把 Chunk转换成一个单独的文件加入到输出列表
+  - 输出完成：确定好输出内容，根据输出路径把内容写入到文件系统
 
+- 实例化 compiler 对象
+  - 初始化 NodeEnvironmentPlugin(让compiler具体文件读写能力)
+  - 挂载所有 plugins 插件至 compiler 对象身上
+  - 挂载所有 webpack 内置的插件（入口）
+- compiler.run
+- compile方法做的事情
+- 完成模块编译操作
+- webpack 的编写结果和执行过程
+- webpack 的编译原理
+- webpack 插件
+- webpack hook 节点

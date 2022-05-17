@@ -7,7 +7,7 @@
     "dev": "vuepress dev .",
     "build": "vuepress build .",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist --no-cache",
+    "deploy": "gh-pages -d dist",
     "deployOnly": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

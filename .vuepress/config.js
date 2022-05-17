@@ -57,7 +57,7 @@ module.exports = {
       {text: '工具系列', link: '/tools/'},
       {text: 'node基础系列', link: '/node-program/'},
       {text: 'vue 系列', link: '/vue-resource/'},
-      {text: 'reace 系列', link: '/react/'},
+      {text: 'react 系列', link: '/react/'},
     ]
   }
 }
@@ -96,21 +96,20 @@ function genSidebarConfig (title) {
         title: '其他',
         children: [
           '/basic/promise/regexp',
-          '/basic/promise/promotion-user-sensitive',
         ]
       }
     ],
     '/basic/http/': [
-      '/basic/http/cache-question',
       '/basic/http/enter-url',
-      '/basic/http/http-ajax',
+      '/basic/http/cache-question',
+      '/basic/http/http2',
+      '/basic/http/http-basic',
       '/basic/http/http-code',
-      '/basic/http/HTTP-cached',
+      '/basic/http/http-ajax',
+      '/basic/http/axios',
       '/basic/http/http-login-status',
       '/basic/http/security',
       '/basic/http/SSO',
-      '/basic/http/axios',
-      '/basic/http/http2'
     ],
     '/LeetCode/': [
       {
@@ -163,10 +162,10 @@ function genSidebarConfig (title) {
         title: 'webpack 篇',
         children: [
           '/tools/webpack/webpack-config',
-          '/tools/webpack/webpack-step',
-          '/tools/webpack/webpack-hot',
           '/tools/webpack/optimize',
-          '/tools/webpack/SUMMARY'
+          '/tools/webpack/webpack-hot',
+          '/tools/webpack/webpack-step',
+          '/tools/webpack/define-plugin'
         ]
       },
       {

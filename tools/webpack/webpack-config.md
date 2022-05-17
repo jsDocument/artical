@@ -1,5 +1,5 @@
 
-## 基础
+### webpack 安装与配置字段讲解
 
 1. 安装 webpack, webpack-cli; webpack4 支持 0 配置打包
 2. 运行 npx webpack
@@ -20,7 +20,6 @@
       1. resource: 分割出来的单独文件，并导出 url
       2. inline: 资源导出为 dataUrl 的形式
       3. source: 资源导出为源码
-      4.
    4. plugin: 贯穿 webpack 打包的生命周期，执行不同的任务
       1. html-webpack-plugin
       2. clean-webpack-plugin
@@ -47,3 +46,7 @@
    8. resolve: alias,
       1. extensions: [...] 保留默认配置
    9. externals: 「从输出的 bundle 中排除依赖」
+
+```js
+
+```

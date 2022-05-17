@@ -1,4 +1,4 @@
-## HTTP Code常用状态码
+### HTTP Code常用状态码 与 Header 字段
 
 + 1XX 表示消息
 + 2XX 表示成功
@@ -26,14 +26,59 @@
   + 503 服务暂时无法使用
   + 504 网关超时：上游响应超时
 
-## 反向代理：用户要访问一个集群，但不知道访问哪一个，需要反向代理，分配一个服务
+#### 代理与反向代理
 
-## 响应头---缓存
+反向代理：用户要访问一个集群，但不知道访问哪一个，需要反向代理，分配一个服务
+
+#### 响应头---缓存
 
 + Expire 使用绝对时间 且 格式固定
 + Cache-Control 常用 no-cache, max-age
 
-## Gzip 的原理，核心是Deflate，用了 LZ77 算法与 Huffman 编码来压缩文件
+#### Gzip 的原理，核心是Deflate，用了 LZ77 算法与 Huffman 编码来压缩文件
 
 + gzip 用于 HTTP 文件传输中，比如 JS、CSS
 + Content-Encoding 指明使用 gzip 压缩
+
+
+
+#### 常见请求字段
+
++ Host 是必须的吗？必须，因为不知道会不会途径代理
++ Accept-Encoding 通知服务器可接受的编码(如：`gzip`, compress, deflate, identity不进行编码)；
++ Transfer-Encoding 传送报文实体时采用的编码
++ Accept-Language 语言；Accept-Charset 优先字符集；
++ Authorization 告诉服务器用户代理的认证信息, Proxy-Authorization 代理服务器认证所需要的信息
++ Range 部分资源的范围请求
++ Accept-Range: bytes 接受字节范围
++ Connection: keep-Alive
++ Max-Forward 最大转发次数
++ `X-Forward-For` 被反向代理生成
++ Last-Modified 资源最后修改日期
++ Expires 实体主体过期的日期时间
++ ETag 资源的匹配信息
++ If-Match 匹配实体资源标记值(ETag)
++ Pragma: no-cache
++ Location 令客户端重定向到指定URI
++ `Vary`: Accept-Encoding 缓存管理信息
++ Content-Type: application/octet-stream 二进制流
+  + application/x-www-form-urlencoded，data应该是 URL/URI 编码的
+  + application/json，data应该是 JSON 格式
+  + text/plain
++ Content-Length，Content-Range,
++ Content-Encoding: `gzip` 确保开启了
++ Content-Language
++ `Connection` 连接状态(keep-alive，close) 管理持久链接，不再转发给代理服务器的首部字段。
++ Date HTTP创建报文的日期和时间
++ Via 代理服务器相关信息
++ X-Powered-By 与 Server 可知道对方的技术栈
++ `referer` 用于打点 或 防盗链
++ response-type
+  + stream
+  + blob
+  + document
+  + arraybuffer 或 buffer
+  + json
+  + text
+
+
