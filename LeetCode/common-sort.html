@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>常用排序C++实现 | 黑盒子·技术积累</title>
+    <meta name="description" content="前端知识学习轨迹">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.6aaa91c1.css" as="style"><link rel="preload" href="/assets/js/app.ebe084fc.js" as="script"><link rel="preload" href="/assets/js/16.41f2ee7e.js" as="script"><link rel="prefetch" href="/assets/js/10.0b7de326.js"><link rel="prefetch" href="/assets/js/100.c9a9472b.js"><link rel="prefetch" href="/assets/js/101.72b40b4e.js"><link rel="prefetch" href="/assets/js/102.52782041.js"><link rel="prefetch" href="/assets/js/103.055153e8.js"><link rel="prefetch" href="/assets/js/104.58d875a5.js"><link rel="prefetch" href="/assets/js/105.421e7750.js"><link rel="prefetch" href="/assets/js/106.7a8407e5.js"><link rel="prefetch" href="/assets/js/107.505cb7c1.js"><link rel="prefetch" href="/assets/js/108.6b2a95ee.js"><link rel="prefetch" href="/assets/js/109.7397ad1f.js"><link rel="prefetch" href="/assets/js/11.7dc8e3d5.js"><link rel="prefetch" href="/assets/js/110.35aea074.js"><link rel="prefetch" href="/assets/js/111.e3a6c41e.js"><link rel="prefetch" href="/assets/js/112.251d8e41.js"><link rel="prefetch" href="/assets/js/113.b8b7134b.js"><link rel="prefetch" href="/assets/js/114.30904565.js"><link rel="prefetch" href="/assets/js/115.8c71200e.js"><link rel="prefetch" href="/assets/js/116.48e5f459.js"><link rel="prefetch" href="/assets/js/117.0de82672.js"><link rel="prefetch" href="/assets/js/118.5035e584.js"><link rel="prefetch" href="/assets/js/119.7fd04468.js"><link rel="prefetch" href="/assets/js/12.04aecb8e.js"><link rel="prefetch" href="/assets/js/120.037a3bd6.js"><link rel="prefetch" href="/assets/js/121.31c826df.js"><link rel="prefetch" href="/assets/js/122.24a65cdd.js"><link rel="prefetch" href="/assets/js/123.a14d875f.js"><link rel="prefetch" href="/assets/js/124.e6645c76.js"><link rel="prefetch" href="/assets/js/125.8a4b493e.js"><link rel="prefetch" href="/assets/js/126.f8624e6d.js"><link rel="prefetch" href="/assets/js/127.04a2b690.js"><link rel="prefetch" href="/assets/js/128.3846d9a7.js"><link rel="prefetch" href="/assets/js/129.89067f67.js"><link rel="prefetch" href="/assets/js/13.bf9e4df7.js"><link rel="prefetch" href="/assets/js/130.8bce5672.js"><link rel="prefetch" href="/assets/js/131.25ef0740.js"><link rel="prefetch" href="/assets/js/132.5b78c18f.js"><link rel="prefetch" href="/assets/js/133.ef4a44c8.js"><link rel="prefetch" href="/assets/js/134.d25fc6b9.js"><link rel="prefetch" href="/assets/js/135.3a50bf35.js"><link rel="prefetch" href="/assets/js/136.e83ee328.js"><link rel="prefetch" href="/assets/js/137.20c9a859.js"><link rel="prefetch" href="/assets/js/138.5ad1622a.js"><link rel="prefetch" href="/assets/js/139.c73316de.js"><link rel="prefetch" href="/assets/js/14.091c1518.js"><link rel="prefetch" href="/assets/js/140.f9bbd2d4.js"><link rel="prefetch" href="/assets/js/141.26d90cfa.js"><link rel="prefetch" href="/assets/js/142.671ffa47.js"><link rel="prefetch" href="/assets/js/143.4d6f197d.js"><link rel="prefetch" href="/assets/js/144.9abcaa3e.js"><link rel="prefetch" href="/assets/js/145.22ccb79a.js"><link rel="prefetch" href="/assets/js/146.a5434fcf.js"><link rel="prefetch" href="/assets/js/147.1fecb0eb.js"><link rel="prefetch" href="/assets/js/148.e99487c1.js"><link rel="prefetch" href="/assets/js/149.78976125.js"><link rel="prefetch" href="/assets/js/15.7d85236d.js"><link rel="prefetch" href="/assets/js/150.8f3807ff.js"><link rel="prefetch" href="/assets/js/151.e9b581c8.js"><link rel="prefetch" href="/assets/js/152.ab5bf600.js"><link rel="prefetch" href="/assets/js/153.5fc242cc.js"><link rel="prefetch" href="/assets/js/154.deb40619.js"><link rel="prefetch" href="/assets/js/155.e9c0dc25.js"><link rel="prefetch" href="/assets/js/156.3bd8edba.js"><link rel="prefetch" href="/assets/js/157.e0062916.js"><link rel="prefetch" href="/assets/js/158.3c410cbf.js"><link rel="prefetch" href="/assets/js/159.486f7890.js"><link rel="prefetch" href="/assets/js/160.3ce1f4b1.js"><link rel="prefetch" href="/assets/js/161.b142ac73.js"><link rel="prefetch" href="/assets/js/162.f5606449.js"><link rel="prefetch" href="/assets/js/163.e053a80d.js"><link rel="prefetch" href="/assets/js/164.5678241b.js"><link rel="prefetch" href="/assets/js/165.6e1a0c12.js"><link rel="prefetch" href="/assets/js/166.f6e6de2d.js"><link rel="prefetch" href="/assets/js/167.bd543cca.js"><link rel="prefetch" href="/assets/js/168.32b8509c.js"><link rel="prefetch" href="/assets/js/169.9f61a82c.js"><link rel="prefetch" href="/assets/js/17.35763160.js"><link rel="prefetch" href="/assets/js/170.c90cdd86.js"><link rel="prefetch" href="/assets/js/171.fa66568e.js"><link rel="prefetch" href="/assets/js/172.18c7c5c2.js"><link rel="prefetch" href="/assets/js/173.221e6200.js"><link rel="prefetch" href="/assets/js/174.c01f74aa.js"><link rel="prefetch" href="/assets/js/175.e537bcb4.js"><link rel="prefetch" href="/assets/js/176.e96f58af.js"><link rel="prefetch" href="/assets/js/177.7ce60db5.js"><link rel="prefetch" href="/assets/js/178.6de1165a.js"><link rel="prefetch" href="/assets/js/179.2f065c3a.js"><link rel="prefetch" href="/assets/js/18.1608fbb1.js"><link rel="prefetch" href="/assets/js/180.b1a887f3.js"><link rel="prefetch" href="/assets/js/181.de5d117c.js"><link rel="prefetch" href="/assets/js/182.587a0a04.js"><link rel="prefetch" href="/assets/js/183.a02e1aef.js"><link rel="prefetch" href="/assets/js/184.55bd8f10.js"><link rel="prefetch" href="/assets/js/185.d34170d4.js"><link rel="prefetch" href="/assets/js/186.054f6697.js"><link rel="prefetch" href="/assets/js/187.89d78a94.js"><link rel="prefetch" href="/assets/js/188.2b29ffdd.js"><link rel="prefetch" href="/assets/js/189.5de94fc3.js"><link rel="prefetch" href="/assets/js/19.0be15a13.js"><link rel="prefetch" href="/assets/js/190.cadc7dfb.js"><link rel="prefetch" href="/assets/js/191.c4205ddf.js"><link rel="prefetch" href="/assets/js/192.dd267d27.js"><link rel="prefetch" href="/assets/js/193.f079fde7.js"><link rel="prefetch" href="/assets/js/194.5ead032a.js"><link rel="prefetch" href="/assets/js/195.5d21ccab.js"><link rel="prefetch" href="/assets/js/196.b986b8cb.js"><link rel="prefetch" href="/assets/js/197.d48af591.js"><link rel="prefetch" href="/assets/js/198.1c564d74.js"><link rel="prefetch" href="/assets/js/199.ec36ad68.js"><link rel="prefetch" href="/assets/js/2.ed5bd0a1.js"><link rel="prefetch" href="/assets/js/20.50a0eb0c.js"><link rel="prefetch" href="/assets/js/200.f640f799.js"><link rel="prefetch" href="/assets/js/201.c3a07b9a.js"><link rel="prefetch" href="/assets/js/202.88eef282.js"><link rel="prefetch" href="/assets/js/203.5e4ffc96.js"><link rel="prefetch" href="/assets/js/204.96d67c7b.js"><link rel="prefetch" href="/assets/js/205.602219e4.js"><link rel="prefetch" href="/assets/js/206.28b87831.js"><link rel="prefetch" href="/assets/js/207.cf289b66.js"><link rel="prefetch" href="/assets/js/208.bdeb9b04.js"><link rel="prefetch" href="/assets/js/209.fb5e2b04.js"><link rel="prefetch" href="/assets/js/21.e07b89bb.js"><link rel="prefetch" href="/assets/js/210.2c5312f6.js"><link rel="prefetch" href="/assets/js/211.10771f1b.js"><link rel="prefetch" href="/assets/js/212.e1b168d6.js"><link rel="prefetch" href="/assets/js/22.5d6b2176.js"><link rel="prefetch" href="/assets/js/23.80b0afe2.js"><link rel="prefetch" href="/assets/js/24.4a9d654a.js"><link rel="prefetch" href="/assets/js/25.e6109106.js"><link rel="prefetch" href="/assets/js/26.e117edfb.js"><link rel="prefetch" href="/assets/js/27.97bf27e0.js"><link rel="prefetch" href="/assets/js/28.d062f2b3.js"><link rel="prefetch" href="/assets/js/29.272dafa7.js"><link rel="prefetch" href="/assets/js/3.e53e3386.js"><link rel="prefetch" href="/assets/js/30.539b9fab.js"><link rel="prefetch" href="/assets/js/31.0ee4c6da.js"><link rel="prefetch" href="/assets/js/32.1d0e5d30.js"><link rel="prefetch" href="/assets/js/33.367e8a0d.js"><link rel="prefetch" href="/assets/js/34.6fa421da.js"><link rel="prefetch" href="/assets/js/35.06c3f5d1.js"><link rel="prefetch" href="/assets/js/36.b6016bc1.js"><link rel="prefetch" href="/assets/js/37.532a28f9.js"><link rel="prefetch" href="/assets/js/38.67013bd2.js"><link rel="prefetch" href="/assets/js/39.06880826.js"><link rel="prefetch" href="/assets/js/4.c972694d.js"><link rel="prefetch" href="/assets/js/40.996cdf18.js"><link rel="prefetch" href="/assets/js/41.00bbc8b0.js"><link rel="prefetch" href="/assets/js/42.ff96c26a.js"><link rel="prefetch" href="/assets/js/43.722251e3.js"><link rel="prefetch" href="/assets/js/44.9a06bce9.js"><link rel="prefetch" href="/assets/js/45.72a53ae7.js"><link rel="prefetch" href="/assets/js/46.9f0a5cb8.js"><link rel="prefetch" href="/assets/js/47.04282b09.js"><link rel="prefetch" href="/assets/js/48.4c085bfc.js"><link rel="prefetch" href="/assets/js/49.017d8ddc.js"><link rel="prefetch" href="/assets/js/5.17bca974.js"><link rel="prefetch" href="/assets/js/50.21001e0d.js"><link rel="prefetch" href="/assets/js/51.b70ffbb5.js"><link rel="prefetch" href="/assets/js/52.b3d07df8.js"><link rel="prefetch" href="/assets/js/53.b5afd1a4.js"><link rel="prefetch" href="/assets/js/54.25398f53.js"><link rel="prefetch" href="/assets/js/55.d3cf1fdc.js"><link rel="prefetch" href="/assets/js/56.4c81c17b.js"><link rel="prefetch" href="/assets/js/57.0b8e8511.js"><link rel="prefetch" href="/assets/js/58.8acf7fc3.js"><link rel="prefetch" href="/assets/js/59.b017bd33.js"><link rel="prefetch" href="/assets/js/6.67a84521.js"><link rel="prefetch" href="/assets/js/60.81c1fe09.js"><link rel="prefetch" href="/assets/js/61.f14358b8.js"><link rel="prefetch" href="/assets/js/62.3967d6c9.js"><link rel="prefetch" href="/assets/js/63.41086c0f.js"><link rel="prefetch" href="/assets/js/64.67c06ea7.js"><link rel="prefetch" href="/assets/js/65.00cdfa17.js"><link rel="prefetch" href="/assets/js/66.bae3563e.js"><link rel="prefetch" href="/assets/js/67.bf3f18b0.js"><link rel="prefetch" href="/assets/js/68.19e72099.js"><link rel="prefetch" href="/assets/js/69.b1d7803e.js"><link rel="prefetch" href="/assets/js/7.e7d2fc92.js"><link rel="prefetch" href="/assets/js/70.597f4dbb.js"><link rel="prefetch" href="/assets/js/71.684f7656.js"><link rel="prefetch" href="/assets/js/72.9bda8542.js"><link rel="prefetch" href="/assets/js/73.2841fe5d.js"><link rel="prefetch" href="/assets/js/74.8ea483d2.js"><link rel="prefetch" href="/assets/js/75.1a237994.js"><link rel="prefetch" href="/assets/js/76.805661df.js"><link rel="prefetch" href="/assets/js/77.3555868d.js"><link rel="prefetch" href="/assets/js/78.884231eb.js"><link rel="prefetch" href="/assets/js/79.ece32c12.js"><link rel="prefetch" href="/assets/js/8.4565c04e.js"><link rel="prefetch" href="/assets/js/80.647bae02.js"><link rel="prefetch" href="/assets/js/81.914a3075.js"><link rel="prefetch" href="/assets/js/82.e6259df8.js"><link rel="prefetch" href="/assets/js/83.5fc92b67.js"><link rel="prefetch" href="/assets/js/84.05d8d537.js"><link rel="prefetch" href="/assets/js/85.b411aae6.js"><link rel="prefetch" href="/assets/js/86.b1720ea7.js"><link rel="prefetch" href="/assets/js/87.9a38ef48.js"><link rel="prefetch" href="/assets/js/88.4851754e.js"><link rel="prefetch" href="/assets/js/89.c140374f.js"><link rel="prefetch" href="/assets/js/9.7387ee48.js"><link rel="prefetch" href="/assets/js/90.5d0ebf1c.js"><link rel="prefetch" href="/assets/js/91.ba3a29e8.js"><link rel="prefetch" href="/assets/js/92.c1ae8bce.js"><link rel="prefetch" href="/assets/js/93.a3799f2d.js"><link rel="prefetch" href="/assets/js/94.8c972be3.js"><link rel="prefetch" href="/assets/js/95.a741438b.js"><link rel="prefetch" href="/assets/js/96.dcf27f86.js"><link rel="prefetch" href="/assets/js/97.1a4de400.js"><link rel="prefetch" href="/assets/js/98.d608ee95.js"><link rel="prefetch" href="/assets/js/99.1fd03795.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.6aaa91c1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">黑盒子·技术积累</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">jvascript 系列</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/base/" class="nav-link">jvascript 基础系列</a></li><li class="dropdown-item"><!----> <a href="/basic/es6/" class="nav-link">es6 系列</a></li><li class="dropdown-item"><!----> <a href="/basic/promise/" class="nav-link">javascript 高阶专题系列</a></li><li class="dropdown-item"><!----> <a href="/basic/http/" class="nav-link">http 系列知识</a></li></ul></div></div><div class="nav-item"><a href="/LeetCode/" class="nav-link router-link-active">leetCode系列</a></div><div class="nav-item"><a href="/tools/" class="nav-link">工具系列</a></div><div class="nav-item"><a href="/node-program/" class="nav-link">node基础系列</a></div><div class="nav-item"><a href="/vue-resource/" class="nav-link">vue 系列</a></div><div class="nav-item"><a href="/react/" class="nav-link">reace 系列</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">jvascript 系列</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/basic/base/" class="nav-link">jvascript 基础系列</a></li><li class="dropdown-item"><!----> <a href="/basic/es6/" class="nav-link">es6 系列</a></li><li class="dropdown-item"><!----> <a href="/basic/promise/" class="nav-link">javascript 高阶专题系列</a></li><li class="dropdown-item"><!----> <a href="/basic/http/" class="nav-link">http 系列知识</a></li></ul></div></div><div class="nav-item"><a href="/LeetCode/" class="nav-link router-link-active">leetCode系列</a></div><div class="nav-item"><a href="/tools/" class="nav-link">工具系列</a></div><div class="nav-item"><a href="/node-program/" class="nav-link">node基础系列</a></div><div class="nav-item"><a href="/vue-resource/" class="nav-link">vue 系列</a></div><div class="nav-item"><a href="/react/" class="nav-link">reace 系列</a></div> <!----></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading"><span>链表系列</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>数组系列</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>排序相关</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/LeetCode/common-sort.html" aria-current="page" class="active sidebar-link">常用排序C++实现</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/LeetCode/common-sort.html#常用排序c-实现" class="sidebar-link">常用排序C++实现</a></li><li class="sidebar-sub-header"><a href="/LeetCode/common-sort.html#交换排序" class="sidebar-link">交换排序</a></li><li class="sidebar-sub-header"><a href="/LeetCode/common-sort.html#选择排序" class="sidebar-link">选择排序</a></li><li class="sidebar-sub-header"><a href="/LeetCode/common-sort.html#分配排序" class="sidebar-link">分配排序</a></li></ul></li><li><a href="/LeetCode/common-sort-js.html" class="sidebar-link">排序算法JS实现</a></li></ul></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>回溯相关</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>字符串系列</span> <span class="arrow right"></span></p> <!----></div></li><li><a href="/LeetCode/array-dt.html" class="sidebar-link">动态规划之 01背包问题</a></li><li><a href="/LeetCode/tree.html" class="sidebar-link">二叉树基础题</a></li><li><a href="/LeetCode/callStack.html" class="sidebar-link">递归调用栈及尾递归的优化</a></li><li><a href="/LeetCode/array-trangle.html" class="sidebar-link">杨辉三角</a></li></ul> </div> <div class="page"> <div class="content"><h2 id="常用排序c-实现"><a href="#常用排序c-实现" class="header-anchor">#</a> 常用排序C++实现</h2> <p>插入排序：</p> <ul><li>前后两项相比较，找出第一个后一项比前一项小的元素并暂存---temp；</li> <li>将比该项大的所有项，向后移一位；</li> <li>再将该项插入。</li></ul> <div class="language-c++ line-numbers-mode"><pre class="language-text"><code>void insertSort(int &amp;R, int n){
+  int i, j, temp;
+  for(i = 1; i&lt; n; i++){
+    if(R[i]&lt;R[i-1]){
+      temp = R[i];
+      // 将temp插入到队列的i-1之前, 即之前排好序的队列中
+      for(j = i-1; temp &lt; R[j] &amp;&amp; j&gt;=0 ; j--){
+        R[j+1] = R[j];
+      }
+      R[j+1] = temp;
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div><p>希尔排序即『缩小增量排序』,是插入排序的升级，即取一个增量数组[5, 3, 1], 则 [0, 0+5, 0+2<em>5]; [1, 1+5, 1+2</em>5]...依次进行分组比较。但如何选择递增数组？</p> <div class="language-c++ line-numbers-mode"><pre class="language-text"><code>void shellInsert(int &amp;R, int d, int n){
+  int i, j, temp;
+  for(i=d + 1; i &lt;= n; i++){
+    // 找到分组中后一项比前一项小的，并暂存
+    if(R[i]&lt;R[i-d]){
+      temp = R[i];
+      j = i - d;
+      //在分组中，从暂存项向前，比较并移动
+      while(j&gt;0 &amp;&amp; temp&lt;R[j]){
+        R[j+d] = R[j];
+        j = j-d;
+      }
+      R[j+d] = temp;
+    }
+  }
+}
+// 按增量序列d[0..t-1]对R进行希尔排序
+void shellSort(int &amp;R, int d[], int t, int n){
+  int k;
+  for(k = 0; k&lt; t, k++){
+    shellInsert(R, d[k], n)
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br></div></div><h2 id="交换排序"><a href="#交换排序" class="header-anchor">#</a> 交换排序</h2> <p>冒泡排序：依次将相邻元素进行比较和交换</p> <div class="language-C++ line-numbers-mode"><pre class="language-text"><code>void BubbleSort(int &amp;R, int n){
+  int i, j, flag, temp;
+  for(i = 0; i&lt; n;i++){
+    flag = 0;
+    for(j = n-1; j&gt;i+1; j--){
+      if(R[j]&lt;R[j-1]){
+        temp = R[j-1];
+        R[j-1] = R[j];
+        R[j] = temp;
+        flag = 1;
+      }
+    }
+    if(flag == 0 ) return;
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><p>双向冒泡：交替改变扫描方向</p> <ul><li>noSwap 一趟扫描是否交换，第一次假设有交换</li> <li>j 循环的元素下标，</li> <li>i 交替循环的次数</li></ul> <div class="language-C++ line-numbers-mode"><pre class="language-text"><code>void DbubbleSort(int &amp;R, int n){
+  int noSwap = 1, temp;
+  int i = 1, j;
+  while(noSwap){
+    noSwap = 0;
+    // 倒序循环比较
+    for(j = n-i; j&gt;= i; j--){
+      if(R[j]&lt;R[j-1]){
+        temp = R[j];
+        R[j] = R[j-1];
+        R[j-1] = temp;
+        noSwap = 1;
+      }
+    }
+    for(j=i; j&lt; n-i; j++){
+      if(R[j]&gt;R[j+1]){
+        temp = R[j];
+        R[j] = R[j+1];
+        R[j+1] = temp;
+        noSwap = 1;
+      }
+    }
+    i = i+1;
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br></div></div><p>快速排序：划分交换排序，是对冒泡排序的一种改进，冒泡是相邻节点的比较与交换，但该排序的比较和交换是从两端向中间进行。</p> <ul><li>无序区，较小无序区[low...i-1]和[i+1...high]</li> <li>基准</li></ul> <div class="language-C++ line-numbers-mode"><pre class="language-text"><code>void Partition(int &amp;R, int low, int high){
+  int i,j;
+  i = low;
+  j = high;
+  // 取低位作为基准值
+  temp = R[i];
+  // 判断条件；低位下标 小于 高位下标
+  while(i &lt; j){
+    // 高位大于基准值，将高位下标向前移动
+    while(temp &lt;= R[j]){
+      j--;
+    }
+    // 否则将高位的值，更新低位循环到的位置，并将低位下标向后移动
+    if(i &lt; j){
+      R[i] = R[j];
+      i++;
+    }
+    // 基准值大于低位元素的值，将低位下标向后移动
+    while(temp&gt;=R[i]){
+      i++;
+    }
+    // 否则将低位的值，更新高位循环到的位置，并将高位下标向前移动
+    if(i &lt; j){
+      R[j] = R[i];
+      j--;
+    }
+  }
+  // 此时，高低位下标相遇，将基准值更新到该下标，并返回该下标
+  R[i] = temp;
+  return i;
+}
+
+void quickSort(int *R, int low, int high){
+  int p;
+  if(low &lt; high){
+    p = Partition(R, low, hight);
+    quickSort(R, low, p-1);
+    quickSort(R, p+1, high);
+  }
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br></div></div><h2 id="选择排序"><a href="#选择排序" class="header-anchor">#</a> 选择排序</h2> <p>直接选择：直接从待排序区找到最小值，放入已排序区中。</p> <div class="language-C++ line-numbers-mode"><pre class="language-text"><code>void selectSort(int &amp;R, int n){
+  int i, j, k, temp;
+  for(i = 0; i &lt; n-1; i++){
+    k = i;
+    for(j = i+1; j &lt; n; j++){
+      if(R[j]&lt;R[k]){
+        k = j;
+      }
+    }
+    if(k != i){
+      temp = R[i];
+      R[i] = R[k];
+      R[k] = temp;
+    }
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><p>堆排序：如何建堆是关键，父节点R[i/2]，左子节点[2i]，右子节点[2i+1]，找出子节点中较大的那个和父节点比较，如果大于父节点则进行交换，再继续将该子节点作为父节点，与该父节点的其子节点再进行比较。</p> <div class="language-C++ line-numbers-mode"><pre class="language-text"><code>/**
+* R  数组列表
+* i  根节点位置
+* n  列表长度
+*** 下标为0不可用
+**/
+void shift(int &amp;R, int i, int n){
+  int j;
+  int temp = R[i];  // 取父节点
+  j = i*2;  // 左子节点
+  //
+  while(j&lt;=n){
+    // 右子节点大于左子节点，更新j指向右子节点
+    if(j &lt; n &amp;&amp; R[j]&lt;R[j+1]){
+      j++;
+    }
+    // 父节点大于子节点，推出循环
+    if(temp&gt;=R[j]){
+      break;
+    }
+    // 将子节点值更新到父节点位置
+    R[i] = R[j];
+    // 将父子节点向后移动
+    i = j;
+    j = 2*i;
+  }
+  R[i] = temp;
+}
+void heapSort(int &amp;R, int n){
+  int i, temp;
+  //  建大根堆
+  for(i = n/2; i&gt;0; i--){
+    shift(R, i, n);
+  }
+  // 堆排序，将第一个最大与最后一项交换，此时只有最一后项是有序区，其他项为无序区，因为无序区的7个关键字不为堆，需要调整其为堆
+  for(i = n; i&gt;1; i--){
+    //  交换第一位与最后一位
+    temp = R[1];
+    R[1] = R[i];
+    R[i] = temp;
+    shift(R, 1, i-1);  // 再对无序区建大根堆
+  }
+}
+
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br></div></div><p>归并排序：
+待排序看成n个长度为1的子元素，把子元素两两归并，有「n/2」个长度为2的有序组，再把「n/2」个有序组再两两归并，如此反复，直到归并得到一个长度为n的有序组为止，其为二路归并排序；可以用于对两个有序的序列进行合并。</p> <ul><li>长度为奇数，则最后一组子元素的长度可能小于。。，最后一个子元素无需和其他子元素归并</li> <li>长度为偶数，则要对最后一对子元素中后一个子元素的区间上界为n？</li></ul> <div class="language-C++ line-numbers-mode"><pre class="language-text"><code>// 对R[low...m] 和 R[m+1...high]归并为有序的 N[low...high]
+void Merge(int *R, int *N, int low, int m, int high){
+  int i, j, k;
+  i = low;
+  j = m+1;
+  k = low;
+  while(i&lt;=m &amp;&amp; j&lt;=high){
+    if(R[i]&lt;R[j]){
+      N[k++] = R[i++];
+    }else{
+      N[k++] = R[j++];
+    }
+    // 如果两个有序区长度不一样，将剩余项合并进来
+    while(i&lt;=m){
+      N[k++] = R[i++];
+    }
+    while(j&lt;=high){
+      N[k++] = R[j++];
+    }
+  }
+}
+
+void mergePass(int *R, int *N, int len, int n){
+  int i, j;
+  // 将两组合并后，N更新了2*len的元素
+  for(i = 1; i+2*len-1&lt;n; i = i+2*len){
+    merge(R, N, i, i+len-1, i+2*len-1);
+  }
+  // 尚有文件未合并
+  if(i+len-1&lt;n){
+    merge(R, N, i, i+len-1, n);
+  }else{ // 元素个数为奇数个，将剩余子元素复制到N中
+    for(j = i; j&lt;=n; j++){
+      N[j] = R[j];
+    }
+  }
+}
+
+void mergeSort(int *R, int *N, int n){
+  int len = 1;
+  while(len&lt;n){
+    // len为合并的有序组长度
+    mergePass(R, N, len, n)
+    len = len *2;
+  }
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br></div></div><h2 id="分配排序"><a href="#分配排序" class="header-anchor">#</a> 分配排序</h2> <p>箱排序：设置若干个箱子，依次扫描数组项，把等于k的记录全部装入到第k个箱子里，然后按序号依次将各非空箱子首尾连接起来。</p> <ul><li>循环序列，等于i的，存入到R[i]的链队列中，R[i].f，R[i].r</li></ul> <p>基数排序：对箱排序的改进和推广，因箱排序只适用于取值范围较小的情况，否则所需箱子的数据太多，导致存储空间的浪费和计算时间的增长。需要对数组值进行分析，然后得出对箱排序结果的改进。</p> <ul><li>如取值为0~99，则值为两位整数，则先对其个位数对10进行求余进行箱排序</li> <li>在排序的基础上再对其十位数除以10进行箱排序；这样只需要标号0~9的这10个箱子，进行二趟箱排序即可完成排序操作，而不需要对100个箱子进行一趟箱排序。</li></ul> <div class="language-C++ line-numbers-mode"><pre class="language-text"><code>// 假设范围在10~999
+void basicSort(int *R, int n){
+  int i=0,j, one, two, three;
+
+  for(; i&lt;n; i++){
+    for(j=0; j&lt;3; j++){
+      one = R[i]%10;
+      two = parseInt((R[i]%100)/10);
+      three = parseInt(R[i]/100);
+    }
+
+  }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br></div></div></div> <div class="page-edit"><!----> <!----></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/LeetCode/array-plus.html" class="prev">
+          数组之和系列
+        </a></span> <span class="next"><a href="/LeetCode/common-sort-js.html">
+          排序算法JS实现
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/assets/js/app.ebe084fc.js" defer></script><script src="/assets/js/16.41f2ee7e.js" defer></script>
+  </body>
+</html>
