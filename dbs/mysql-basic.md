@@ -84,25 +84,25 @@ decimal(总位数，小数点位数)
 char
 varchar
 
-- 二进制
++ 二进制
 blob
 text
 
-- binary, varbinary
++ binary, varbinary
 
 
 5. 日期
 
-  - datetime  “YYYY-MM-DD hh:mm:ss”
-  - date   “YYYY-MM-DD”
-  - times  tamp  “YY-MM-DD hh:mm:ss”
-  - time    “hh:mm:ss”
-  - year   “YYYY”
+  + datetime  “YYYY-MM-DD hh:mm:ss”
+  + date   “YYYY-MM-DD”
+  + times  tamp  “YY-MM-DD hh:mm:ss”
+  + time    “hh:mm:ss”
+  + year   “YYYY”
 
 6. 枚举
 
-  - enum()
-  - set()
+  + enum()
+  + set()
 
 
 
@@ -111,7 +111,7 @@ text
 
 ## 定义 create, alter, drop
 
-- 数据库
++ 数据库
 
 1. 创建 create {database | schema} [if not exists] db_name default character set =
 2. 选择 use db_name
@@ -119,7 +119,7 @@ text
 4. 删除 drop  {database | schema} [if exists] db_name
 5. 查看 show {databases | schemas} [like 'pattern' | where expr]
 
-- 表
++ 表
 
 1. create [temporary] table tbl_name(
   field type [列级完整性约束] [default value]----int double bool (long) date timestamp time char varchar NULL; float
@@ -149,13 +149,13 @@ alter table forTest.S change column Sname char(30);
 6. 查看表结构 show [full] columns [from | in] tbl_name [like 'pattern' | where expr] 或 desc db.tbl_name
 7. show table status from databases 数据库管理系统性能及统计信息
 
-- 列
++ 列
 
 1. show columns from tabName
 
 
 
-- 索引 index, unique, primary key
++ 索引 index, unique, primary key
 
 1. create [unique] index idx_name on tbl_name (idx_col_name(length) asc/desc,...) 索引在表中的名称是唯一的，索引列的描述
 2. 查看 show {index | indexes | keys} {from | in} tbl_name {from | in} db_name [where expr]
@@ -163,21 +163,21 @@ alter table forTest.S change column Sname char(30);
 
 ## 操纵 select, insert, update, delete
 
-- 插入
++ 插入
 
 1. insert into tbl_name [(col_name,...)省略为全部] {values | value} ({expr | default},...) (...);
 2. insert into tbl_name SET col_name={exprr | DEFAULT}, ...
 3. insert into tbl_name [(col_name,...)] SELECT 将查询数据插入到另一个表中
 
-- 删除
++ 删除
 
 1. delete from tbl_name [where condition] [order by ...] [limit n] 删除一行或多行数据
 
-- 更新
++ 更新
 
 1. update tbl_name SET col_name={expr | DEFAULT}, ... [where condition] [order by ...] [limit n]
 
-- 查询
++ 查询
 
 1. select [all|distinct去除重复行] field/select_expr,... 如：*, field as new_name
    from tbl_references
@@ -202,21 +202,21 @@ end [as] new_name
 
 3. from 多表连接查询
 
-  - 交叉----tbl cross join tbl2 或逗号分隔 结果是乘积；
-  - 内连接----tbl {inner join | join} tbl2 ON condition 消除交叉连接中的某些行，自连接：查找相同列值的行时用（表与自身连接）
-  - 外连接----基表和参考表，以基表为依据返回满足和不满足条件的记录，{left outer join | left join} 与关键字的右边表进行匹配, null表示右表没有找到与左表相符的记录；{right outer join | right join} 右表为基表 on condition
+  + 交叉----tbl cross join tbl2 或逗号分隔 结果是乘积；
+  + 内连接----tbl {inner join | join} tbl2 ON condition 消除交叉连接中的某些行，自连接：查找相同列值的行时用（表与自身连接）
+  + 外连接----基表和参考表，以基表为依据返回满足和不满足条件的记录，{left outer join | left join} 与关键字的右边表进行匹配, null表示右表没有找到与左表相符的记录；{right outer join | right join} 右表为基表 on condition
 
 4. where
-  - 比较运算 <>, !=, <=>
-  - 范围 expr [not] between expr1 and expr2； expr IN (list)
-  - 空值 expr IS [NOT] NULL
-  - 子查询 expr [not] IN (select...)；expr 比较运算 {ALL | SOME | ANY} (select...)；exist (select...)
+  + 比较运算 <>, !=, <=>
+  + 范围 expr [not] between expr1 and expr2； expr IN (list)
+  + 空值 expr IS [NOT] NULL
+  + 子查询 expr [not] IN (select...)；expr 比较运算 {ALL | SOME | ANY} (select...)；exist (select...)
 5. group by 根据选择的列的值进行逻辑分组 {col_name `select列中的项`|expr`通常与聚合函数一起使用`|position`select 结果集中的位置`} [asc|desc], ... [WITH ROLLUP`汇总行`] 条件不可以是聚合函数
 6. having 对分组再进行过滤，可以是聚合函数
 7. order by {col_name | expr | position `select结果集中的位置`} [asc|desc], ... 升序、降序，空值最小
 8. limit {[offset,] row_count | row_count OFFSET offset}
 
-- 数据安全性与一致性
++ 数据安全性与一致性
 
 1. 实例完整性约束-----主键，如果是一个字段，则可以定义为列或表完整性约束，如果是多个字段，必须为表完整性约束；一个表一个。
 2. 实例完整性约束-----候选键，唯一且不为NULL，unique 键，unique索引。
@@ -244,7 +244,7 @@ update----可以访问NEW及OLD
 drop trigger [if exists] [schema_name.]t_name
 ```
 
-- 视图
++ 视图
 
 1. 创建 create view v_name [(col_list)] AS select_statement [with [cascaed|local `检查所有或当前视图`] check option `修改时需要符合select`]
 2. drop view [if exists] v_name,...[restrict | cascade]
@@ -256,7 +256,7 @@ drop trigger [if exists] [schema_name.]t_name
 
 ## 控制 grant, revoke
 
-- 账户
++ 账户
 
 1. create user u_name[identified by [PASSWORD] 'password']------要有insert、全局create user权限，需要在mysql的user表中插入一条数据，新用户只有show权限。
 2. select PASSWORD(456) 查询其对应的散列值
@@ -264,7 +264,7 @@ drop trigger [if exists] [schema_name.]t_name
 4. rename user old_u_name To new_user,[...]----要有update、全局create user权限
 5. 修改口令----set password [FOR user@host]={PASSWORD('new_pwd') | 'pwd'`已加密的口令`}
 
-- 权限
++ 权限
 
 1. 查看show grants for 'u_name'
 2. 授权：grant {select|upate|delete|create user...[(col_list)],...}  ON {db_name|tbl_name} [level 列、表、库、用户权限] TO u_name [identified BY [PASSWORD] 'pwd'][with grant option `把自己所有权限授于其他用户`]
@@ -291,8 +291,8 @@ drop trigger [if exists] [schema_name.]t_name
 
 ## 备份与恢复数据
 
-- select * into outfile 'file_name' export_options | into dumpfile 'file_name  紧挨着
-- load data infile 'file_name' into table tbl_name load_option
++ select * into outfile 'file_name' export_options | into dumpfile 'file_name  紧挨着
++ load data infile 'file_name' into table tbl_name load_option
 
 ```sql
 fields
@@ -330,7 +330,7 @@ lines starting by 'string'--------行前缀与后缀
 
 ## 表
 
-- 基础操作
++ 基础操作
 1. 查看：Show tables;
 2. 创建：Create table Tname (fieldName type description , fieldName…)
 3. 插入：Insert into tableName ([fieldName, …]) values (v1,…)
@@ -347,7 +347,7 @@ lines starting by 'string'--------行前缀与后缀
 5. alter 中使用 modify 与 change：alter table user change old_field new field integer
 6. add：alter table user add new_field 描述; add primary key(field);
 
-- 修改表结构
++ 修改表结构
 1. 添加字段：alter table tableName add fieldName  type after fieldName
 2. 修改字段名：alter table tableName change newFieldName NewType
 3. 删除字段：Alter table tableName drop fieldName
@@ -384,29 +384,29 @@ delete from tableName where 运算
 
 ## 数据类型
 
-- 数字类型
++ 数字类型
   1. 整数: tinyint、smallint、mediumint、int、bigint
   2. 浮点数: float、double、real、decimal
-- 日期和时间: date、time、datetime、timestamp、year
-- 字符串类型
++ 日期和时间: date、time、datetime、timestamp、year
++ 字符串类型
   1. 字符串: char、varchar
   2. 文本: tinytext、text、mediumtext、longtext
-- 二进制(可用来存储图片、音乐等): tinyblob、blob、mediumblob、longblob
-- 对类型的描述：unsigned, signed
-- Set, Enum类型
-- 修改字段类型：set foreign_key_checks = 0; alter table user modify column user_id bigint;set foreign_key_checks = 1;
++ 二进制(可用来存储图片、音乐等): tinyblob、blob、mediumblob、longblob
++ 对类型的描述：unsigned, signed
++ Set, Enum类型
++ 修改字段类型：set foreign_key_checks = 0; alter table user modify column user_id bigint;set foreign_key_checks = 1;
 
 ## 变量
 
-- 用户变量(会话变量)，声明：SET @标识符 = v；
++ 用户变量(会话变量)，声明：SET @标识符 = v；
   1. 在查询中使用：select @标识符
   2. 在查询语句中进行赋值：select @标识符 := max(age) from student
   3. selct @@标识符
 
-- 查看所有系统变量
-  - show variables;
++ 查看所有系统变量
+  + show variables;
 
-- 修改变量： set variable_name = new_name  , global关键字为永久修改
++ 修改变量： set variable_name = new_name  , global关键字为永久修改
 
 ## 帐户，是多用户数据库，访问mysql.user
 
@@ -423,7 +423,7 @@ delete from tableName where 运算
   或 修改当前用户密码 set password=password('1111');
   或set password for '用户名'@'主机名' = password=password('1111')
 
-- 权限
++ 权限
   1. 权限分为：ALL PRIVILEGES、CREATE、ALTER、INSERT、UPDATE、DELETE、SELECT
   2. 创建用户并设置权限：grant 权限值, (select,insert,update,delete) on 数据库名.表 to 'username'@'hostname' [identified by 'password']
   3. 对账户进行权限增加：grant 权限值, ... on 数据库名. to username1, username2... with grant option
@@ -432,7 +432,7 @@ delete from tableName where 运算
   6. 权限有：select ,update,delete,insert(表数据)、create,alert,drop(表结构)、references(外键)、create temporary tables(创建临时表)、index(操作索引)、create view,show view(视图)、create routine,alert routine,execute(存储过程)、all,all privileges(所有权限)
   7. 查看权限：show grants 或 show grants for username@主机名称
 
-- 如何使用：
++ 如何使用：
   1. information_schema>[table]: user_privileges
   2. mysql>[table]: tables_priv / columns_priv
   3. select * from mysql.columns_priv where user='' and host=''
@@ -461,7 +461,7 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 
 ## 函数/存储过程
 
-- 创建函数，创建后会存到表中
++ 创建函数，创建后会存到表中
   1. create function `function_name`(param type, ...) returns return_type  下面是 begin 函数体语句; return v; end
   2. 临时变量声明：delare 变量名 变量类型 [default v]
   3. 临时变量赋值：set 变量名 = 表达式, ...
@@ -474,9 +474,9 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
   10. drop function if exists fun 可加条件的删除
   11. 已提供的通用方法：
 
-- delimiter 在命令行中，默认;回车即为结束，这时需要把结束符定义成其他符号，如$$ 或 //; 例子：1) delimiter // 2) 函数或过程体    3)  end; //
++ delimiter 在命令行中，默认;回车即为结束，这时需要把结束符定义成其他符号，如$$ 或 //; 例子：1) delimiter // 2) 函数或过程体    3)  end; //
 
-- 存储过程：是存储在数据库中的一组SQL语句，可以在查询过程中调用这个`过程名字`来执行相关SQL
++ 存储过程：是存储在数据库中的一组SQL语句，可以在查询过程中调用这个`过程名字`来执行相关SQL
   1. delimiter // create procedure procedure_name(params) 下面是 begin 过程体语句; end // delimiter;
   2. 参数类型：in 传入类型的参数， out 传出类型的参数(相当于return)，inout 既能传入又能传出
   3. 调用：call procedure_name; 或 call procedure_name(params);
@@ -490,21 +490,21 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
   4. 删除：drop view view_name
 
 ## 事务：解决操作集合，如转帐，包含扣钱方 和 收钱方，整个操作是一体的，一个单元失败则会回滚
-  - 原子性：全部操作，要做全做，要不做全不做
-  - 一致性：结果一致
-  - 隔离性：一个事务不爱另一个事务的影响
-  - 持久性：对已提交的事务，系统必须保证该事务对数据库的改变不被丢失
-  - 事务提交：整个事务下的操作集全部有效
-  - 事务回滚：整个事务下的操作集全部作废
-  - 脏读：一个事务将数据改变，但还未提交；此时另一个事务读取时读到的是新数据，而事务又将其回滚，此时事务再读取，发现数据又变回去了；而此前读到的变成的脏数据。(解决问题的方式：读已提交，可重复读)
-  - 不可复读：事务多次查询数据，因另一事务对数据的操作，导致查询数据结果不一致。(解决问题的方式：可重复读)
-  - 虚/幻读：事务读取值后对其更名，而另一事务又创建了此名称，而原事务再查询时发现未修改，产生了幻觉。(读未提交，读已提交)
-  - 读已提交：一个事务在写时，禁止其他事务读写，提交后才能被读取。
-  - 可重复读：一个事务在写时，禁止其他事务读写，一个事务在读取时，禁止其他事务写。
-  - 串行化：每次只能执行一个事务。
-  - mySQL：采用innodb为其默认引擎。insert, update, delete会触发事务；开启事务后，变更会维护到本地缓存中，而非物理表中。
-  - 使用：begin; 提交事务 comit; 回滚事务 rollback;
-  - 关闭默认事务提交：set [global] autocommit = 0;
+  + 原子性：全部操作，要做全做，要不做全不做
+  + 一致性：结果一致
+  + 隔离性：一个事务不爱另一个事务的影响
+  + 持久性：对已提交的事务，系统必须保证该事务对数据库的改变不被丢失
+  + 事务提交：整个事务下的操作集全部有效
+  + 事务回滚：整个事务下的操作集全部作废
+  + 脏读：一个事务将数据改变，但还未提交；此时另一个事务读取时读到的是新数据，而事务又将其回滚，此时事务再读取，发现数据又变回去了；而此前读到的变成的脏数据。(解决问题的方式：读已提交，可重复读)
+  + 不可复读：事务多次查询数据，因另一事务对数据的操作，导致查询数据结果不一致。(解决问题的方式：可重复读)
+  + 虚/幻读：事务读取值后对其更名，而另一事务又创建了此名称，而原事务再查询时发现未修改，产生了幻觉。(读未提交，读已提交)
+  + 读已提交：一个事务在写时，禁止其他事务读写，提交后才能被读取。
+  + 可重复读：一个事务在写时，禁止其他事务读写，一个事务在读取时，禁止其他事务写。
+  + 串行化：每次只能执行一个事务。
+  + mySQL：采用innodb为其默认引擎。insert, update, delete会触发事务；开启事务后，变更会维护到本地缓存中，而非物理表中。
+  + 使用：begin; 提交事务 comit; 回滚事务 rollback;
+  + 关闭默认事务提交：set [global] autocommit = 0;
 
 ## 其他命令
 
@@ -518,7 +518,7 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 
 ## API
 
-- 字符串
++ 字符串
 
 1. select concat('a','-','b') 字符串连接
 2. concat_ws('||','a','-','b') 以||字符间隔连接
@@ -536,7 +536,7 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 11. length()
 12. instr(str, substr) 子串第一个出现的位置
 
-- 数字
++ 数字
 
 1. format(124567.7, 2) 保留两位小数，第三位一个逗号
 2. ceil() 入，取整
@@ -550,7 +550,7 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 10. least(v1, v2, ...); greatest(v1, v2, ...)
 11. abs()
 
-- 日期时间
++ 日期时间
 
 1. now() 当前日期和时间
 2. curdate() 当前日期
@@ -562,7 +562,7 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 8. dayname(date) 获取星期几
 9. str_to_date('2017年1月10号 11时02分02秒', '%Y年%m月%d号 %h时%i分%s秒') %H为24小时制
 
-- 比较
++ 比较
 
 1. field is [not] null
 2. value [not] / in(1,2,3,5,6)
@@ -570,28 +570,28 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 4. = 与 <=> 判断等于null时结果不同
 5. isnull(field)
 
-- 数据库信息函数
++ 数据库信息函数
 1. select connection_id()
 2. select database()
 3. select last_insert_id()
 4. version()
 5. user()
 
-- 聚合函数
++ 聚合函数
 1. round(avg(field), 3) as avg_field
 2. count(field) as counts
 3. max(field) as max_field; min
 4. sum(field) as sum_field
 
-- 语句
++ 语句
 1. (case field when v then expr when v2 then expr2 else expr3 end) as field1
 2. if(expr, expr2, expr3) if函数
 
-- 加密函数
++ 加密函数
 1. md5('')
 2. password('')
 
-- 并发控制(多个连接对记录进行修改时，保证数据的一致性与完整性，且锁系统来控制)
++ 并发控制(多个连接对记录进行修改时，保证数据的一致性与完整性，且锁系统来控制)
 
 1. 共享锁(读锁)：同一时间内，多用户可以读取同一个资源，读取过程中不会发生任何变化。
 2. 排他锁(写锁)：任何时间只能有一个用户写入资源，进行写锁时会阻塞其他读或写锁操作。
@@ -600,10 +600,10 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 
 ## 题
 
-- 编写一个 SQL 查询，获取 Employee 表中第二高的薪水（Salary），返回字段名为SecondHighestSalary，为空时返回null (176) {"headers": {"Employee": ["Id", "Salary"]}, "rows": {"Employee": [[1, 100]]}}
-  - select (select distinct (Salary) from Employee order by Salary Desc limit 1,1) as SecondHighestSalary
-- 某网站包含两个表，Customers 表和 Orders 表。编写一个 SQL 查询，找出所有从不订购任何东西的客户。(183);
-  - select Name as Customers from Customers  where Id not in (select CustomerId  from Orders)
-  - select Name from Customers c left join Orders o on c.Id = o.CustomerId where o.Id is NULL
++ 编写一个 SQL 查询，获取 Employee 表中第二高的薪水（Salary），返回字段名为SecondHighestSalary，为空时返回null (176) {"headers": {"Employee": ["Id", "Salary"]}, "rows": {"Employee": [[1, 100]]}}
+  + select (select distinct (Salary) from Employee order by Salary Desc limit 1,1) as SecondHighestSalary
++ 某网站包含两个表，Customers 表和 Orders 表。编写一个 SQL 查询，找出所有从不订购任何东西的客户。(183);
+  + select Name as Customers from Customers  where Id not in (select CustomerId  from Orders)
+  + select Name from Customers c left join Orders o on c.Id = o.CustomerId where o.Id is NULL
 
 

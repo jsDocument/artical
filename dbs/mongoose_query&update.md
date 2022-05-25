@@ -50,7 +50,7 @@
 
 
 ##### 表达式
-+  $expr,      使用aggregate表达式 
++  $expr,      使用aggregate表达式
 +  $jsonSchema,  有很多查找属性，验证不匹配的JSON Schema
 +  $mod,   {$mod: [4, 0]}  除4求余为0
 +  $regex,
@@ -67,7 +67,7 @@
 
 #####  数组
 +  $all,    匹配数组包含所有元素
-+  $elemMatch,    
++  $elemMatch,
 +  $size,  取数组中的一个项，下标，  返回长度为2的数组
 
 ##### 字节
@@ -83,7 +83,7 @@
 
 ##### Project操作
 +  $,   数组中匹配的第一个元素
-+  $elemMatch,   数组中的字段 
++  $elemMatch,   数组中的字段
 +  $meta,
 +  $slice   5, -5, [-10, 5]  限制返回数组长度
 
@@ -96,14 +96,14 @@
 + $regex / query.regex(field, reg) / where().regex(reg)
 + query.or(array)
 + query.nor(array)
-+ gt, lt, gte, lte----{field: {$gt: 21}}  
++ gt, lt, gte, lte----{field: {$gt: 21}}
 
 ## 筛选查找结果
 + .equals(val)
 + $ne
 
 + read()
-+ slaveOk() 
++ slaveOk()
 
 ## 查找结果处理Document
 
@@ -126,7 +126,7 @@
 + $min  与现有数据比较，更新的数据如果小，则替换现有数据，操作日期比较好用。
 + $max
 + $mul   更新或创建值为0, 与现有值相乘的结果,  相乘
-    - NumberLong(0), NumberInt(0)
+    + NumberLong(0), NumberInt(0)
 + $rename  换一个名字，类似于执行了$unset 与 $set
 + $setOnInsert  插入新数据起作用，更新不起作用， upsert:true
 + $unset   {$unset: {field: ""}}
@@ -150,7 +150,7 @@
 + $slice  修改时必须与$each结合使用, 0 正 负 值
 + $sort 1 / -1  修改时必须与$each结合使用, 修改元素，但不是文档   {$push: {field: {$each: [], $sort: {sub: -1}, $slice: 3 }} 根据sub修改field的排序, 只保留前三项元素
 }
- 
+
 + $bit  位运算 {$bit: {field: {and: 5}}}
 
 `project, a read operation`
@@ -285,7 +285,7 @@
 + Query#nearSphere(),
 + Query#nin([path], val),   `与in相反, 可以与$数组操作结合`
 + Query#nor(array),    `与$and用法相同, 结合使用 $and: [  $or: [{}], $or: [{}]  ]`
-+ Query#or(array),     
++ Query#or(array),
 + Query#polygon([path], [coordinatePairs...]),
 + Query#populate(path, [select], [model], [match], [options]),
 

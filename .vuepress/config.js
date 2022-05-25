@@ -177,15 +177,23 @@ function genSidebarConfig (title) {
           '/tools/git/stash',
           '/tools/git/push'
         ]
+      },
+      {
+        title: '部署系列',
+        children: [
+          '/tools/CICD/lint'
+        ]
       }
     ],
     '/vue-resource/': [
-      '/vue-resource/structure',
-      '/vue-resource/start',
-      '/vue-resource/init',
+      '/vue-resource/instance',
       '/vue-resource/observe',
-      // 'vue-resource/options',
-      // 'vue-resource/init-data',
+      '/vue-resource/scheduler',
+      '/vue-resource/nextTick',
+      '/vue-resource/mountComponent',
+      '/vue-resource/compile',
+      '/vue-resource/parse',
+      '/vue-resource/generate-render',
       // 'vue-resource/events',
       // 'vue-resource/compile-el',
       // 'vue-resource/_compile-root',

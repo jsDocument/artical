@@ -166,9 +166,9 @@ model.field = value
 model.save()   传入的文档替换已有文档
 
 > insert() 或 save() 方法都可以向collection里插入数据，两者区别：
-  - 如果不指定 _id 字段，save() 方法类似于 insert() 方法。如果指定 _id 字段，则会更新该 _id 的数据。
-  - 使用save函数，如果原来的对象不存在，那他们都可以向collection里插入数据，如果已经存在，save会调用update更新里面的记录，而insert则会忽略操作
-  - insert可以一次性插入一个列表，而不用遍历，效率高， save则需要遍历列表，一个个插入。
+  + 如果不指定 _id 字段，save() 方法类似于 insert() 方法。如果指定 _id 字段，则会更新该 _id 的数据。
+  + 使用save函数，如果原来的对象不存在，那他们都可以向collection里插入数据，如果已经存在，save会调用update更新里面的记录，而insert则会忽略操作
+  + insert可以一次性插入一个列表，而不用遍历，效率高， save则需要遍历列表，一个个插入。
 
 
 modle实例的方法
@@ -251,12 +251,12 @@ Schema.add()
 
 
 ### Model的方法
-- find(condition, returnField, cb)
-- findById
-- findByIdAndUpdate
-- remove
-- update(condition, doc[, opts][, cb])
-- *insert
++ find(condition, returnField, cb)
++ findById
++ findByIdAndUpdate
++ remove
++ update(condition, doc[, opts][, cb])
++ *insert
 
 > .save() 和 query.exec()，返回 Promises/A+; query虽然不是promise但有.then()方法
   支持如此使用mongoose.Promise = global.Promise  ES6 Promise
@@ -264,8 +264,8 @@ Schema.add()
 
 ### Model实例的方法
 保存数据
-- instance = new Model(data);  instance.save(cb)
-- Model.create(data, cb)
++ instance = new Model(data);  instance.save(cb)
++ Model.create(data, cb)
 
 ### 条件函数
 

@@ -5,36 +5,36 @@
 1. local 库：副本集的元数据
 2. admin 库：用户和角色信息
 
-  - system.users
-  - system.roles
+  + system.users
+  + system.roles
 
 
 ## mongod 进行数据库设置
 
-- mongoDB服务
++ mongoDB服务
 
 1. 启动 net start MongoDB  / brew services start mongodb
 2. 关闭 net stop MongoDB   / brew services stop mongodb 或 db.shutdownServer()
 3. 移除 mongod --remove
 
 
-- 设置并启动命令
++ 设置并启动命令
 
 1. 命令设置
 2. 配置文件设置
-  - 文件地址：/Users/mengyue/yue/Downloads/mongdb_data/mongodb.conf
-  - 启动并查看进程：mongod --config & netstat -nltp|grep 接口
-  - mongod --config & mongo 或 mongod --config ./mongodb.conf & mongo -u 'admin' -p 'xiaohan'
-- 查看mongod设置
+  + 文件地址：/Users/mengyue/yue/Downloads/mongdb_data/mongodb.conf
+  + 启动并查看进程：mongod --config & netstat -nltp|grep 接口
+  + mongod --config & mongo 或 mongod --config ./mongodb.conf & mongo -u 'admin' -p 'xiaohan'
++ 查看mongod设置
 
 
 
 
 ## mongo 连接数据库并打开shell窗口
 
-- 某用户登录连接 mongo -u 'name' -p 'pwd'
++ 某用户登录连接 mongo -u 'name' -p 'pwd'
 
-- 常用参数
++ 常用参数
 
 1. nodb 不连接数据库，进入sell命令行
 2. ssl ssl连接
@@ -43,10 +43,10 @@
 
 ## 用户管理与查看
 
-- MongoDB是没有默认管理员账号，所以要先添加管理员账号，再开启权限认证。
-- 切换到admin数据库，添加的账号才是管理员账号。
-- 用户只能在用户所在数据库登录，包括管理员账号。
-- 管理员可以管理所有数据库，但是不能直接管理其他数据库，要先在admin数据库认证后才可以。
++ MongoDB是没有默认管理员账号，所以要先添加管理员账号，再开启权限认证。
++ 切换到admin数据库，添加的账号才是管理员账号。
++ 用户只能在用户所在数据库登录，包括管理员账号。
++ 管理员可以管理所有数据库，但是不能直接管理其他数据库，要先在admin数据库认证后才可以。
 
 1. 进入admin 创建用户
 
@@ -88,7 +88,7 @@ db.createUser({
 6. db.changeUserPassword('name', 'pwd') 或 db.runCommand({updateUser: 'name', pwd: '', customData: {}}) 修改用户名或密码
 7. db.dropUser('name') 删除
 
-- 角色
++ 角色
   1. 数据库用户角色：read、readWrite；
   2. 数据库管理角色：dbAdmin、dbOwner、userAdmin;
   3. 集群管理角色：clusterAdmin、clusterManager、4. clusterMonitor、hostManage；
@@ -97,7 +97,7 @@ db.createUser({
   6. 超级用户角色：root
   7. 内部角色：__system
 
-- 权限
++ 权限
   1. Read：允许用户读取指定数据库
   2. readWrite：允许用户读写指定数据库
   3. dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问system.profile
@@ -244,7 +244,7 @@ db.col.aggregate([
 
 
 
-- $group: {_id: \<group key>, \<field>}
++ $group: {_id: \<group key>, \<field>}
 
 1. $push
 2. $addToSet 表达式值添加到一个集合中(无重复值)
@@ -264,7 +264,7 @@ db.col.aggregate([
   }// 联表，当前表为主表，另一个作为辅表
 
 
-- 条件
++ 条件
 
 ```js
 1. $cond: {
@@ -279,14 +279,14 @@ db.col.aggregate([
 }}
 ```
 
-- $redact
++ $redact
 
 1. $cond 三元表达式
 2. $setIntersection 表示两个数组的交集中不同元素的个数
 3. $$DESCEND
 4. $$PRUNE
 
-- 自定义变量
++ 自定义变量
 
 1. $let: {vars: {outVar: exp }, in: {exp} }
 
@@ -296,9 +296,9 @@ db.col.aggregate([
 : input 需要计算的数组，as当前数组元素的别名，in 可以使用当前元素别名进行计算
 
 
-- $literal 只做字符串原样输出
++ $literal 只做字符串原样输出
 
-- 集合操作， 多个数组比较
++ 集合操作， 多个数组比较
 
 1. $setEquals
 2. $setInterSection 多个数组的交集
@@ -308,7 +308,7 @@ db.col.aggregate([
 6. $anyElementsTrue 一个数组中有一个为true，即结果为true
 7. $allElementsTrue
 
-- 数学计算
++ 数学计算
 
 1. $add
 2. $subtract
@@ -317,7 +317,7 @@ db.col.aggregate([
 5. $mod
 
 
-- 字符串操作
++ 字符串操作
 
 1. $concat: []
 2. $substr: [input, start, length]
@@ -325,7 +325,7 @@ db.col.aggregate([
 4. $strrcasecmp  比较
 5. $size 大小
 
-- 日期
++ 日期
 
 1. $dayOfYear 此年的第几天
 2. $dayOfMonth 本月第几天
@@ -341,7 +341,7 @@ db.col.aggregate([
 
 : %Y, %m, %d, %H, %M, %S, %L, %j年的第几天, %U 第几周, %w 当前周的第几天、
 
-- db.col.mapReduce(function(){ map函数, this当前文档， emit函数将数据传给reduce函数 }, function(key, values){ reduce函数，map的输出做为该函数输入}, {out: "保存到col"})
++ db.col.mapReduce(function(){ map函数, this当前文档， emit函数将数据传给reduce函数 }, function(key, values){ reduce函数，map的输出做为该函数输入}, {out: "保存到col"})
 
 
 

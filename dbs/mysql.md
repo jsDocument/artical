@@ -40,57 +40,57 @@ select count(*) as out_name, field from tbl group by field having out_name >1
 3. 逻辑运算 and, or, not !, xor
 4. 数字函数
 
-  - abs(x), avg(expression), acos(x), cos(x), sin(x), asin(x), tan(x), atant(x), atant2(n, m), cot(x), degrees(x) 弧度转角度 radians(x) 角度转换为弧度 PI()
-  - ceil(x), ceiling(x), floor(x), greatest(expr1, ...), least(expr1, ...), truncate(x, y) 保留小数点下y位，不进行四舍五入
-  - count(*) max(expression) min(expression), sum(expression)
-  - exp(x) e的x次方, pow(x, y), sqrt(x), power(x, y), ln(x), log(x), log2(x), log10(x)
-  - rand() 随机数 round(x) 距x最近的整数 sign(x) 返回符号 format(v, n四舍五入保留几位)
+  + abs(x), avg(expression), acos(x), cos(x), sin(x), asin(x), tan(x), atant(x), atant2(n, m), cot(x), degrees(x) 弧度转角度 radians(x) 角度转换为弧度 PI()
+  + ceil(x), ceiling(x), floor(x), greatest(expr1, ...), least(expr1, ...), truncate(x, y) 保留小数点下y位，不进行四舍五入
+  + count(*) max(expression) min(expression), sum(expression)
+  + exp(x) e的x次方, pow(x, y), sqrt(x), power(x, y), ln(x), log(x), log2(x), log10(x)
+  + rand() 随机数 round(x) 距x最近的整数 sign(x) 返回符号 format(v, n四舍五入保留几位)
 
 5. 字符串函数
 
-  - 截取 right(s, n) 后n个字符, left(s, n), substr(s, start, length), substring(s, start, length), substring_index(s, delimiter, n) s的第n个出现的分隔符delimiter之后的子串[n是正数,n个字符左边的字符串;n是负数,n个字符右边的字符串], mid(s, n, len) 从n位置截取长度为len的子字符串
-  - 比较 strcmp(s1, s2) 相等为0， s1>s2为1，小于为-1
-  - 去空格 trim(s), rTrim(s), lTrim(s)
-  - 转换大小写 upper(s), uCase(s), lCase(s), lower(s)
-  - 返回n个字符 space(n), 将字符串s重复n次 repeat(s, n)
-  - 拼接 rPad(s1, len, s2) s1结尾添加s2,长度达到len; lPad(s1, len, s2); insert(s1, x, len, s2) s2替换s1, x位置长度为len; concat(s1,s2...); concat_ws(x, s1,s2...) x为分隔符进行拼接
-  - 反转 reverse(s)
-  - 替换 replace(s, s1, s2) s2代替s中的s1
-  - 获取位置 position(s1 in s) 在s中的位置; find_in_set(s1, s2) s2中与s1匹配的字符串的位置; field(s, s1, s2...) s在字符串列表中的位置
-  - 长度 char_length(s); character_length(s)
-  - ascII(s)
+  + 截取 right(s, n) 后n个字符, left(s, n), substr(s, start, length), substring(s, start, length), substring_index(s, delimiter, n) s的第n个出现的分隔符delimiter之后的子串[n是正数,n个字符左边的字符串;n是负数,n个字符右边的字符串], mid(s, n, len) 从n位置截取长度为len的子字符串
+  + 比较 strcmp(s1, s2) 相等为0， s1>s2为1，小于为-1
+  + 去空格 trim(s), rTrim(s), lTrim(s)
+  + 转换大小写 upper(s), uCase(s), lCase(s), lower(s)
+  + 返回n个字符 space(n), 将字符串s重复n次 repeat(s, n)
+  + 拼接 rPad(s1, len, s2) s1结尾添加s2,长度达到len; lPad(s1, len, s2); insert(s1, x, len, s2) s2替换s1, x位置长度为len; concat(s1,s2...); concat_ws(x, s1,s2...) x为分隔符进行拼接
+  + 反转 reverse(s)
+  + 替换 replace(s, s1, s2) s2代替s中的s1
+  + 获取位置 position(s1 in s) 在s中的位置; find_in_set(s1, s2) s2中与s1匹配的字符串的位置; field(s, s1, s2...) s在字符串列表中的位置
+  + 长度 char_length(s); character_length(s)
+  + ascII(s)
 
 6. 日期函数
-  - `年份计算`
-  - 返回日期的年 year("date")
-  - date("date") time(expression)
-  - 返回小时 hour(t)
-  - minute(t) second(t)
-  - microsecond("date")
-  - month("date") monthName("date")
-  - 从日期d返回指定的值 extract(type from d)
-  - `日期`
-  - 返回日期 day("date")
-  - 日期是星期几 dayName("date")
-  - 日期是本月第几天 dayOfMonth("date")
-  - 日期是星期几 dayOfWeek("date") 1星期日
-  - 日期是本年第几天 dayOfYear("date")
-  - `星期计算`
-  - 该年第几个星期 week("date")
-  - 日期是星期几 weekday("date") 0是星期一
-  - 是该年第几个星期 weekOfYear("date")
-  - 返回年份及第几周 yearWeek("date", 0 /1) 0表示周天，1表示周一
-  - `日期及时间获取`
-  - 当前日期 curDate(), current_date()
-  - 当前时间 current_time() curTime()
-  - 当前日期时间 current_timestamp() localTime() localTimeStamp() now() sysDate()
-  - `日期计算`
-  - 0000年1月1日天后的日期 from_days(n天)  距...的天数 to_days("date")
-  - 日期加上n天后的日期 addDate("date", n天), addTime("date time", t秒) date_add("date", interval expr type[如:1/interval 5 minute]) data_sub("date", interval expr type[如:1/interval 5 minute])  subTime(t, n秒) subDate("date", n天)
-  - d1>d2之间相隔天数 dateDiff(d1, d2)  period_diff(201704, 201701) 月份差值  timeDiff(t1, t2) quarter("date") 返回季节
-  - `日期格式` date_format("date", '%Y-%m-%d %r')  str_to_date(string, "%M %d %Y")
-  - `组合日期` makeDate(year, day-of-year) makeTime(hour, minute, second)
-  - `转换` 以秒为单位转换为时、分、秒的格式 sec_to_time(s)  time_to_sec(t)  time_format(t, '%r')  timeStamp(expression, interval) 返回和
+  + `年份计算`
+  + 返回日期的年 year("date")
+  + date("date") time(expression)
+  + 返回小时 hour(t)
+  + minute(t) second(t)
+  + microsecond("date")
+  + month("date") monthName("date")
+  + 从日期d返回指定的值 extract(type from d)
+  + `日期`
+  + 返回日期 day("date")
+  + 日期是星期几 dayName("date")
+  + 日期是本月第几天 dayOfMonth("date")
+  + 日期是星期几 dayOfWeek("date") 1星期日
+  + 日期是本年第几天 dayOfYear("date")
+  + `星期计算`
+  + 该年第几个星期 week("date")
+  + 日期是星期几 weekday("date") 0是星期一
+  + 是该年第几个星期 weekOfYear("date")
+  + 返回年份及第几周 yearWeek("date", 0 /1) 0表示周天，1表示周一
+  + `日期及时间获取`
+  + 当前日期 curDate(), current_date()
+  + 当前时间 current_time() curTime()
+  + 当前日期时间 current_timestamp() localTime() localTimeStamp() now() sysDate()
+  + `日期计算`
+  + 0000年1月1日天后的日期 from_days(n天)  距...的天数 to_days("date")
+  + 日期加上n天后的日期 addDate("date", n天), addTime("date time", t秒) date_add("date", interval expr type[如:1/interval 5 minute]) data_sub("date", interval expr type[如:1/interval 5 minute])  subTime(t, n秒) subDate("date", n天)
+  + d1>d2之间相隔天数 dateDiff(d1, d2)  period_diff(201704, 201701) 月份差值  timeDiff(t1, t2) quarter("date") 返回季节
+  + `日期格式` date_format("date", '%Y-%m-%d %r')  str_to_date(string, "%M %d %Y")
+  + `组合日期` makeDate(year, day-of-year) makeTime(hour, minute, second)
+  + `转换` 以秒为单位转换为时、分、秒的格式 sec_to_time(s)  time_to_sec(t)  time_format(t, '%r')  timeStamp(expression, interval) 返回和
 
 7. using
 8. 类型转换 cast('2013-01-01' as DATE)

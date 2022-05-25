@@ -1,494 +1,368 @@
-### Observe 观察数据变化
+### 对数据加入数据观察
 
-# 变化侦测：追踪状态
+在第一节中，我们知道初始化 Vue 实例时，会把 Inject, props, data 加入 observe，定义对其数据的追踪；
+computed, watch 加入到 watcher 订阅中
 
-数据驱动视图
+#### observe：通过defineProperty为对象属性 或 数组方法进行数据追踪
 
-1. Object.definedProperty 劫持读写对象属性
-2. 依赖收集：getter中收集依赖，setter中通知依赖更新
-3. 依赖收集，收集到依赖管理器Dep
-   - subs数组，存放依赖，添加addSub、删除removeSub、 getter-->depend添加一个依赖、notify 通知依赖更新
-   - depend添加的是Dep.target，watcher实例
-   - 数组
-4. 依赖是谁：谁用到了数据----watcher，所以通知依赖更新，通知的是 watcher 实例，由 watcher 实例通知真正的视图
-   - 构造函数
-     - vm
-     - cb
-     - getter---根据路径分析，path.split('.')，再循环取值
-     - value---this.get()
-   - this.get(): 获取时更新 Dep.target, value = this.getter(vm, vm)触发依赖收集, 再释放 Dep.target, 并返回 value
-   - update(): 更新 实例value并执行实例 cb
-
-总结：
-
-1. Watcher 把自己设置到全局唯一的指定位置
-2. 再读取数据，触发这个数据的 getter
-3. getter 在全局唯一的位置获得正在读取数据的 Watcher实例，并把 Watcher 实例收集到 Dep，收集好后，当数据发生变化，会向Dep 中的每个 Watcher 发送通知更新
-
-存在的问题与解决办法
-
-1. 对对象已有的属性提供了检测，对后增加和删除的无法观测到，所以提供了 Vue.set 和 Vue.delete
-
-大致流程：
-
-1. Data通过observer转换成了getter/setter的形式来追踪变化。
-2. 当外界通过Watcher读取数据时，会触发getter从而将Watcher添加到依赖中。
-3. 当数据发生了变化时，会触发setter，从而向Dep中的依赖（即Watcher）发送通知。
-4. Watcher接收到通知后，会向外界发送通知，变化通知到外界后可能会触发视图更新，也有可能触发用户的某个回调函数等。
-
-
-1. 2.0版本之前使用 Object.defineProperty 监听数据属性变化，数组通过提供数组修改方法实现，再通过def(value,'__ob__',this)为value打上标记
-
-```js {12}
-export function Observer (value) {
-  this.value = value
-  this.dep = new Dep()
-  def(value, '__ob__', this)
-  if (isArray(value)) {
-    var augment = hasProto
-      ? protoAugment
-      : copyAugment
-    augment(value, arrayMethods, arrayKeys)
-    this.observeArray(value)
-  } else {
-    this.walk(value)
+```js{10,17,19,25,30,75-111}
+export class Observer {
+  value: any;
+  dep: Dep;
+  vmCount: number;
+  constructor (value: any) {
+    this.value = value
+    this.dep = new Dep()
+    this.vmCount = 0
+    // 为value通过def(value,'__ob__',this)打上标记
+    def(value, '__ob__', this)
+    if (Array.isArray(value)) {
+      if (hasProto) {
+        protoAugment(value, arrayMethods)
+      } else {
+        copyAugment(value, arrayMethods, arrayKeys)
+      }
+      this.observeArray(value)
+    } else {
+      this.walk(value)
+    }
+  }
+  walk (obj: Object) {
+    const keys = Object.keys(obj)
+    for (let i = 0; i < keys.length; i++) {
+      defineReactive(obj, keys[i])
+    }
+  }
+  observeArray (items: Array<any>) {
+    for (let i = 0, l = items.length; i < l; i++) {
+      observe(items[i])
+    }
   }
 }
-```
-
-```js {4,8}
-Observer.prototype.walk = function (obj) {
-  var keys = Object.keys(obj)
-  for (var i = 0, l = keys.length; i < l; i++) {
-    this.convert(keys[i], obj[keys[i]])
+export function observe (value: any, asRootData: ?boolean): Observer | void {
+  if (!isObject(value) || value instanceof VNode) {
+    return
   }
+  let ob: Observer | void
+  if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
+    ob = value.__ob__
+  } else if (
+    shouldObserve &&
+    !isServerRendering() &&
+    (Array.isArray(value) || isPlainObject(value)) &&
+    Object.isExtensible(value) &&
+    !value._isVue
+  ) {
+    // 加入监听
+    ob = new Observer(value)
+  }
+  if (asRootData && ob) {
+    ob.vmCount++
+  }
+  return ob
 }
-Observer.prototype.convert = function (key, val) {
-  defineReactive(this.value, key, val)
-}
-```
-
-+ 在getter中收集依赖，在setter中通知依赖更新
-
-```js {13,46}
-export function defineReactive (obj, key, val) {
-  var dep = new Dep()
-
-  var property = Object.getOwnPropertyDescriptor(obj, key)
+export function defineReactive (
+  obj: Object,
+  key: string,
+  val: any,
+  customSetter?: ?Function,
+  shallow?: boolean
+) {
+  // 定义依赖管理对象
+  const dep = new Dep()
+  const property = Object.getOwnPropertyDescriptor(obj, key)
   if (property && property.configurable === false) {
     return
   }
-
-  // cater for pre-defined getter/setters
-  var getter = property && property.get
-  var setter = property && property.set
-
-  var childOb = observe(val)
+  const getter = property && property.get
+  const setter = property && property.set
+  if ((!getter || setter) && arguments.length === 2) {
+    val = obj[key]
+  }
+  let childOb = !shallow && observe(val)
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
     get: function reactiveGetter () {
-      var value = getter ? getter.call(obj) : val
+      const value = getter ? getter.call(obj) : val
       if (Dep.target) {
-        // 访问属性时依赖收集
+        // 依赖收集
         dep.depend()
         if (childOb) {
-          // 依赖收集
           childOb.dep.depend()
-        }
-        if (isArray(value)) {
-          for (var e, i = 0, l = value.length; i < l; i++) {
-            e = value[i]
-            // 依赖收集
-            e && e.__ob__ && e.__ob__.dep.depend()
+          if (Array.isArray(value)) {
+            dependArray(value)
           }
         }
       }
       return value
     },
     set: function reactiveSetter (newVal) {
-      var value = getter ? getter.call(obj) : val
-      if (newVal === value) {
+      const value = getter ? getter.call(obj) : val
+      if (newVal === value || (newVal !== newVal && value !== value)) {
         return
       }
+      if (process.env.NODE_ENV !== 'production' && customSetter) {
+        customSetter()
+      }
+      if (getter && !setter) return
       if (setter) {
         setter.call(obj, newVal)
       } else {
         val = newVal
       }
-      childOb = observe(newVal)
-      // 通知更新
+      // 深监听
+      childOb = !shallow && observe(newVal)
+      // 通知订阅者更新
       dep.notify()
     }
   })
 }
+function dependArray (value: Array<any>) {
+  for (let e, i = 0, l = value.length; i < l; i++) {
+    e = value[i]
+    e && e.__ob__ && e.__ob__.dep.depend()
+    if (Array.isArray(e)) {
+      dependArray(e)
+    }
+  }
+}
 ```
 
-+ 已经监听，就直接返回；否则就构建新的监听对象
+#### 数据驱动视图
+
+1. Object.definedProperty 劫持读写对象属性
+2. 依赖收集：getter中收集依赖，setter中通知依赖更新
+
+#### 依赖管理器 Dep
 
 ```js
-export function observe (value, vm) {
-  if (!value || typeof value !== 'object') {
-    return
-  }
-  var ob
-  if (
-    hasOwn(value, '__ob__') &&
-    value.__ob__ instanceof Observer
-  ) {
-    ob = value.__ob__
-  } else if (
-    shouldConvert &&
-    (isArray(value) || isPlainObject(value)) &&
-    Object.isExtensible(value) &&
-    !value._isVue
-  ) {
-    ob = new Observer(value)
-  }
-  // TODO
-  if (ob && vm) {
-    ob.addVm(vm)
-  }
-  return ob
-}
-```
-
-+ 依赖收集到哪里？
-
-```js{10}
 let uid = 0
-
-export default function Dep () {
-  this.id = uid++
-  this.subs = []
+export default class Dep {
+  static target: ?Watcher;
+  id: number;
+  subs: Array<Watcher>;
+  constructor () {
+    this.id = uid++
+    //  该队列管理依赖---watcher
+    this.subs = []
+  }
+  addSub (sub: Watcher) {
+    this.subs.push(sub)
+  }
+  removeSub (sub: Watcher) {
+    remove(this.subs, sub)
+  }
+  // Dep.target 是 watchr对象
+  depend () {
+    if (Dep.target) {
+      Dep.target.addDep(this)
+    }
+  }
+  notify () {
+    const subs = this.subs.slice()
+    if (process.env.NODE_ENV !== 'production' && !config.async) {
+      subs.sort((a, b) => a.id - b.id)
+    }
+    // 更新 Dep 对象中的所有watcher对象
+    for (let i = 0, l = subs.length; i < l; i++) {
+      subs[i].update()
+    }
+  }
 }
-
-// 我存的是当前订阅者
 Dep.target = null
-
-// this.subs管理对应的 watcher 实例
-Dep.prototype.addSub = function (sub) {
-  this.subs.push(sub)
+const targetStack = []
+export function pushTarget (target: ?Watcher) {
+  targetStack.push(target)
+  Dep.target = target
 }
-
-Dep.prototype.removeSub = function (sub) {
-  this.subs.$remove(sub)
-}
-// watcher管理 Dep 实例
-Dep.prototype.depend = function () {
-  Dep.target.addDep(this)
-}
-// 我来通知更新
-Dep.prototype.notify = function () {
-  var subs = toArray(this.subs)
-  for (var i = 0, l = subs.length; i < l; i++) {
-    subs[i].update()
-  }
+export function popTarget () {
+  targetStack.pop()
+  Dep.target = targetStack[targetStack.length - 1]
 }
 ```
 
-+ watcher用到的表达式解析方法
+#### 如何管理？
 
-```js
-/**
- * Parse simple path.
- * 把一个形如'data.a.b.c'的字符串路径所表示的值，从真实的data对象中取出来
- * 例如：
- * data = {a:{b:{c:2}}}
- * parsePath('a.b.c')(data)  // 2
- */
-const bailRE = /[^\w.$]/
-export function parsePath (path) {
-  if (bailRE.test(path)) {
-    return
-  }
-  const segments = path.split('.')
-  return function (obj) {
-    for (let i = 0; i < segments.length; i++) {
-      if (!obj) return
-      obj = obj[segments[i]]
-    }
-    return obj
-  }
-}
-```
++ this.subs 存放管理的watcher实例
++ Dep.target 用于存放当前正在进行数据读取的 watcher 实例
++ 通过 Observe 的 getter 或 Watcher 的 depend 进行依赖收集；即更新对应 Dep 实例的subs
+  + this.newDepIds 用于判断是否已经存在了该订阅者的管理对象 Dep.id，this.newDeps 存放 watcher 已经存在的Dep 管理者
+  + this.depIds 用于记录 Dep 实例是否已经包含该 watcher，是否需要更新管理订阅队列 subs
+  + cleanupDeps 数据读取完成，清除管理订阅者队列，并更新 this.deps，this.depIds；并清除this.newDeps, this.newDepIds
 
-+ watcher观察者队列
+#### 订阅者 Watcher
 
-```js
-/*将一个观察者对象push进观察者队列，在队列中已经存在相同的id则该观察者对象将被跳过，除非它是在队列被刷新时推送*/
-export function queueWatcher (watcher: Watcher) {
-  /*获取watcher的id*/
-  const id = watcher.id
-  /*检验id是否存在，已经存在则直接跳过，不存在则标记哈希表has，用于下次检验*/
-  if (has[id] == null) {
-    has[id] = true
-    // flushing 在哪里控制？
-    if (!flushing) {
-      /*如果没有flush掉，直接push到队列中即可*/
-      queue.push(watcher)
-    } else {
-      // if already flushing, splice the watcher based on its id
-      // if already past its id, it will be run next immediately.
-      let i = queue.length - 1
-      while (i >= 0 && queue[i].id > watcher.id) {
-        i--
-      }
-      // index ？
-      queue.splice(Math.max(i, index) + 1, 0, watcher)
-    }
-    // queue the flush
-    if (!waiting) {
-      waiting = true
-      // flushSchedulerQueue ?
-      nextTick(flushSchedulerQueue)
-    }
-  }
-}
-```
+1. Watcher 实例通过 Dep.target 把自己设置到全局唯一的指定位置
+2. 在执行模板读取数据，触发 watcher 的 getter，再触发 Observe 的 getter，进行依赖收集
+3. 依赖收集，watcher 就是依赖，即订阅者；Observe 进行收集的动作，Dep 对依赖进行管理，
+4. 涉及的后续讲解入口部分：
+   + expression 为表达式时，getter需要根据路径分析
 
-+ 来围观一下订阅者吧
-
-```js{100}
+```js {33,39}
 let uid = 0
-// 参数：实例，表达式，回调函数，其他配置
-export default function Watcher (vm, expOrFn, cb, options) {
-  // 合并配置
-  if (options) {
-    extend(this, options)
-  }
-  var isFn = typeof expOrFn === 'function'
-  this.vm = vm
-  // 订阅者集合
-  vm._watchers.push(this)
-  this.expression = expOrFn
-  this.cb = cb
-  this.id = ++uid // uid for batching
-  this.active = true
-  this.dirty = this.lazy // for lazy watchers
-  this.deps = []
-  this.newDeps = []
-  this.depIds = new Set()
-  this.newDepIds = new Set()
-  this.prevError = null // for async error stacks
-  // parse expression for getter/setter
-  if (isFn) {
-    this.getter = expOrFn
-    this.setter = undefined
-  } else {
-    // 解析表达式
-    var res = parseExpression(expOrFn, this.twoWay)
-    this.getter = res.get
-    this.setter = res.set
-  }
-  // 获取 value，触发依赖收集
-  this.value = this.lazy
-    ? undefined
-    : this.get()
-  this.queued = this.shallow = false
-}
-Watcher.prototype.get = function () {
-  // 更新 Dep.target
-  this.beforeGet()
-  var scope = this.scope || this.vm
-  var value
-  try {
-    value = this.getter.call(scope, scope)
-  } catch (e) {
-    // xxx
-  }
-  if (this.deep) {
-    traverse(value)
-  }
-  if (this.preProcess) {
-    value = this.preProcess(value)
-  }
-  if (this.filters) {
-    value = scope._applyFilters(value, null, this.filters, false)
-  }
-  if (this.postProcess) {
-    value = this.postProcess(value)
-  }
-  // 置空 Dep.target
-  this.afterGet()
-  return value
-}
-
-Watcher.prototype.set = function (value) {
-  var scope = this.scope || this.vm
-  if (this.filters) {
-    value = scope._applyFilters(
-      value, this.value, this.filters, true)
-  }
-  try {
-    this.setter.call(scope, scope, value)
-  } catch (e) {
-    // ...
-  }
-  // two-way sync for v-for alias
-  var forContext = scope.$forContext
-  if (forContext && forContext.alias === this.expression) {
-    if (forContext.filters) {
-      // ...
-      return
+export default class Watcher {
+  vm: Component;
+  expression: string; // 表达式和函数名
+  cb: Function;
+  id: number;
+  deep: boolean;
+  user: boolean;
+  lazy: boolean;
+  sync: boolean;
+  dirty: boolean;
+  active: boolean;
+  deps: Array<Dep>; // 所有 Dep 依赖管理器
+  newDeps: Array<Dep>;
+  depIds: SimpleSet;
+  newDepIds: SimpleSet;
+  before: ?Function;
+  getter: Function;
+  value: any;
+  constructor (
+    vm: Component,
+    expOrFn: string | Function,
+    cb: Function,
+    options?: ?Object,
+    isRenderWatcher?: boolean
+  ) {
+    this.vm = vm
+    if (isRenderWatcher) {
+      vm._watcher = this
     }
-    forContext._withLock(function () {
-      if (scope.$key) { // original is an object
-        forContext.rawValue[scope.$key] = value
+    vm._watchers.push(this)
+  //  初始化实例属性 略...
+    if (typeof expOrFn === 'function') {
+      this.getter = expOrFn
+    } else {
+      this.getter = parsePath(expOrFn)
+      if (!this.getter) {
+        this.getter = noop
+    }
+    this.value = this.lazy
+      ? undefined
+      : this.get()
+  }
+  get () {
+    // 设置 Dep.target
+    pushTarget(this)
+    let value
+    const vm = this.vm
+    try {
+      value = this.getter.call(vm, vm)
+    } catch (e) {
+      if (this.user) {
+        handleError(e, vm, `getter for watcher "${this.expression}"`)
       } else {
-        forContext.rawValue.$set(scope.$index, value)
+        throw e
       }
-    })
-  }
-}
-
-Watcher.prototype.beforeGet = function () {
-  Dep.target = this
-}
-// watcher 与 Dep 的相互关联
-Watcher.prototype.addDep = function (dep) {
-  var id = dep.id
-  if (!this.newDepIds.has(id)) {
-    this.newDepIds.add(id)
-    this.newDeps.push(dep)
-    if (!this.depIds.has(id)) {
-      dep.addSub(this)
+    } finally {
+      if (this.deep) {
+        traverse(value) // seenObjects
+      }
+      // 清空 Dep.target
+      popTarget()
+      // 更新 依赖管理
+      this.cleanupDeps()
     }
+    return value
   }
-}
-
-Watcher.prototype.afterGet = function () {
-  Dep.target = null
-  var i = this.deps.length
-  // 移除关联
-  while (i--) {
-    var dep = this.deps[i]
-    if (!this.newDepIds.has(dep.id)) {
-      dep.removeSub(this)
-    }
-  }
-  var tmp = this.depIds
-  this.depIds = this.newDepIds
-  this.newDepIds = tmp
-  this.newDepIds.clear()
-  tmp = this.deps
-  this.deps = this.newDeps
-  this.newDeps = tmp
-  this.newDeps.length = 0
-}
-
-Watcher.prototype.update = function (shallow) {
-  if (this.lazy) {
-    this.dirty = true
-  } else if (this.sync || !config.async) {
-    // 执行
-    this.run()
-  } else {
-    this.shallow = this.queued
-      ? shallow
-        ? this.shallow
-        : false
-      : !!shallow
-    this.queued = true
-    // 异步推送到观察者队列中，下一个tick时调用
-    pushWatcher(this)
-  }
-}
-// 更新值并执行回调
-Watcher.prototype.run = function () {
-  if (this.active) {
-    // 获取值
-    var value = this.get()
-    if (
-      value !== this.value ||
-      ((isObject(value) || this.deep) && !this.shallow)
-    ) {
-      var oldValue = this.value
-      this.value = value
-      var prevError = this.prevError
-      if (process.env.NODE_ENV !== 'production' &&
-          config.debug && prevError) {
-        this.prevError = null
-        try {
-          // 执行回调
-          this.cb.call(this.vm, value, oldValue)
-        } catch (e) {
-          // TODO
-          nextTick(function () {
-            throw prevError
-          }, 0)
-          throw e
-        }
-      } else {
-        // 执行回调
-        this.cb.call(this.vm, value, oldValue)
+  addDep (dep: Dep) {
+    const id = dep.id
+    // newDepIds 记录用于查找 watcher 对应的 Dep，并更新newDeps
+    // depIds 记录用于 Dep 管理 watcher
+    if (!this.newDepIds.has(id)) {
+      this.newDepIds.add(id)
+      this.newDeps.push(dep)
+      if (!this.depIds.has(id)) {
+        dep.addSub(this)
       }
     }
-    this.queued = this.shallow = false
   }
-}
-
-Watcher.prototype.evaluate = function () {
-  var current = Dep.target
-  this.value = this.get()
-  this.dirty = false
-  Dep.target = current
-}
-
-// TODO
-Watcher.prototype.depend = function () {
-  var i = this.deps.length
-  while (i--) {
-    this.deps[i].depend()
-  }
-}
-// TODO
-Watcher.prototype.teardown = function () {
-  if (this.active) {
-    if (!this.vm._isBeingDestroyed && !this.vm._vForRemoving) {
-      this.vm._watchers.$remove(this)
-    }
-    var i = this.deps.length
+  cleanupDeps () {
+    let i = this.deps.length
     while (i--) {
-      this.deps[i].removeSub(this)
-    }
-    this.active = false
-    this.vm = this.cb = this.value = null
-  }
-}
-
-const seenObjects = new Set()
-function traverse (val, seen) {
-  let i, keys, isA, isO
-  if (!seen) {
-    seen = seenObjects
-    seen.clear()
-  }
-  isA = isArray(val)
-  isO = isObject(val)
-  if (isA || isO) {
-    if (val.__ob__) {
-      var depId = val.__ob__.dep.id
-      if (seen.has(depId)) {
-        return
-      } else {
-        seen.add(depId)
+      const dep = this.deps[i]
+      if (!this.newDepIds.has(dep.id)) {
+        dep.removeSub(this)
       }
     }
-    if (isA) {
-      i = val.length
-      while (i--) traverse(val[i], seen)
-    } else if (isO) {
-      keys = Object.keys(val)
-      i = keys.length
-      while (i--) traverse(val[keys[i]], seen)
+    //
+    let tmp = this.depIds
+    this.depIds = this.newDepIds
+    this.newDepIds = tmp
+    this.newDepIds.clear()
+    tmp = this.deps
+    this.deps = this.newDeps
+    this.newDeps = tmp
+    this.newDeps.length = 0
+  }
+  update () {
+    if (this.lazy) {
+      this.dirty = true
+    } else if (this.sync) {
+      // 同步执行
+      this.run()
+    } else {
+      // 更新watcher队列 queue
+      // flushing, waiting
+      queueWatcher(this)
+    }
+  }
+  run () {
+    if (this.active) {
+      const value = this.get()
+      if (
+        value !== this.value ||
+        .
+        isObject(value) ||
+        this.deep
+      ) {
+        const oldValue = this.value
+        this.value = value
+        if (this.user) {
+          const info = `callback for watcher "${this.expression}"`
+          invokeWithErrorHandling(this.cb, this.vm, [value, oldValue], this.vm, info)
+        } else {
+          this.cb.call(this.vm, value, oldValue)
+        }
+      }
+    }
+  }
+  evaluate () {
+    this.value = this.get()
+    this.dirty = false
+  }
+  // createComputedGetter时，所有依赖管理器的依赖进行收集
+  depend () {
+    let i = this.deps.length
+    while (i--) {
+      this.deps[i].depend()
+    }
+  }
+  teardown () {
+    if (this.active) {
+      if (!this.vm._isBeingDestroyed) {
+        remove(this.vm._watchers, this)
+      }
+      // 清除所有依赖管理器中的该watcher实例
+      let i = this.deps.length
+      while (i--) {
+        this.deps[i].removeSub(this)
+      }
+      this.active = false
     }
   }
 }
 ```
 
-+ 2.0 用 Observer 类实现
+::: tip 大致流程：
 
-<<< @/vue-resource/observer.js{19, 26, 93}
+1. Data通过observer转换成了getter/setter的形式来追踪变化。
+2. 当外界通过Watcher读取数据时，会触发getter从而将Watcher添加到依赖中。
+3. 当数据发生了变化时，会触发Observe 的 setter，从而向Dep中的依赖（即Watcher）发送通知。
+4. Watcher接收到通知后，会向外界发送通知，变化通知到外界后可能会触发视图更新，也有可能触发用户的某个回调函数等。
+
+:::
 
 
