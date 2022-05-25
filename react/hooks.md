@@ -1,3 +1,5 @@
+### react hook 基础问题
+
 1. react hook引入是为了解决状态共享的问题
    1. 状态逻辑复用，并将 UI 于状态分离，function state 保存的是快照，class state保存的是值，引用类型的情况下，class state 不需要传入新的引用，而 function state 必须保证是个新的引用？
    2. 快照（闭包） vs 最新值（引用）？快照每次更新都是重新执行当前函数，每次都是重新获取初始值再更新----用useRef 来解决，在渲染周期内永远不会变，因此可以用来引用某些数据，修改 ref.current 不会引发组件重新渲染。

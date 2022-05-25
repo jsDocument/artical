@@ -11,7 +11,9 @@
 + [基础知识与新基础知识系列](/basic/)
 + [构建系列](/tools/)
 + [算法系列](/LeetCode/)
-+ [源码解读系列](/vue-resource/)
-+ node 系列
++ [vue源码解读系列](/vue-resource/)
++ [React 相关知识解读](/react/)
++ jQuery 源码解读
 + mongoDB 系列
++ node 系列
 

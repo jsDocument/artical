@@ -1,8 +1,9 @@
-# react 事件的相关功能实现
+### react 事件的相关功能实现
 
-1. 抹平不同浏览器的差异
-2. 与内部的「优先级机制」绑定
-3. 考虑所有浏览器事件
+1. 为什么要自定义事件机制？
+   1. 抹平不同浏览器的差异，实现更好的跨平台。
+   2. 与内部的「优先级机制」绑定，方便事件统一管理和事务机制。
+   3. 避免垃圾回收，React 引入`事件池`，在事件池中获取或释放事件对象，避免`频繁地去创建和销毁`。
 
 ## 核心模块
 
@@ -44,20 +45,6 @@ addEvent---dispatchEvent「根节点的事件回调」-----「通过 DOM 节点�
 5. !se._stopPropagation
 
 
-React 生命周期：
-
-+ 组件初始化阶段：组件的初始化工作：如定义 this.state 的初始内容
-+ 组件的挂载阶段：
-  + ComponentWillMount 在组件挂载到 DOM 前调用，只会被调用一次
-  + render：根据组件的 props 和 state，return 一个React元素
-  + componentDidMount：组件挂载到DOM后调用，且只会被调用一次
-+ 组件的更新阶段：父组件重新 render 引起子组件重新渲染
-  + componentWillReceiveProps
-  + shouldComponentUpdate
-  + componentWillUpdate
-  + componentDidUpdate
-+ 组件的卸载阶段
-  + componentWillUnmount
 + React 合成事件：声明了事件保存的位置，但是事件有没有被真正的注册
   + 优点：抹平了浏览器事件的差异、提供了统一的事件处理机制、通过事件委托提高性能
   + 过程：

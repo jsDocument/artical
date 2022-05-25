@@ -56,7 +56,7 @@ module.exports = {
       // {text: 'css 相关', link: '/basic/ css/'},
       {text: 'leetCode系列', link: '/LeetCode/'},
       {text: '工具系列', link: '/tools/'},
-      {text: 'node基础系列', link: '/node-program/'},
+      // {text: 'node基础系列', link: '/node-program/'},
       {text: 'vue 系列', link: '/vue-resource/'},
       {text: 'react 系列', link: '/react/'},
     ]
@@ -181,7 +181,8 @@ function genSidebarConfig (title) {
       {
         title: '部署系列',
         children: [
-          '/tools/CICD/lint'
+          '/tools/CICD/lint',
+          '/tools/CICD/ci'
         ]
       }
     ],
@@ -210,8 +211,12 @@ function genSidebarConfig (title) {
       // '/parse'
     ],
     '/react/': [
+      '/react/question',
+      '/react/fiber',
+      '/react/event',
+      '/react/hooks',
+      '/react/virtualDOM',
       '/react/structure',
-      '/react/event'
     ],
     '/node-program/': [
       '/node-program/node-basic/readline',
