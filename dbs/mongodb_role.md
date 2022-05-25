@@ -29,187 +29,187 @@
 ### journal 持久化
 
 systemLog:
-   verbosity: <int>
-   quiet: <boolean>
-   traceAllExceptions: <boolean>
-   syslogFacility: <string>
-   path: <string>
-   logAppend: <boolean>
-   logRotate: <string>
-   destination: <string>
-   timeStampFormat: <string>
+   verbosity: +\<int>
+   quiet: +\<boolean>
+   traceAllExceptions: +\<boolean>
+   syslogFacility: +\<string>
+   path: +\<string>
+   logAppend: +\<boolean>
+   logRotate: +\<string>
+   destination: +\<string>
+   timeStampFormat: +\<string>
    component:
       accessControl:
-         verbosity: <int>
+         verbosity: +\<int>
       command:
-         verbosity: <int>
+         verbosity: +\<int>
 
 组件：
 
 systemLog:
    component:
       accessControl:
-         verbosity: <int>
+         verbosity: +\<int>
       command:
-         verbosity: <int>
+         verbosity: +\<int>
 
       # COMMENT some component verbosity settings omitted for brevity
 
       replication:
-         verbosity: <int>
+         verbosity: +\<int>
          heartbeats:
-            verbosity: <int>
+            verbosity: +\<int>
          rollback:
-            verbosity: <int>
+            verbosity: +\<int>
       storage:
-         verbosity: <int>
+         verbosity: +\<int>
          journal:
-            verbosity: <int>
+            verbosity: +\<int>
       write:
-         verbosity: <int>
+         verbosity: +\<int>
 
 
 
 storage:
-   dbPath: <string>
-   indexBuildRetry: <boolean>
-   repairPath: <string>
+   dbPath: +\<string>
+   indexBuildRetry: +\<boolean>
+   repairPath: +\<string>
    journal:
-      enabled: <boolean>
-      commitIntervalMs: <num>
-   directoryPerDB: <boolean>
-   syncPeriodSecs: <int>
-   engine: <string>
+      enabled: +\<boolean>
+      commitIntervalMs: +\<num>
+   directoryPerDB: +\<boolean>
+   syncPeriodSecs: +\<int>
+   engine: +\<string>
    mmapv1:
-      preallocDataFiles: <boolean>
-      nsSize: <int>
+      preallocDataFiles: +\<boolean>
+      nsSize: +\<int>
       quota:
-         enforced: <boolean>
-         maxFilesPerDB: <int>
-      smallFiles: <boolean>
+         enforced: +\<boolean>
+         maxFilesPerDB: +\<int>
+      smallFiles: +\<boolean>
       journal:
-         debugFlags: <int>
-         commitIntervalMs: <num>
+         debugFlags: +\<int>
+         commitIntervalMs: +\<num>
    wiredTiger:
       engineConfig:
-         cacheSizeGB: <number>
-         journalCompressor: <string>
-         directoryForIndexes: <boolean>
+         cacheSizeGB: +\<number>
+         journalCompressor: +\<string>
+         directoryForIndexes: +\<boolean>
       collectionConfig:
-         blockCompressor: <string>
+         blockCompressor: +\<string>
       indexConfig:
-         prefixCompression: <boolean>
+         prefixCompression: +\<boolean>
    inMemory:
       engineConfig:
-         inMemorySizeGB: <number>
+         inMemorySizeGB: +\<number>
 
 operationProfiling:
-   mode: <string>
-   slowOpThresholdMs: <int>
-   slowOpSampleRate: <double>
+   mode: +\<string>
+   slowOpThresholdMs: +\<int>
+   slowOpSampleRate: +\<double>
 
 
 replication:
-   oplogSizeMB: <int>
-   replSetName: <string>
-   secondaryIndexPrefetch: <string>
-   enableMajorityReadConcern: <boolean>  
+   oplogSizeMB: +\<int>
+   replSetName: +\<string>
+   secondaryIndexPrefetch: +\<string>
+   enableMajorityReadConcern: +\<boolean>
 
 
 
 
 processManagement:
-   fork: <boolean>
-   pidFilePath: <string>
-   timeZoneInfo: <string>
+   fork: +\<boolean>
+   pidFilePath: +\<string>
+   timeZoneInfo: +\<string>
 
 sharding:
-   clusterRole: <string>
-   archiveMovedChunks: <boolean>
+   clusterRole: +\<string>
+   archiveMovedChunks: +\<boolean>
 
 auditLog:
-   destination: <string>
-   format: <string>
-   path: <string>
-   filter: <string>
+   destination: +\<string>
+   format: +\<string>
+   path: +\<string>
+   filter: +\<string>
 
 snmp:
-   subagent: <boolean>
-   master: <boolean>
+   subagent: +\<boolean>
+   master: +\<boolean>
 
 replication:
-   localPingThresholdMs: <int>
+   localPingThresholdMs: +\<int>
 
 sharding:
-   configDB: <string>
+   configDB: +\<string>
 
 net:
-   port: <int>
-   bindIp: <string>
-   bindIpAll: <boolean>
-   maxIncomingConnections: <int>
-   wireObjectCheck: <boolean>
-   ipv6: <boolean>
+   port: +\<int>
+   bindIp: +\<string>
+   bindIpAll: +\<boolean>
+   maxIncomingConnections: +\<int>
+   wireObjectCheck: +\<boolean>
+   ipv6: +\<boolean>
    unixDomainSocket:
-      enabled: <boolean>
-      pathPrefix: <string>
-      filePermissions: <int>
+      enabled: +\<boolean>
+      pathPrefix: +\<string>
+      filePermissions: +\<int>
    ssl:
-      sslOnNormalPorts: <boolean>  # deprecated since 2.6
-      mode: <string>
-      PEMKeyFile: <string>
-      PEMKeyPassword: <string>
-      clusterFile: <string>
-      clusterPassword: <string>
-      CAFile: <string>
-      CRLFile: <string>
-      allowConnectionsWithoutCertificates: <boolean>
-      allowInvalidCertificates: <boolean>
-      allowInvalidHostnames: <boolean>
-      disabledProtocols: <string>
-      FIPSMode: <boolean>
+      sslOnNormalPorts: +\<boolean>  # deprecated since 2.6
+      mode: +\<string>
+      PEMKeyFile: +\<string>
+      PEMKeyPassword: +\<string>
+      clusterFile: +\<string>
+      clusterPassword: +\<string>
+      CAFile: +\<string>
+      CRLFile: +\<string>
+      allowConnectionsWithoutCertificates: +\<boolean>
+      allowInvalidCertificates: +\<boolean>
+      allowInvalidHostnames: +\<boolean>
+      disabledProtocols: +\<string>
+      FIPSMode: +\<boolean>
    compression:
-      compressors: <string>
-   transportLayer: <string>
-   serviceExecutor: <string>
+      compressors: +\<string>
+   transportLayer: +\<string>
+   serviceExecutor: +\<string>
     unixDomainSocket:
-      enabled: <boolean>
-      pathPrefix: <string>
-      filePermissions: <int>
+      enabled: +\<boolean>
+      pathPrefix: +\<string>
+      filePermissions: +\<int>
 
 
 security:
-   keyFile: <string>
-   clusterAuthMode: <string>
-   authorization: <string>
-   transitionToAuth: <boolean>
-   javascriptEnabled:  <boolean>
-   redactClientLogData: <boolean>
+   keyFile: +\<string>
+   clusterAuthMode: +\<string>
+   authorization: +\<string>
+   transitionToAuth: +\<boolean>
+   javascriptEnabled:  +\<boolean>
+   redactClientLogData: +\<boolean>
    sasl:
-      hostName: <string>
-      serviceName: <string>
-      saslauthdSocketPath: <string>
-   enableEncryption: <boolean>
-   encryptionCipherMode: <string>
-   encryptionKeyFile: <string>
+      hostName: +\<string>
+      serviceName: +\<string>
+      saslauthdSocketPath: +\<string>
+   enableEncryption: +\<boolean>
+   encryptionCipherMode: +\<string>
+   encryptionKeyFile: +\<string>
    kmip:
-      keyIdentifier: <string>
-      rotateMasterKey: <boolean>
-      serverName: <string>
-      port: <string>
-      clientCertificateFile: <string>
-      clientCertificatePassword: <string>
-      serverCAFile: <string>
+      keyIdentifier: +\<string>
+      rotateMasterKey: +\<boolean>
+      serverName: +\<string>
+      port: +\<string>
+      clientCertificateFile: +\<string>
+      clientCertificatePassword: +\<string>
+      serverCAFile: +\<string>
    ldap:
-      servers: <string>
+      servers: +\<string>
       bind:
-         method: <string>
-         saslMechanisms: <string>
-         queryUser: <string>
-         queryPassword: <string>
-         useOSDefaults: <boolean>
-      transportSecurity: <string>
-      timeoutMS: <int>
-      userToDNMapping: <string>
+         method: +\<string>
+         saslMechanisms: +\<string>
+         queryUser: +\<string>
+         queryPassword: +\<string>
+         useOSDefaults: +\<boolean>
+      transportSecurity: +\<string>
+      timeoutMS: +\<int>
+      userToDNMapping: +\<string>
       authz:
-         queryTemplate: <string>
+         queryTemplate: +\<string>

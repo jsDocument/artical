@@ -229,7 +229,7 @@ db.col.aggregate([
     }
   }, // 对结果进行裁剪
   {
-    $out: <collection>
+    $out: +\<collection>
   } // 必须在最后，将计算结果定入到指定表，不存在的collection时，直接创建，存在则进行原子性替换(不改变原数据与索引)，出错时数据朱会改变
 ],{
   explain: true 查看各个阶段执行的计划

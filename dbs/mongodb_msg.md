@@ -50,7 +50,7 @@
 + mongorestore --drop(恢复数据之前删除原来数据库数据) 将备份恢复到数据库，-d db  -c col
 
 ## 导入数据
-+ mongoimport -d db -c col -type csv --headerline --drop < csvFile.csv [csv,tsv,json]
++ mongoimport -d db -c col -type csv --headerline --drop +\< csvFile.csv [csv,tsv,json]
 + mongoimport --help
 
 ## 导出

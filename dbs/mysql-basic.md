@@ -51,7 +51,7 @@ declare varName type default 0
 4. is not true / false / unknown
 5. (not) between and
 6. and, or, xor
-7. =, <=>, <>, !=, <=, <, >=, >, !, &&, ||
+7. =, +\<=>, +\<>, !=, +\<=, +\<, >=, >, !, &&, ||
 8. 可以用子句，子句返回聚合的数据，然后再筛选
 
 ## having子句，结果再次筛选，字段必须是筛选出来的，可以是别名
@@ -207,7 +207,7 @@ end [as] new_name
   + 外连接----基表和参考表，以基表为依据返回满足和不满足条件的记录，{left outer join | left join} 与关键字的右边表进行匹配, null表示右表没有找到与左表相符的记录；{right outer join | right join} 右表为基表 on condition
 
 4. where
-  + 比较运算 <>, !=, <=>
+  + 比较运算 +\<>, !=, +\<=>
   + 范围 expr [not] between expr1 and expr2； expr IN (list)
   + 空值 expr IS [NOT] NULL
   + 子查询 expr [not] IN (select...)；expr 比较运算 {ALL | SOME | ANY} (select...)；exist (select...)
@@ -318,14 +318,14 @@ lines starting by 'string'--------行前缀与后缀
 ## 数据库
 
 1. 启动：bash mysql.server start
-2. 用户登录【交互模式】：Mysql -u root -p passwd；【命令模式】：mysql -p pwd -e "查询命令或其他命令"；【批处理模式】：more xxx.sql 或 source xxx.sql 或 mysql -u xxx -p xxx < xxx.sql
+2. 用户登录【交互模式】：Mysql -u root -p passwd；【命令模式】：mysql -p pwd -e "查询命令或其他命令"；【批处理模式】：more xxx.sql 或 source xxx.sql 或 mysql -u xxx -p xxx +\< xxx.sql
 3. 连接远程数据库服务器：mysql  - D 所选择数据库名  -h 主机名 -u 用户名 -p 密码
 4. 查看：show databases
 5. 创建建：create database name
 6. 启用：use databaseName 或 \u databaseName
 7. 删除：Drop database databaseName
 8. 备份：mysqldump -u root -p 数据库名>url/xxx.sql
-9. 恢复：mysql -u root 新数据库名<xxx.sql
+9. 恢复：mysql -u root 新数据库名+\<xxx.sql
 10. 执行外部sql：mysql -u root -p --source xxx.sql 或 source xxx.sql
 
 ## 表
@@ -336,7 +336,7 @@ lines starting by 'string'--------行前缀与后缀
 3. 插入：Insert into tableName ([fieldName, …]) values (v1,…)
 4. 删除：Drop table Tname 或 Delete from Tname 。。。
 5. 修改：Alter table tableName rename newTableName
-6. 通过脚本文件创建表：mysql -D databaseName -u userName -p < createtable.sql
+6. 通过脚本文件创建表：mysql -D databaseName -u userName -p +\< createtable.sql
 7. 创建时字段描述：类型[(长度)] 索引 自增 默认值(int unsigned primary key auto_increment unique not null default '')
 
 ## 修改表结构：
@@ -567,7 +567,7 @@ GRANT CREATE ON test.* TO demon WITH GRANT OPTION;
 1. field is [not] null
 2. value [not] / in(1,2,3,5,6)
 3. value [not]between A and B;
-4. = 与 <=> 判断等于null时结果不同
+4. = 与 +\<=> 判断等于null时结果不同
 5. isnull(field)
 
 + 数据库信息函数

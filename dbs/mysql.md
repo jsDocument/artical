@@ -5,7 +5,7 @@
 1. 安装brew install mysql
 2. 配置文件
 3. 启动服务 brew services start/restart/stop mysql
-4. 连接 mysql -D 选择数据库名 -h 主机名 -u name -p < script.sql
+4. 连接 mysql -D 选择数据库名 -h 主机名 -u name -p +\< script.sql
 5. 重设密码 mysqladmin -u root -p pwd
 
 ## 导入导出数据 或 执行sql语句
@@ -35,8 +35,8 @@ select count(*) as out_name, field from tbl group by field having out_name >1
 
 ## 表达式及函数
 
-1. 运算符 + - * / div % mod; &, |, ^, !, <<, >>
-2. 比较运算 between expr and expr, like % 零个或多个 _单个 escape指定转义字符, in, is, not in, is null, regexp '', =, <> 或 !=, <, >, <=, >= <=>;
+1. 运算符 + - * / div % mod; &, |, ^, !, +\<<, >>
+2. 比较运算 between expr and expr, like % 零个或多个 _单个 escape指定转义字符, in, is, not in, is null, regexp '', =, +\<> 或 !=, +\<, >, +\<=, >= +\<=>;
 3. 逻辑运算 and, or, not !, xor
 4. 数字函数
 
@@ -112,7 +112,7 @@ end
 
 ```
 
-: 优先级 (!) > 一元运算(-,~) > (^) > (*/%) > (+-) > (<<,>>) > (&) > (|) > (比较运算) > (between, case, when, then, else) > (逻辑运算) > (:=)
+: 优先级 (!) > 一元运算(-,~) > (^) > (*/%) > (+-) > (+\<<,>>) > (&) > (|) > (比较运算) > (between, case, when, then, else) > (逻辑运算) > (:=)
 
 ## 变量的使用
 

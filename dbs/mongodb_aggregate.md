@@ -32,12 +32,12 @@
 +  $project 定义显示与不显示文档字段
 +  $match  过滤数据
 +  $redact  字段所处的document结构的级别， 与 $cond结合使用；$$DESCEND  当前document所有字段；$$PRUNE 相反；$$KEEP  两者
-+  $limit,  $skip,  
++  $limit,  $skip,
 +  $unwind 将文档中某个数组类型字段分拆成多条，每条包含数组中的一个值，$group 集合中的文档分组,
 +  $sort,
 +  $geoNear 输出接近某一地理位置的有序文档
 +  $sample  随机
-+  $lookup 连接操作符，用于连接同一个数据 库中另一个集合，并获取指定的文档 
++  $lookup 连接操作符，用于连接同一个数据 库中另一个集合，并获取指定的文档
 +  $out  必须为最后一个阶段管道，将最后结果写入到指定的collection中
 +  $indexStats  返回集合的每个索引使用情况
 +  $count  返回的文档数量
@@ -83,11 +83,11 @@
 +  $out,    创建一个新的collection或更新已有collection [{$out: "newCollection"}]
 +  $project,   {$project: {field: 1/0}}   修改数据流中的文档结构
 +  $redact,    取反？？？？
-+  $replaceRoot,    
++  $replaceRoot,
 +  $sample,   随机返回一条数据
 +  $skip,    跳过
 +  $sort,    排序
-+  $sortByCount,   
++  $sortByCount,
 +  $unwind,     拆分数组
 +  $currentOp
 
@@ -148,7 +148,7 @@
 `组聚合操作符`
 +  $addToSet,   返回一个唯一值的数组，只能用在$group中  [{$group: {id:{}, var: {$addToSet: "$field"}}}]
 +  $first   集合中第一个数据, 在$group中时，应该使用$sort
-+  $last   
++  $last
 +  $min,
 +  $max,   返回$group 一组中 或 数组中中最大
 +  $sum   {var: {$sum: "$field" / number}}  字段的和  返回组合中所有值的合
@@ -169,7 +169,7 @@
 +  $indexOfBytes,   与数组查找类似  Number, -1, null
 +  $indexOfCP,    与上面类似  Number, -1, Error, null
 +  $strcasecmp,  字符串比较 [str, str1]  str大于str1---1, 0, -1
-+  $substr,      [str, start, length<-1为结束处>]
++  $substr,      [str, start, length+\<-1为结束处>]
 +  $substrBytes,  [str, index, count]   按字节截取，如果取的不是完整字符，则报错
 +  $substrCP,      [str, index非负, count非负]  按字符截取字符串
 +  $toLower,

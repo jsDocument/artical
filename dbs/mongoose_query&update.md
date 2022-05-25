@@ -136,10 +136,10 @@
 + $  标识一个数组中的对象属性更新 修改第一个匹配的项 "field.$" ？ {$set: {"field.$.field": val}}, 与查找语句$elemMatch相似, 多个属性时用h$elemMatch
 + {$set: {field.$[]: val}} 更新数组所有元素值为val, 必须超过一个且为内嵌数组
   {$inc: {"field.$[]": 10}}  field的数组元素为简单类型，都增加10
-+ {$set: {field.$[<identifier>]: value}, {arrayFilters: [<identifier>:<condition>]}} 更新内嵌型数组
++ {$set: {field.$[+\<identifier>]: value}, {arrayFilters: [+\<identifier>:+\<condition>]}} 更新内嵌型数组
     {$inc: { "field.$[].sub.$[var]": val}}, {arrayFilters: [{"var": {$equal: 10}}], multi: true}  var表示sub的所有值
     {$set: {"field.$[var]": val}, {...}  }
-    {$set: {"field.$[var].sub": val}, {arrayFilters: [{ "var.sub1" : <condition> }]}  }
+    {$set: {"field.$[var].sub": val}, {arrayFilters: [{ "var.sub1" : +\<condition> }]}  }
 + $addToSet  向数组添加一个数据，除非数据已存在,  {$addToSet: {field: [val, val]}} 向字段添加了一个数组
 + $each 循环添加  {$addToSet: {$each: [val, val, val]}} 其中有某个项为与数据库数据相同，只加不存在的数据  `单表达式`
 + $pop  移除第一个-1或最后一个1
@@ -219,9 +219,9 @@
 
 ## 处理文档
 + remove(query,{
-     justOne: <boolean>,
-     writeConcern: <document>,
-     collation: <document>
+     justOne: +\<boolean>,
+     writeConcern: +\<document>,
+     collation: +\<document>
    }, cb)
 + Model.update(conditions, doc, [optiions], cb)
 + update(query, update, options) ******
