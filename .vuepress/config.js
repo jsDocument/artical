@@ -173,9 +173,7 @@ function genSidebarConfig (title) {
         children: [
           '/tools/git/config',
           '/tools/git/staging',
-          '/tools/git/branch-tag',
-          '/tools/git/stash',
-          '/tools/git/push'
+          '/tools/git/branch-tag'
         ]
       },
       {

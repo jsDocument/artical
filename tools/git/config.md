@@ -1,4 +1,4 @@
-# git 配置基本命令
+### git 配置基本命令
 
 配置
 
@@ -43,7 +43,7 @@ git config --global cendential.helper 'cance --timeout=3600'
 - 删除远程分支 git push origin :branch1
 
 
-## 之前提交，忽略某些提交文件，之后不再提交
+#### 之前提交，忽略某些提交文件，之后不再提交
 
 1. git update-index --assume-unchanged  file
 2. git update-index --no-assume-unchanged  file
@@ -52,7 +52,7 @@ git config --global cendential.helper 'cance --timeout=3600'
 5. git log --stat --diff-filter=D 文件在哪些被删除了
 6. git reset HEAD file 把文件还原？
 
-## 过程，及返回上一步
+#### 过程，及返回上一步
 
 1. untracked 未跟踪 ---> add，可以开始跟踪
 2. no stage 跟踪未暂存 ---> add，放入暂存区 相反：git rm file(--cached); git mv
@@ -60,3 +60,7 @@ git config --global cendential.helper 'cance --timeout=3600'
 4. push
 5. git diff file file 变化
 
+#### 文件跟踪
+
+1. 文件重命名：git mv --force oldName newName
+2. 从git 删除，但保留文件：git rm --cached filename
