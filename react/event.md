@@ -5,7 +5,7 @@
    2. 与内部的「优先级机制」绑定，方便事件统一管理和事务机制。
    3. 避免垃圾回收，React 引入`事件池`，在事件池中获取或释放事件对象，避免`频繁地去创建和销毁`。
 
-## 核心模块
+#### 核心模块
 
 1. SyntheticEvent(合成事件)：对原生浏览器事件的一层封装，拥有和原生浏览器事件相同的 API，如：stopPropagation() 和 preventDefault()
 2. 模拟实现的事件传播机制
@@ -36,7 +36,7 @@ class SyntheticEvent {
 
 addEvent---dispatchEvent「根节点的事件回调」-----「通过 DOM 节点找到对应的 FiberNode」----collectPaths「收集路径中该事件的所有回调函数」-----triggerEventFlow「捕获阶段的实现」-----triggerEventFlow「冒泡阶段的实现」
 
-## 要点
+#### 要点
 
 1. se = new SyntheticEvent() 包装合成事件
 2. fiberNode.memoizedProps 保存对应事件回调
@@ -63,21 +63,20 @@ addEvent---dispatchEvent「根节点的事件回调」-----「通过 DOM 节点�
       + handerClick里面触发setState，那么就能读取到 isBatchingEventUpdates = true这就是React的合成事件为什么具有批量更新的功能了。
 
 
-2 为什么我们的事件不能绑定给组件？
-3 为什么我们的事件手动绑定this(不是箭头函数的情况)
-4 为什么不能用 return false 来阻止事件的默认行为？
-5 react怎么通过dom元素，找到与之对应的 fiber对象的？
-6 onClick是在冒泡阶段绑定的？ 那么onClickCapture就是在事件捕获阶段绑定的吗？
+#### 其他问题
 
-+ 事件池---extractEvents 形成事件对象event 和 事件处理函数队列
-+ handleTopLevel：就是执行事件处理插件(SimpleEventPlugin)中的处理函数extractEvent
-
-+ namesToPlugins 事件模块插件的映射
-+ plugins
-+ registrationNameModules(记录了React合成的事件-对应的事件插件的关系)
-SimpleEventPlugin,
-EnterLeaveEventPlugin,
-ChangeEventPlugin,
-SelectEventPlugin,
-BeforeInputEventPlugin,
-构建初始化React合成事件和原生事件的对应关系，合成事件和对应的事件处理插件关系
+1. 为什么我们的事件不能绑定给组件？
+2. 为什么我们的事件手动绑定this(不是箭头函数的情况)
+3. 为什么不能用 return false 来阻止事件的默认行为？
+4. react怎么通过dom元素，找到与之对应的 fiber对象的？
+5. onClick是在冒泡阶段绑定的？ 那么onClickCapture就是在事件捕获阶段绑定的吗？
+6. 事件池---extractEvents 形成事件对象event 和 事件处理函数队列
+   1. handleTopLevel：就是执行事件处理插件(SimpleEventPlugin)中的处理函数extractEvent
+   2. namesToPlugins 事件模块插件的映射
+   3. plugins
+   4. registrationNameModules(记录了React合成的事件-对应的事件插件的关系)
+     SimpleEventPlugin,
+     EnterLeaveEventPlugin,
+     ChangeEventPlugin,
+     SelectEventPlugin,
+     BeforeInputEventPlugin，构建初始化React合成事件和原生事件的对应关系，合成事件和对应的事件处理插件关系
