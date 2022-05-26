@@ -8,10 +8,13 @@
 
 ## 大致包含的系列
 
-+ [基础知识与新基础知识系列](/basic/)
-+ [构建系列](/tools/)
++ [基础知识](/basic/base/)
++ [promise 系列](/basic/promise/)
++ [正则 系列](/basic/promise/regexp.md)
++ [http 系列](/basic/http/)
 + [算法系列](/LeetCode/)
-+ [vue源码解读系列](/vue-resource/)
++ [构建系列](/tools/)
++ [vue 源码解读系列](/vue-resource/)
 + [React 相关知识解读](/react/)
 + jQuery 源码解读
 + mongoDB 系列
