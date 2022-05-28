@@ -1,4 +1,4 @@
-### react 事件的相关功能实现
+### react SyntheticEvent 事件
 
 1. 为什么要自定义事件机制？
    1. 抹平不同浏览器的差异，实现更好的跨平台。
@@ -143,7 +143,9 @@ function addTrappedEventListener(targetContainer,topLevelType,eventSystemFlags,c
 
 #### react 事件的触发
 
-+ 事件触发处理函数 dispatchEvent，事件触发后执行的是 dispatchEvent 函数
+![事件触发脉络](./dispatchEvent.png)
+
++ 事件触发处理函数 dispatchEvent，事件触发后执行的是 dispatchEvent 函数，实际后面调用了对应的事件插件处理
 + dispatchEvent，前三个参数已经被bind了进去，所以真正的事件源对象 event，被默认`绑定成第四个参数`。
 
 ```js
@@ -174,6 +176,10 @@ function attemptToDispatchEvent(topLevelType,eventSystemFlags,targetContainer,na
 1. 首先根据真实的事件源对象，`找到 e.target 真实的 dom 元素`。
 2. 然后根据dom元素，`找到与它对应的 fiber 对象targetInst`。
 3. 然后正式进去 legacy 模式的事件处理系统，也就是我们目前用的React模式都是 legacy 模式下的，在这个模式下，进行批量更新。
+4. React 的冒泡和捕获并不是真正 DOM 级别的冒泡和捕获
+5. React 会在一个原生事件里触发所有相关节点的 onClick 事件， 在执行这些onClick之前(派发事件时) React 会打开批量渲染开关，这个开关会将所有的setState变成异步函数。
+6. 事件只针对原生组件生效，自定义组件不会触发 onClick
+
 :::
 
 #### 疑问
@@ -196,7 +202,7 @@ function attemptToDispatchEvent(topLevelType,eventSystemFlags,targetContainer,na
 ```js{6,15}
 /* topLevelType - click事件 ｜ eventSystemFlags = 1 ｜ nativeEvent = 事件源对象  ｜ targetInst = 元素对应的fiber对象  */
 function dispatchEventForLegacyPluginEventSystem(topLevelType,eventSystemFlags,nativeEvent,targetInst){
-    /* 从React 事件池中取出一个，将 topLevelType ，targetInst 等属性赋予给事件  */
+    // bookKeeping为事件执行时组件的层级关系存储，也就是如果在事件执行过程中发生组件结构变更，并不会影响事件的触发流程
     const bookKeeping = getTopLevelCallbackBookKeeping(topLevelType,nativeEvent,targetInst,eventSystemFlags);
     try { /* 执行批量更新 handleTopLevel 为事件处理的主要函数 */
     batchedEventUpdates(handleTopLevel, bookKeeping);

@@ -60,10 +60,12 @@
   + 使用 useRef 保存的数据一般是和 UI 的渲染无关的，还可以保存某个 DOM 节点的引用
 + useContext: 定义全局状态----跨层次数据传递，从某个组件为根组件的组件树上可用, 这个组件树上的组件都可以修改和访问这个 context
   + 创建 ThemeContext, 使用
+
 ```html
   <ThemeContext.Provider value={}><comp></ThemeContext.Provider>
   <!-- 获取useContext(ThemeContext) -->
-  ```
+```
+
   + 设计复杂的原因：为了能够进行数据的绑定
   + 缺点:
     + 会让调试变得困难，因为你很难跟踪某个 Context 的变化究竟是如何产生的。
@@ -79,6 +81,19 @@
     + 其中 State 即 Store，一般就是一个纯 JavaScript Object。
     + Action 也是一个 Object，用于描述发生的动作。
     + 而 Reducer 则是一个函数，接收 Action 和 State 并作为参数，通过计算得到新的 Store。
+
+#### react-hooks 原理
+
+1. react 用什么方式记录了 hooks 的状态
+2. 多个react-hooks用什么来记录每一个hooks的顺序的 ？
+3. 函数组件中的useState，和 class类组件 setState有什么区别？
+4. react 是怎么捕获到hooks的执行上下文，是在函数组件内部的？
+5. useEffect,useMemo 中，为什么useRef不需要依赖注入，就能访问到最新的改变值？
+6. useMemo是怎么对值做缓存的？如何应用它优化性能？
+7. 为什么两次传入useState的值相同，函数组件不更新?
+
+每一次函数上下文执行，所有变量，常量都重新声明，执行完毕，再被垃圾机制回收。
+
 组件销毁，组件更新？
 
 预渲染
