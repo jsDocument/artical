@@ -211,6 +211,7 @@ function genSidebarConfig (title) {
     '/react/': [
       '/react/question',
       '/react/fiber',
+      '/react/build-fiber',
       '/react/event',
       '/react/hooks',
       '/react/virtualDOM',
