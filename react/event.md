@@ -254,3 +254,7 @@ export function batchedEventUpdates(fn,a){
 
 :::
 
+
+::: tip 注意事项
+绑定事件尽量不要使用箭头函数，使用箭头函数，导致每次渲染时都会创建一个新的事件处理器，这会导致 ChildComponent 每次都会被渲染。
+:::
