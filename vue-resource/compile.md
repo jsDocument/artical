@@ -127,6 +127,8 @@ function parse (
       // AST 节点属性处理
       // 节点检查
       // apply pre-transforms
+      // 处理各种指令
+      // inPre, v-pre相当于avalon的skip,即在它控制的作用域下不编译指令或者表达式 或 预留的</pre> 标签
       // processPre
       // processRawAttrs
       // processFor(element)
@@ -255,7 +257,7 @@ function parseHTML (html, options) {
   const stack = []
   const expectHTML = options.expectHTML
   const isUnaryTag = options.isUnaryTag || no
-  const canBeLeftOpenTag = options.canBeLeftOpenTag || no
+  const canBeLeftOpenTag = options.canBeLeftOpenTag || no // 像colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source这些节点，不会直接包裹同类型的节点，包裹即错误的，会进行修正处理
   let index = 0
   let last, lastTag
   while (html) {

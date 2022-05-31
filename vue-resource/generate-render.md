@@ -1,29 +1,33 @@
 ### 生成 render 函数
 
-+ genElement----分类生成 VNode 渲染函数的入口
-+ genComment----生成渲染函数_e，即函数功能是createEmptyVNode 创建注释 VNode
-+ genText----生成渲染函数_v，即函数功能是createTextVNode 创建文本 VNode
-+ genNode----DOM 节点类型，或 注释 或 文本类型
-+ genData----将元素属性组装成{dirs, key: el.key, ref: el.ref, refInFor: true, pre: true, tag: el.tag, 执行dataGenFns的结果 attrs: 处理attrs, domProps: 处理props, 事件处理, 原生事件处理, slot: el.slotTarget, 处理ScopedSlots， model: {value: el.model.value, callback: el.model.callback, expression: el.model.expression}, inlineTemplate 处理}，
-  + 如果是动态 attrs，对数据为_b(data, el.tag, 动态属性处理)函数，再对其_b(), _g()
-+ genProps
-+ genHandlers
-+ genFor
-+ genOnce
-+ genStatic----生成渲染函数_m(index, isInFor)，即函数renderStatic的功能是执行对应下标的staticRenderFns函数，并缓存结果，并为其加上静态节点的标志
-+ genIf
-+ genIfConditions
-+ genInlineTemplate
-+ genDirectives
-+ genSlot
-+ genScopedSlot
-+ genScopedSlots
-+ genComponent
-+ genChildren
-+ genProps
-+ generateValue
-+ staticRenderFns
-+ altGen
+1. 先处理 options 参数
+2. 生成render函数字符串，并用 with 包裹
+3. staticRenderFns 一组由 with 包裹
+4. 被运用到了render函数的代码生成中的方法
+   + genElement----分类生成 VNode 渲染函数的入口
+   + genComment----生成渲染函数_e，即函数功能是createEmptyVNode 创建注释 VNode
+   + genText----生成渲染函数_v，即函数功能是createTextVNode 创建文本 VNode
+   + genNode----DOM 节点类型，或 注释 或 文本类型
+   + genData----将元素属性组装成{dirs, key: el.key, ref: el.ref, refInFor: true, pre: true, tag: el.tag, 执行dataGenFns的结果 attrs: 处理attrs, domProps: 处理props, 事件处理, 原生事件处理, slot: el.slotTarget, 处理ScopedSlots， model: {value: el.model.value, callback: el.model.callback, expression: el.model.expression}, inlineTemplate 处理}，
+     + 如果是动态 attrs，对数据为_b(data, el.tag, 动态属性处理)函数，再对其_b(), _g()
+   + genProps
+   + genHandlers
+   + genFor
+   + genOnce
+   + genStatic----生成渲染函数_m(index, isInFor)，即函数renderStatic的功能是执行对应下标的 staticRenderFns 函数，并缓存结果，并为其加上静态节点的标志
+   + genIf
+   + genIfConditions
+   + genInlineTemplate
+   + genDirectives
+   + genSlot
+   + genScopedSlot
+   + genScopedSlots
+   + genComponent
+   + genChildren
+   + genProps
+   + generateValue
+   + staticRenderFns
+   + altGen
 
 ```js
 function generate (

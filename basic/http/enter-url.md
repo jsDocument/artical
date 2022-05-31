@@ -8,7 +8,7 @@
 + HTT 请求
 + 服务器处理请求并返回报文
 + 浏览器渲染页面
-+ 端口 TCP 连接
++ 断开 TCP 连接
 
 1. 从浏览器地址栏输入url到请求返回发生了什么？url 解析，dns 系统查询 IP
 
@@ -22,7 +22,22 @@
       + URL: 协议、主机、端口、路径、查询参数、锚点
 
 3. url编码的规则是什么呢？utf-8，中文的话用gb2312编码吗，还有就是万一浏览器不是你说的这样统一用utf-8，你怎么保证都是utf-8的编码?
-4. encodeURIComponent比encodeURI有什么区别?
+   + meta 标签主要有两个属性：
+   + name『keywords, description, viewport, renderer 何种方式渲染』
+   + http-equiv「名称/值」指示服务器在发送实际的文档之前先在要传送给浏览器的 MIME 文档头部包含名称/值对
+     + Content-type：网页编码格式，告诉浏览器使用何种编码进行解码 \<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+     + 还包括：Content-Language：\<meta http-equiv="Content-Language" content="zh-cn"/>
+     + Expires：\<meta http-equiv="Expires" content="-10"/>
+     + Pragma：\<meta http-equiv="Pragma" content="no-cache"/>
+     + Cache-Control 指定请求和响应遵循的缓存机制。
+     + Set-Cookie(cookie设定)
+     + Refresh(刷新)
+     + Window-target：强制页面在当前窗口以独立页面显示，防止自己的页面被其他网页以 frame 调用
+     + X-UA-Compatible：IE8 浏览器专用
+4. encodeURIComponent 和 encodeURI 及 escape 有什么区别?
+   + 编码范围不同，escape 用于对字符串的编码，不适用于 URL 编码，不会编码的字符有 69 个：`* + - . / @ _ 0-9 a-z A-Z`
+   + encodeURIComponent 的编码范围比 encodeURI 的大，不会编码的字符有 71 个：`! ' ( ) * - . _ ~ 0-9 a-z A-Z`，对参数编码一般用 encodeURIComponent，如果用它对 host 和 path 进行编码，会导致“/”也被编码，导致 URL 不可用
+   + 对整个 URL 编码一般用 encodeURI，不会编码的字符有 82 个：`; , / ? : @ & = + $ - _ . ! ~ * ' ( ) # 0-9 a-z A-Z`
 5. dns 系统如何查询 IP？host-->本地 dns 解析器缓存-->本地 dns 服务器缓存
    + DNS 域名解析：递归和迭代过程----根、顶、权威
      + 将报文转发到根 DNS 服务器
