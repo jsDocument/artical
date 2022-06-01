@@ -172,13 +172,17 @@
       + 添加或者删除可见的DOM元素
       + 激活CSS伪类（例如：:hover）
       + 查询某些属性或调用某些方法
-15. 页面渲染优化可以从几方面入手？
+
+![reflow](./reflow.jpg)
+
+1.  页面渲染优化可以从几方面入手？
     + CDN：内容分发网络（CDN）是一组分布在多个不同地理位置的 Web 服务器
     + 将 CSS 放在文件头部，JavaScript 文件放在底部
       + CSS 执行会阻塞渲染，阻止 JS 执行
       + JS 加载和执行会阻塞 HTML 解析，阻止 CSSOM 构建
     + 减少重绘、重排
       + 避免使用table布局;
+      + DOM 进行批量写入和读取
       + 尽可能在DOM树的最末端改变class;
       + 避免设置多层内联样式;
       + 将动画效果应用到position属性为absolute或fixed的元素上;
@@ -189,7 +193,7 @@
       + 避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。
       + 对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。
 
-16. 对于页面加载可以做的部分优化:关于 link 类型[详细参见MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Link_types)
+2.  对于页面加载可以做的部分优化:关于 link 类型[详细参见MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Link_types)
     + preconnect  向浏览器提供提示，建议浏览器提前打开与链接网站的连接
     + dns-prefetch  提示浏览器该资源需要在用户点击链接之前进行 DNS 查询和协议握手。
     + prefetch    建议浏览器提前获取链接的资源，因为它很可能会被用户请求
