@@ -1,4 +1,6 @@
-### CI 持续集成 与 CD 持续部署
+### lint 与 CI 持续集成 与 CD 持续部署
+
+![cicd](./CICD.png)
 
 #### CI/CD 产生的发展历程
 

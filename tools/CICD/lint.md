@@ -4,7 +4,7 @@
   + 版本控制：add `.npmrc` 和 `.nvmrc`，并且 lock 文件也要入库，[配置](#版本控制)
   + 执行 `npm init @eslint/config`，生成 .eslintrc.* 配置文件，进行相应的配置
   + 保存代码格式化：prettier `npm i prettier -D`
-  + 代码提交前：lint-staged，执行 `npm i lint-staged -D`，并在package.json中进行规则配置，与定义命令执行
+  + 代码提交前：lint-staged，执行 `npm i lint-staged -D`，并在package.json中进行规则配置，与定义scripts执行命令
   + husky，定义.git的钩子命令
   + commitlint 做 commit message 校验
 + IDE 编辑器接入
