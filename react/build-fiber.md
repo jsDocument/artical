@@ -144,3 +144,7 @@ function beginWork(
 ```
 
 #### 回溯阶段 completeWork
+
+#### React 执行的每个阶段 与 节点比对
+
+![时序图](./React-stage-domDiff.png)

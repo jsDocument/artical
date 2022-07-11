@@ -3,6 +3,8 @@
 在第一节中，我们知道初始化 Vue 实例时，会把 Inject, props, data 加入 observe，定义对其数据的追踪；
 computed, watch 加入到 watcher 订阅中
 
+![数据监听一览](./Vue-observe.png)
+
 #### observe：通过defineProperty为对象属性 或 数组方法进行数据追踪
 
 ```js{10,17,19,25,30,75-111}
