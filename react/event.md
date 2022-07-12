@@ -20,9 +20,50 @@
 #### React 时间系统的执行顺序
 
 1. 事件初始化
-2. 事件注册
+2. 事件注册：fiber节点进入render阶段的complete阶段时，名称为onClick的prop会被识别为事件进行处理
+   1. registrationNameDependencies是一个对象，存储了所有React事件对应的原生DOM事件的集合，这是识别prop是否为事件的依据
+   2. 如果是事件类型的prop，那么将会调用ensureListeningTo去绑定事件。
 3. 事件绑定
-4. 事件触发
+   1. 根据 React 事件名寻找对应事件依赖，循环这些依赖，在root上绑定对应的事件
+   2. 根据事件名，识别是属于哪个阶段的事件
+   3. 根据 React 事件名，找出对应的原生事件名，进一步判断是否需要在捕获阶段触发，通过 addEventListener 将事件绑定到 root 元素上，而处理函数是 createEventListenerWrapperWithPriority 的调用结果
+   4. 如果事件需要更新，先移除事件再进行监听
+4. createEventListenerWrapperWithPriority 会创建一个事件监听包装器，有优先级 和 事件监听包装
+   1. 结构，createEventListenerWrapperWithPriority 的参数 eventSystemFlags，是事件系统的一个标志，记录事件的各种标记，其中一个标记就是IS_CAPTURE_PHASE，这表明了当前的事件是捕获阶段触发。
+   2. 优先级 和 事件名的映射关系存在一个 Map 结构，createEventListenerWrapperWithPriority 会根据事件名或者传入的优先级返回不同级别的`事件监听包装器`，总体来说有三种事件监听包装器：
+   3. dispatchDiscreteEvent: 处理离散事件
+   4. dispatchUserBlockingUpdate：处理用户阻塞事件
+   5. dispatchEvent：处理连续事件
+5. 事件触发
+   1. 以不同的优先级权重来触发真正的事件流程，并传递事件执行阶段标志（eventSystemFlags）。
+   2. root 上的 listener相当于一个传令官，按照事件的优先级去安排接下来的工作：`事件对象的合成、将事件处理函数收集到执行路径、 事件执行`，这样在后面的调度过程中，scheduler才能获知当前任务的优先级，然后展开调度。
+   3. 利用scheduler中的runWithPriority函数，通过调用它，将优先级记录到利用scheduler中，所以调度器才能在调度的时候知道当前任务的优先级。runWithPriority的第二个参数，会去安排对应的`事件对象的合成、将事件处理函数收集到执行路径、 事件执行`
+   4. root上的事件监听最终触发的是 dispatchEventsForPlugins
+   5. root上的事件监听被触发会引发事件对象的合成和事件的收集过程，这是为真正的事件触发做准备
+6. 事件执行
+   1. dispatchEventsForPlugins 流转着一个重要的载体：dispatchQueue 承载了本次`合成的事件对象`和`收集到事件执行路径上的事件处理函数`。
+   2. listeners 是事件执行路径，将事件收集到事件执行路径上，依据fiber树的层级结构向上查找，与上级元素中所有相同类型的事件，最终形成一个具有所有相同类型事件的数组，这个数组就是事件执行路径。
+   3. 收集事件到执行路径：将组件中真正的事件处理函数收集到数组中，等待下一步的批量执行，收集的过程由 accumulateSinglePhaseListeners 完成：需要在fiber树中从触发事件的源fiber节点开始，向上一直找到root，形成一条完整的冒泡或者捕获的路径。同时，沿途路过fiber节点时，根据事件名，从props中获取我们真正写在组件中的事件处理函数，push到路径中，等待下一步的批量执行。
+   4. 通过这个事件执行路径，React自己模拟了一套事件捕获与冒泡的机制。
+   5. event 合成事件对象，收集组件中真正的事件到执行路径，以及事件对象的合成通过extractEvents实现。
+   6. 一共有 5 种事件插件：SimpleEventPlugin，EnterLeaveEventPlugin，ChangeEventPlugin，SelectEventPlugin，BeforeInputEventPlugin 都由 SyntheticEvent 构造事件合成对象
+   7. 事件执行过程，从头到尾循环该路径，依次调用每一项中的监听函数
+   8. 每个事件执行时，都会检查合成事件对象，有没有调用阻止冒泡的方法，另外会将当前挂载事件监听的元素作为currentTarget挂载到事件对象上，最终传入事件处理函数，我们得以获取到这个事件对象
+
+
+```js
+// event就代表着合成事件对象，可以将它认为是这些listeners共享的一个事件对象
+[{
+  event: SyntheticEvent,
+  listeners: [listener1, listener2, ...]
+}]
+
+```
+
++ event就代表着合成事件对象，可以将它认为是这些listeners共享的一个事件对象。当清空listeners数组执行到每一个事件监听函数时，这个事件监听可以改变event上的currentTarget，也可以调用它上面的stopPropagation方法来阻止冒泡。event作为一个共享资源被这些事件监听消费，消费的行为发生在事件执行时。
+
+
+
 
 ![React 时间系统](./event.png)
 
