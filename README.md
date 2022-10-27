@@ -10,7 +10,6 @@
 
 + [基础知识](/basic/base/)
 + [promise 系列](/basic/promise/)
-+ [正则 系列](/basic/promise/regexp.md)
 + [http 系列](/basic/http/)
 + [算法系列](/LeetCode/)
 + [构建系列](/tools/)
@@ -19,4 +18,5 @@
 + jQuery 源码解读
 + mongoDB 系列
 + node 系列
++ [正则系列](/Regexp/)
 

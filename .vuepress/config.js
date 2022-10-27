@@ -53,6 +53,7 @@ module.exports = {
         {text: 'javascript 高阶专题系列', link: '/basic/promise/'},
         {text: 'http 系列知识', link: '/basic/http/'},
       ]},
+      {text: '正则系列', link: '/Regexp/'},
       // {text: 'css 相关', link: '/basic/ css/'},
       {text: 'leetCode系列', link: '/LeetCode/'},
       {text: '工具系列', link: '/tools/'},
@@ -80,24 +81,17 @@ function genSidebarConfig (title) {
       '/basic/es6/promise',
       '/basic/es6/async',
     ],
+    '/Regexp/': [
+      '/Regexp/readme',
+      '/Regexp/regexp',
+    ],
     '/basic/promise/': [
-      {
-        title: 'promise 系列',
-        children: [
-          '/basic/promise/promise-order',
-          '/basic/promise/cancel.promise',
-          '/basic/promise/asyncPool',
-          '/basic/promise/asyncPool2',
-          '/basic/promise/upload-file',
-          '/basic/promise/self-promise',
-        ]
-      },
-      {
-        title: '其他',
-        children: [
-          '/basic/promise/regexp',
-        ]
-      }
+      '/basic/promise/promise-order',
+      '/basic/promise/cancel.promise',
+      '/basic/promise/asyncPool',
+      '/basic/promise/asyncPool2',
+      '/basic/promise/upload-file',
+      '/basic/promise/self-promise',
     ],
     '/basic/http/': [
       '/basic/http/enter-url',
