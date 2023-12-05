@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "vuepress dev .",
-    "build": "vuepress build .",
-    "predeploy": "npm run build",
+    "dev": "set NODE_OPTIONS=--openssl-legacy-provider & vitepress dev .",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider & vitepress build .",
+    "predeploy": "set NODE_OPTIONS=--openssl-legacy-provider & npm run build",
     "deploy": "gh-pages -d dist",
     "deployOnly": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,11 +22,17 @@
   },
   "homepage": "https://github.com/jsDocument/artical#readme",
   "devDependencies": {
+    "@vuepress/client": "2.0.0-rc.0",
     "gh-pages": "4.0.0",
+    "vue": "3.3.9",
+    "vuepress": "2.0.0-rc.0",
     "vuepress-plugin-container": "2.1.4",
     "vuepress-plugin-nprogress": "1.1.8"
   },
   "dependencies": {
-    "vuepress": "0.14.11"
+    "@vue/theme": "2.2.5",
+    "@vuepress/theme-default": "1.9.10",
+    "@vuepress/types": "1.9.10",
+    "vitepress": "1.0.0-beta.1"
   }
 }

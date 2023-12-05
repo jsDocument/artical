@@ -21,3 +21,12 @@
 20. this： 指向函数的直接调用者\|
 21. eval, new Function(), with
 22. 事件的捕获与冒泡
+
+
+
+<!-- 文档地址 https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E5%AF%BC%E8%88%AA%E6%A0%8F%E9%93%BE%E6%8E%A5 -->
+
+tip
+warning
+danger
+details
